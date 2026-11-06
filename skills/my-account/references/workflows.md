@@ -53,7 +53,7 @@ Call `my-deletion-status-read` only for the person's requested status check; do 
 - `expired`: unconfirmed link expired; request remains, no erasure scheduled. Cancellation is a separate approved action, never automatic.
 - `scheduled`: confirmed; erasure becomes due at `scheduledFor`, not proof it finished.
 
-Show `waitingFor` only as the reported advisory ownership list. Missing can mean not overdue or unreadable; empty does not prove no blockers, completed erasure or a guaranteed finish date. Keep the Team/League-only ownership-check limit visible. Never poll or automatically renew, confirm, cancel or speed up deletion.
+Show `waitingFor` only as the reported advisory ownership list. Missing can mean not overdue or unreadable; empty does not prove no blockers, completed erasure or a guaranteed finish date. Keep this advisory limit visible: the list covers Club, League, Team and Tournament ownership, but an empty or missing list is not clearance. Never poll or automatically renew, confirm, cancel or speed up deletion.
 
 ## 7. “Cancel my deletion request”
 
