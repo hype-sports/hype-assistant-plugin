@@ -61,14 +61,23 @@ for path in markdown:
 print(f'Markdown links: checked {link_count} relative file targets in {len(markdown)} files')
 
 try:
-    base = json.loads(subprocess.check_output(['git', 'show', 'origin/main:.claude-plugin/plugin.json'], text=True, stderr=subprocess.DEVNULL))['version']
+    try:
+        base = json.loads(subprocess.check_output(['git', 'show', 'origin/main:.claude-plugin/plugin.json'], text=True, stderr=subprocess.DEVNULL))['version']
+    except subprocess.CalledProcessError:
+        # First release: origin/main has no manifest yet, so there is no earlier version to beat.
+        base = None if subprocess.run(['git', 'rev-parse', '--verify', '-q', 'origin/main'], capture_output=True).returncode == 0 else ''
+        if base == '':
+            raise
     current = json.loads(Path('.claude-plugin/plugin.json').read_text())['version']
     def release(value):
         # This repository publishes stable releases only (MAJOR.MINOR.PATCH).
         if not re.fullmatch(r'(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)', value):
             raise ValueError('expected stable MAJOR.MINOR.PATCH')
         return tuple(map(int, value.split('.')))
-    if release(current) <= release(base):
+    if base is None:
+        release(current)
+        print(f'Version: {current} (first release; origin/main has no manifest)')
+    elif release(current) <= release(base):
         errors.append(f'plugin version {current} must be greater than origin/main {base}')
     else:
         print(f'Version: {current} > origin/main {base}')
@@ -87,7 +96,6 @@ if errors:
 PY
 
 if command -v claude >/dev/null 2>&1; then
-  printf '%s\n' 'KNOWN directory-only finding: LICENSE_MISSING (awaits license choice). Not waived for public submission; strict validation failures still fail this check.'
   claude plugin validate --strict .
   # A folder containing both manifests can select the marketplace, so check each explicitly too.
   claude plugin validate --strict .claude-plugin/plugin.json
