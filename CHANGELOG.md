@@ -2,6 +2,29 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.29 - 2026-11-06
+
+### Added
+- `run-evaluations` for approved scoring, private notes, sharing, player-list changes, evaluation setup, extra dates and choosing your private evaluation source for a draft.
+
+### Changed
+- Link evaluation reading and draft workflows to the new evaluation actions, checking live tools before offering a change.
+
+## 0.1.28 - 2026-11-06
+
+### Fixed
+- Clubs and Tournaments: your own invitation lists are plain reads that leave expired offers out (no cleanup step or extra yes), and a Club Admin offer now emails the address once while a Tournament offer still sends no email.
+
+## 0.1.27 - 2026-11-05
+
+### Changed
+- Add draft tool input guidance and a worked conversation, explain default pick clocks, and offer approved pause, resume, skip, undo and timeout recovery only when the corresponding tools are live.
+
+## 0.1.26 - 2026-11-05
+
+### Changed
+- Tailor `manage-my-team` offers to the selected team's Home role: offer pending invitations, follow requests, league memberships and coach invitations only for Admin or Staff, while keeping Hype's permission checks authoritative.
+
 ## 0.1.25 - 2026-11-05
 
 ### Added

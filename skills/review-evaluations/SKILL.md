@@ -1,12 +1,12 @@
 ---
 name: review-evaluations
-description: "This skill should be used when the user asks to \"review my evaluation scores\", \"rank my players from the evaluation\", \"show the scores another coach shared with me\", \"list the players in my evaluation\" or \"make a CSV of my evaluation results\". It reads the coach's own Hype evaluation scores, scores shared with them and player lists they manage, then builds the ranking, summary or table they want (a saved file only from their own results). Use when a coach asks about their evaluations or saved results; scoring, sharing and edits stay in the Hype app."
+description: "This skill should be used when the user asks to \"review my evaluation scores\", \"rank my players from the evaluation\", \"show the scores another coach shared with me\", \"list the players in my evaluation\" or \"make a CSV of my evaluation results\". It reads the coach's own Hype evaluation scores, scores shared with them and player lists they manage, then builds the ranking, summary or table they want (a saved file only from their own results). Use when a coach asks about their evaluations or saved results; for scoring, sharing and supported edits, hand off to /hype:run-evaluations."
 disable-model-invocation: true
 ---
 
 # Review evaluation results
 
-Help a coach read the evaluation data they can already access and make the output they ask for. Speak plainly; ask one question at a time. Do not create an evaluation, save scores or notes, share or stop sharing, change categories, edit players or numbers, or change attendance. Those changes are done in the Hype app; never say they happened here.
+Help a coach read the evaluation data they can already access and make the output they ask for. Speak plainly; ask one question at a time. Do not create an evaluation, save scores or notes, share or stop sharing, change categories, edit players or numbers, or change attendance. For supported scoring, notes, sharing, player-list changes, setup and dates, hand off to `/hype:run-evaluations` using the [evaluation actions workflow](../run-evaluations/SKILL.md). Keep this skill read-only; never say a change happened here. Category editing and attendance stay in the Hype app.
 
 ## 0. Check the connection and tools
 
@@ -49,7 +49,7 @@ Each coach's scores are private unless that coach shares them. Commissioner or s
 
 ## 3. Build the requested result from returned data
 
-Make the ranked list, summary, table or requested file yourself from those permitted reads. There is no need for a Hype CSV/export tool. A saved file (CSV or any other) is only for the coach's own results. For scores another coach shared, show a summary or ranking on screen only and say why: the Hype app gives share recipients no Download and no re-share (app-ui-rules 7.9). Keep different coaches' sets and different evaluations distinct; do not silently combine them. Identify the chosen set, whether it is current or saved history, and any limits in the data. Keep unknown or unavailable values separate from zero. Join observations to entries/categories by the response's identities (`participantId`, `entryId`/`storedEntryId`, `categoryId`), never names or matching evaluation numbers.
+Make the ranked list, summary, table or requested file yourself from those permitted reads. There is no need for a Hype CSV/export tool. A saved file (CSV or any other) is only for the coach's own results. For scores another coach shared, show a summary or ranking on screen only and say why: the Hype app gives share recipients no Download and no re-share. Keep different coaches' sets and different evaluations distinct; do not silently combine them. Identify the chosen set, whether it is current or saved history, and any limits in the data. Keep unknown or unavailable values separate from zero. Join observations to entries/categories by the response's identities (`participantId`, `entryId`/`storedEntryId`, `categoryId`), never names or matching evaluation numbers.
 
 - Use the response's own score fields and units. Derive **Calculated average** only by the existing rule: the plain average of observed category stars (`points / 2` on the 0–10 point scale). An observed zero counts; skipped/not observed or blank categories do not. No observed categories means no calculated overall, not zero. Never add weights, average across coaches or round category values before averaging.
 - Show overall stars to at most two decimals, with trailing zeros dropped, rounding exact halfway values up (`2.875` becomes `2.88`). Display rounding never changes raw values or snaps an overall to half-star steps. Mark an incomplete calculated average provisional and show observed/total categories. Keep any returned `manualPoints` as a separate **Hand-set score** (`manualPoints / 2`); hand-set zero is present, not missing. Never silently replace the calculated average with it.
@@ -63,6 +63,6 @@ Never retry a failed tool call automatically, including an opening, busy or rate
 
 After an unclear opening outcome, explain that the list and numbers may already have refreshed but the scores/notes were not changed by opening. Do not claim nothing happened. With the person's agreement, read saved history to inspect saved scores without another refresh; it cannot prove whether list synchronization occurred. If another opening is needed, show its effects and ask for a fresh yes first.
 
-Before any save, change or send, show exactly what will happen and wait for the person's explicit yes. After an unclear outcome, read again where a supported safe read can clarify it and ask; never retry automatically. This skill makes no deliberate changes in Hype: scoring, note edits, sharing, list edits, category changes and attendance are done in the Hype app, not by switching to a write tool here.
+Before any save, change or send, show exactly what will happen and wait for the person's explicit yes. After an unclear outcome, read again where a supported safe read can clarify it and ask; never retry automatically. This skill makes no deliberate changes in Hype: hand supported changes to `/hype:run-evaluations`, never switch to a write tool here. Category changes and attendance stay in the Hype app.
 
 Use “player”, “parent/guardian”, “Hand-set score” and “Calculated average”. Do not show error codes, keys or IDs unless the person asks for an ID.

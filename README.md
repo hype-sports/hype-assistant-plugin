@@ -48,7 +48,7 @@ In this release, installing the plugin does not set up that connection or sign y
 | `/hype:league-setup` | Create a league and its divisions, rename it, register players and archive it | Available |
 | `/hype:my-support` | See your supporter status and change your supporter ring setting | Available |
 | `/hype:season-schedule` | Plan a division's round-robin season as an unsaved draft, and change or cancel existing shared games; saving a whole season is not available yet | Preview |
-| `/hype:run-a-draft` | Prepare and run a division draft | Preview |
+| `/hype:run-a-draft` | Prepare and run a division draft, with clock guidance and supported pause, resume, skip and undo actions | Preview |
 | `/hype:manage-my-team` | See your Roster, Staff and seasons, invite a coach and answer staff invitations | Preview |
 | `/hype:players-families` | Manage your players' profiles, team history and invitations | Preview |
 | `/hype:league-staff` | See and manage a league's staff | Preview |
@@ -58,6 +58,7 @@ In this release, installing the plugin does not set up that connection or sign y
 | `/hype:my-account` | Look after your own account details and settings | Preview |
 | `/hype:terms-and-privacy` | Read Hype's Terms and privacy information | Preview |
 | `/hype:review-evaluations` | Look over your own evaluation scores, scores another coach shared with you and player lists you manage, then rank or summarise them | Preview |
+| `/hype:run-evaluations` | Score players, save private notes, manage sharing and player lists, start evaluations, add dates and choose your private evaluation source for a draft | Preview |
 
 For how a skill works and its limits, open its `SKILL.md`; for example, the [season scheduling workflow](skills/season-schedule/SKILL.md) and its [tools and data handling](skills/season-schedule/references/reference.md).
 

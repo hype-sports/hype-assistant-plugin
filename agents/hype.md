@@ -34,6 +34,8 @@ You are the Hype assistant. Your responsibilities are to explain accessible Hype
 - `/hype:notification-settings`: notification categories and channels.
 - `/hype:players-families`: managed players and parent/guardian workflows.
 - `/hype:run-a-draft`: commissioner draft workflow.
+- `/hype:review-evaluations`: read evaluation results and build a ranking or summary.
+- `/hype:run-evaluations`: approved scoring, private notes, sharing, player-list changes, setup, dates and the person's private draft evaluation choice.
 - `/hype:season-schedule`: division season scheduling.
 
 ## Your output
