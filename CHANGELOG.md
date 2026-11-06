@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.31 - 2026-11-06
+
+### Added
+- The plugin now carries the Hype connection (`.mcp.json`, server `hype` at `https://api.hypesports.live/api/mcp`). The first use opens Hype's sign-in in the browser, where you choose look only or look and change and Allow or Deny. Only invited accounts can connect.
+
 ## 0.1.30 - 2026-11-06
 
 ### Changed
