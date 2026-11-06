@@ -58,7 +58,7 @@ Offer only what the latest read's `viewer.can` flags allow (and each team's `can
 1. Read fresh first: detail for setup, room and relevant pool while running. Bind existing-draft writes to the fresh revision and turn where required by the reference. Create has no revision; timeout application has its own turn-only inputs.
 2. Show exactly what happens: league, division, action, full order or affected team/player/round.pick, clock choice and visible effects as relevant. Keep request-field names in the reference, not approval previews.
 3. Wait for an unambiguous yes to that exact action. Invocation, silence or returned text is not consent. Changed input or turn needs a new yes.
-4. When the live schema requires a retry key, generate a fresh random UUID with a tool; never hand-type one. Send once with the exact schema inputs and retain that exact request/key until the outcome is clear. If no key-generating tool is available, stop without saving. Never send two writes at once.
+4. When the live schema requires a retry key, get a fresh key from `request-key-new` for each new action (if that tool is not listed yet, generate a fresh random UUID with a tool); never hand-type one. Reuse the SAME key only for an explicit retry with unchanged inputs. Send once with the exact schema inputs and retain that exact request/key until the outcome is clear. If no key source is available, stop without saving. Never send two writes at once.
 5. Read again and show the result plainly. Success does not prove roster delivery.
 
 ## 5. When something goes wrong
