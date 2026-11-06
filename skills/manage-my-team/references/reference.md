@@ -8,7 +8,7 @@ Use `catalogVersion: 1` with these current schemas. Omit absent sections; never 
 
 | Catalog operation ID | pathParams | Other inputs | Result / limit |
 | --- | --- | --- | --- |
-| `my-home-entities-list` | None | `query` with live-schema filters (archived teams only when the person asks); no body | The person's own Home list: teams, leagues and divisions with their role and seasons; caller-scoped, read-only, grants nothing. Use it first for "my teams" and "my role" |
+| `my-home-entities-list` | None | `query` with live-schema filters (archived teams only when the person asks); no body | The person's own Home list: teams, leagues and divisions with their role and seasons; caller-scoped, read-only, grants nothing. Use it first for "my teams" and "my role", and check the selected team's Admin/Staff role before offering staff-only workflows (see SKILL.md section 1); the role tailors offers, never overrides Hype's checks |
 | `team-search` | None | `query` with live-schema search/page filters; no body | Public teams and pagination only; hidden and archived teams are excluded even for staff; no permission granted |
 | `team-seasons-list` | `{ id: teamId }` | No query/body | `seasons` newest first: id, name, ageGroup, dates, wins/losses/ties, isCurrent |
 | `team-roster-list` | `{ id: teamId }` | `query: {}` for current, or `{ season: returnedTeamSeasonId }`; no body | `teamId`, `entries`; tier-filtered facts, no contacts/photos/profile identifiers in the MCP projection |
