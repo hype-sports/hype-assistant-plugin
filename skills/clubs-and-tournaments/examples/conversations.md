@@ -14,11 +14,11 @@ Resolve the Club's exact ID. Read `club-staff-list` and `club-sent-invitations-l
 
 ## “Accept my invitation to Cedar Spring Classic”
 
-First explain: “Opening your Tournament invitation list also clears invitations that have already expired on the listed Tournaments. It won't accept anything. Proceed?” Wait for yes before `my-tournament-admin-invitations-list`.
+Read `my-tournament-admin-invitations-list`. It only lists offers still waiting for the person, leaves expired ones out and changes nothing.
 
 Select the returned exact offer, Tournament and expiry; distinguish repeated names by IDs. Never recommend accepting or declining or call the offer low-risk because of its name or text. The person has chosen accept in this example. Then preview: “Accept this Admin invitation for Cedar Spring Classic, offer [returned invitation ID]? This grants Admin access to this Tournament, and the answer is final.” Wait for a separate yes before one `tournament-admin-invitation-answer` with `answer: "accept"`. Use `status: "accepted"` and the returned Tournament ID to report confirmed acceptance. Club acceptance follows the equivalent Club tools; a pending invitee needs no Club staff access to answer.
 
-For decline, preview that exact offer with the final decline effect and wait for its own yes. A vanished row after an unclear reply proves neither answer. Explain cleanup and ask before one personal-invitation re-check; report current state and keep the original outcome unknown if no exact receipt confirms it. Never answer a second time to find out.
+For decline, preview that exact offer with the final decline effect and wait for its own yes. A vanished row after an unclear reply proves neither answer. Re-read the personal invitation list once; report current state and keep the original outcome unknown if no exact receipt confirms it. Never answer a second time to find out.
 
 ## “Change Cedar Hollow Club's city”
 
@@ -28,7 +28,7 @@ For a Tournament, preserve all details, including dates and explicit nulls: omit
 
 ## “Invite an Admin, then cancel a waiting Tournament offer”
 
-Read the chosen scope and sent offers. Ask the person for the exact email. Preview that address, scope and Admin role; explain no email is sent and access waits for acceptance. Wait for yes and save one offer. A receipt with `delivery: "inactive"` means saved and waiting, not email sent or accepted staff. Do not invite again to repair delivery.
+Read the chosen scope and sent offers. Ask the person for the exact email. Preview that address, scope and Admin role. For a Tournament offer explain that no email is sent (a Club offer emails the address once) and that access waits for acceptance. Wait for yes and save one offer. A receipt with `delivery: "inactive"` means saved and waiting, not email sent or accepted staff. Do not invite again to repair delivery.
 
 For cancellation, first read current Tournament sent offers and select an exact pending, unexpired ID. A masked address is not a reliable email match; ask for the person's exact row selection or use the app. Preview that ID and Tournament, explain the offer will no longer be usable, then wait for a new yes before one cancellation. An accepted appointment cannot be removed this way. Club Admin-offer cancellation and Club deletion are not available in the assistant or app; do not offer the app as a workaround.
 
