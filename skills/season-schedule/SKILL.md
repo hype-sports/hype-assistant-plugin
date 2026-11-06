@@ -93,7 +93,7 @@ Ask to approve THIS exact plan, naming the new-game count. Wait for an unambiguo
 
 **In Claude Code, write the progress table to a file in the commissioner's home folder, outside any git repository, named `hype-season-<division-id>-<YYYYMMDD>.md`; tell the commissioner the path and update it after each game.** New private file only, no unrelated overwrite. Bind account/league/division and approved rows/settings; exclude credentials/rosters/personal reasons. Stop if retention is unsafe; no guaranteed cross-session memory.
 
-**Generate a random UUID per new game with a tool; never hand-type one.** Preserve each original `opId`. Before writes, record row, exact approved body/key, status (not attempted/unknown/confirmed/refused), returned ID/revision and verification. Every new row needs this mapping; existing IDs are not creates.
+**Get a fresh key from `request-key-new` for each new game; never hand-type or invent one.** Preserve each original `opId`. Before writes, record row, exact approved body/key, status (not attempted/unknown/confirmed/refused), returned ID/revision and verification. Every new row needs this mapping; existing IDs are not creates.
 
 Refresh eligibility/current seasons, Field versions and occupancy before the first create and after pauses/new conflicts. Material changes return to review. Track confirmed occupancy.
 
