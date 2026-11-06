@@ -1,0 +1,13 @@
+{
+  "name": "hype",
+  "description": "Work with your Hype leagues, teams, players and events through your own signed-in account, with an assistant and skills for each area.",
+  "version": "0.1.24",
+  "license": "MIT",
+  "author": {
+    "name": "Hype Sports"
+  },
+  "icon": "./logo.png",
+  "homepage": "https://hypesports.live",
+  "repository": "https://github.com/hype-sports/hype-assistant-plugin",
+  "keywords": ["hype", "sports", "leagues", "teams", "players", "scheduling"]
+}

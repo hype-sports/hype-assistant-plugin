@@ -1,0 +1,13 @@
+{
+  "name": "hype-sports",
+  "description": "The Hype Sports plugin for Claude: an assistant and skills for your Hype leagues, teams, players, events and account settings.",
+  "owner": {
+    "name": "Hype Sports"
+  },
+  "plugins": [
+    {
+      "name": "hype",
+      "source": "./"
+    }
+  ]
+}
