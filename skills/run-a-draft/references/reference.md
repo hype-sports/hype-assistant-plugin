@@ -61,7 +61,7 @@ Keep field names out of approval previews. Explain league/division, action, orde
 
 ## Optional Create settings and default clock
 
-Read the live schema's defaults before Create. The default contract supplies a **60-second clock**, **pause-and-alert** timeout policy and **1-second late grace** when settings are omitted. A late named pick is refused after deadline/grace; expiry application is a separate action, not an automatic assistant timer. Recheck these defaults live; if not exposed, disclose the unknown rather than assuming no clock. Explain the policy and available live recovery before approval.
+Before Create, explain the default plainly: each turn gets a **60-second clock**, plus about **one second of grace**; when time runs out, the draft pauses and the commissioner is alerted (**pause-and-alert**). These defaults apply when settings are omitted; the create input schema itself does not expose defaults. If the live schema or tool description shows something different, that wins. A late named pick is refused after deadline/grace; expiry application is a separate action, not an automatic assistant timer. Explain the policy and available live recovery before approval.
 
 Send only agreed settings supported by the live schema. For **no clock**, send `settings: { clock: null, expiryAction: "none" }` together. Never send only one half, or combine `none` with a running clock. Leave other omitted settings to Hype, not guessed values. Do not send `preset` or `numbersEvaluationId` inside settings. Settings edits and choosing the evaluation supplying numbers belong in the app.
 

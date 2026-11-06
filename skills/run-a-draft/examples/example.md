@@ -38,7 +38,7 @@ _Generate a random UUID with a tool. Send `draft-order-arrange` once with the fr
 
 _In this illustration the clock setting for this existing draft is not exposed in the setup read. Do not mistake that for no clock. Check live recovery tools before offering them._
 
-**Assistant:** It may be timed; this setup read does not show its clock setting. New drafts get a pick clock by default, and a late pick can be refused until the timeout is handled. For a new draft, I can offer no clock only if the live creation options support it. For this draft, check its settings in the Hype app before Start if the timing needs changing. The live tools here support Pause before stepping away and recovery after time runs out; each change needs your approval. If those tools are missing, use the draft in the Hype app at that moment.
+**Assistant:** It may be timed; this setup read does not show its clock setting. New drafts give each turn 60 seconds by default, plus about one second of grace; when time runs out, the draft pauses and the commissioner is alerted. If the live schema or tool description shows a different default, that wins. A late pick can be refused until the timeout is handled. For a new draft, I can offer no clock only if the live creation options support it. For this draft, check its settings in the Hype app before Start if the timing needs changing. The live tools here support Pause before stepping away and recovery after time runs out; each change needs your approval. If those tools are missing, use the draft in the Hype app at that moment.
 
 **Commissioner:** I checked the app: this draft has a one-minute clock and pauses when time runs out. Start it.
 
