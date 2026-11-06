@@ -37,7 +37,13 @@ The assistant uses only Hype's own tools, through your own sign-in. Before any s
 
 The plugin works through Hype's assistant connection at `https://api.hypesports.live/api/mcp`, signed in as your own Hype account; Hype's own rules decide what you can see and change.
 
-In this release, installing the plugin does not set up that connection or sign you in: you need an already-working Hype connection named `hype` (check with `/mcp`). If it is missing or cannot sign in, stop; the plugin cannot set it up for you yet. Never paste passwords, access tokens or other credentials into a conversation, this repository or a connection setting.
+Installing the plugin adds that connection; Claude Code lists it as `plugin:hype:hype`. To sign in, run `/mcp` in Claude Code, select `plugin:hype:hype` and choose Authenticate. Your browser opens Hype's sign-in page:
+
+1. Sign in to Hype with your own account. Only invited accounts can connect.
+2. Hype shows which assistant is asking, the Hype account it will act as, and the website its answer goes to. Allow lets it read and change things as you in Hype; Deny or closing the page gives it nothing.
+3. Your browser hands the connection back to Claude Code, and `/mcp` shows `plugin:hype:hype` as connected.
+
+The connection has your own rights in Hype and nothing more. To stop using it, disable `plugin:hype:hype` in Claude Code's `/mcp`; a way to disconnect assistants from inside Hype is coming. Never paste passwords, access tokens or other credentials into a conversation, this repository or a connection setting: the browser sign-in is the only place for your password.
 
 ## Skills
 
