@@ -8,7 +8,7 @@ Read the [workflow](../SKILL.md) before using this reference. Source presence is
 | --- | --- | --- |
 | `my-home-entities-list` | `{ "catalogVersion": 1, "query": {} }`; optionally put `search: "Cedar Comets"` and/or `includeArchived: "true"` inside `query`. Both filter values are strings, not booleans. No `pathParams` or `body` | `entities`, `currentSeason`, `seasons`. Each entity has `id`, `type`, `name`, `season`, `sport`, nullable `ageGroup`/`gender`, `userRoles`, `isFavorited` and optional parent IDs, `teamTitle`, `archivedAt`. The projection omits photos, contact details and staff lists. Search discovers caller-readable records; a result does not establish membership or editing rights. This is not the whole app Home screen or a complete directory. |
 
-The plugin connection normally exposes `mcp__plugin_hype_hype__my-home-entities-list`; use the actual full installed name returned by discovery, never assume a prefix. Normal assistant activity/rate bookkeeping still applies to reads; this tool makes no record changes and sends no notices or email.
+The plugin connection normally exposes `mcp__plugin_hype_hype__my-home-entities-list`; use the actual full installed name returned by discovery, never assume a prefix. Normal assistant activity/rate bookkeeping still applies to reads; this tool makes no record changes and sends no notices or email. The same lookup inputs also appear in [Players & Families](../../players-families/references/reference.md); check both references when that contract changes.
 
 ## App screen paths, not tool names
 

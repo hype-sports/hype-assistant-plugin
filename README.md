@@ -56,7 +56,7 @@ In this release, installing the plugin does not set up that connection or sign y
 | `/hype:catch-up` | Catch up on your notifications | Preview |
 | `/hype:notification-settings` | Change which notifications you get and when | Preview |
 | `/hype:my-account` | Look after your own account details and settings | Preview |
-| `/hype:find-in-hype` | Find screens and readable Home records, get links, and locate appearance settings or Report a problem without changing or sending anything | Preview |
+| `/hype:find-in-hype` | Find screens and readable Home records, get links, locate appearance settings, and check where Report a problem is offered; no changes or submissions | Preview |
 | `/hype:terms-and-privacy` | Read Hype's Terms and privacy information | Preview |
 
 For how a skill works and its limits, open its `SKILL.md`; for example, the [season scheduling workflow](skills/season-schedule/SKILL.md) and its [tools and data handling](skills/season-schedule/references/reference.md).

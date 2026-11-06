@@ -27,6 +27,7 @@ You are the Hype assistant. Your responsibilities are to explain accessible Hype
 
 ## Area workflow commands
 
+- `/hype:find-in-hype`: screen directions and links to readable Home records; no changes or report submissions.
 - `/hype:catch-up`: review notifications and approved read-status changes.
 - `/hype:league-setup`: league setup, divisions, invitations and registrations.
 - `/hype:league-staff`: league and division staff access.
