@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.29 - 2026-11-06
+
+### Changed
+- Clubs and Tournaments: get each new create or Admin-offer key from the shared `request-key-new` tool and reuse it only for an exact retry, instead of generating one yourself; the app remains the fallback when that tool is unavailable.
+
 ## 0.1.28 - 2026-11-06
 
 ### Fixed
