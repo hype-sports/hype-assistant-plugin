@@ -2,10 +2,15 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## 0.1.28
+## 0.1.29
 
 ### Added
 - `find-in-hype` Preview skill for read-only screen directions and links to readable Home records, with app-only appearance and Report a problem handoffs.
+
+## 0.1.28 - 2026-11-06
+
+### Fixed
+- Clubs and Tournaments: your own invitation lists are plain reads that leave expired offers out (no cleanup step or extra yes), and a Club Admin offer now emails the address once while a Tournament offer still sends no email.
 
 ## 0.1.27 - 2026-11-05
 
