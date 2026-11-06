@@ -48,7 +48,7 @@ In this release, installing the plugin does not set up that connection or sign y
 | `/hype:league-setup` | Create a league and its divisions, rename it, register players and archive it | Available |
 | `/hype:my-support` | See your supporter status and change your supporter ring setting | Available |
 | `/hype:season-schedule` | Plan a division's round-robin season as an unsaved draft, and change or cancel existing shared games; saving a whole season is not available yet | Preview |
-| `/hype:run-a-draft` | Prepare and run a division draft | Preview |
+| `/hype:run-a-draft` | Prepare and run a division draft, with clock guidance and supported pause, resume, skip and undo actions | Preview |
 | `/hype:manage-my-team` | See your Roster, Staff and seasons, invite a coach and answer staff invitations | Preview |
 | `/hype:players-families` | Manage your players' profiles, team history and invitations | Preview |
 | `/hype:league-staff` | See and manage a league's staff | Preview |

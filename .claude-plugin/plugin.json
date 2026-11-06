@@ -1,7 +1,7 @@
 {
   "name": "hype",
   "description": "Work with your Hype leagues, teams, players and events through your own signed-in account, with an assistant and skills for each area.",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "license": "MIT",
   "author": {
     "name": "Hype Sports"
