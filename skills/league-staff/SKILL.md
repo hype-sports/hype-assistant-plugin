@@ -86,7 +86,7 @@ Offer a fresh authorized list check on clear success; do it only if requested. S
 ## 5. Hard stops and recovery
 
 - **`WRITE_OUTCOME_UNKNOWN`, timeout, lost/malformed reply or interruption:** stop. Never retry automatically, invite again with a new key, compensate, automatically read or chain another action. Explain that it may have happened; ask the person to check the league's **Staff tab in the app** (and the selected division there). Contact-free lists cannot settle effects for an address. Do not treat absence as permission to re-invite. Only if the person explicitly asks to retry that same League invite, send it once more with the SAME `idempotencyKey` and unchanged inputs.
-- **Other unclear outcomes:** pause; ask before a fresh authorized read, then ask what to do. An unknown write follows the stricter app handoff above, never a retry.
+- **Other unclear outcomes:** pause; ask before a fresh authorized read, then ask what to do. An unknown write follows the stricter app handoff above: never retry automatically. Only an explicitly requested League staff invite retry may reuse the same key and inputs; a Division Admin invite has no key, so it is never retried.
 - **Access, validation, archived/stale target or busy refusal:** stop and explain without revealing account existence. No guessed correction, repeated write or alternate account. Refresh only with the person's request; changed facts require new approval.
 - **Rate limit:** stop; respect `Retry-After` or validated `retryAfterSeconds`, then ask before resuming. No polling/retry loops or account switching. Stay below 60 MCP POST requests per rolling minute per account, including discovery, reads and refusals; other sessions share it.
 

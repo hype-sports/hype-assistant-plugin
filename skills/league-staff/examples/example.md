@@ -30,7 +30,7 @@ Removing Jamie from Cedar Division ends only that appointment; other divisions a
 
 ## Lost reply must stop
 
-An approved invite returns `WRITE_OUTCOME_UNKNOWN`. Say it may have happened; do not retry, invite again, automatically read or run another change. Ask the person to check the league's Staff tab in the app. The contact-free list cannot determine what happened for an address. Do not infer failure from an absent row or claim email delivery. If the person then explicitly asks to retry that same invite, send it once with the SAME key and unchanged inputs; a different email or roles needs a new key.
+An approved League staff invite returns `WRITE_OUTCOME_UNKNOWN`. Say it may have happened; do not retry, invite again, automatically read or run another change. Ask the person to check the league's Staff tab in the app. The contact-free list cannot determine what happened for an address. Do not infer failure from an absent row or claim email delivery. If the person then explicitly asks to retry that same League staff invite, send it once with the SAME key and unchanged inputs; a different email or roles needs a new key.
 
 ## Hidden is not empty
 
