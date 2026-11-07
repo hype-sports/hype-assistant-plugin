@@ -2,10 +2,25 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## 0.1.40 - 2026-11-07
+## 0.1.43 - 2026-11-07
 
 ### Changed
-- Team emergency contacts: read first, leave family-managed lists alone, use add for missing contacts without changing existing ones, and reserve whole-list update for edits/removals while keeping untouched coach rows (HYPE-5174). Explain phone requirements, read-only linked parents, the hidden sign-up fallback and one-call team contact counts. Requires HYPE-5170 (add) and HYPE-5177 (team status) to be merged and deployed before this release merges.
+- Team emergency contacts: explicitly keep coach contacts not requested for change/removal, stop for family-managed lists, explain hidden sign-up fallback and required name/phone fields, and use whole-team contact counts only when the tool is live (HYPE-5174). Keep the existing reviewed-table approval and add checks.
+
+## 0.1.42 - 2026-11-07
+
+### Changed
+- Use the add-only emergency-contact tool for reviewed additions, preserving existing contacts; keep whole-list replacement for edits/removals and explain the existing update fallback when the add tool is not live yet (HYPE-5328). Approval, privacy, family takeover and unknown-outcome stops remain unchanged.
+
+## 0.1.41 - 2026-11-07
+
+### Changed
+- Allow one later-turn yes for one exact reviewed table of parent/guardian invitation sends and team-player emergency-contact replacements, limited to one team or division, with paged approvals, fresh reads, sequential pacing and stop-on-change/refusal/unknown recovery (HYPE-5180). All other writes keep individual approval.
+
+## 0.1.40
+
+### Added
+- `find-in-hype` Preview skill for read-only screen directions and links to readable Home records, with app-only appearance and Report a problem handoffs.
 
 ## 0.1.39 - 2026-11-06
 
