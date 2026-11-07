@@ -42,7 +42,7 @@ Route-backed tools use the strict envelope: `catalogVersion: 1`, plus only the `
 - Account tools remain subject to the live connection's admission and access checks.
 - The password hand-off returns the app's own Settings link alongside permitted route tools. Only the person opens it.
 - Device-bound account cleanup and password submission are app-only, not missing assistant tools to invent or direct routes to call. Passwords never enter the assistant. Own-account deletion confirmation likewise stays with the person's separate email-linked confirmation button; this skill never handles its link/token or executes erasure.
-- Request/cancel/status behavior is caller-only. Deletion ownership checks cover Team and League only; Club/Tournament ownership integration is not available yet. Team/League-only status is not full erasure clearance.
+- Request/cancel/status behavior is caller-only. Deletion ownership checks cover Club, League, Team and Tournament. A missing or unreadable waiting list is unknown, and an empty list is not erasure clearance.
 - Profile and session writes forbid automatic follow-up reads; deletion request/cancel do too. Stop on an unclear result, get a separate request to read again, then ask before any newly proposed change. No lost-result retry or automatic action chain.
 
 ## Data handling and verification

@@ -63,6 +63,7 @@ The connection has your own rights in Hype and nothing more. To stop using it, d
 | `/hype:notification-settings` | Change which notifications you get and when | Preview |
 | `/hype:my-account` | Look after your own account details and settings | Preview |
 | `/hype:terms-and-privacy` | Read Hype's Terms and privacy information | Preview |
+| `/hype:review-evaluations` | Look over your own evaluation scores, scores another coach shared with you and player lists you manage, then rank or summarise them | Preview |
 
 For how a skill works and its limits, open its `SKILL.md`; for example, the [season scheduling workflow](skills/season-schedule/SKILL.md) and its [tools and data handling](skills/season-schedule/references/reference.md).
 
