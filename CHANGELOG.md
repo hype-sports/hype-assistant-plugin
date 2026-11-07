@@ -2,10 +2,15 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## 0.1.34 - 2026-11-06
+## 0.1.35 - 2026-11-06
 
 ### Added
 - `review-evaluations` for reading your own evaluation scores, scores shared with you and player lists you manage, and building a ranking, summary or file from them.
+
+## 0.1.34 - 2026-11-06
+
+### Changed
+- My account: deleting your account now checks Club and Tournament ownership too, as well as League and Team. The skill no longer says Club and Tournament checks are missing, and still treats a missing or unreadable list as unknown, never as clearance.
 
 ## 0.1.33 - 2026-11-06
 

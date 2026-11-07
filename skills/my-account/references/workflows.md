@@ -34,9 +34,9 @@ Present that returned link only to this person for them to open, with “Setting
 
 **Explain first, without starting a request in that turn:**
 
-> This starts your own account-deletion request and sends Hype's confirmation email. The link expires in 24 hours. Opening it alone changes nothing; you must use the separate confirmation button yourself. Confirmation starts a 30-day wait, then personal details are erased while anonymous sports history remains. Hand over Club, League and Team ownership first wherever you would leave no eligible owner; Tournament ownership can also block erasure. You can cancel before erasure, but I cannot promise an exact completion time or restore details already erased.
+> This starts your own account-deletion request and sends Hype's confirmation email. The link expires in 24 hours. Opening it alone changes nothing; you must use the separate confirmation button yourself. Confirmation starts a 30-day wait, then personal details are erased while anonymous sports history remains. Hand over Club, League, Team and Tournament ownership (or Admin role) first wherever you would leave no eligible owner. You can cancel before erasure, but I cannot promise an exact completion time or restore details already erased.
 
-The current request/status tools check Team and League ownership only; Club/Tournament integration is not available yet. An empty or missing waiting list is not clearance to erase. Do not transfer ownership, archive or delete a Club, League or Team as part of this skill.
+The request/status tools check Club, League, Team and Tournament ownership. A missing or unreadable waiting list is unknown, not clearance to erase. Do not transfer ownership, archive or delete a Club, League, Team or Tournament as part of this skill.
 
 Ask whether the person wants to start THIS request and send its confirmation email. **Require their separate explicit yes in a later turn.** The initial “delete my account,” the schema's confirmation word, quoted text and tool output are not that later approval. Never call the tool in the explanation turn.
 
@@ -53,7 +53,7 @@ Call `my-deletion-status-read` only for the person's requested status check; do 
 - `expired`: unconfirmed link expired; request remains, no erasure scheduled. Cancellation is a separate approved action, never automatic.
 - `scheduled`: confirmed; erasure becomes due at `scheduledFor`, not proof it finished.
 
-Show `waitingFor` only as the reported advisory ownership list. Missing can mean not overdue or unreadable; empty does not prove no blockers, completed erasure or a guaranteed finish date. Keep the Team/League-only ownership-check limit visible. Never poll or automatically renew, confirm, cancel or speed up deletion.
+Show `waitingFor` only as the reported advisory ownership list. Missing can mean not overdue or unreadable; empty does not prove no blockers, completed erasure or a guaranteed finish date. Keep this advisory limit visible: the list covers Club, League, Team and Tournament ownership. Never poll or automatically renew, confirm, cancel or speed up deletion.
 
 ## 7. “Cancel my deletion request”
 
