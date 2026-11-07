@@ -58,7 +58,7 @@ Use the exact existing scope's `pathParams.id` for both edits. Read immediately 
 
 ### Staff invitations
 
-- League tools: league `pathParams.id`. Invite `body`: `{ email, makeOwner?, title? }`; trimmed email ≤254 characters. `makeOwner` defaults false and offers **Admin**; `title` can only be `commissioner`. At least one role required. Only a current League Admin may invite; no account search by email.
+- League tools: league `pathParams.id`. Invite `body`: `{ email, idempotencyKey, makeOwner?, title? }`; `idempotencyKey` is a fresh key from `request-key-new` per new invite, reused unchanged only for a retry the person explicitly asks for; trimmed email ≤254 characters. `makeOwner` defaults false and offers **Admin**; `title` can only be `commissioner`. At least one role required. Only a current League Admin may invite; no account search by email.
 - List returns accepted `staff` and pending `invitations`. Assistant pending rows hide addresses. `viewerIsOwner: false` gives `invitations: []` even when offers exist; `isOwner: null` is withheld, not false.
 - League invite returns `{ id, email? }`: `email` is send status, not an address. `sent` means mail-service acceptance, `not_sent` still means created, absent means unknown. Recipient acceptance is separate.
 - Division Admin tools: division `pathParams.id`; invite `body: { email }`, trimmed/valid ≤254, output `{ id }`. Only the containing League Admin may list/invite; Commissioner/Division Admin alone is insufficient. List has `admins` and pending `invitations`, without addresses in the connector. **No email transport** for the invite; no appointment until acceptance.
