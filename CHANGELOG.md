@@ -2,10 +2,30 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## 0.1.29 - 2026-11-06
+## 0.1.33 - 2026-11-06
 
 ### Changed
 - Clubs and Tournaments: get each new create or Admin-offer key from the shared `request-key-new` tool and reuse it only for an exact retry, instead of generating one yourself; the app remains the fallback when that tool is unavailable.
+
+## 0.1.32 - 2026-11-06
+
+### Changed
+- Team management explains staff-only reading and whole-list editing of one player's emergency contacts (HYPE-5081): read first, review the exact replacement, get explicit yes in a later turn, respect family takeover and keep contacts out of summaries and files. Requires the two tools to be present in the live connection; source changes alone do not make them live.
+
+## 0.1.31 - 2026-11-06
+
+### Added
+- The plugin now carries the Hype connection (`.mcp.json`, server `hype` at `https://api.hypesports.live/api/mcp`). Sign in from `/mcp` (`plugin:hype:hype`, Authenticate): Hype's page in the browser lets you Allow it to read and change things as you in Hype, or Deny. Only invited accounts can connect.
+
+## 0.1.30 - 2026-11-06
+
+### Changed
+- League setup: a league's logo can now change through `league-update` (HYPE-4839), but only to a picture the person uploaded with `demo-logo-upload`; never a web address from the chat, never fetched. The assistant cannot see the picture, so it asks the person to check the logo in the app; removing a logo needs their explicit yes, and leaving it out keeps it. Live after the next API deploy.
+
+## 0.1.29 - 2026-11-06
+
+### Changed
+- Season scheduling: each new game's key now comes from `request-key-new` (HYPE-4892), reused only for an explicit retry with unchanged inputs, instead of a UUID the assistant makes itself.
 
 ## 0.1.28 - 2026-11-06
 

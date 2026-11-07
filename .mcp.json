@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "hype": {
+      "type": "http",
+      "url": "https://api.hypesports.live/api/mcp"
+    }
+  }
+}

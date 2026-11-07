@@ -33,7 +33,7 @@ The detail projection does not include settings. Do not infer the clock duration
 
 ## Shared keyed write fields
 
-For existing-draft writes **except timeout application**, send `pathParams: { id }` and `body` with `idempotencyKey` and `expectedRevision`; no query. Copy the revision (whole number ≥0) from the fresh relevant read. Generate a fresh random UUID with a tool for the key; the schema accepts trimmed text of 16–128 UTF-16 units, but never hand-type one. If a tool cannot generate one, stop without writing. Retain the exact original request/key until the outcome is clear. Never change input under an old key. Create needs a key but no revision or path.
+For existing-draft writes **except timeout application**, send `pathParams: { id }` and `body` with `idempotencyKey` and `expectedRevision`; no query. Copy the revision (whole number ≥0) from the fresh relevant read. Get a fresh key from `request-key-new` for each new action (if that tool is not listed yet, generate a fresh random UUID with a tool); the schema accepts trimmed text of 16–128 UTF-16 units, but never hand-type one. Reuse the same key only for an explicit retry with unchanged inputs; never call `request-key-new` again for a retry. If the key tool errors, stop without writing. If no key source is available, stop without writing. Retain the exact original request/key until the outcome is clear. Never change input under an old key. Create needs a key but no revision or path.
 
 | Operation | Body in addition to shared fields unless noted |
 | --- | --- |
