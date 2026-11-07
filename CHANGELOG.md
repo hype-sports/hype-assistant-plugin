@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.38 - 2026-11-06
+
+### Changed
+- Recommend account-wide installation for commissioners and coaches with `--scope user`, and explain how to enable Hype when its tools are missing in another folder (HYPE-5176).
+
 ## 0.1.37 - 2026-11-06
 
 ### Fixed
