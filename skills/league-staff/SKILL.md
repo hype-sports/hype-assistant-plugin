@@ -40,7 +40,7 @@ Ask one question at a time; no writes yet. Do not treat an address, name, list o
 
 Ask for the exact address directly from the person; never infer it from a name or look people up. Never tell them whether the address has a Hype account, including through refusal details. Validate against the live schema without probing accounts.
 
-Require current League Admin authority for a **Commissioner** invitation; prepare `league-staff-invite` for this league with `title: "commissioner"` and `makeOwner: false`. Offer no League Admin grant. Keep requests to change Admin grants outside this skill; never silently widen the invitation.
+Require current League Admin authority for a **Commissioner** invitation; prepare `league-staff-invite` for this league with `title: "commissioner"` and `makeOwner: false`. Offer no League Admin grant. Keep requests to change Admin grants outside this skill; never silently widen the invitation. Get a fresh key from `request-key-new` for each new invite and send it as `idempotencyKey`; never hand-type one. If that tool is missing or errors, stop without inviting. Reuse the SAME key, unchanged, only when the person explicitly asks to retry that same invite after an unclear outcome; never retry automatically. A different email or roles needs a new key.
 
 Require the containing League's current owner for a **Division Admin** invitation; prepare `division-admin-invite` for that exact division with the supplied address. Leave ordinary standing, self-invite, existing membership and quota checks to Hype.
 
@@ -85,8 +85,8 @@ Offer a fresh authorized list check on clear success; do it only if requested. S
 
 ## 5. Hard stops and recovery
 
-- **`WRITE_OUTCOME_UNKNOWN`, timeout, lost/malformed reply or interruption:** stop. Never retry, invite again, compensate, automatically read or chain another action. Explain that it may have happened; ask the person to check the league's **Staff tab in the app** (and the selected division there). Contact-free lists cannot settle effects for an address. Do not treat absence as permission to re-invite.
-- **Other unclear outcomes:** pause; ask before a fresh authorized read, then ask what to do. An unknown write follows the stricter app handoff above, never a retry.
+- **`WRITE_OUTCOME_UNKNOWN`, timeout, lost/malformed reply or interruption:** stop. Never retry automatically, invite again with a new key, compensate, automatically read or chain another action. Explain that it may have happened; ask the person to check the league's **Staff tab in the app** (and the selected division there). Contact-free lists cannot settle effects for an address. Do not treat absence as permission to re-invite. Only if the person explicitly asks to retry that same League invite, send it once more with the SAME `idempotencyKey` and unchanged inputs.
+- **Other unclear outcomes:** pause; ask before a fresh authorized read, then ask what to do. An unknown write follows the stricter app handoff above: never retry automatically. Only an explicitly requested League staff invite retry may reuse the same key and inputs; a Division Admin invite has no key, so it is never retried.
 - **Access, validation, archived/stale target or busy refusal:** stop and explain without revealing account existence. No guessed correction, repeated write or alternate account. Refresh only with the person's request; changed facts require new approval.
 - **Rate limit:** stop; respect `Retry-After` or validated `retryAfterSeconds`, then ask before resuming. No polling/retry loops or account switching. Stay below 60 MCP POST requests per rolling minute per account, including discovery, reads and refusals; other sessions share it.
 

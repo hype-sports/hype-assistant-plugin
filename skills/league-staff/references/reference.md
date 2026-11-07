@@ -19,7 +19,7 @@ Check the live tool list before use; this reference is not proof of availability
 
 ## Inputs
 
-All these MCP tools currently require `catalogVersion: 1`. Fields below are nested under `pathParams`, `query` or `body` exactly as shown by the live schema. Do not send absent sections as null or add an `opId`/retry key. Every ID below is an exact UUID from a trustworthy request or authorized result, never generated for an existing record.
+All these MCP tools currently require `catalogVersion: 1`. Fields below are nested under `pathParams`, `query` or `body` exactly as shown by the live schema. Do not send absent sections as null or add an `opId`/retry key, except `league-staff-invite`'s required `idempotencyKey`. Every ID below is an exact UUID from a trustworthy request or authorized result, never generated for an existing record.
 
 | Operation | pathParams | Other inputs |
 | --- | --- | --- |
@@ -28,7 +28,7 @@ All these MCP tools currently require `catalogVersion: 1`. Fields below are nest
 | `league-divisions-list` | `{ id: leagueId }` | `query: {}` for active divisions; `archived: "true"` inside query only for a requested archived read |
 | `league-staff-list` | `{ id: leagueId }` | No body/query |
 | `division-admin-list` | `{ id: divisionId }` | No body/query |
-| `league-staff-invite` | `{ id: leagueId }` | `body: { email, makeOwner: false, title: "commissioner" }` |
+| `league-staff-invite` | `{ id: leagueId }` | `body: { email, idempotencyKey, makeOwner: false, title: "commissioner" }` |
 | `division-admin-invite` | `{ id: divisionId }` | `body: { email }` |
 | `league-staff-remove` | `{ id: leagueId, userId }` | No body/query |
 | `division-admin-remove` | `{ id: divisionId, userId }` | No body/query |
@@ -61,7 +61,7 @@ Invite schemas trim the supplied address, require a valid email and limit it to 
 
 Standing, self-invite, existing membership, quota, target and other ordinary checks remain Hype's decisions. Do not turn a refusal into an account-existence claim. Prior reads never grant future rights. Never remove the last League Admin or treat a pending invitation as an accepted replacement.
 
-Neither invite has a retry key. Repeating the normalized address replaces the pending offer with a new ID, potentially another email for League staff. After `WRITE_OUTCOME_UNKNOWN`, never repeat, automatically read, chain or compensate: ask the person to check the league's Staff tab in the ordinary app. A later requested list is current state only, not proof of the earlier email/address outcome; any later change needs a new exact review and approval.
+`league-staff-invite` requires an `idempotencyKey`. Get a fresh key from `request-key-new` for each new invite and send it as `idempotencyKey`; never hand-type one. If that tool is missing or errors, stop without inviting. Reuse the SAME key, unchanged, only when the person explicitly asks to retry that same invite after an unclear outcome; never retry automatically. A different email or roles needs a new key. The same key and inputs return the original `id` with `email: "not_resent"` and send no new email; the same key with different inputs returns `IDEMPOTENCY_KEY_REUSED`. A new key, or a Division Admin invite (no key), to the same normalized address replaces the pending offer with a new ID, potentially another email for League staff. After `WRITE_OUTCOME_UNKNOWN`, never repeat automatically, read, chain or compensate: ask the person to check the league's Staff tab in the ordinary app. A later requested list is current state only, not proof of the earlier email/address outcome; any later change needs a new exact review and approval.
 
 ## Verification limits
 

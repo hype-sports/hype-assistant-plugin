@@ -84,7 +84,7 @@ _Read `league-staff-list` as the League Admin in this example._
 
 **Commissioner:** Yes, send that invitation.
 
-_Call `league-staff-invite` once; in this example, receive an invitation id with email not sent._
+_Get a fresh key from `request-key-new`, then call `league-staff-invite` once with it as `idempotencyKey`; in this example, receive an invitation id with email not sent._
 
 **Assistant:** Invitation created; email not sent. Morgan has not joined staff.
 

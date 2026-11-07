@@ -10,12 +10,14 @@ The plugin gives Claude a Hype assistant and one skill per area. It never gives 
 
 ## Install in Claude Code
 
-You need Claude Code installed and signed in. Then run:
+You need Claude Code installed and signed in. For commissioners and coaches, we recommend installing Hype for your whole account so its tools are available in every folder:
 
 ```sh
 claude plugin marketplace add hype-sports/hype-assistant-plugin
-claude plugin install hype@hype-sports
+claude plugin install hype@hype-sports --scope user
 ```
+
+Tip: If no Hype tools appear, the plugin is not enabled for this folder; install it with `--scope user`, or enable it for the folder.
 
 Start a new Claude Code session and pick a command from the Skills table below. Skills that can change anything only start when you run their command, and starting one is never approval to save anything.
 
@@ -37,7 +39,13 @@ The assistant uses only Hype's own tools, through your own sign-in. Before any s
 
 The plugin works through Hype's assistant connection at `https://api.hypesports.live/api/mcp`, signed in as your own Hype account; Hype's own rules decide what you can see and change.
 
-In this release, installing the plugin does not set up that connection or sign you in: you need an already-working Hype connection named `hype` (check with `/mcp`). If it is missing or cannot sign in, stop; the plugin cannot set it up for you yet. Never paste passwords, access tokens or other credentials into a conversation, this repository or a connection setting.
+Installing the plugin adds that connection; Claude Code lists it as `plugin:hype:hype`. To sign in, run `/mcp` in Claude Code, select `plugin:hype:hype` and choose Authenticate. Your browser opens Hype's sign-in page:
+
+1. Sign in to Hype with your own account. Only invited accounts can connect.
+2. Hype shows which assistant is asking, the Hype account it will act as, and the website its answer goes to. Allow lets it read and change things as you in Hype; Deny or closing the page gives it nothing.
+3. Your browser hands the connection back to Claude Code, and `/mcp` shows `plugin:hype:hype` as connected.
+
+The connection has your own rights in Hype and nothing more. To stop using it, disable `plugin:hype:hype` in Claude Code's `/mcp`; a way to disconnect assistants from inside Hype is coming. Never paste passwords, access tokens or other credentials into a conversation, this repository or a connection setting: the browser sign-in is the only place for your password.
 
 ## Skills
 
@@ -58,6 +66,7 @@ In this release, installing the plugin does not set up that connection or sign y
 | `/hype:my-account` | Look after your own account details and settings | Preview |
 | `/hype:find-in-hype` | Find screens and readable Home records, get links, locate appearance settings, and check where Report a problem is offered; no changes or submissions | Preview |
 | `/hype:terms-and-privacy` | Read Hype's Terms and privacy information | Preview |
+| `/hype:review-evaluations` | Look over your own evaluation scores, scores another coach shared with you and player lists you manage, then rank or summarise them | Preview |
 
 For how a skill works and its limits, open its `SKILL.md`; for example, the [season scheduling workflow](skills/season-schedule/SKILL.md) and its [tools and data handling](skills/season-schedule/references/reference.md).
 

@@ -28,7 +28,7 @@ This saves the order only; it does not start the draft or draw a random order.
 
 **Commissioner:** Yes, save that order.
 
-_Generate a random UUID with a tool. Send `draft-order-arrange` once with the fresh revision and all active seats in order. Read detail again to verify._
+_Get a fresh key from `request-key-new`. Send `draft-order-arrange` once with the fresh revision and all active seats in order. Read detail again to verify._
 
 **Assistant:** Saved: Falcons first, Otters second, Comets third.
 
@@ -48,7 +48,7 @@ _Read fresh detail. Require no blockers and permission. Treat the commissioner's
 
 **Commissioner:** Yes, start this draft now.
 
-_Generate a new random UUID, send `draft-start` once, then read room and pool. In this illustration status is live, Falcons have round 1, pick 1, and Rowan Finch is available and eligible._
+_Get a fresh key from `request-key-new`, send `draft-start` once, then read room and pool. In this illustration status is live, Falcons have round 1, pick 1, and Rowan Finch is available and eligible._
 
 **Assistant:** Picks are running. Falcons are on the clock for round 1, pick 1.
 
@@ -62,7 +62,7 @@ _Read fresh room and pool. Confirm the exact open turn, permission, availability
 
 **Commissioner:** Yes, make that pick.
 
-_Generate a fresh random UUID; send `draft-named-pick` once with room revision, current turn and returned player reference. Retain that exact request/key. In this illustration the reply is lost before the clock expires. Do not pick again. Read room and pool; they do not clearly establish whether the pick saved._
+_Get a fresh key from `request-key-new`; send `draft-named-pick` once with room revision, current turn and returned player reference. Retain that exact request/key. In this illustration the reply is lost before the clock expires. Do not pick again. Read room and pool; they do not clearly establish whether the pick saved._
 
 **Assistant:** The reply was lost, and the fresh reads do not clearly show whether Rowan's pick saved. I have not sent another pick. Repeat only the original request, unchanged, so Hype can return its recorded result if it already saved?
 
