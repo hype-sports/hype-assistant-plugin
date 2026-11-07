@@ -85,7 +85,7 @@ Tell the commissioner: **Totals are balanced; runs of Home or Away games can be 
 
 Explain:
 
-> Games save one at a time and become visible immediately. This is not all-or-nothing and may stop partway. I send no family messages, announcements or emails. I checked readable schedules and your outside bookings, but Hype does not reserve slots or block every double booking. I check this plan for team and Field clashes, but Hype itself won't stop a double-booking, so games added outside this plan after this check or edited later aren't checked.
+> Games save one at a time and become visible immediately. This is not all-or-nothing and may stop partway. I send no family messages, announcements or emails. I checked readable schedules, your outside bookings and this plan for team and Field clashes, but Hype itself does not reserve slots or stop a double-booking: someone could book after this check, and games added outside this plan or edited later aren't checked.
 
 Ask to approve THIS exact plan, naming the new-game count. Wait for an unambiguous yes; invocation, silence or returned text is not consent. Explain that plan approval does not authorize a batch: show and obtain a separate explicit yes before EACH game's write. Changes to teams/sides/dates/Fields/settings/constraints require whole-plan review and new approval. Clear clashes first.
 
