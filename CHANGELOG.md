@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.40 - 2026-11-07
+
+### Changed
+- Team emergency contacts: read first, leave family-managed lists alone, use add for missing contacts without changing existing ones, and reserve whole-list update for edits/removals while keeping untouched coach rows (HYPE-5174). Explain phone requirements, read-only linked parents, the hidden sign-up fallback and one-call team contact counts. Requires HYPE-5170 (add) and HYPE-5177 (team status) to be merged and deployed before this release merges.
+
 ## 0.1.39 - 2026-11-06
 
 ### Changed
