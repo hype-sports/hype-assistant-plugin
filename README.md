@@ -10,12 +10,14 @@ The plugin gives Claude a Hype assistant and one skill per area. It never gives 
 
 ## Install in Claude Code
 
-You need Claude Code installed and signed in. Then run:
+You need Claude Code installed and signed in. For commissioners and coaches, we recommend installing Hype for your whole account so its tools are available in every folder:
 
 ```sh
 claude plugin marketplace add hype-sports/hype-assistant-plugin
-claude plugin install hype@hype-sports
+claude plugin install hype@hype-sports --scope user
 ```
+
+Tip: If no Hype tools appear, the plugin is not enabled for this folder; install it with `--scope user`, or enable it for the folder.
 
 Start a new Claude Code session and pick a command from the Skills table below. Skills that can change anything only start when you run their command, and starting one is never approval to save anything.
 
