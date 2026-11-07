@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.39 - 2026-11-06
+
+### Changed
+- Season scheduling: tell the commissioner that the assistant checks its plan for team and Field clashes, but Hype won't stop a double-booking and games added outside the plan or edited later aren't checked (HYPE-4726).
+
 ## 0.1.38 - 2026-11-06
 
 ### Changed
