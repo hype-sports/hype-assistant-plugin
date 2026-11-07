@@ -58,11 +58,11 @@ Use the exact existing scope's `pathParams.id` for both edits. Read immediately 
 
 ### Staff invitations
 
-- League tools: league `pathParams.id`. Invite `body`: `{ email, makeOwner?, title? }`; trimmed email ≤254 characters. `makeOwner` defaults false and offers **Admin**; `title` can only be `commissioner`. At least one role required. Only a current League Admin may invite; no account search by email.
+- League tools: league `pathParams.id`. Invite `body`: `{ email, idempotencyKey, makeOwner?, title? }`; `idempotencyKey` is a fresh key from `request-key-new` per new invite, reused unchanged only for a retry the person explicitly asks for; trimmed email ≤254 characters. `makeOwner` defaults false and offers **Admin**; `title` can only be `commissioner`. At least one role required. Only a current League Admin may invite; no account search by email.
 - List returns accepted `staff` and pending `invitations`. Assistant pending rows hide addresses. `viewerIsOwner: false` gives `invitations: []` even when offers exist; `isOwner: null` is withheld, not false.
 - League invite returns `{ id, email? }`: `email` is send status, not an address. `sent` means mail-service acceptance, `not_sent` still means created, absent means unknown. Recipient acceptance is separate.
 - Division Admin tools: division `pathParams.id`; invite `body: { email }`, trimmed/valid ≤254, output `{ id }`. Only the containing League Admin may list/invite; Commissioner/Division Admin alone is insufficient. List has `admins` and pending `invitations`, without addresses in the connector. **No email transport** for the invite; no appointment until acceptance.
-- Both staff invites replace a pending offer for the same normalized address, not harmless deduplication. Address-free rows cannot identify the recipient.
+- A Division Admin invite, or a League staff invite with a NEW key, is a new action: it replaces a pending offer for the same normalized address (a League invite may send new mail), not harmless deduplication. Only an explicitly requested League staff invite retry may reuse the same key and inputs; it returns the original invitation and leaves the saved row unchanged. Never retry automatically. Address-free rows cannot identify the recipient.
 
 ### Registrations and parents/guardians
 

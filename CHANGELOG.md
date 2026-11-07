@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.36 - 2026-11-06
+
+### Changed
+- League staff and League setup: each new `league-staff-invite` gets a fresh `idempotencyKey` from `request-key-new` (HYPE-4855, HYPE-4892); the same key is reused, unchanged, only when the person explicitly asks to retry that same invite after an unclear outcome, and a different email or roles needs a new key.
+
 ## 0.1.35 - 2026-11-06
 
 ### Added
