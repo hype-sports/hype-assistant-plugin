@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.42 - 2026-11-07
+
+### Changed
+- Use the add-only emergency-contact tool for reviewed additions, preserving existing contacts; keep whole-list replacement for edits/removals and explain the existing update fallback when the add tool is not live yet (HYPE-5328). Approval, privacy, family takeover and unknown-outcome stops remain unchanged.
+
 ## 0.1.41 - 2026-11-07
 
 ### Changed
