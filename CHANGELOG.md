@@ -5,7 +5,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 ## 0.1.33 - 2026-11-06
 
 ### Changed
-- Clubs and Tournaments: get each new create or Admin-offer key from the shared `request-key-new` tool and reuse it only for an exact retry, instead of generating one yourself; the app remains the fallback when that tool is unavailable.
+- Clubs and Tournaments: get each new create or Admin-offer key from the shared `request-key-new` tool (HYPE-4892), never asking for a new key on a retry and reusing it only for an exact retry after the re-check and a fresh yes, instead of generating one yourself; the app remains the fallback when that tool is unavailable or fails.
 
 ## 0.1.32 - 2026-11-06
 
