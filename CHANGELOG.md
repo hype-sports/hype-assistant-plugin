@@ -5,6 +5,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 ## 0.1.43 - 2026-11-07
 
 ### Changed
+- Preserve each kept emergency contact's relationship on whole-list updates and include supplied relationships on adds when supported by the live schema (optional free text, up to 50 characters) (HYPE-5174).
 - Team emergency contacts: explicitly keep coach contacts not requested for change/removal, stop for family-managed lists, explain hidden sign-up fallback and required name/phone fields, and use whole-team contact counts only when the tool is live (HYPE-5174). Keep the existing reviewed-table approval and add checks.
 - Clarify that whole-team counts never include sign-up contacts, require a player read before claiming no contacts, and check full international-compatible phone numbers before approval (HYPE-5174).
 - Keep coach contacts from `contacts`, never `linkedParents`; explain hiding the sign-up fallback only when the read shows `signup_not_shown`, and list all four contact operations in the Teams tool table, with whole-team status only if live (HYPE-5174).
