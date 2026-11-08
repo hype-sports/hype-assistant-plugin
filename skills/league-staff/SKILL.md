@@ -30,7 +30,7 @@ Show current staff separately from pending invitations. Display names and return
 
 Treat pending league invitations as visible only to a current League Admin; never interpret `viewerIsOwner: false` with `invitations: []` as none existing. Require the containing League's current owner for division management lists. Limit Division Admin rights to their own division, not Coach or Admin rights over its teams.
 
-Never show phone numbers. Show email addresses only if the live list tool itself returns them for pending invitations; never copy them into notes or messages. Current MCP lists are contact-free: show invitation ID, offered role and expiry where returned, never infer the invitee. Do not save contact details in files, logs or reports. Examples use only invented names.
+Never show phone numbers. Show email addresses only if the live list tool itself returns them for pending invitations; never copy them into messages. Current MCP lists are contact-free: show invitation ID, offered role and expiry where returned, never infer the invitee. Do not save contact details in logs or reports. For the person's own files and progress record, follow [Your own files stay where you keep them](../league-setup/references/own-files.md). Examples use only invented names.
 
 ## 2. Prepare one exact action
 
@@ -90,4 +90,4 @@ Offer a fresh authorized list check on clear success; do it only if requested. S
 - **Access, validation, archived/stale target or busy refusal:** stop and explain without revealing account existence. No guessed correction, repeated write or alternate account. Refresh only with the person's request; changed facts require new approval.
 - **Rate limit:** stop; respect `Retry-After` or validated `retryAfterSeconds`, then ask before resuming. No polling/retry loops or account switching. Stay below 60 MCP POST requests per rolling minute per account, including discovery, reads and refusals; other sessions share it.
 
-End with confirmed actions, pending offers, unknown/refused/not-attempted actions and the next safe step. Keep contacts and verification history out of ordinary user summaries/notes/messages. Not yet verified end to end: removal, slash invocation and interactive consent. Never treat file validation as proof of live availability or behavior. Consult the [invented examples](examples/example.md).
+End with confirmed actions, pending offers, unknown/refused/not-attempted actions and the next safe step. Keep contacts out of ordinary user summaries/messages, and verification history out of ordinary user summaries/notes/messages. For the person's own files and progress record, follow [Your own files stay where you keep them](../league-setup/references/own-files.md). Not yet verified end to end: removal, slash invocation and interactive consent. Never treat file validation as proof of live availability or behavior. Consult the [invented examples](examples/example.md).

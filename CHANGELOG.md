@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.44 - 2026-11-08
+
+### Changed
+- Let people keep requested contact details in their chosen files and progress records, replacing the blanket file ban; publishing, sharing and credentials remain prohibited (HYPE-5468, decision 900).
+
 ## 0.1.43 - 2026-11-08
 
 ### Fixed
