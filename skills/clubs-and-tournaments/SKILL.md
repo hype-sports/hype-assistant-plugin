@@ -40,7 +40,7 @@ Read the relevant reference section and live schema before preparing fields. Do 
 
 Show the exact action, scope, target and all effects in plain words before **every** save, change or send call. Wait for the person's explicit yes to that exact action. Invocation, an initial request, a supplied address, silence or approval of another action is not consent. Changed fields, target or scope need a new preview and yes. No batch or parallel changes.
 
-Use only approved fields and the full live tool name. Keep confirmed actions, waiting offers, refusals, unknown outcomes and unattempted steps separate. Never copy contacts/private inputs into notes, files, reports or other services. See [worked decisions](examples/conversations.md).
+Use only approved fields and the full live tool name. Keep confirmed actions, waiting offers, refusals, unknown outcomes and unattempted steps separate. Never copy contacts into notes, files, reports or other services. For the person's own files and progress record, follow [Your own files stay where you keep them](../league-setup/references/own-files.md). Do not copy private inputs into reports. See [worked decisions](examples/conversations.md).
 
 ## Unclear outcome: re-check, never resend
 
