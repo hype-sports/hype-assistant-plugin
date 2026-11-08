@@ -11,7 +11,7 @@ Run `/hype:league-setup` for the [workflow](../SKILL.md); see the [worked conver
 | Details | `league-get` or `division-get` | `league-update` or `division-update` |
 | Staff | `league-staff-list`, `division-admin-list` | Respective `league-staff-invite`, `division-admin-invite` |
 | Players | `division-players-lookup` | `division-player-create` |
-| Parents/guardians | `league-player-guardian-invitations-list` | `league-player-guardian-invitation-create` |
+| Parents/guardians | `league-player-guardian-invitations-list` | `league-player-guardian-invitation-create`, `body: { email, idempotencyKey }`; fresh key from `request-key-new` per new invite |
 | Readiness | Permitted scope/staff/registration reads | Nothing |
 | Season end | Exact scope, `division-impact` as applicable | Separately approved archive/restore |
 
@@ -70,7 +70,7 @@ Use the exact existing scope's `pathParams.id` for both edits. Read immediately 
 - `division-player-create`: division `pathParams.id`; required `body.firstName`, `lastName` (trimmed 1–50), `dateOfBirth` (real date, not future/before 1900), `gender` (`male`/`female`), explicit boolean `evaluationAttended`. Only league staff may create. Follow the workflow's immediate [birth-date confirmation](../SKILL.md#5-register-players-invite-parentsguardians); do not copy it into later summaries.
 - Optional `parentEmail`/`parentPhone` may be omitted/null, otherwise must validate. `evaluationNumber` is optional and not needed here. `exceptionConsent` is an approval value, not invented or replaced by a general yes; unavailable exception handling goes to the app.
 - Create output: registration `id`, names, `divisionId`, `divisionName`, `status`, `evaluationAttended`; no private-field readback. Use registration ids, not family profile or team roster-entry ids. A failed readback can follow a saved registration; apply the linked recovery rule.
-- Both parent/guardian tools: `pathParams: { id: leagueId, playerId: registrationId }`. Confirm actual registration scope; knowing an id is not authority. Create `body: { email }`, trimmed/lowercased/valid ≤254. It attempts email, sends an in-app notice and replaces a pending offer to that address. Output `{ id, email }` has send status `sent`/`not_sent`; failed mail does not undo creation. List contains pending references with `inviteeEmail: null`, not address-specific duplicate evidence or accepted guardians. Never accept or link a profile on the recipient's behalf.
+- Both parent/guardian tools: `pathParams: { id: leagueId, playerId: registrationId }`. Confirm actual registration scope; knowing an id is not authority. Create `body: { email, idempotencyKey }`; email is trimmed/lowercased/valid ≤254. Get a fresh key from `request-key-new` per new invite; never hand-type one. If that tool is missing or errors, stop without inviting. Reuse the SAME key and unchanged inputs only when the person explicitly asks to retry that same invite after an unclear outcome; never retry automatically. A different address needs a new key. It attempts email, sends an in-app notice and replaces a pending offer to that address. Output `{ id, email }` has send status `sent`/`not_sent`; failed mail does not undo creation. List contains pending references with `inviteeEmail: null`, not address-specific duplicate evidence or accepted guardians. Never accept or link a profile on the recipient's behalf.
 
 ### Season-end effects
 
