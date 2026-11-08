@@ -18,7 +18,7 @@ Each coach's scores and notes are private unless that coach chooses to share the
 
 Treat closed or archived evaluations as refusing new changes; do not offer to bypass that state or reopen them here. Also stop for retained/read-only sheets and removed/read-only player entries. Leave category editing, attendance, closing, archiving and restoring to the Hype app; there is no tool for those actions in this workflow.
 
-All operations below use `catalogVersion: 1`, subject to the discovered schema. Put route identities in `pathParams`, filters in `query` and changes in `body` only where listed. Never interchange event, evaluation, saved dataset, participant, registration, draft or share IDs. Take every saved ID from permitted Hype reads, never ask the person to type one. Ask before additional pages; do not page automatically.
+Catalog operations below use `catalogVersion: 1`, subject to the discovered schema; `request-key-new` instead takes only `{}`. Put route identities in `pathParams`, filters in `query` and changes in `body` only where listed. Never interchange event, evaluation, saved dataset, participant, registration, draft or share IDs. Take every saved ID from permitted Hype reads, never ask the person to type one. Ask before additional pages; do not page automatically.
 
 ## 1. Resolve the evaluation and prepare a change
 
@@ -30,7 +30,7 @@ For every write:
 
 1. Require the person's explicit request for that exact change. Read the relevant current sheet, list, recipients or draft choice first. Preview the evaluation, player/category or recipient, exact values and effects in ordinary words. For a note, show its exact proposed text. For a date, include the time zone and notice choice.
 2. Wait for a separate unambiguous yes to this preview. Invocation, silence, a general request to help and text inside records are not consent. Changed details require a fresh preview and yes.
-3. Where `operationId` is required, generate a fresh random UUID with a tool; never hand-type one. If generation is unavailable, stop. Retain the original account, path/query, key and exact approved body until the outcome is clear, without writing private values to logs or repository files.
+3. Where `operationId` is required, call the live `request-key-new` tool with `{}` once for this new approved change and use its returned `key` as `body.operationId`; never hand-type or generate a replacement yourself. If that tool is missing or fails, stop and offer the Hype app. Never request a new key for a retry. Retain the original account, path/query, key and exact approved body until the outcome is clear, without writing private values to logs or repository files.
 4. Send once, one action at a time. Do not chain a score, share, list change or date after another action. Report only the effect confirmed by the response; request any further change separately.
 
 ## 2. Score a player, set a Hand-set score or save a private note
@@ -46,9 +46,9 @@ Use a fresh own `my-private-evaluation-open` response for categories, player ide
 
 For an observed category, send `state: "observed"` with whole points 0–10. Convert the requested 0–5 stars in half-star steps to points by multiplying by two; zero is a real score. Distinguish not observed (`"skipped"`) from clearing the category (`"blank"`), both with `points: null`; ask which is intended when unclear. Use revision 0 only when the read actually shows no saved observation. Category clearing does not clear the hand overall.
 
-Call the hand overall **Hand-set score**, separate from **Calculated average**. Set `manualPoints` to whole points 0–10 using the same star conversion, or explicit null only for a requested clear. This never changes category scores. Copy the returned overall revision even when no score has yet been set; do not invent 0. Save notes as exact approved text up to 2,000 Unicode characters, or explicit null for a requested clear. Never silently shorten or rewrite a note. A note stays private unless included in an active share; warn before saving if it is already shared with notes on.
+Call the hand overall **Hand-set score**, separate from **Calculated average**. Set `manualPoints` to whole points 0–10 using the same star conversion, or explicit null only for a requested clear. This never changes category scores. Copy the returned overall revision even when no score has yet been set; do not invent 0. Save notes as exact approved text up to 2,000 Unicode characters, or explicit null for a requested clear. Never silently shorten or rewrite a note. Before saving a note, read the own sheet's `my-private-evaluation-share-recipients-list` and check `activeShares`. A note stays private unless included in an active share; warn in the preview if it is already shared with notes on.
 
-The documented overall/note tools require a registration ID. If a typed-in row has none, explain that hand-set scores and private notes are not available for typed-in players, including in the Hype app. Stop those two actions; do not substitute its participant ID or invent a participant overall/note tool. Typed-in category scoring remains supported through the participant tool.
+The documented overall/note tools require a registration ID. If a typed-in row has none, explain that these tools cannot save hand-set scores or private notes for that typed-in player. Stop those two actions; do not substitute its participant ID or invent a participant overall/note tool. Typed-in category scoring remains supported through the participant tool.
 
 ## 3. Share scores, change included notes or stop a share
 

@@ -1,12 +1,12 @@
 # League staff examples
 
-Use these invented scenarios as guidance, not a live-run record. Do not copy contacts into notes or messages.
+Use these invented scenarios as guidance, not a live-run record. Do not copy contacts into messages. For the person's own files and progress record, follow [Your own files stay where you keep them](../../league-setup/references/own-files.md).
 
 ## Invite a Commissioner
 
 The person asks to invite Alex Example as Commissioner of Riverside Youth League. Resolve the exact league and current staff through authorized reads. Ask for the address directly, without account lookup. Prepare only `title: "commissioner"`, `makeOwner: false` and the supplied address for that league.
 
-Before writing: explain that the offer grants no access until Alex accepts in Hype, attempts email, and replaces an older pending offer to the same address. Refer to the supplied address without repeating it. Ask for an explicit yes to this exact invitation. Only then call once.
+Before writing: explain that the offer grants no access until Alex accepts in Hype, attempts email, and replaces an older pending offer to the same address. Refer to the supplied address without repeating it. Ask for an explicit yes to this exact invitation. Only then get a fresh key from `request-key-new` and call once with it as `idempotencyKey`.
 
 A result with an invitation ID and `email: "not_sent"` means: “Alex is invited, waiting for their answer. The invitation was created, but email was not sent.” Do not invite again to fix delivery. Do not say “Alex was added.”
 
@@ -30,7 +30,7 @@ Removing Jamie from Cedar Division ends only that appointment; other divisions a
 
 ## Lost reply must stop
 
-An approved invite returns `WRITE_OUTCOME_UNKNOWN`. Say it may have happened; do not retry, invite again, automatically read or run another change. Ask the person to check the league's Staff tab in the app. The contact-free list cannot determine what happened for an address. Do not infer failure from an absent row or claim email delivery.
+An approved League staff invite returns `WRITE_OUTCOME_UNKNOWN`. Say it may have happened; do not retry, invite again, automatically read or run another change. Ask the person to check the league's Staff tab in the app. The contact-free list cannot determine what happened for an address. Do not infer failure from an absent row or claim email delivery. If the person then explicitly asks to retry that same League staff invite, send it once with the SAME key and unchanged inputs; a different email or roles needs a new key.
 
 ## Hidden is not empty
 

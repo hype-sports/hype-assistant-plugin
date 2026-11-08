@@ -2,13 +2,111 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## 0.1.29 - 2026-11-06
+## 0.1.47 - 2026-11-08
 
 ### Added
 - `run-evaluations` for approved scoring, private notes, sharing, player-list changes, evaluation setup, extra dates and choosing your private evaluation source for a draft.
 
 ### Changed
-- Link evaluation reading and draft workflows to the new evaluation actions, checking live tools before offering a change.
+- Link evaluation reading to the new evaluation actions, checking live tools before offering a change. Draft commissioner instructions remain unchanged.
+
+## 0.1.46 - 2026-11-08
+
+### Added
+- `invite-families` Preview skill for supplied enrollment rows: column mapping, exact registrations in one division, pending-address checks, reviewed invitation pages, keyed sends, conversation-only progress and final checks. Requires the live pending-match and keyed-invitation tools; emergency contacts come in a later version.
+
+### Changed
+- Reviewed invitation tables may continue only on the confirmed exact already-a-guardian refusal from the league invitation-create tool, counting that row as skipped rather than done. Other refusal and unknown-outcome stops remain unchanged.
+- Warn before approval when an address will receive invitations for several player registrations in the same league, counting all supplied send rows across tables/pages while preserving one invitation and email per player.
+- Clarify already-a-parent/guardian skips and the exact-code exception, skip the caller's own addresses, stop on unexpected replacement, and distinguish already-sent emails from unchecked planned rows when counting a supplied whole-league sheet.
+
+### Fixed
+- Require a server-issued request key for every new league parent/guardian invitation; reuse it only for a deliberate retry with unchanged inputs. Describe replacement, replay and uncertain email results without sending again to repair delivery.
+
+## 0.1.45 - 2026-11-08
+
+### Fixed
+- League setup: get a fresh `idempotencyKey` from `request-key-new` for each new parent/guardian invitation, including each approved table row; keep the same key for an explicitly requested unchanged retry or a confirmed-429 table resubmission. Document guardian reply fields, uncertain email delivery, replay without new sends and safe stops on League staff/guardian key-reuse refusals. Emergency-contact tools still take no key.
+
+## 0.1.44 - 2026-11-08
+
+### Changed
+- Let people keep requested contact details in their chosen files and progress records, replacing the blanket file ban; publishing, sharing and credentials remain prohibited (HYPE-5468, decision 900).
+
+## 0.1.43 - 2026-11-08
+
+### Fixed
+- Keep a person's own files and requested progress records where they choose, with one shared rule for storage and minimal resume details (HYPE-5468). Contact details still never go into files; publishing, sharing and credentials remain prohibited. Draft progress may record picks made, but private player lists, evaluation scores and coaches' private pick lists stay out of files.
+
+## 0.1.42 - 2026-11-07
+
+### Changed
+- Use the add-only emergency-contact tool for reviewed additions, preserving existing contacts; keep whole-list replacement for edits/removals and explain the existing update fallback when the add tool is not live yet (HYPE-5328). Approval, privacy, family takeover and unknown-outcome stops remain unchanged.
+
+## 0.1.41 - 2026-11-07
+
+### Changed
+- Allow one later-turn yes for one exact reviewed table of parent/guardian invitation sends and team-player emergency-contact replacements, limited to one team or division, with paged approvals, fresh reads, sequential pacing and stop-on-change/refusal/unknown recovery (HYPE-5180). All other writes keep individual approval.
+
+## 0.1.40
+
+### Added
+- `find-in-hype` Preview skill for read-only screen directions and links to readable Home records, with app-only appearance and Report a problem handoffs.
+
+## 0.1.39 - 2026-11-06
+
+### Changed
+- Season scheduling: tell the commissioner that the assistant checks its plan for team and Field clashes, but Hype won't stop a double-booking and games added outside the plan or edited later aren't checked (HYPE-4726).
+
+## 0.1.38 - 2026-11-06
+
+### Changed
+- Recommend account-wide installation for commissioners and coaches with `--scope user`, and explain how to enable Hype when its tools are missing in another folder (HYPE-5176).
+
+## 0.1.37 - 2026-11-06
+
+### Fixed
+- Team emergency contacts use the requested player's `team-roster-list` row `id` as `entryId`, never `playerProfileId` or a person's ID; `NOT_FOUND` means not found or not visible, without retrying another kind of ID (HYPE-5131).
+
+## 0.1.36 - 2026-11-06
+
+### Changed
+- League staff and League setup: each new `league-staff-invite` gets a fresh `idempotencyKey` from `request-key-new` (HYPE-4855, HYPE-4892); the same key is reused, unchanged, only when the person explicitly asks to retry that same invite after an unclear outcome, and a different email or roles needs a new key.
+
+## 0.1.35 - 2026-11-06
+
+### Added
+- `review-evaluations` for reading your own evaluation scores, scores shared with you and player lists you manage, and building a ranking, summary or file from them.
+
+## 0.1.34 - 2026-11-06
+
+### Changed
+- My account: deleting your account now checks Club and Tournament ownership too, as well as League and Team. The skill no longer says Club and Tournament checks are missing, and still treats a missing or unreadable list as unknown, never as clearance.
+
+## 0.1.33 - 2026-11-06
+
+### Changed
+- Clubs and Tournaments: get each new create or Admin-offer key from the shared `request-key-new` tool (HYPE-4892), never asking for a new key on a retry and reusing it only for an exact retry after the re-check and a fresh yes, instead of generating one yourself; the app remains the fallback when that tool is unavailable or fails.
+
+## 0.1.32 - 2026-11-06
+
+### Changed
+- Team management explains staff-only reading and whole-list editing of one player's emergency contacts (HYPE-5081): read first, review the exact replacement, get explicit yes in a later turn, respect family takeover and keep contacts out of summaries and files. Requires the two tools to be present in the live connection; source changes alone do not make them live.
+
+## 0.1.31 - 2026-11-06
+
+### Added
+- The plugin now carries the Hype connection (`.mcp.json`, server `hype` at `https://api.hypesports.live/api/mcp`). Sign in from `/mcp` (`plugin:hype:hype`, Authenticate): Hype's page in the browser lets you Allow it to read and change things as you in Hype, or Deny. Only invited accounts can connect.
+
+## 0.1.30 - 2026-11-06
+
+### Changed
+- League setup: a league's logo can now change through `league-update` (HYPE-4839), but only to a picture the person uploaded with `demo-logo-upload`; never a web address from the chat, never fetched. The assistant cannot see the picture, so it asks the person to check the logo in the app; removing a logo needs their explicit yes, and leaving it out keeps it. Live after the next API deploy.
+
+## 0.1.29 - 2026-11-06
+
+### Changed
+- Season scheduling: each new game's key now comes from `request-key-new` (HYPE-4892), reused only for an explicit retry with unchanged inputs, instead of a UUID the assistant makes itself.
 
 ## 0.1.28 - 2026-11-06
 
@@ -24,11 +122,6 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ### Changed
 - Tailor `manage-my-team` offers to the selected team's Home role: offer pending invitations, follow requests, league memberships and coach invitations only for Admin or Staff, while keeping Hype's permission checks authoritative.
-
-## 0.1.25 - 2026-11-05
-
-### Added
-- `review-evaluations` for reading your own evaluation scores, scores shared with you and player lists you manage, and building a ranking, summary or file from them.
 
 ## 0.1.24 - 2026-11-05
 

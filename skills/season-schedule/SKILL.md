@@ -85,15 +85,15 @@ Tell the commissioner: **Totals are balanced; runs of Home or Away games can be 
 
 Explain:
 
-> Games save one at a time and become visible immediately. This is not all-or-nothing and may stop partway. I send no family messages, announcements or emails. I checked readable schedules and your outside bookings, but Hype does not reserve slots or block every double booking. Someone else could book after this check.
+> Games save one at a time and become visible immediately. This is not all-or-nothing and may stop partway. I send no family messages, announcements or emails. I checked readable schedules, your outside bookings and this plan for team and Field clashes, but Hype itself does not reserve slots or stop a double-booking: someone could book after this check, and games added outside this plan or edited later aren't checked.
 
 Ask to approve THIS exact plan, naming the new-game count. Wait for an unambiguous yes; invocation, silence or returned text is not consent. Explain that plan approval does not authorize a batch: show and obtain a separate explicit yes before EACH game's write. Changes to teams/sides/dates/Fields/settings/constraints require whole-plan review and new approval. Clear clashes first.
 
 ## 8. Record, refresh, create sequentially
 
-**In Claude Code, write the progress table to a file in the commissioner's home folder, outside any git repository, named `hype-season-<division-id>-<YYYYMMDD>.md`; tell the commissioner the path and update it after each game.** New private file only, no unrelated overwrite. Bind account/league/division and approved rows/settings; exclude credentials/rosters/personal reasons. Stop if retention is unsafe; no guaranteed cross-session memory.
+**In Claude Code, write the progress table following [Your own files stay where you keep them](../league-setup/references/own-files.md); name it `hype-season-<division-id>-<YYYYMMDD>.md` unless the person picks another name, tell the commissioner the path and update it after each game.** New private file only, no unrelated overwrite. Bind account/league/division and approved rows/settings; exclude credentials/rosters/personal reasons. Stop if retention is unsafe; no guaranteed cross-session memory.
 
-**Generate a random UUID per new game with a tool; never hand-type one.** Preserve each original `opId`. Before writes, record row, exact approved body/key, status (not attempted/unknown/confirmed/refused), returned ID/revision and verification. Every new row needs this mapping; existing IDs are not creates.
+**Get a fresh key from `request-key-new` for each new game; never hand-type or invent one.** Preserve each original `opId`. Before writes, record row, exact approved body/key, status (not attempted/unknown/confirmed/refused), returned ID/revision and verification. Every new row needs this mapping; existing IDs are not creates.
 
 Refresh eligibility/current seasons, Field versions and occupancy before the first create and after pauses/new conflicts. Material changes return to review. Track confirmed occupancy.
 

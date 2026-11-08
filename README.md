@@ -10,12 +10,14 @@ The plugin gives Claude a Hype assistant and one skill per area. It never gives 
 
 ## Install in Claude Code
 
-You need Claude Code installed and signed in. Then run:
+You need Claude Code installed and signed in. For commissioners and coaches, we recommend installing Hype for your whole account so its tools are available in every folder:
 
 ```sh
 claude plugin marketplace add hype-sports/hype-assistant-plugin
-claude plugin install hype@hype-sports
+claude plugin install hype@hype-sports --scope user
 ```
+
+Tip: If no Hype tools appear, the plugin is not enabled for this folder; install it with `--scope user`, or enable it for the folder.
 
 Start a new Claude Code session and pick a command from the Skills table below. Skills that can change anything only start when you run their command, and starting one is never approval to save anything.
 
@@ -37,7 +39,13 @@ The assistant uses only Hype's own tools, through your own sign-in. Before any s
 
 The plugin works through Hype's assistant connection at `https://api.hypesports.live/api/mcp`, signed in as your own Hype account; Hype's own rules decide what you can see and change.
 
-In this release, installing the plugin does not set up that connection or sign you in: you need an already-working Hype connection named `hype` (check with `/mcp`). If it is missing or cannot sign in, stop; the plugin cannot set it up for you yet. Never paste passwords, access tokens or other credentials into a conversation, this repository or a connection setting.
+Installing the plugin adds that connection; Claude Code lists it as `plugin:hype:hype`. To sign in, run `/mcp` in Claude Code, select `plugin:hype:hype` and choose Authenticate. Your browser opens Hype's sign-in page:
+
+1. Sign in to Hype with your own account. Only invited accounts can connect.
+2. Hype shows which assistant is asking, the Hype account it will act as, and the website its answer goes to. Allow lets it read and change things as you in Hype; Deny or closing the page gives it nothing.
+3. Your browser hands the connection back to Claude Code, and `/mcp` shows `plugin:hype:hype` as connected.
+
+The connection has your own rights in Hype and nothing more. To stop using it, disable `plugin:hype:hype` in Claude Code's `/mcp`; a way to disconnect assistants from inside Hype is coming. Never paste passwords, access tokens or other credentials into a conversation, this repository or a connection setting: the browser sign-in is the only place for your password.
 
 ## Skills
 
@@ -51,11 +59,13 @@ In this release, installing the plugin does not set up that connection or sign y
 | `/hype:run-a-draft` | Prepare and run a division draft, with clock guidance and supported pause, resume, skip and undo actions | Preview |
 | `/hype:manage-my-team` | See your Roster, Staff and seasons, invite a coach and answer staff invitations | Preview |
 | `/hype:players-families` | Manage your players' profiles, team history and invitations | Preview |
+| `/hype:invite-families` | Review supplied enrollment rows and invite parents/guardians per division; emergency contacts come later | Preview |
 | `/hype:league-staff` | See and manage a league's staff | Preview |
 | `/hype:clubs-and-tournaments` | Set up clubs and tournaments, invite Admins and answer invitations | Preview |
 | `/hype:catch-up` | Catch up on your notifications | Preview |
 | `/hype:notification-settings` | Change which notifications you get and when | Preview |
 | `/hype:my-account` | Look after your own account details and settings | Preview |
+| `/hype:find-in-hype` | Find screens and readable Home records, get links, locate appearance settings, and check where Report a problem is offered; no changes or submissions | Preview |
 | `/hype:terms-and-privacy` | Read Hype's Terms and privacy information | Preview |
 | `/hype:review-evaluations` | Look over your own evaluation scores, scores another coach shared with you and player lists you manage, then rank or summarise them | Preview |
 | `/hype:run-evaluations` | Score players, save private notes, manage sharing and player lists, start evaluations, add dates and choose your private evaluation source for a draft | Preview |
