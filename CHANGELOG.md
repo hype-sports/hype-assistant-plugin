@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.43 - 2026-11-08
+
+### Fixed
+- Keep a person's own files and requested progress records where they choose, with one shared rule for storage and minimal resume details (HYPE-5468). Contact details still never go into files; publishing, sharing, credentials and private draft exports remain prohibited.
+
 ## 0.1.42 - 2026-11-07
 
 ### Changed
