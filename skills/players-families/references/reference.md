@@ -30,7 +30,7 @@ All currently take `catalogVersion: 1`. “None” means omit that section, not 
 | `my-home-entities-list` | None | `query: {}` or optional `search` and `includeArchived` strings (only `"true"` includes archived records); no body; returns `entities` with `id`, `type`, optional `parentLeagueId`/`parentDivisionId` and `userRoles`, not registration IDs; roles are information, not permission |
 | `division-players-lookup` | `{ id: divisionId }` | `query: {}` or live-schema name/page filters; limited identities/status and page metadata |
 | `league-player-guardian-invitations-list` | `{ id: leagueId, playerId: leaguePlayerId }` | No body/query; pending registration offers, address always withheld as `inviteeEmail: null` |
-| `league-player-guardian-invitation-create` | `{ id: leagueId, playerId: leaguePlayerId }` | `body: { email }`, supplied for this send, valid trimmed/lowercase address ≤254 characters; returns `{ id, email: "sent" or "not_sent" }` |
+| `league-player-guardian-invitation-create` | `{ id: leagueId, playerId: leaguePlayerId }` | `body: { email }`, supplied for this send, valid trimmed/lowercase address ≤254 characters; add `idempotencyKey` from `request-key-new` only when the live schema has that field, otherwise send no key and don't call the key tool; follow the [workflow](../SKILL.md#4-execute-once-stop-safely); returns `{ id, email: "sent" or "not_sent" }` |
 | `league-guardian-invitation-cancel` | `{ id: invitationId }` | No body/query; current same-league staff; `{}` cancels pending offer, not accepted standing |
 | `guardian-invitation-cancel` | `{ id: invitationId }` | No body/query; current permitted same-team decider; `{}` cancels pending offer, not accepted standing |
 
