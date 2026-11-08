@@ -1,6 +1,6 @@
 # League staff examples
 
-Use these invented scenarios as guidance, not a live-run record. Do not copy contacts into notes or messages.
+Use these invented scenarios as guidance, not a live-run record. Do not copy contacts into messages. For the person's own files and progress record, follow [Your own files stay where you keep them](../../league-setup/references/own-files.md).
 
 ## Invite a Commissioner
 

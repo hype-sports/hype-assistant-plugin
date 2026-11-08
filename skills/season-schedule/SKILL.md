@@ -91,7 +91,7 @@ Ask to approve THIS exact plan, naming the new-game count. Wait for an unambiguo
 
 ## 8. Record, refresh, create sequentially
 
-**In Claude Code, write the progress table following [Your own files stay where you keep them](../league-setup/references/own-files.md); name it `hype-season-<division-id>-<YYYYMMDD>.md` unless the person picks another name, tell the commissioner the path and update it after each game.** New private file only, no unrelated overwrite. Bind account/league/division and approved rows/settings; exclude credentials/contacts/rosters/personal reasons. Stop if retention is unsafe; no guaranteed cross-session memory.
+**In Claude Code, write the progress table following [Your own files stay where you keep them](../league-setup/references/own-files.md); name it `hype-season-<division-id>-<YYYYMMDD>.md` unless the person picks another name, tell the commissioner the path and update it after each game.** New private file only, no unrelated overwrite. Bind account/league/division and approved rows/settings; exclude credentials/rosters/personal reasons. Stop if retention is unsafe; no guaranteed cross-session memory.
 
 **Get a fresh key from `request-key-new` for each new game; never hand-type or invent one.** Preserve each original `opId`. Before writes, record row, exact approved body/key, status (not attempted/unknown/confirmed/refused), returned ID/revision and verification. Every new row needs this mapping; existing IDs are not creates.
 
