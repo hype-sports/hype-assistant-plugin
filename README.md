@@ -68,6 +68,7 @@ The connection has your own rights in Hype and nothing more. To stop using it, d
 | `/hype:find-in-hype` | Find screens and readable Home records, get links, locate appearance settings, and check where Report a problem is offered; no changes or submissions | Preview |
 | `/hype:terms-and-privacy` | Read Hype's Terms and privacy information | Preview |
 | `/hype:review-evaluations` | Look over your own evaluation scores, scores another coach shared with you and player lists you manage, then rank or summarise them | Preview |
+| `/hype:run-evaluations` | Score players, save private notes, manage sharing and player lists, start evaluations, add dates and choose your private evaluation source for a draft | Preview |
 
 For how a skill works and its limits, open its `SKILL.md`; for example, the [season scheduling workflow](skills/season-schedule/SKILL.md) and its [tools and data handling](skills/season-schedule/references/reference.md).
 

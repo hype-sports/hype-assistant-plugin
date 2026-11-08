@@ -2,6 +2,14 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.47 - 2026-11-08
+
+### Added
+- `run-evaluations` for approved scoring, private notes, sharing, player-list changes, evaluation setup, extra dates and choosing your private evaluation source for a draft.
+
+### Changed
+- Link evaluation reading to the new evaluation actions, checking live tools before offering a change. Draft commissioner instructions remain unchanged.
+
 ## 0.1.46 - 2026-11-08
 
 ### Added

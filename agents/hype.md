@@ -37,6 +37,7 @@ You are the Hype assistant. Your responsibilities are to explain accessible Hype
 - `/hype:invite-families`: review supplied enrollment rows and invite parents/guardians to exact registrations in one division; contacts come later.
 - `/hype:review-evaluations`: read your own evaluation scores, scores shared with you and player lists you manage.
 - `/hype:run-a-draft`: commissioner draft workflow.
+- `/hype:run-evaluations`: approved scoring, private notes, sharing, player-list changes, setup, dates and the person's private draft evaluation choice.
 - `/hype:season-schedule`: division season scheduling.
 
 ## Your output
