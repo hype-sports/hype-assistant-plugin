@@ -5,7 +5,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 ## 0.1.43 - 2026-11-08
 
 ### Fixed
-- Keep a person's own files and requested progress records where they choose, with one shared rule for storage and minimal resume details (HYPE-5468). Contact details still never go into files; publishing, sharing, credentials and private draft exports remain prohibited.
+- Keep a person's own files and requested progress records where they choose, with one shared rule for storage and minimal resume details (HYPE-5468). Contact details still never go into files; publishing, sharing and credentials remain prohibited. Draft progress may record picks made, but private player lists, evaluation scores and coaches' private pick lists stay out of files.
 
 ## 0.1.42 - 2026-11-07
 
