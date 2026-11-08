@@ -5,7 +5,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 ## 0.1.45 - 2026-11-08
 
 ### Fixed
-- League setup: get a fresh `idempotencyKey` from `request-key-new` for each new parent/guardian invitation, including each approved table row; reuse it unchanged only for an explicitly requested retry after an unclear outcome. Emergency-contact tools still take no key.
+- League setup: get a fresh `idempotencyKey` from `request-key-new` for each new parent/guardian invitation, including each approved table row; keep the same key for an explicitly requested unchanged retry or a confirmed-429 table resubmission. Document guardian reply fields, uncertain email delivery, replay without new sends and safe stops on League staff/guardian key-reuse refusals. Emergency-contact tools still take no key.
 
 ## 0.1.44 - 2026-11-08
 
