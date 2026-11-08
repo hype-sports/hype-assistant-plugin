@@ -131,7 +131,7 @@ _Confirm registration/league ids and read `league-player-guardian-invitations-li
 
 **Commissioner:** Yes.
 
-_Call `league-player-guardian-invitation-create` once; in this example, receive an invitation id and email-service acceptance, not mailbox delivery or guardian acceptance._
+_Get a fresh key from `request-key-new`, then call `league-player-guardian-invitation-create` once with it as `idempotencyKey`; in this example, receive an invitation id and email-service acceptance, not mailbox delivery or guardian acceptance._
 
 ## Read-only readiness
 
