@@ -2,6 +2,19 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.46 - 2026-11-08
+
+### Added
+- `invite-families` Preview skill for supplied enrollment rows: column mapping, exact registrations in one division, pending-address checks, reviewed invitation pages, keyed sends, conversation-only progress and final checks. Requires the live pending-match and keyed-invitation tools; emergency contacts come in a later version.
+
+### Changed
+- Reviewed invitation tables may continue only on the confirmed exact already-a-guardian refusal from the league invitation-create tool, counting that row as skipped rather than done. Other refusal and unknown-outcome stops remain unchanged.
+- Warn before approval when an address will receive invitations for several player registrations in the same league, counting all supplied send rows across tables/pages while preserving one invitation and email per player.
+- Clarify already-a-parent/guardian skips and the exact-code exception, skip the caller's own addresses, stop on unexpected replacement, and distinguish already-sent emails from unchecked planned rows when counting a supplied whole-league sheet.
+
+### Fixed
+- Require a server-issued request key for every new league parent/guardian invitation; reuse it only for a deliberate retry with unchanged inputs. Describe replacement, replay and uncertain email results without sending again to repair delivery.
+
 ## 0.1.45 - 2026-11-08
 
 ### Fixed
