@@ -7,6 +7,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 ### Changed
 - Give the `hype` agent Read and Write for the person's chosen progress record by instruction, not a hard path lock; preserve own-files privacy, direct approval, attempting/outcome logging and safe lost-answer recovery. No Bash or Edit access.
 - Document which helpers received the Hype connection in the reported run, live-tool checks and the main-conversation approval pattern for long jobs.
+- Explain `/mcp` → `plugin:hype:hype` → Reconnect to refresh Hype's tool list after new tools or a plugin update, without clearing authentication or starting a new sign-in just to refresh tools; point to the existing Connected assistants screen in Hype to remove access.
 
 ## 0.1.47 - 2026-11-08
 

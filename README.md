@@ -56,8 +56,9 @@ Installing the plugin adds that connection; Claude Code lists it as `plugin:hype
 1. Sign in to Hype with your own account. Only invited accounts can connect.
 2. Hype shows which assistant is asking, the Hype account it will act as, and the website its answer goes to. Allow lets it read and change things as you in Hype; Deny or closing the page gives it nothing.
 3. Your browser hands the connection back to Claude Code, and `/mcp` shows `plugin:hype:hype` as connected.
+4. When Hype adds tools or you update the plugin, run `/mcp`, select `plugin:hype:hype` and choose **Reconnect**. This is the reliable way to refresh Hype's tool list: this connection does not send automatic tool-list updates, so its list refreshes on reconnect, not merely when Hype deploys or the plugin updates. Use Reconnect, not Re-authenticate, clearing authentication or removing and re-adding the server just to get new tools. Reconnect is not a request to sign in again; if Claude Code says the saved sign-in can no longer be renewed, follow its sign-in guidance rather than repeatedly starting new connection links.
 
-The connection has your own rights in Hype and nothing more. To stop using it, disable `plugin:hype:hype` in Claude Code's `/mcp`; a way to disconnect assistants from inside Hype is coming. Never paste passwords, access tokens or other credentials into a conversation, this repository or a connection setting: the browser sign-in is the only place for your password.
+The connection has your own rights in Hype and nothing more. To stop using it in Claude Code, disable `plugin:hype:hype` in `/mcp`. To remove its access in Hype, open Settings, go to Security → Connected assistants and choose Disconnect for that assistant. Never paste passwords, access tokens or other credentials into a conversation, this repository or a connection setting: the browser sign-in is the only place for your password.
 
 ## Skills
 
