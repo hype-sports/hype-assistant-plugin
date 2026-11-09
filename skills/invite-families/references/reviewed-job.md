@@ -1,6 +1,6 @@
 # One reviewed league job, ordered batches and safe progress
 
-Use this reference only for `/hype:invite-families` with the live `league-guardian-invitations-batch-preview` and `league-guardian-invitations-batch-send` tools. Never extend this approval to contacts, registrations, staff invitations, linking, acceptance, deletion or another league. Do not apply the shared individual-call workflow's 50-row review pages, per-division yes or automatic short-rate-limit resubmission to these batches.
+Use this reference only for `/hype:invite-families` with the live `league-guardian-invitations-batch-preview` and `league-guardian-invitations-batch-send` tools. Never extend this approval to contacts, registrations, staff invitations, linking, acceptance, deletion or another league. After the confirmed invitation job and required readbacks finish, [Same-row emergency contacts](emergency-contacts.md) prepares separately approved per-team contact tables from the same source rows; any invitation stop also stops contact writes until deliberately resolved. Do not apply the shared individual-call workflow's 50-row review pages, per-division yes or automatic short-rate-limit resubmission to these batches.
 
 ## Prepare the complete job
 
