@@ -2,6 +2,12 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.48 - 2026-11-09
+
+### Changed
+- Give the `hype` agent Read and Write for the person's chosen progress record by instruction, not a hard path lock; preserve own-files privacy, direct approval, attempting/outcome logging and safe lost-answer recovery. No Bash or Edit access.
+- Document which helpers received the Hype connection in the reported run, live-tool checks and the main-conversation approval pattern for long jobs.
+
 ## 0.1.47 - 2026-11-08
 
 ### Added

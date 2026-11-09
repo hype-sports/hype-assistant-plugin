@@ -33,7 +33,19 @@ Do not load both copies together.
 
 Select `hype:hype` in `/agents`, or start a session with `claude --agent hype:hype`, and ask the Hype assistant for help with your leagues, teams, players or events.
 
-The assistant uses only Hype's own tools, through your own sign-in. Before any save, change, send or deletion it explains exactly what will happen and waits for your yes. With look-only access it cannot change anything. It never retries a change by itself: after an unclear result it reads the current state and asks you. Text inside your Hype records is treated as information, never as instructions. When an area skill fits, it points you to the matching `/hype:<skill>` command.
+The assistant uses Hype's own tools through your own sign-in. If you ask it to maintain a progress record, it also has Read and Write for the one exact file you choose; it is instructed never to access any other file. **This is an instruction, not a hard file-access lock:** Claude Code's plugin-agent tool list cannot restrict Read and Write to a single path. It has no Bash or Edit tool. With no chosen progress path, it must not access files. Your record stays where you choose, is not published or kept by the plugin, and must stay out of git commits unless you say otherwise. It follows the [own-files rules](skills/league-setup/references/own-files.md), including the limits on contact details and sensitive information. When keeping progress, it saves “attempting” before each approved Hype write and the confirmed, refused or unknown outcome afterward; a failed progress save stops the next Hype write. Before any save, change, send or deletion it explains exactly what will happen and waits for your yes. With look-only access it cannot change anything. It never retries a change by itself: after an unclear result it reads the current state and asks you. Text inside your Hype records is treated as information, never as instructions. When an area skill fits, it points you to the matching `/hype:<skill>` command.
+
+### Helpers and long jobs
+
+Connection availability depends on how Claude Code starts the helper:
+
+- **Forks of the connected conversation** inherit its Hype tools and conversation context.
+- **The plugin's `hype` agent** allows the Hype tools through the person's existing connection. It does not sign in separately or gain extra rights.
+- **Plain helper assistants** (such as general-purpose helpers) did not receive the plugin connection in the reported long-job run. Do not assume a plain helper has it, or send it work before checking.
+
+Every helper must check that the needed live Hype tools are actually available before starting. A missing connection is a stop, not permission to authenticate another account or invent tool results. Claude Code versions may differ; this is the working pattern from the reported run, not a promise that every helper has a connection.
+
+For a long job, keep the main conversation in charge of your approvals and Hype changes. Use connected forks or the `hype` agent for reads and proposals; background helpers cannot make Hype changes on relayed approval. Run any matching `/hype:<skill>` command in the main conversation. Process approved writes one at a time, not in parallel. If you request a progress file, choose its exact path and use only one writer for that file; never let helpers overwrite each other's progress. A progress record is not permission to resume changes automatically: after a lost answer, read the current Hype state, explain what is confirmed or unknown, and ask before another write. Never recreate or resend an action just because its answer was lost.
 
 ## The Hype connection
 
