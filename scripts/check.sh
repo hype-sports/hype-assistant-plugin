@@ -87,7 +87,7 @@ try:
     for path in (Path('agents/hype.md'), Path('skills/my-account/references/tool-versions.md')):
         text = path.read_text()
         if pin not in text or compatibility['NOTICE'] not in text:
-            errors.append(f'{path}: tool-version release/catalog pin or reconnect notice differs')
+            errors.append(f"{path}: tool-version release/catalog pin or reconnect notice differs; write '{pin}' to match plugin.json in agents/hype.md and skills/my-account/references/tool-versions.md, and keep the reconnect notice")
     for path in skills:
         if '[tool-version check](' not in path.read_text():
             errors.append(f'{path}: missing tool-version check')
