@@ -5,6 +5,8 @@ All notable changes to this plugin are documented here, following [Keep a Change
 ## 0.1.48 - 2026-11-09
 
 ### Changed
+- Map parent columns from any readable spreadsheet layout and review one complete invitation job across divisions in one league, sending first parents before second parents in batches of up to 200 rows under one yes.
+- Resume requested invitation jobs from the chosen progress record, reconciling unfinished batches with the same key and exact ordered rows without another email attempt; show possible-parent hints without automatically skipping them.
 - Check the server's catalog and minimum plugin versions at session start and after a refusal; say how to reconnect when tools changed, without retrying writes or clearing sign-in. Pin the instruction versions to this release and exercise older/current comparisons offline.
 - Guide league roster imports through a read-only preview and separately approved save, retaining both supplied parents and explaining skipped contacts instead of falling back to one-parent registration.
 - Review saved-import invitations separately, send first parents before second parents, preserve pending offers, and report skipped, refused, unknown and not-attempted parents without automatic retries or claims of mailbox delivery.
