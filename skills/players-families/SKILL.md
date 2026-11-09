@@ -67,6 +67,8 @@ If explicitly asked to cancel a known pending team invitation, `guardian-invitat
 
 ## 3. League staff
 
+For a sign-up sheet or roster import, hand off to `/hype:league-setup` and its [two-parent import workflow](../league-setup/SKILL.md#import-a-sign-up-sheet-without-losing-either-parent), checking the live import tools first. Keep both supplied parents; `division-player-create` has only one sign-up email field and is not a two-parent import fallback. Do not use `emergency-contact-add` on someone else's personal profile to fill the gap: league commissioner rights do not grant profile management. Import approval is not invitation approval; the league-setup workflow separately reviews saved recipients and sends first parents before second parents.
+
 Use `my-home-entities-list` to find league and division IDs where the returned role is league staff, then `division-players-lookup` in the selected division to find the exact league registration ID; Home entity IDs are not registration IDs.
 
 Broad division/league player lists are **not available yet**, and reading one division player is **not available yet**. The existing `division-players-lookup` is a narrower name lookup, not a complete league list. Use it only for the requested active division with a trustworthy exact division ID and live-schema filters; preserve page metadata and do not call a partial page a complete list. It returns no contact details or birth dates. Ask before another page.
