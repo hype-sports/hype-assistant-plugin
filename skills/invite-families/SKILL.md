@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Invite families — Preview
 
+At session start and after a Hype refusal, follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Release 1 invites parents/guardians to exact league registrations in **one division**. Emergency contacts from the same rows come in a later version; for one exact roster player today, use [Manage my team](../manage-my-team/SKILL.md). Invitations do not save contacts, accept offers, link profiles or change a roster. Starting `/hype:invite-families` is not approval to send anything.
 
 ## 1. Check the connection and input

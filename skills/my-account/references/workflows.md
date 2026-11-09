@@ -4,7 +4,7 @@ Read the [skill and shared safety rules](../SKILL.md) and [tool inputs](referenc
 
 ## 1. “Show my account”
 
-Use `my-profile-read` for the person's own name; it returns only `id`, `name` and `updatedAt`. `my-identity-read` returns only `id` and `name` when only identity is needed; do not call both without a reason. Read `my-preferences-read` if the person wants their saved time zone.
+Use `my-profile-read` for the person's own name; it returns only `id`, `name` and `updatedAt`. `my-identity-read` returns `id`, `name`, `operationCatalogVersion` and `minimumPluginVersion` for identity and the [version check](tool-versions.md); do not call both profile and identity reads without a reason. Read `my-preferences-read` if the person wants their saved time zone.
 
 Show only returned facts. These tools do not reveal email, phone or profile photo; do not claim a complete account export. A null time zone means the device's time zone is used. `PROFILE_NOT_FOUND` means the profile is not set up: explain and stop, never create or repair it. Reading is not approval to change anything.
 

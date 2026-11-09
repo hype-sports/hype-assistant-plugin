@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Catch up on my notifications
 
+At session start and after a Hype refusal, follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Use only the person's own signed-in Hype connection and existing access. Installing this plugin grants nothing; Hype checks their rights on every request. Speak plainly and ask one question at a time. Starting this skill is not approval to change anything.
 
 ## 1. Check the live connection

@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Get a league ready for its season
 
+At session start and after a Hype refusal, follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Run `/hype:league-setup` in Claude Code. Speak plainly; ask one question at a time. Starting the skill is not approval. Work on one confirmed league/season. No games, team placement, profile linking or invitation acceptance.
 
 ## 0. Check the connection and live tools

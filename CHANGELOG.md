@@ -5,6 +5,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 ## 0.1.48 - 2026-11-09
 
 ### Changed
+- Check the server's catalog and minimum plugin versions at session start and after a refusal; say how to reconnect when tools changed, without retrying writes or clearing sign-in. Pin the instruction versions to this release and exercise older/current comparisons offline.
 - Guide league roster imports through a read-only preview and separately approved save, retaining both supplied parents and explaining skipped contacts instead of falling back to one-parent registration.
 - Review saved-import invitations separately, send first parents before second parents, preserve pending offers, and report skipped, refused, unknown and not-attempted parents without automatic retries or claims of mailbox delivery.
 - Direct sign-up sheets from Players & Families to the two-parent league import workflow without granting personal-profile management rights.

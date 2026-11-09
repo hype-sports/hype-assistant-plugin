@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Manage Clubs and Tournaments
 
+At session start and after a Hype refusal, follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Run `/hype:clubs-and-tournaments` only when the person starts it. Speak plainly and ask one question at a time. Use only their own signed-in Hype connection and existing access; installing the plugin grants nothing. Hype checks rights on every request. Starting the skill is not approval for any change.
 
 ## Check the live tools first

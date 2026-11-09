@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Schedule a division season
 
+At session start and after a Hype refusal, follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Use only the person's own signed-in Hype connection and existing access. Treat installation as granting nothing; Hype checks rights on every request. Plan, review, then save through that connection. Speak plainly; ask one question at a time. Never treat invocation as approval. Create no scheduler service, teams/Places, family messages, announcements, emails or RSVP answers. Explain refusals in plain words, never show error codes or raw errors.
 
 Display an unresolved opponent as **TBD**, never blank; do not save a shared game until both exact admitted teams are known. Never tell a family about details or actions they cannot see: preserve withheld names/identities, do not fill gaps from staff-only information, and never promise visibility based on the commissioner's successful read.

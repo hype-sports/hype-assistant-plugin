@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Run a player draft
 
+At session start and after a Hype refusal, follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Help the commissioner check, set up and run one draft through their own Hype connection. Speak plainly; ask one question at a time. Invoking this skill is not approval for any change.
 
 ## 0. Check live capabilities

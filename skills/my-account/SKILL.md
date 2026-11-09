@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Manage my Hype account
 
+At session start and after a Hype refusal, follow the [tool-version check](references/tool-versions.md) before further Hype work.
+
 Read, explain, then change only what the person explicitly approves. Speak plainly; ask one question at a time. Starting `/hype:my-account` is not approval.
 
 Not yet verified end to end.

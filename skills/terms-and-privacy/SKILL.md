@@ -5,6 +5,8 @@ description: 'This skill should be used when the user asks "Have I accepted the 
 
 # Terms and privacy
 
+At session start and after a Hype refusal, follow the [tool-version check](../my-account/references/tool-versions.md) before signed-in Hype work; public legal links still need no connection.
+
 Read and explain only. This is not legal advice. Speak plainly; ask one question at a time.
 
 Not yet verified end to end: exact-publication retrieval, raw-byte SHA-256 verification, strict UTF-8 decoding and exact section quotation. This path requires Terms published in the app; source contracts and simulated cases do not prove live execution. Do not seed a publication, invent an ID or use a personal account to remove this verification limit. Verify the path through a supported test-account connection after publication before calling it proven. Follow live state rather than assuming any earlier publication state still holds; retain every publication-ID, hash, decoding and quotation safeguard below.
