@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.48 - 2026-11-10
+
+### Fixed
+- Team emergency contacts require a name (1–100 characters) and phone number (7–25 characters), both after trimming; ask for a missing phone instead of guessing or saving without it.
+
 ## 0.1.47 - 2026-11-08
 
 ### Added
