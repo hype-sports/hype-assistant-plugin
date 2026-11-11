@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Players & Families
 
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Use only the person's own signed-in Hype connection and existing access. Installing the plugin grants nothing; Hype checks rights on every request. Speak plainly and ask one question at a time. Say **parent/guardian** and **player**. Starting `/hype:players-families` is not approval to save, change or send anything.
 
 ## 0. Check live tools and boundaries
@@ -66,6 +68,8 @@ Reading and approving/declining incoming team join requests is **not available y
 If explicitly asked to cancel a known pending team invitation, `guardian-invitation-cancel` exists. There is no staff discovery list here: require an exact trustworthy invitation ID and known team/target; otherwise stop. Current same-team permitted staff/owner or permitted creating co-owning league authority is required, not simply being any league staff member. Explain that cancellation ends only that pending offer, removes no accepted parent/guardian and sends no email; wait for explicit yes, then call once. `{}` is confirmed success.
 
 ## 3. League staff
+
+For a sign-up sheet or roster import, hand off to `/hype:league-setup` and its [two-parent import workflow](../league-setup/SKILL.md#import-a-sign-up-sheet-without-losing-either-parent), checking the live import tools first. Keep both supplied parents; `division-player-create` has only one sign-up email field and is not a two-parent import fallback. Do not use `emergency-contact-add` on someone else's personal profile to fill the gap: league commissioner rights do not grant profile management. Import approval is not invitation approval; the league-setup workflow separately reviews saved recipients and sends first parents before second parents.
 
 Use `my-home-entities-list` to find league and division IDs where the returned role is league staff, then `division-players-lookup` in the selected division to find the exact league registration ID; Home entity IDs are not registration IDs.
 

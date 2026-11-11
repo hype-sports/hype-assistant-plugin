@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Manage my team
 
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Use only the person's own signed-in Hype connection and existing access. Treat installation as granting nothing; Hype checks rights on every request. Serve any signed-in user with the required access, not a named account or special allowlist. Speak plainly, ask one question at a time and use **Admin**, **Roster**, **Staff** and **parent/guardian**. Never treat starting `/hype:manage-my-team` as approval to save, change or send anything.
 
 ## 0. Check live tools and stop safely

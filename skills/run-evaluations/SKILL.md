@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Run evaluations
 
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Help a coach do evaluation work through their own Hype connection. Speak plainly and ask one question at a time. Starting this skill is not approval to change anything. For finding saved sheets, reading scores or received shares, rankings and files, follow [review-evaluations](../review-evaluations/SKILL.md); do not repeat its reading or export workflow here.
 
 ## 0. Check live tools and rights

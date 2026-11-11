@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # My Hype support
 
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Read and explain the person's own support, and change only whether their supporter ring shows, after their explicit yes. Speak plainly; ask one question at a time. Starting `/hype:my-support` is not approval.
 
 ## 0. Check live capabilities and safety

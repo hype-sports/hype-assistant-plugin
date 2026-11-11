@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Manage league staff
 
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Use only the person's own signed-in Hype connection and existing access. Treat installation as granting nothing; Hype checks rights on every request. Speak plainly; ask one question at a time. Never treat starting `/hype:league-staff` as approval to change anything.
 
 Limit this workflow to staff, not teams, rosters, account lookup or invitation acceptance/decline. Leave the recipient to answer in Hype themselves. Create no new connection, sign-in workaround, messages or separate email sends.
