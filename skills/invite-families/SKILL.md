@@ -40,13 +40,17 @@ Deduplicate identical normalized registration/address pairs, retaining all sourc
 
 ## 4. Check invitations, then review contacts per team
 
-After a confirmed send-part response, check each `sent` receipt's `invitationId` through `league-player-guardian-invitations-list` on its exact registration before the next part. The candidate match may additionally check current pending status for the supplied address. A failed required readback stops remaining sends; retain confirmed receipts and mark verification unresolved. Never read automatically after an unknown send.
+After a confirmed send-part response, check each `sent` receipt's `invitationId` through `league-player-guardian-invitations-list` on its exact registration before the next part. The candidate match may additionally check current pending status for the supplied address. A failed required readback stops remaining sends; retain confirmed receipts and mark verification unresolved. An unknown send stops the job; use the requested-resume procedure below rather than retrying automatically.
 
 A pending result means **“invited, waiting for an answer,” never “linked.”** These reads cannot prove mailbox delivery, acceptance or profile linking. An absent invitation or a now-false match means current state unconfirmed: it may have been answered, expired or cancelled; never call it a failed send or send again.
 
 Once the invitation job has finished with confirmed outcomes and required readbacks, follow [Same-row emergency contacts](references/emergency-contacts.md). Invitation skips do not disqualify an otherwise valid contact. An invitation refusal, unknown outcome or failed readback stops further writes, including contacts; do not silently switch phases. On a later deliberate request, resolve the stop and review the remaining actions afresh.
 
-## 5. Final summary
+## 5. Resume only when asked
+
+Follow [the person's chosen progress record](../../agents/hype.md#the-persons-chosen-progress-record) and [Reviewed batches and progress](references/reviewed-job.md#resume-from-the-progress-record). Read that exact record and reconcile each unfinished **attempting** part through authorized invitation readbacks before any further send. Explain confirmed and unknown outcomes and ask once for the resumed job, never once per division. Preserve the original key and ordered rows for any deliberately approved reconciliation; never resend confirmed work, treat an absent invitation as a failed send or use a fresh key to bypass uncertainty. The record is not approval, and resume is never automatic.
+
+## 6. Final summary
 
 End with actual counts and source/write-row labels for **done / skipped / failed / unknown / not attempted**, without contact values. Report invitations and emergency contacts separately; distinguish confirmed replies from current-state verification and skips from done. List parents missing phones, unpaired registrations and any other omitted contact actions with their reasons. Never claim contacts were saved merely because invitations were sent.
 

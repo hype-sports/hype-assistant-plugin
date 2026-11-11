@@ -74,7 +74,7 @@ The connection has your own rights in Hype and nothing more. To stop using it in
 | `/hype:run-a-draft` | Prepare and run a division draft, with clock guidance and supported pause, resume, skip and undo actions | Preview |
 | `/hype:manage-my-team` | See your Roster, Staff and seasons, invite a coach and answer staff invitations | Preview |
 | `/hype:players-families` | Manage your players' profiles, team history and invitations | Preview |
-| `/hype:invite-families` | Review supplied enrollment rows and invite parents/guardians per division; emergency contacts come later | Preview |
+| `/hype:invite-families` | Map supplied enrollment columns, review one invitation job across divisions in one league, and resume from your chosen progress record; review same-row emergency contacts separately per team | Preview |
 | `/hype:league-staff` | See and manage a league's staff | Preview |
 | `/hype:clubs-and-tournaments` | Set up clubs and tournaments, invite Admins and answer invitations | Preview |
 | `/hype:catch-up` | Catch up on your notifications | Preview |

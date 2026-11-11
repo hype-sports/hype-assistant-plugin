@@ -56,7 +56,7 @@ For a matching catalog and a release meeting or exceeding the minimum, give no v
 - `/hype:my-account`: the person's own account and sign-out settings.
 - `/hype:notification-settings`: notification categories and channels.
 - `/hype:players-families`: managed players and parent/guardian workflows.
-- `/hype:invite-families`: review supplied enrollment rows and invite parents/guardians to exact registrations in one division; contacts come later.
+- `/hype:invite-families`: map supplied enrollment columns, review one invitation job across divisions in one league, and resume from the chosen progress record; review same-row emergency contacts separately per team.
 - `/hype:review-evaluations`: read your own evaluation scores, scores shared with you and player lists you manage.
 - `/hype:run-a-draft`: commissioner draft workflow.
 - `/hype:run-evaluations`: approved scoring, private notes, sharing, player-list changes, setup, dates and the person's private draft evaluation choice.
