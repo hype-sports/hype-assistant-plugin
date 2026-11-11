@@ -5,7 +5,8 @@ All notable changes to this plugin are documented here, following [Keep a Change
 ## 0.1.48 - 2026-11-10
 
 ### Fixed
-- Team emergency contacts require a name (1–100 characters) and phone number (7–25 characters), both after trimming; ask for a missing phone instead of guessing or saving without it.
+- Team emergency contacts require first and last names (each 1–100 trimmed characters; together with their separating space, at most 100) and a valid phone Hype accepts (7–25 trimmed characters); email and relationship are optional. Ask for missing phones instead of guessing or saving without one.
+- Build whole-list updates from the fresh read, keeping every existing contact unless a change or removal was requested. If a contact being kept lacks a phone, ask for it or use add-only for additions; never silently drop it.
 
 ## 0.1.47 - 2026-11-08
 
