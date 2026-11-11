@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Invite families — Preview
 
-At session start and after a Hype refusal, follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
 Invite parents/guardians to exact registrations across divisions in **one league**, with one explicit yes for the complete reviewed invitation job. Then use the **same source rows** to prepare separately approved emergency-contact tables per team, adding only missing Parent 1 and Parent 2 contacts to exact team roster entries. Invitations do not save contacts; contact additions do not accept offers, link profiles, grant guardian access or change roster membership. Starting `/hype:invite-families` is not approval for either step.
 

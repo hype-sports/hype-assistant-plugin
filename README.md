@@ -29,6 +29,17 @@ claude --plugin-dir /absolute/path/to/hype-assistant-plugin
 
 Do not load both copies together.
 
+### Update the plugin
+
+For the account-wide installation above, refresh the marketplace and update the plugin:
+
+```sh
+claude plugin marketplace update hype-sports
+claude plugin update hype@hype-sports --scope user
+```
+
+If installed in another scope, use that original scope instead of `--scope user`. Restart Claude Code to apply the update, then run `/mcp`, select `plugin:hype:hype` and choose **Reconnect** before continuing Hype work.
+
 ## The Hype assistant
 
 Select `hype:hype` in `/agents`, or start a session with `claude --agent hype:hype`, and ask the Hype assistant for help with your leagues, teams, players or events.
@@ -58,7 +69,7 @@ Installing the plugin adds that connection; Claude Code lists it as `plugin:hype
 3. Your browser hands the connection back to Claude Code, and `/mcp` shows `plugin:hype:hype` as connected.
 4. When Hype adds tools or you update the plugin, run `/mcp`, select `plugin:hype:hype` and choose **Reconnect**. This is the reliable way to refresh Hype's tool list: this connection does not send automatic tool-list updates, so its list refreshes on reconnect, not merely when Hype deploys or the plugin updates. Use Reconnect, not Re-authenticate, clearing authentication or removing and re-adding the server just to get new tools. Reconnect is not a request to sign in again; if Claude Code says the saved sign-in can no longer be renewed, follow its sign-in guidance rather than repeatedly starting new connection links.
 
-The assistant and area skills check the catalog version and minimum plugin version returned by `my-identity-read` at session start and after a refusal. When those show a mismatch, they stop further Hype actions and say: “Hype's tools changed. Run /mcp, then Reconnect, to pick them up.” A missing or refused version check is reported as unavailable, not as a confirmed mismatch. Reconnect does not update an installed plugin; if the minimum release is still newer, update the plugin too. These are assistant instructions, not an automatic background connection or permission to retry an action. See the [version-check rule](skills/my-account/references/tool-versions.md).
+The assistant and area skills check the catalog version and minimum plugin version returned by `my-identity-read` at session start and after a whole-call refusal suggesting stale tools, not an ordinary business refusal. They reuse only a successful check from this session made since the latest such refusal or reconnect. When those show a mismatch, they stop further Hype actions and say: “Hype's tools changed. Run /mcp, then Reconnect, to pick them up.” If the plugin is below the server's minimum, the same message adds: “This plugin is also older than Hype needs; update it first with claude plugin marketplace update hype-sports and claude plugin update hype@hype-sports --scope user, restart Claude Code, then reconnect.” Follow the [update steps above](#update-the-plugin) before reconnecting; reconnect alone does not update an installed plugin. A missing or refused version check is reported as unavailable, not as a confirmed mismatch. These are assistant instructions, not an automatic background connection or permission to retry an action. See the [version-check rule](skills/my-account/references/tool-versions.md).
 
 The connection has your own rights in Hype and nothing more. To stop using it in Claude Code, disable `plugin:hype:hype` in `/mcp`. To remove its access in Hype, open Settings, go to Security → Connected assistants and choose Disconnect for that assistant. Never paste passwords, access tokens or other credentials into a conversation, this repository or a connection setting: the browser sign-in is the only place for your password.
 

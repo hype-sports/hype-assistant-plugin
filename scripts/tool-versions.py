@@ -3,6 +3,7 @@ import re
 
 EXPECTED_CATALOG_VERSION = 1
 NOTICE = "Hype's tools changed. Run /mcp, then Reconnect, to pick them up."
+UPDATE_NOTICE = "This plugin is also older than Hype needs; update it first with claude plugin marketplace update hype-sports and claude plugin update hype@hype-sports --scope user, restart Claude Code, then reconnect."
 
 
 def release(value):
@@ -16,4 +17,6 @@ def reconnect_notice(server_catalog, minimum_plugin, plugin_version):
         raise ValueError('Version check unavailable')
     minimum = release(minimum_plugin)
     installed = release(plugin_version)
-    return NOTICE if server_catalog != EXPECTED_CATALOG_VERSION or minimum > installed else ''
+    if minimum > installed:
+        return NOTICE + '\n' + UPDATE_NOTICE
+    return NOTICE if server_catalog != EXPECTED_CATALOG_VERSION else ''

@@ -11,11 +11,12 @@ import tempfile
 source = Path(__file__).with_name('check.sh')
 compatibility = runpy.run_path(str(source.with_name('tool-versions.py')))
 for label, catalog, minimum, installed, expected in (
-    ('older plugin needs reconnect notice', 1, '0.1.48', '0.1.47', compatibility['NOTICE']),
+    ('older plugin needs update and reconnect notice', 1, '0.1.48', '0.1.47', compatibility['NOTICE'] + '\n' + compatibility['UPDATE_NOTICE']),
+    ('older plugin and different catalog need update and reconnect', 2, '0.1.48', '0.1.47', compatibility['NOTICE'] + '\n' + compatibility['UPDATE_NOTICE']),
     ('current plugin has no notice', 1, '0.1.48', '0.1.48', ''),
     ('newer plugin has no notice', 1, '0.1.48', '0.1.49', ''),
     ('different catalog needs notice', 2, '0.1.48', '0.1.48', compatibility['NOTICE']),
-    ('numeric version order', 1, '0.1.10', '0.1.9', compatibility['NOTICE']),
+    ('numeric version order', 1, '0.1.10', '0.1.9', compatibility['NOTICE'] + '\n' + compatibility['UPDATE_NOTICE']),
 ):
     assert compatibility['reconnect_notice'](catalog, minimum, installed) == expected, label
     print(f'PASS: {label}')

@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Review evaluation results
 
-At session start and after a Hype refusal, follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
 Help a coach read the evaluation data they can already access and make the output they ask for. Speak plainly; ask one question at a time. Do not create an evaluation, save scores or notes, share or stop sharing, change categories, edit players or numbers, or change attendance. For supported scoring, notes, sharing, player-list changes, setup and dates, hand off to `/hype:run-evaluations` using the [evaluation actions workflow](../run-evaluations/SKILL.md). Keep this skill read-only; never say a change happened here. Category editing and attendance stay in the Hype app.
 

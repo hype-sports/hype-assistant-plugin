@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Players & Families
 
-At session start and after a Hype refusal, follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
 Use only the person's own signed-in Hype connection and existing access. Installing the plugin grants nothing; Hype checks rights on every request. Speak plainly and ask one question at a time. Say **parent/guardian** and **player**. Starting `/hype:players-families` is not approval to save, change or send anything.
 

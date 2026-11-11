@@ -5,7 +5,7 @@ description: 'This skill should be used when the user asks "where do I find Sett
 
 # Find a screen in Hype
 
-At session start and after a Hype refusal, follow the [tool-version check](../my-account/references/tool-versions.md) before signed-in Hype work; general screen directions still need no connection.
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before signed-in Hype work; general screen directions still need no connection.
 
 Help the person get to the right screen, not change it for them. Speak plainly and ask one question at a time. Keep this skill read-only: no saves, settings changes, favorites changes, messages, invitations or problem-report submissions. Not yet verified end to end.
 

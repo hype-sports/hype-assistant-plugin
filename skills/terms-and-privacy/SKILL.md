@@ -5,7 +5,7 @@ description: 'This skill should be used when the user asks "Have I accepted the 
 
 # Terms and privacy
 
-At session start and after a Hype refusal, follow the [tool-version check](../my-account/references/tool-versions.md) before signed-in Hype work; public legal links still need no connection.
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before signed-in Hype work; public legal links still need no connection.
 
 Read and explain only. This is not legal advice. Speak plainly; ask one question at a time.
 
