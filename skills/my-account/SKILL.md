@@ -41,6 +41,8 @@ Read [exact tool inputs and source limits](references/reference.md) and the matc
 | Cancel my deletion request | [Review and cancel only the request pending at execution](references/workflows.md#7-cancel-my-deletion-request) |
 | Show my devices / sign out other devices | [Select exact own sessions and review one-device or all-other-device effects](references/workflows.md#8-show-my-devices--sign-out-other-devices) |
 
+Supporter status, the supporter ring, and supporting Hype are handled by `/hype:my-support`.
+
 ## 2. Report only what is known
 
 Distinguish a returned confirmed result, a refusal, an unknown result and an action not attempted. Name the next safe step; never call attempted “saved,” requested “deleted,” or a hand-off “password changed.” Leave subsequent reads and changes to the person's separate request and approval.
