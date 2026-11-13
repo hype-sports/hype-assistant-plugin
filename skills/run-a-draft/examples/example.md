@@ -1,6 +1,6 @@
 # Run-a-draft worked conversations
 
-Use these illustrations with the [workflow](../SKILL.md) and [input reference](../references/reference.md), not as tool runs or permission. Use returned records and live schemas, never example IDs. Apply the single [clock and recovery rules](../references/reference.md#clock-and-recovery) whenever an answer is unclear or time runs out.
+Use these illustrations with the [workflow](../SKILL.md), [input reference](../references/reference.md) and [request-key rules](../references/reference.md#request-keys), not as tool runs or permission. Use returned records and live schemas, never example IDs. If the key tool is missing or fails, stop; never invent a key. Apply the single [clock and recovery rules](../references/reference.md#clock-and-recovery) whenever an answer is unclear or time runs out.
 
 ## Draw an order, then install it separately
 
@@ -97,7 +97,7 @@ _Get a new key; send `draft-pick` once with the current turn, revision and retur
 
 _Read room and `draft-hat-run-get`; in this illustration the draft is in Hat stage and this caller is commissioner._
 
-**Assistant:** Start the paced Hat run for **Meadowbrook League, 10U**? Only players marked Hat pick are drawn, not everyone who missed evaluations. The app draws one marked Hat group about every 5 seconds, with linked players kept on the same team and roster limits respected. Placements are visible and final. Here, each group draw needs a separate yes; for continuous timed presentation, do this in the app because its screen controls drive that pace. Starting this run does not approve drawing every group.
+**Assistant:** Start the paced Hat run for **Meadowbrook League, 10U**? Only players marked Hat pick are drawn, not everyone who missed evaluations. The paced run draws one marked Hat group at the app's current pace, with linked players kept on the same team and roster limits respected. Placements are visible at once; Undo has limits. Here, each group draw needs a separate yes; for continuous timed presentation, do this in the app because its screen controls drive that pace. Starting this run does not approve drawing every group.
 
 **Commissioner:** Yes.
 
@@ -109,7 +109,7 @@ _Get a new key and send `draft-hat-run-start` once. Read room/current run; do no
 
 _Get a new key; send `draft-hat-draw` with that current run and next ordinal, no revision. Report returned placed/unplaced counts and use room for any allowed labels. Stop before another draw. Overflow means players remain unplaced; do not claim a roster was delivered._
 
-_For an explicit request to place all marked Hat players at once, explain the difference and separately confirm `draft-hat-pick`; never silently replace a paced run with it._
+_For an explicit request to place all marked Hat players at once, explain that those placements are visible and final, and separately confirm `draft-hat-pick`; never silently replace a paced run with it._
 
 ## A Save withdrawal may leave the player saved
 
@@ -131,7 +131,7 @@ _Get a new key and send `draft-save-withdraw` with the Save reference and curren
 
 _Find that exact draft and read detail. In this illustration it is scheduled and Hype's current delete flag allows the action._
 
-**Assistant:** **What this affects:** Delete the **Meadowbrook League, 12U** draft for everyone? This permanently removes the draft. The teams and players themselves are not deleted. It cannot be undone, and the fact it existed stays in history. The division will be free for a new draft. Hype allows this only while unused, before Start and within its first 30 days.
+**Assistant:** **What this affects:** Delete the **Meadowbrook League, 12U** draft for everyone? The app's confirmation says: “This permanently removes the draft. The teams and players themselves are not deleted. It cannot be undone, and the fact that it existed stays in the history. A draft can be deleted only in its first 30 days, before it starts.” The tool also requires it to be unused; deletion frees the division for a new draft.
 
 **Commissioner:** Yes.
 

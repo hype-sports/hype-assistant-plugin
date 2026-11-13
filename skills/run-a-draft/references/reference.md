@@ -20,9 +20,13 @@ Use `catalogVersion: 1` where required by the live wrapper. Put saved identities
 
 Read settings from detail, not from permission flags. Use `settings.clock`, `settings.expiryAction`, `settings.lateGraceMs` to explain the saved clock; room `clock` shows deadline/remaining time. A missing or malformed read is unknown, never evidence of no clock or no players.
 
+## Missing tools
+
+If a needed tool is missing or fails, stop without writing and explain that this step must be done in the app because this connection cannot safely complete it. Never invent a tool, saved ID or request key to work around it.
+
 ## Request keys
 
-For each new keyed action, call `request-key-new` with exactly `{}` (no catalogVersion), and use its returned `key` as `body.idempotencyKey`. If missing or failed, **stop without writing** and offer the app; never generate or hand-type a substitute. Keep the exact account, path, query, key and body until the outcome is clear. Retrying is governed only by [clock and recovery](#clock-and-recovery).
+For each new keyed action, call `request-key-new` with exactly `{}` (no catalogVersion), and use its returned `key` as `body.idempotencyKey`. If missing or failed, **stop without writing** and follow the [missing-tool rule](#missing-tools); never generate or hand-type a substitute. Keep the exact account, path, query, key and body until the outcome is clear. Retrying is governed only by [clock and recovery](#clock-and-recovery).
 
 ## Revision-bound writes
 
@@ -103,7 +107,7 @@ Keep all timeout and retry instructions here; workflows and examples point to th
 - **Refusal or changed state**: explain the supplied fix hint, stop the refused action and read current relevant state before deciding again. A new action needs fresh reads, a new key where required and a new yes. Queue-changed means re-read the selected queue and review again. Stale slot, ordinal or revision never authorizes silently advancing or replacing guards. A queue name-read failure after saving does not undo that save.
 - **Unclear outcome**: lost/interrupted/malformed reply or unknown-outcome answer means the write may already have happened. Preserve the original request. For keyed draft actions, read the division-filtered list after Create; otherwise read relevant detail/room plus run or queue when applicable. If the action is established, report it without repeating. If still unclear, offer only an explicitly approved exact repeat: SAME account, operation, path, query, key and complete original body, including old revision/turn/slot/ordinal/version. Never get a replacement key or change inputs under the old one. A not-found detail after Delete proves neither success nor failure: after yes an exact repeat can return the stored deletion receipt. If the original request/key is lost, do not reconstruct it; use the app to review state.
 - **No-key exceptions**: after an unclear timeout-application reply, read room and decide with the person; no keyed replay. After an unclear Division Skip save, stop and ask before ANY fresh read or action; repeating can overwrite a later preference. Neither gets an automatic retry.
-- **Rate limit or busy**: stop, explain any supplied wait and ask before another attempt. Never retry unprompted or use another account. Missing required tools mean do this in the app because the connection cannot safely complete the action.
+- **Rate limit or busy**: stop, explain any supplied wait and ask before another attempt. Never retry unprompted or use another account. For a missing or failed tool, follow the [missing-tool rule](#missing-tools).
 
 Command success is not a roster-delivery receipt. Keep unknown counts unknown.
 
