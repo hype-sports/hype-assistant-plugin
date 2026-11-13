@@ -15,6 +15,12 @@ Check the live tool list before use.
 | `my-deletion-request` | Start an email-confirmed request, not erasure or confirmation |
 | `my-deletion-status-read`, `my-deletion-cancel` | Read status or cancel the pending request |
 | `my-sessions-list`, `my-session-revoke`, `my-other-sessions-revoke` | List own devices, sign out one other session or all other sessions |
+| `my-login-history-list`, `my-assistant-activity-list` | Read own recorded login events or assistant activity |
+| `my-blocked-people-list`, `my-person-blocks-list` | Read own blocked people's current names/IDs or blocked account IDs and Block times |
+| `person-block`, `person-unblock` | Change only the signed-in person's own Block of one exact account |
+| `my-player-profiles-list` | Select a player profile the person manages |
+| `player-profile-erasure-status-read`, `player-profile-erasure-request-read` | Read latest or exact managed-player erase request |
+| `player-profile-erasure-request-create`, `player-profile-erasure-request-confirm`, `player-profile-erasure-request-cancel` | Separately authorize, confirm or cancel an exact managed-player erase request |
 
 ## Current tool inputs
 
@@ -34,17 +40,29 @@ Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-re
 | `my-sessions-list` | Read own device sessions | No parameters beyond the envelope above |
 | `my-session-revoke` | Sign out one exact other own session | `pathParams.id`, a UUID returned by the own-session list |
 | `my-other-sessions-revoke` | Sign out all own sessions except the assistant's | `query.scope: "others"` |
+| `my-login-history-list` | Read up to 50 own login events | No parameters beyond the envelope above |
+| `my-assistant-activity-list` | Read own assistant activity from the last 90 days | `query: {}` for the first page; optional `query.limit` from 1–100. Further pages use both exact `beforeAt` and `beforeId` from returned `nextCursor` |
+| `my-blocked-people-list` | Read own blocked people's names/IDs, nullable for unavailable accounts | No parameters beyond the envelope above |
+| `my-person-blocks-list` | Read own blocked account `profileId` values and `blockedAt` times | No parameters beyond the envelope above |
+| `person-block`, `person-unblock` | Block or Unblock one exact identified account as the signed-in person | Only `body.profileId`, the exact account UUID; no target caller ID |
+| `my-player-profiles-list` | Read managed-player names/IDs for selection | No parameters beyond the envelope above |
+| `player-profile-erasure-status-read` | Read the latest erase request visible to this manager | `pathParams.id`, the exact managed-player profile UUID |
+| `player-profile-erasure-request-read` | Read one known exact request, never fall back to latest | `pathParams.id` and `pathParams.requestId`, the exact known profile/request UUID pair |
+| `player-profile-erasure-request-create` | Authorize one managed-player erase request for 15 minutes, not schedule it | `pathParams.id`; `body.requestId`, a newly generated UUID for this deliberate request |
+| `player-profile-erasure-request-confirm` | Separately confirm the exact authorized request | `pathParams.id` and `pathParams.requestId`; no body, dates or effects list |
+| `player-profile-erasure-request-cancel` | Cancel one exact managed-player request | `pathParams.id` and `pathParams.requestId`; no body |
 
-`my-profile-update` can also accept an own phone change/clear or explicit photo removal, but this skill deliberately covers name only. Do not include those fields in a name save. Its answer and `my-profile-read` expose only ID, name and version; no email, phone or photo. Appearance settings other than the time zone, player erasure and ownership transfers are also outside this workflow.
+`my-profile-update` can also accept an own phone change/clear or explicit photo removal, but this skill deliberately covers name only. Do not include those fields in a name save. Its answer and `my-profile-read` expose only ID, name and version; no email, phone or photo. Other appearance settings and role handovers are done in the app; use `/hype:notification-settings` for Quiet Hours and notification switches. Supporter-ring changes use `/hype:my-support`.
 
 ## Availability and exclusions
 
 - Account tools remain subject to the live connection's admission and access checks.
 - The password hand-off returns the app's own Settings link alongside permitted route tools. Only the person opens it.
 - Device-bound account cleanup and password submission are app-only, not missing assistant tools to invent or direct routes to call. Passwords never enter the assistant. Own-account deletion confirmation likewise stays with the person's separate email-linked confirmation button; this skill never handles its link/token or executes erasure.
-- Request/cancel/status behavior is caller-only. Deletion ownership checks cover Club, League, Team and Tournament. A missing or unreadable waiting list is unknown, and an empty list is not erasure clearance.
+- Own-account deletion is caller-only. Starting a request requires leaving or handing over every Team staff, League staff, Division Admin, Club Admin and Tournament Admin role. The assistant's held-role refusal returns `ACCOUNT_HAS_ROLES` without blocker details. Explain before an app handoff: its **Delete account** action is a real request; if roles remain, the attempt is refused and lists every role, but if none remain it starts the request and sends the confirmation email. Never reconstruct the list. The status tool's advisory `waitingFor` list covers Team, League, Club and Tournament ownership only, not all held-role blockers. Missing or unreadable is unknown; empty is not erasure clearance.
+- Managed-player erasure is separate from own-account deletion. Only a current managing parent/guardian may use it; viewer, follower, friend, coach or staff access alone is not enough. Unscheduled requests remain tied to the original requester, their same open management stint and unchanged captured links. Confirmation requires that original requester/stint. Scheduled requests can be read or, before due and subject to server checks, canceled by another current manager. `canCancel` is display information, not approval or authority.
 - Profile and session writes forbid automatic follow-up reads; deletion request/cancel do too. Stop on an unclear result, get a separate request to read again, then ask before any newly proposed change. No lost-result retry or automatic action chain.
 
 ## Data handling
 
-The plugin adds no service or credential store. Only the signed-in person's limited identity, preferences, own-device details and deletion status needed for the job enter the private conversation. Do not publish them or write them into this repository; do not retain credentials or confirmation links. The assistant client's handling applies to the conversation.
+The plugin adds no service or credential store. Keep only the requested own-account, history, block-list or managed-player request details in the private conversation. Do not publish them or write them into this repository; do not retain credentials or confirmation links. The assistant client's handling applies to the conversation.
