@@ -2,6 +2,13 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+- Clubs and Tournaments: list your administered Tournaments, cancel waiting Club Admin offers, remove another Club Admin and edit saved Tournament Rules after your separate yes. Tournament Admin removal stays in the app.
+- Read and edit Club Overview sections with current permissions, exact previews and separate approval, including clear permanent-deletion effects and no automatic retries or follow-up reads after saving.
+- Align the tool reference and examples with current tools, remove stale tool counts and shorten repeated guidance without changing release versions.
+
 ## 0.1.58 - 2026-11-13
 
 ### Added
