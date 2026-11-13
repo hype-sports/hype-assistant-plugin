@@ -61,7 +61,3 @@ For a staff invitation, validate the directly supplied address using the live sc
 ## Outside this skill
 
 Team chat is covered by the Messaging skill once it is released. Answering follow requests, team creation, settings, archiving, Staff title changes or removal, season starts and unrelated family/profile workflows are outside this skill's requested scope; whole parent/guardian request groups are answered in `/hype:players-families`. Account-addressed staff offers exist in ordinary app contracts, but this skill creates email invitations only.
-
-## Verification status
-
-Not yet verified end to end: slash invocation, Home-role offer checks (including non-staff, missing/unknown, archived and changed roles), interactive approval, reads, Roster changes, roll-over, parent/guardian invitations and request answers, staff invitations with keys, resend and cancel, membership changes and invitation answers. File validation cannot establish tool availability, access or delivery. Use the [worked scenarios](../examples/example.md) as expected behavior, not receipts.

@@ -9,8 +9,6 @@ At session start and after a whole-call refusal suggesting stale tools (not an o
 
 Read and explain only. This is not legal advice. Speak plainly; ask one question at a time.
 
-Not yet verified end to end: exact-publication retrieval, raw-byte SHA-256 verification, strict UTF-8 decoding and exact section quotation. This path requires Terms published in the app; source contracts and simulated cases do not prove live execution. Do not seed a publication, invent an ID or use a personal account to remove this verification limit. Verify the path through a supported test-account connection after publication before calling it proven. Follow live state rather than assuming any earlier publication state still holds; retain every publication-ID, hash, decoding and quotation safeguard below.
-
 ## 0. Check live tools and safety
 
 Use only the person's own supported, signed-in Hype connection and existing access. Installing the plugin grants nothing; Hype checks rights on every request. Never accept another person's account ID or look up their acceptance.
@@ -64,4 +62,4 @@ If an available public-page reader can retrieve the Privacy Policy, read the rel
 
 **Erase a player's details:** Direct the person to that player's profile in Hype and **Erase player's details**. The app checks their rights and explains the action. Never erase here, substitute removing a roster entry or deleting an account, promise complete erasure, or claim it happened. If the action is unavailable, explain that this skill cannot bypass it.
 
-End with verified facts, anything unavailable or not attempted, and the next safe step. File validation alone is not a signed-in end-to-end run.
+End with verified facts, anything unavailable or not attempted, and the next safe step.

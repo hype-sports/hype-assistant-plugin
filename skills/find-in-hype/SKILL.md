@@ -9,8 +9,6 @@ At session start and after a whole-call refusal suggesting stale tools (not an o
 
 Help the person get to the right screen, not change it for them. Speak plainly and ask one question at a time. Keep this skill read-only: no saves, settings changes, favorites changes, messages, invitations or problem-report submissions.
 
-This Preview skill is not yet verified end to end in a signed-in session.
-
 ## 1. Choose the narrowest route
 
 Read the [tool inputs and real screen paths](references/reference.md) first. For a general screen request, give the matching direction/link without reading personal records or requiring sign-in just to explain navigation. For “where do I change the theme,” point to Settings → Preferences → Theme; do not read or change preferences. For a specific team, league, division, club, tournament or player profile link, follow section 2.
@@ -44,4 +42,4 @@ Present the screen link for the person to open themselves, with a short in-app d
 
 For “Report a problem,” point to Settings → Report a problem, just above Sign out. This is a permanent app action on phones and the app's web version: it opens a prepared email for the person to review, finish and send themselves. Do not open or submit it, claim delivery or invent a reporting endpoint. If the control is missing, suggest updating the app; do not promise another reporting route. If it fails, explain that the handoff did not work. Do not call reporting a pre-launch feature. Offer help wording a short description of expected versus actual behavior without collecting passwords, tokens, account details, private messages or children's information.
 
-End with the requested destination/link, any unresolved selection or refusal, and anything not attempted. Do not change connected-assistant settings or claim the Preview skill has passed a live journey.
+End with the requested destination/link, any unresolved selection or refusal, and anything not attempted. Do not change connected-assistant settings.

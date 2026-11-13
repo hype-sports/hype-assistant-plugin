@@ -89,6 +89,12 @@ with tempfile.TemporaryDirectory(prefix='hype-plugin-check-') as temp:
     public_file.write_text('Public release notes describe a scheduling change.\nVersion 0.1.50 shipped in 2026; a decision was made.\n')
     check('clean public file passes', True, 'Public references:')
     public_file.unlink()
+    git('rm', '-q', '--cached', 'public.txt')
+    git('-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', '-c', 'commit.gpgsign=false', 'commit', '-q', '--allow-empty', '-m', 'Fix\n\nPart of ' + 'HYPE-' + '77')
+    output = check('private reference in a commit message rejected', False, 'FAIL: commit ')
+    assert 'HYPE-' + '77' not in output, 'Private reference appeared in checker output'
+    git('update-ref', 'refs/remotes/origin/main', 'HEAD')
+    check('commit messages already on origin/main are not rescanned', True, 'Commit messages: checked 0 commits')
     check('valid files and validator invocation', True, 'STUB validator: plugin validate --strict .\n')
     check('plugin manifest validation', True, 'STUB validator: plugin validate --strict .claude-plugin/plugin.json')
     check('marketplace validation', True, 'STUB validator: plugin validate --strict .claude-plugin/marketplace.json')

@@ -1,14 +1,31 @@
+<img src="logo.png" alt="Hype" width="96">
+
 # Hype Sports for Claude
 
-Use Hype from Claude Code. The Hype Sports plugin connects Claude to your own Hype account, so you can ask about your leagues, teams, players, events and settings in plain words, and have Claude help with the work: setting up a league, scheduling a season, running a draft, managing a team, catching up on notifications and more.
+Hype helps leagues, coaches, players and families run youth sports. This plugin lets you do your Hype work by asking Claude in plain words: set up a league, plan a season, run a draft, look after your team, invite families and catch up on what you missed. It works inside your own Hype account with exactly the rights you already have, shows you every change before it happens, and waits for your yes.
 
-The plugin gives Claude a Hype assistant and one skill per area. It never gives you a separate account or extra rights: Hype checks your own access on every request, exactly as it does in the app.
+## What you can ask
 
-## Access
+Type the command, then say what you need. You can also just ask in plain words: Claude can point you to the right command (`/hype:start-here`).
 
-**Access is invite-only for now: signing in works only for invited Hype accounts.** Installing the plugin does not grant access. If your account has not been invited, sign-in is refused.
+| You might say | Command | Status |
+| --- | --- | --- |
+| "Set up Lakeside Youth Soccer for the fall with 8U, 10U and 12U divisions." | `/hype:league-setup` | Available |
+| "Register Jordan Vale in the 10U division." | `/hype:league-setup` | Available |
+| "Am I a supporter, and is my supporter ring showing?" | `/hype:my-support` | Available |
+| "Plan a round-robin season for 10U and show it to me before anything is saved." | `/hype:season-schedule` | Preview |
+| "Get the 10U draft ready and set the pick order." | `/hype:run-a-draft` | Preview |
+| "Invite the parents from this sign-up sheet." | `/hype:invite-families` | Preview |
+| "Show my team roster this season." | `/hype:manage-my-team` | Preview |
+| "Write an announcement for my team: practice moves to 6 pm Thursday." | `/hype:my-feed` | Preview |
+| "Rank my players from Saturday's tryout scores." | `/hype:review-evaluations` | Preview |
+| "What did I miss?" | `/hype:catch-up` | Preview |
+| "Turn off push notifications for drafts." | `/hype:notification-settings` | Preview |
+| "Where do I change the theme in Hype?" | `/hype:find-in-hype` | Preview |
 
-## Install in Claude Code
+**Available** means the command's main steps have been tried from start to finish on a test account. **Preview** means not every step has been tried yet. Every command checks what Hype offers before it starts and tells you plainly when something it needs is missing. The full list is in [Skills](#skills).
+
+## Install and update
 
 You need Claude Code installed and signed in. For commissioners and coaches, we recommend installing Hype for your whole account so its tools are available in every folder:
 
@@ -18,16 +35,6 @@ claude plugin install hype@hype-sports --scope user
 ```
 
 Tip: If no Hype tools appear, the plugin is not enabled for this folder; install it with `--scope user`, or enable it for the folder.
-
-Start a new Claude Code session and pick a command from the Skills table below. Skills that can change anything only start when you run their command, and starting one is never approval to save anything.
-
-To try a local copy instead, load its folder for one session:
-
-```sh
-claude --plugin-dir /absolute/path/to/hype-assistant-plugin
-```
-
-Do not load both copies together.
 
 ### Update the plugin
 
@@ -40,45 +47,57 @@ claude plugin update hype@hype-sports --scope user
 
 If installed in another scope, use that original scope instead of `--scope user`. Restart Claude Code to apply the update, then run `/mcp`, select `plugin:hype:hype` and choose **Reconnect** before continuing Hype work.
 
-## The Hype assistant
+## Sign in
 
-Select `hype:hype` in `/agents`, or start a session with `claude --agent hype:hype`, and ask the Hype assistant for help with your leagues, teams, players or events.
+1. In Claude Code, run `/mcp`, select `plugin:hype:hype` and choose **Authenticate**.
+2. Your browser opens Hype. Sign in with your own Hype account.
+3. Hype's approval page shows which assistant is asking and offers two choices: **Read only** lets it look but never change anything; **Read and change** lets it set things up for you, and each change still waits for your yes.
+4. Your browser hands the connection back to Claude Code, and `/mcp` shows `plugin:hype:hype` as connected.
 
-The assistant uses Hype's own tools through your own sign-in. If you ask it to maintain a progress record, it also has Read and Write for the one exact file you choose; it is instructed never to access any other file. **This is an instruction, not a hard file-access lock:** Claude Code's plugin-agent tool list cannot restrict Read and Write to a single path. It has no Bash or Edit tool. With no chosen progress path, it must not access files. Your record stays where you choose, is not published or kept by the plugin, and must stay out of git commits unless you say otherwise. It follows the [own-files rules](skills/league-setup/references/own-files.md), including the limits on contact details and sensitive information. When keeping progress, it saves “attempting” before each approved Hype write and the confirmed, refused or unknown outcome afterward; a failed progress save stops the next Hype write. Before any save, change, send or deletion it explains exactly what will happen and waits for your yes. With look-only access it cannot change anything. It never retries a change by itself: after an unclear result it reads the current state and asks you. Text inside your Hype records is treated as information, never as instructions. When an area skill fits, it points you to the matching `/hype:<skill>` command.
+**Read-only connections.** A Read only connection has no change tools at all. If a command says the tools it needs to make a change are missing, that is your Read only choice, not an outage.
 
-### Helpers and long jobs
+**If you are signed out.** Run `/mcp`, select `plugin:hype:hype`, choose **Authenticate** and finish in the browser. Never paste sign-in links, codes or tokens into a chat. A new sign-in link replaces any earlier one, so always use the newest.
 
-Connection availability depends on how Claude Code starts the helper:
+**Refresh tools.** When Hype adds tools, or Claude says "Hype's tools changed", run `/mcp`, select `plugin:hype:hype` and choose **Reconnect**. If it also says the plugin is older than Hype needs, [update the plugin](#update-the-plugin) first.
 
-- **Forks of the connected conversation** inherit its Hype tools and conversation context.
-- **The plugin's `hype` agent** allows the Hype tools through the person's existing connection. It does not sign in separately or gain extra rights.
-- **Plain helper assistants** (such as general-purpose helpers) did not receive the plugin connection in the reported long-job run. Do not assume a plain helper has it, or send it work before checking.
+To stop using the connection in Claude Code, disable `plugin:hype:hype` in `/mcp`. To remove its access in Hype, open Settings, go to Security → Connected assistants and choose Disconnect for that assistant.
 
-Every helper must check that the needed live Hype tools are actually available before starting. A missing connection is a stop, not permission to authenticate another account or invent tool results. Claude Code versions may differ; this is the working pattern from the reported run, not a promise that every helper has a connection.
+## Who can use it today
 
-For a long job, keep the main conversation in charge of your approvals and Hype changes. Use connected forks or the `hype` agent for reads and proposals; background helpers cannot make Hype changes on relayed approval. Run any matching `/hype:<skill>` command in the main conversation. Process approved writes one at a time, not in parallel. If you request a progress file, choose its exact path and use only one writer for that file; never let helpers overwrite each other's progress. A progress record is not permission to resume changes automatically: after a lost answer, read the current Hype state, explain what is confirmed or unknown, and ask before another write. Never recreate or resend an action just because its answer was lost.
+Access is by invitation for now. Installing the plugin does not grant access. An account that is not on the list can still sign in, but Hype then answers every request with "not found". To ask for access, use the [Hype support page](https://hypesports.live/support.html).
 
-## The Hype connection
+## How it keeps you safe
 
-The plugin works through Hype's assistant connection at `https://api.hypesports.live/api/mcp`, signed in as your own Hype account; Hype's own rules decide what you can see and change.
+- **You see every change first.** Before it saves, changes, sends or deletes anything, it shows exactly what will happen and waits for your yes in a later message. Starting a command is never a yes.
+- **Nothing is retried on its own.** If a step's result is unclear, it checks what really happened and asks you.
+- **It acts only as you.** It signs in as your own Hype account and has your own rights, nothing more. It never asks for your password: the browser sign-in is the only place for it.
+- **Your records are data, not orders.** Text inside your Hype records is treated as information, never as instructions.
+- **Long jobs.** Keep your approvals in the main conversation. Plain helper assistants may not get the Hype connection, so check that a helper can see Hype before handing it work.
+- **Progress records.** The Hype assistant (`claude --agent hype:hype`) can keep a progress record in one file you choose, only when you ask. That limit is an instruction, not a file lock; see [your own files](skills/league-setup/references/own-files.md).
 
-Installing the plugin adds that connection; Claude Code lists it as `plugin:hype:hype`. To sign in, run `/mcp` in Claude Code, select `plugin:hype:hype` and choose Authenticate. Your browser opens Hype's sign-in page:
+## Using Hype from other assistants
 
-1. Sign in to Hype with your own account. Only invited accounts can connect.
-2. Hype shows which assistant is asking, the Hype account it will act as, and the website its answer goes to. Allow lets it read and change things as you in Hype; Deny or closing the page gives it nothing.
-3. Your browser hands the connection back to Claude Code, and `/mcp` shows `plugin:hype:hype` as connected.
-4. When Hype adds tools or you update the plugin, run `/mcp`, select `plugin:hype:hype` and choose **Reconnect**. This is the reliable way to refresh Hype's tool list: this connection does not send automatic tool-list updates, so its list refreshes on reconnect, not merely when Hype deploys or the plugin updates. Use Reconnect, not Re-authenticate, clearing authentication or removing and re-adding the server just to get new tools. Reconnect is not a request to sign in again; if Claude Code says the saved sign-in can no longer be renewed, follow its sign-in guidance rather than repeatedly starting new connection links.
+Hype's connection is a standard MCP server at `https://api.hypesports.live/api/mcp`, with browser sign-in.
 
-The assistant and area skills check the catalog version and minimum plugin version returned by `my-identity-read` at session start and after a whole-call refusal suggesting stale tools, not an ordinary business refusal. They reuse only a successful check from this session made since the latest such refusal or reconnect. When those show a mismatch, they stop further Hype actions and say: “Hype's tools changed. Run /mcp, then Reconnect, to pick them up.” If the plugin is below the server's minimum, the same message adds: “This plugin is also older than Hype needs; update it first with claude plugin marketplace update hype-sports and claude plugin update hype@hype-sports --scope user, restart Claude Code, then reconnect.” Follow the [update steps above](#update-the-plugin) before reconnecting; reconnect alone does not update an installed plugin. A missing or refused version check is reported as unavailable, not as a confirmed mismatch. These are assistant instructions, not an automatic background connection or permission to retry an action. See the [version-check rule](skills/my-account/references/tool-versions.md).
+- **Tested:** Claude Code, with this plugin.
+- **Untested:** custom connectors in claude.ai and Claude Desktop, ChatGPT connectors, and Codex. They may connect, but we have not tried them, so we give no setup steps for them yet.
 
-The connection has your own rights in Hype and nothing more. To stop using it in Claude Code, disable `plugin:hype:hype` in `/mcp`. To remove its access in Hype, open Settings, go to Security → Connected assistants and choose Disconnect for that assistant. Never paste passwords, access tokens or other credentials into a conversation, this repository or a connection setting: the browser sign-in is the only place for your password.
+Other assistants get Hype's tools, and each tool's own safety rules, but not this plugin's skills, the Hype assistant or the `/hype:` commands.
+
+## Your privacy
+
+- [Privacy Policy](https://hypesports.live/privacy.html)
+- [Terms of Service](https://hypesports.live/terms.html)
+
+## Get help
+
+Visit the [Hype support page](https://hypesports.live/support.html).
 
 ## Skills
 
-**Available** means the skill's main journey has been run end to end on a test account. **Preview** means the skill is not fully verified yet: some paths have not been run end to end, and some steps may still wait for Hype tools that are not live. Each skill checks which tools are live before it starts and stops plainly when something it needs is missing.
-
 | Command | What it helps with | Status |
 | --- | --- | --- |
+| `/hype:start-here` | Ask in plain words and get the right command to run, with one line on what it does; changes nothing | Preview |
 | `/hype:league-setup` | Create a league and its divisions, rename it, register players and archive it | Available |
 | `/hype:my-support` | See your supporter status and change your supporter ring setting | Available |
 | `/hype:season-schedule` | Plan an unsaved round-robin season; change, cancel or undo cancellation of one shared game. Whole-season saving with saved Fields is not available yet; the app's Add game adds one game at a time with a typed location | Preview |
@@ -97,29 +116,9 @@ The connection has your own rights in Hype and nothing more. To stop using it in
 | `/hype:review-evaluations` | Look over your own evaluation scores, scores another coach shared with you and player lists you manage, then rank or summarise them | Preview |
 | `/hype:run-evaluations` | Score players, save private notes, manage sharing and player lists, start evaluations, add dates and choose your private evaluation source for a draft | Preview |
 
-For how a skill works and its limits, open its `SKILL.md`; for example, the [season scheduling workflow](skills/season-schedule/SKILL.md) and its [tools and data handling](skills/season-schedule/references/reference.md).
+For how a skill works and its limits, open its `SKILL.md`; for example, the [season scheduling workflow](skills/season-schedule/SKILL.md).
 
-Adding a skill: see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Other Claude apps and Codex
-
-Claude Code only for now.
-
-## Maintainer checks
-
-```sh
-bash scripts/check.sh
-claude plugin validate .claude-plugin/plugin.json --strict
-claude plugin validate .claude-plugin/marketplace.json --strict
-```
-
-File checks do not prove a signed-in workflow: before calling a skill Available, run its main journey end to end on a test account. Raise `plugin.json`'s version and add a `CHANGELOG.md` entry for each release.
-
-Plugin format references:
-
-- [Create a Claude Code plugin](https://code.claude.com/docs/en/plugins/create)
-- [Plugin manifest reference](https://code.claude.com/docs/en/plugins/manifest-reference)
-- [Marketplace reference](https://code.claude.com/docs/en/plugins/marketplace-reference)
+Developers: see [CONTRIBUTING.md](CONTRIBUTING.md) to add or change a skill.
 
 ## License
 

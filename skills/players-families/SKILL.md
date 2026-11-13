@@ -105,5 +105,3 @@ Every save/change/send requires the person's request, a review of the exact targ
 - Respect `Retry-After` or validated `retryAfterSeconds`; ask before resuming, never retry automatically, except the reviewed-batch rule's confirmed 429 wait. Stay below 60 MCP POSTs per rolling minute per account, shared with discovery and other sessions. No polling loops.
 
 End with confirmed actions, pending offers, refusals, unknown outcomes and anything not attempted. Do not claim a link, invite or acceptance completed without its confirmed result. Read the [short linking example](examples/example.md) for a review-and-yes conversation.
-
-Not yet verified end to end: remaining parent/guardian reads, populated invitation-row email hiding (`inviteeEmail: null`), invitation answers, linking, sport updates, coach steps, league-staff writes, installed-plugin invocation and later-turn confirmation for each write. Keep every approval requirement; file checks alone do not prove live behavior.

@@ -4,7 +4,7 @@ description: 'This skill should be used when the person asks to invite parents/g
 disable-model-invocation: true
 ---
 
-# Invite families — Preview
+# Invite families
 
 At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
@@ -53,5 +53,3 @@ Follow [the person's chosen progress record](../../agents/hype.md#the-persons-ch
 ## 6. Final summary
 
 End with actual counts and source/write-row labels for **done / skipped / failed / unknown / not attempted**, without contact values. Report invitations and emergency contacts separately; distinguish confirmed replies from current-state verification and skips from done. List parents missing phones, unpaired registrations and any other omitted contact actions with their reasons. Never claim contacts were saved merely because invitations were sent.
-
-Not verified end to end: installed invocation, live batch/contact tools, direct approval, sends, roster pairing, add-only saves, allowance handling, resume/replay and final readbacks. File checks do not prove live behavior; keep Preview until the main journey is verified.

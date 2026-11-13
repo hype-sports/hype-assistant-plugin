@@ -45,8 +45,6 @@ Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-re
 - Request/cancel/status behavior is caller-only. Deletion ownership checks cover Club, League, Team and Tournament. A missing or unreadable waiting list is unknown, and an empty list is not erasure clearance.
 - Profile and session writes forbid automatic follow-up reads; deletion request/cancel do too. Stop on an unclear result, get a separate request to read again, then ask before any newly proposed change. No lost-result retry or automatic action chain.
 
-## Data handling and verification
+## Data handling
 
 The plugin adds no service or credential store. Only the signed-in person's limited identity, preferences, own-device details and deletion status needed for the job enter the private conversation. Do not publish them or write them into this repository; do not retain credentials or confirmation links. The assistant client's handling applies to the conversation.
-
-Treat both strict plugin validations as file-structure checks only. Do not call this a working signed-in journey until an end-to-end test-account run is separately verified; installing it does not enable assistant sign-in or change deployment restrictions.

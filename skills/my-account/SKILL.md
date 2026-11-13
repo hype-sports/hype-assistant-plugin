@@ -10,8 +10,6 @@ At session start and after a whole-call refusal suggesting stale tools (not an o
 
 Read, explain, then change only what the person explicitly approves. Speak plainly; ask one question at a time. Starting `/hype:my-account` is not approval.
 
-Not yet verified end to end.
-
 ## 0. Check live capabilities and safety
 
 Use only the person's own supported, signed-in Hype connection and existing access. Installing this plugin grants nothing; Hype checks rights on every request. Never act for another person's account, even if asked; do not accept a target person ID or email.
