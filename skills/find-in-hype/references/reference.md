@@ -11,7 +11,6 @@ Use only the lookup for the requested record. All inputs below use operation cat
 | `my-home-entities-list` | `{ "catalogVersion": 1, "query": {} }`; optionally put `search: "Cedar Comets"` and/or `includeArchived: "true"` inside `query`. Both filter values are strings, not booleans. No `pathParams` or `body` | `entities`, `currentSeason`, `seasons`. Each entity has `id`, `type` (`team`, `league`, `division`, `club` or `tournament`), `name`, `season`, `sport`, nullable `ageGroup`/`gender`, `userRoles`, `isFavorited` and optional parent IDs, `teamTitle`, `archivedAt`. The projection omits photos, contact details and staff lists. Search discovers caller-readable records; a result does not establish membership or editing rights. This is not the whole app Home screen or a complete directory, and has no pagination cursor. |
 | `my-tournaments-list` | `{ "catalogVersion": 1, "query": {} }`; for a requested next page, put the returned `nextCursor` unchanged in `query.after`. No search, archived filter, `pathParams` or `body` | `tournaments` with `id`, `name`, `sport`, nullable `city`/`state`; `nextCursor` and `hasTeams`. Only current accepted Admin tournaments, including private and ended tournaments; up to 50 per page. Not a public directory or authority over their teams or clubs. |
 | `my-player-profiles-list` | `{ "catalogVersion": 1 }`. No `query`, `pathParams` or `body` | `players` with only `id`, `firstName`, `lastName`: the caller's managed player profiles, excluding hidden profiles. No pagination or name search. Do not fetch a profile or contacts just to make a link. |
-| `my-followed-player-profiles-list` | `{ "catalogVersion": 1, "query": {} }`; optional `query.limit` from 1–100 (default 50); for a requested next page, put the returned `nextCursor` unchanged in `query.after`. No name search, `pathParams` or `body` | `players` with `id`, `displayName` and parent-chosen `teamNames`, plus `nextCursor`. Only currently accepted profile follows; no photos, contacts, birth dates or team-opening rights. Do not substitute the richer managed-player lookup for a refused follow read. |
 
 For paged tools, `nextCursor: null` means the last page. Do not fetch further pages automatically. Compare names locally within the returned page; a missing match is not proof that the record does not exist.
 
@@ -26,7 +25,7 @@ For the public Hype app, use `https://hypesports.live` followed by one of these 
 | Messages | `/messages` | Main Messages tab; open the conversation list in the app, without guessing a conversation ID |
 | Events | `/events` | Main Events tab; open the calendar, without guessing an event ID |
 | Settings | `/settings` | Tap the profile picture in the shared header, not a main Settings tab |
-| Notifications | `/notifications` | Tap the header bell; on a computer its preview's See all opens the full list. Notification summaries and read-status changes belong to `/hype:catch-up` |
+| Notifications | `/notifications` | On phones, tap the header bell to open the full list. On a computer, tap the bell, then the arrow under the list. Notification summaries and read-status changes belong to `/hype:catch-up` |
 | Players | `/players` | Open the player list; Home also has a Players section |
 | Appearance | `/settings?tab=preferences` | Settings → Preferences → Theme; change it in the app |
 | Notification settings | `/settings?tab=notifications` | Settings → Notifications; changes belong to `/hype:notification-settings` |
@@ -44,9 +43,9 @@ Map only a selected returned record to its detail path:
 | Home entity `division` | `/divisions/{id}` |
 | Home entity `club` | `/clubs/{id}` |
 | Home entity `tournament`, or `my-tournaments-list` tournament | `/tournaments/{id}` |
-| Managed or followed player profile from its dedicated list | `/players/{id}` |
+| Managed player profile from `my-player-profiles-list` | `/players/{id}` |
 
-Encode the returned ID as one URL path segment. Do not use record names as paths, substitute parent IDs, generate IDs or add unverified query parameters. Do not construct paths for unknown types. Player profiles are separate from team roster entries and league registrations: never put those IDs in `/players/{id}` or guess the contextual `/players/details` parameters. For those records, open the team's Roster or league/division's Players screen in the app. These are record-detail links, not a promise to reproduce every Home-row shortcut or open a past-season card. Invitation, chat, event and draft deep links are left to their app screens or matching workflow commands.
+Encode the returned ID as one URL path segment. Do not use record names as paths, substitute parent IDs, generate IDs or add unverified query parameters. Do not construct paths for unknown types. Player profiles are separate from team roster entries and league registrations: never put those IDs in `/players/{id}` or guess the contextual `/players/details` parameters. For those records, open the team's Members tab (Players filter) or league/division's Players tab in the app. For a player the person follows, the app has no screen for that yet: explain this, give no link and do not run a player lookup. These are record-detail links, not a promise to reproduce every Home-row shortcut or open a past-season card. Invitation, chat, event and draft deep links are left to their app screens or matching workflow commands.
 
 ## App-only actions and workflow handoffs
 

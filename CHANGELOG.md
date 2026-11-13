@@ -4,10 +4,13 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## Unreleased
 
+### Added
+- Add tournament and managed player-profile links with read-only record selection, explicit page requests and no guessed IDs.
+
 ### Fixed
 - Correct `find-in-hype` directions: Home, Feed, Messages and Events are the main tabs; Settings and Notifications open from the header.
-- Add tournament and managed/followed player-profile links with read-only record selection, explicit page requests and no guessed IDs.
-- Name the existing workflow commands, keep app-only actions in the app, and describe Report a problem as a permanent prepared-email handoff rather than a pre-launch option.
+- Keep followed players out of profile-link lookups, direct team player requests to Members (Players filter), and describe the notification arrow under the list.
+- Name the existing workflow commands, keep app-only actions in the app, and describe Report a problem as a permanent prepared-email handoff rather than a pre-launch option. Suggest updating the app if the control is missing, and keep the signed-in Preview warning.
 
 ## 0.1.53 - 2026-11-13
 
