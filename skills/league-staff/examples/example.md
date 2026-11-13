@@ -6,7 +6,7 @@ Use these invented scenarios as guidance, not a live-run record. Do not copy con
 
 The person asks to invite Alex Example as Commissioner of Riverside Youth League. Resolve the exact league and current staff through authorized reads. Ask for the address directly, without account lookup. Prepare only `title: "commissioner"`, `makeOwner: false` and the supplied address for that league.
 
-Before writing: explain that the offer grants no access until Alex accepts in Hype, attempts email, and replaces an older pending offer to the same address. Echo the supplied address only to the caller who entered it in this immediate approval, or use its unambiguous supplied-address reference. Ask for an explicit yes in a later turn to this exact invitation. Only then get a fresh key from `request-key-new` and call once with it as `idempotencyKey`.
+Before writing: explain that the offer grants no access until Alex accepts in Hype, attempts email, and replaces an older pending offer to the same address. Apply [Contact privacy](../SKILL.md#contact-privacy), or use an unambiguous supplied-address reference. Ask for an explicit yes in a later turn to this exact invitation. Only then get a fresh key from `request-key-new` and call once with it as `idempotencyKey`.
 
 A result with an invitation ID and `email: "not_sent"` means: “Alex is invited, waiting for their answer. The invitation was created, but email was not sent.” Do not invite again to fix delivery. Do not say “Alex was added.”
 
