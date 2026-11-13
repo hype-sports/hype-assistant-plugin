@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Manage Clubs and Tournaments
 
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Run `/hype:clubs-and-tournaments` only when the person starts it. Speak plainly and ask one question at a time. Use only their own signed-in Hype connection and existing access; installing the plugin grants nothing. Hype checks rights on every request. Starting the skill is not approval for any change.
 
 ## Check the live tools first
@@ -40,7 +42,7 @@ Read the relevant reference section and live schema before preparing fields. Do 
 
 Show the exact action, scope, target and all effects in plain words before **every** save, change or send call. Wait for the person's explicit yes to that exact action. Invocation, an initial request, a supplied address, silence or approval of another action is not consent. Changed fields, target or scope need a new preview and yes. No batch or parallel changes.
 
-Use only approved fields and the full live tool name. Keep confirmed actions, waiting offers, refusals, unknown outcomes and unattempted steps separate. Never copy contacts/private inputs into notes, files, reports or other services. See [worked decisions](examples/conversations.md).
+Use only approved fields and the full live tool name. Keep confirmed actions, waiting offers, refusals, unknown outcomes and unattempted steps separate. Never copy contacts into reports or other services. For the person's own files and progress record, follow [Your own files stay where you keep them](../league-setup/references/own-files.md). Do not copy private inputs into reports. See [worked decisions](examples/conversations.md).
 
 ## Unclear outcome: re-check, never resend
 

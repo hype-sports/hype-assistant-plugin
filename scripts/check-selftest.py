@@ -1,17 +1,40 @@
 #!/usr/bin/env python3
 """Exercise the offline checker in an isolated repository with no Hype data."""
 import os
+import json
+import runpy
 from pathlib import Path
 import shutil
 import subprocess
 import tempfile
 
 source = Path(__file__).with_name('check.sh')
+compatibility = runpy.run_path(str(source.with_name('tool-versions.py')))
+for label, catalog, minimum, installed, expected in (
+    ('older plugin needs update and reconnect notice', 1, '0.1.48', '0.1.47', compatibility['NOTICE'] + '\n' + compatibility['UPDATE_NOTICE']),
+    ('older plugin and different catalog need update and reconnect', 2, '0.1.48', '0.1.47', compatibility['NOTICE'] + '\n' + compatibility['UPDATE_NOTICE']),
+    ('current plugin has no notice', 1, '0.1.48', '0.1.48', ''),
+    ('newer plugin has no notice', 1, '0.1.48', '0.1.49', ''),
+    ('different catalog needs notice', 2, '0.1.48', '0.1.48', compatibility['NOTICE']),
+    ('numeric version order', 1, '0.1.10', '0.1.9', compatibility['NOTICE'] + '\n' + compatibility['UPDATE_NOTICE']),
+):
+    assert compatibility['reconnect_notice'](catalog, minimum, installed) == expected, label
+    print(f'PASS: {label}')
+for catalog, minimum in ((True, '0.1.48'), (0, '0.1.48'), (None, '0.1.48'), (1, None), (1, 'bad')):
+    try:
+        compatibility['reconnect_notice'](catalog, minimum, '0.1.48')
+    except ValueError:
+        pass
+    else:
+        raise AssertionError('Missing/malformed versions must be unavailable, not compatible or stale')
+print('PASS: missing or malformed version facts are unavailable')
 with tempfile.TemporaryDirectory(prefix='hype-plugin-check-') as temp:
     root = Path(temp)
-    for folder in ('scripts', '.claude-plugin', 'skills/example', 'tools'):
+    for folder in ('scripts', '.claude-plugin', 'skills/example', 'skills/my-account/references', 'agents', 'tools'):
         (root / folder).mkdir(parents=True)
     shutil.copyfile(source, root / 'scripts/check.sh')
+    shutil.copyfile(source.with_name('tool-versions.py'), root / 'scripts/tool-versions.py')
+    version_paths = (root / 'agents/hype.md', root / 'skills/my-account/references/tool-versions.md')
     for command in ('bash', 'dirname', 'git', 'python3'):
         (root / 'tools' / command).symlink_to(shutil.which(command))
     env = {k: v for k, v in os.environ.items() if not k.startswith('GIT_')}
@@ -23,6 +46,7 @@ with tempfile.TemporaryDirectory(prefix='hype-plugin-check-') as temp:
     (root / '.claude-plugin/marketplace.json').write_text('{}\n')
     skill = root / 'skills/example/SKILL.md'
     good_skill = '---\nname: example\ndescription: "A sample: quoted description."\n---\n'
+    good_skill += '\n[tool-version check](../my-account/references/tool-versions.md)\n'
     skill.write_text(good_skill)
     readme = root / 'README.md'
     good_links = '[Skill](skills/example/SKILL.md)\n[Again][skill]\n[skill]: skills/example/SKILL.md\n`[code](missing.md)`\n```md\n[code](missing.md)\n```\n'
@@ -38,15 +62,42 @@ with tempfile.TemporaryDirectory(prefix='hype-plugin-check-') as temp:
     claude = root / 'tools/claude'
     claude.write_text('#!/bin/bash\nprintf "STUB validator: %s\\n" "$*"\n')
     claude.chmod(0o755)
-    def check(label, expected, needle):
+    def check(label, expected, needle, sync_versions=True):
+        if sync_versions:
+            version = json.loads(manifest.read_text())['version']
+            for path in version_paths:
+                path.write_text(f'Plugin release: {version}. Expected operation catalog version: {compatibility["EXPECTED_CATALOG_VERSION"]}.\n\n{compatibility["NOTICE"]}\n')
         result = subprocess.run([str(root / 'tools/bash'), str(root / 'scripts/check.sh')], env=env, text=True, capture_output=True)
         output = result.stdout + result.stderr
         assert (result.returncode == 0) == expected, (label, output)
         assert needle in output, (label, output)
         print(f'PASS: {label}')
+        return output
+    public_file = root / 'public.txt'
+    for label, value in (
+        ('ticket reference rejected', 'HYPE-' + '1234'),
+        ('singular decision reference rejected', 'decision ' + '12'),
+        ('mixed-case plural decision reference rejected', 'DeCiSiOnS ' + '1234'),
+        ('lowercase ticket reference rejected', 'hype-' + '42'),
+        ('numbered decision with a hash rejected', 'decision #' + '7'),
+    ):
+        public_file.write_text('Public notes\n' + value + '\n')
+        git('add', 'public.txt')
+        output = check(label, False, 'FAIL: public.txt:2\n')
+        assert [line for line in output.splitlines() if line.startswith('FAIL:')] == ['FAIL: public.txt:2'], output
+        assert value not in output, 'Private reference appeared in checker output'
+    public_file.write_text('Public release notes describe a scheduling change.\nVersion 0.1.50 shipped in 2026; a decision was made.\n')
+    check('clean public file passes', True, 'Public references:')
+    public_file.unlink()
     check('valid files and validator invocation', True, 'STUB validator: plugin validate --strict .\n')
     check('plugin manifest validation', True, 'STUB validator: plugin validate --strict .claude-plugin/plugin.json')
     check('marketplace validation', True, 'STUB validator: plugin validate --strict .claude-plugin/marketplace.json')
+    version_paths[0].write_text('Plugin release: 0.0.0. Expected operation catalog version: 1.\n' + compatibility['NOTICE'])
+    check('stale embedded plugin version rejected', False, 'tool-version release/catalog pin', sync_versions=False)
+    check('restored version pins pass', True, 'Tool versions:')
+    version_paths[1].write_text('Plugin release: 0.1.1. Expected operation catalog version: 2.\n' + compatibility['NOTICE'])
+    check('stale catalog expectation rejected', False, 'tool-version release/catalog pin', sync_versions=False)
+    check('restored catalog pin passes', True, 'Tool versions:')
     claude.unlink()
     check('missing Claude explicitly skipped', True, 'SKIPPED:')
     malformed = root / 'broken.json'

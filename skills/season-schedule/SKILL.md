@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Schedule a division season
 
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+
 Use only the person's own signed-in Hype connection and existing access. Treat installation as granting nothing; Hype checks rights on every request. Plan, review, then save through that connection. Speak plainly; ask one question at a time. Never treat invocation as approval. Create no scheduler service, teams/Places, family messages, announcements, emails or RSVP answers. Explain refusals in plain words, never show error codes or raw errors.
 
 Display an unresolved opponent as **TBD**, never blank; do not save a shared game until both exact admitted teams are known. Never tell a family about details or actions they cannot see: preserve withheld names/identities, do not fill gaps from staff-only information, and never promise visibility based on the commissioner's successful read.
@@ -91,7 +93,7 @@ Ask to approve THIS exact plan, naming the new-game count. Wait for an unambiguo
 
 ## 8. Record, refresh, create sequentially
 
-**In Claude Code, write the progress table to a file in the commissioner's home folder, outside any git repository, named `hype-season-<division-id>-<YYYYMMDD>.md`; tell the commissioner the path and update it after each game.** New private file only, no unrelated overwrite. Bind account/league/division and approved rows/settings; exclude credentials/rosters/personal reasons. Stop if retention is unsafe; no guaranteed cross-session memory.
+**In Claude Code, write the progress table following [Your own files stay where you keep them](../league-setup/references/own-files.md); name it `hype-season-<division-id>-<YYYYMMDD>.md` unless the person picks another name, tell the commissioner the path and update it after each game.** New private file only, no unrelated overwrite. Bind account/league/division and approved rows/settings; exclude credentials/rosters/personal reasons. Stop if retention is unsafe; no guaranteed cross-session memory.
 
 **Get a fresh key from `request-key-new` for each new game; never hand-type or invent one.** Preserve each original `opId`. Before writes, record row, exact approved body/key, status (not attempted/unknown/confirmed/refused), returned ID/revision and verification. Every new row needs this mapping; existing IDs are not creates.
 

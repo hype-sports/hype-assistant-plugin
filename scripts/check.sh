@@ -6,6 +6,7 @@ cd "$(dirname "$0")/.."
 python3 -I - <<'PY'
 import json
 import re
+import runpy
 import subprocess
 import sys
 from pathlib import Path
@@ -13,6 +14,19 @@ from urllib.parse import unquote, urlsplit
 
 errors = []
 files = [p for p in Path('.').rglob('*') if p.is_file() and '.git' not in p.parts]
+private_reference = re.compile(r'(?i:\bHYPE-[0-9]+\b|\bdecisions?\s+#?[0-9]+\b)')
+text_count = 0
+for path in sorted(files):
+    try:
+        lines = path.read_text().splitlines()
+    except UnicodeDecodeError:
+        continue
+    text_count += 1
+    for number, line in enumerate(lines, 1):
+        if private_reference.search(line):
+            errors.append(f'{path}:{number}')
+print(f'Public references: checked {text_count} text files')
+
 json_files = sorted(p for p in files if p.suffix == '.json')
 for path in json_files:
     try:
@@ -81,12 +95,22 @@ try:
         errors.append(f'plugin version {current} must be greater than origin/main {base}')
     else:
         print(f'Version: {current} > origin/main {base}')
+    compatibility = runpy.run_path('scripts/tool-versions.py')
+    pin = f'Plugin release: {current}. Expected operation catalog version: {compatibility["EXPECTED_CATALOG_VERSION"]}.'
+    for path in (Path('agents/hype.md'), Path('skills/my-account/references/tool-versions.md')):
+        text = path.read_text()
+        if pin not in text or compatibility['NOTICE'] not in text:
+            errors.append(f"{path}: tool-version release/catalog pin or reconnect notice differs; write '{pin}' to match plugin.json in agents/hype.md and skills/my-account/references/tool-versions.md, and keep the reconnect notice")
+    for path in skills:
+        if '[tool-version check](' not in path.read_text():
+            errors.append(f'{path}: missing tool-version check')
+    print('Tool versions: instruction release/catalog pins and workflow checks verified')
     changelog = Path('CHANGELOG.md').read_text() if Path('CHANGELOG.md').exists() else ''
     if not re.search(rf'^## (?:{re.escape(current)}|\[{re.escape(current)}\])(?:\s|$)', changelog, re.M):
         errors.append(f'CHANGELOG.md has no "## {current}" entry for the plugin.json version')
     else:
         print(f'Changelog: entry for {current} found')
-except (subprocess.CalledProcessError, ValueError, KeyError, TypeError) as exc:
+except (subprocess.CalledProcessError, ValueError, KeyError, TypeError, OSError) as exc:
     errors.append(f'cannot compare plugin versions ({type(exc).__name__}); ensure origin/main exists and versions are stable semver')
 
 for error in errors:

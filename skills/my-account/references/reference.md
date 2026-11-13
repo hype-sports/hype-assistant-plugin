@@ -8,7 +8,7 @@ Check the live tool list before use.
 
 | Tools | Status / use |
 | --- | --- |
-| `my-identity-read`, `my-profile-read` | Read own identity/name, with save version `updatedAt` on the profile read |
+| `my-identity-read`, `my-profile-read` | Read own identity/name; identity also returns `operationCatalogVersion` and `minimumPluginVersion` and alone accepts any positive whole-number `catalogVersion` (see [version check](tool-versions.md)); profile returns save version `updatedAt` |
 | `my-preferences-read`, `my-preferences-update` | Read preferences or change the requested time zone |
 | `my-profile-update` | Save the requested name with the current profile version |
 | `open-password-settings` | Separately registered read-only screen hand-off, not a password-change operation |
@@ -18,11 +18,11 @@ Check the live tool list before use.
 
 ## Current tool inputs
 
-Route-backed tools use the strict envelope: `catalogVersion: 1`, plus only the `pathParams`, `query` or `body` the live schema declares. No target account, extra fields or operation replay IDs. A route read with no parameters still needs `catalogVersion`; the password-screen hand-off instead takes `{}`. Check the live schemas before every job.
+Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-read` alone accepts any positive whole number; see [version check](tool-versions.md)), plus only the `pathParams`, `query` or `body` the live schema declares. No target account, extra fields or operation replay IDs. A route read with no parameters still needs `catalogVersion`; the password-screen hand-off instead takes `{}`. Check the live schemas before every job.
 
 | Operation ID / registered hand-off name | Read or change | Inputs for this skill |
 | --- | --- | --- |
-| `my-identity-read` | Read own ID/name; no profile repair | No parameters beyond the envelope above |
+| `my-identity-read` | Read own ID/name and `operationCatalogVersion`/`minimumPluginVersion`; no profile repair | Only `catalogVersion`, any positive whole number for this tool alone (see [version check](tool-versions.md)) |
 | `my-profile-read` | Read own ID/name/save version; no profile repair | No parameters beyond the envelope above |
 | `my-profile-update` | Change own name | `body.name`, current `body.updatedAt`; name 1–100 characters after trimming. Other schema fields are outside this skill |
 | `my-preferences-read` | Read appearance/time zone | No parameters beyond the envelope above |
