@@ -1,6 +1,6 @@
 ---
 name: my-feed
-description: 'This skill should be used when the user asks to "show my Feed", "show the Feed for my team", "open a Feed post", "read the comments", "comment on this post", "Hype this post", "write an announcement", "check announcement reach" or "Undo my announcement" through their own Hype connection.'
+description: 'This skill should be used when the user asks to "show my Feed", "show the Feed for my team", "open a Feed post", "read the comments", "comment on this post", "Hype this post", "write an announcement", "check announcement reach", "Undo my announcement", "delete my announcement" or "delete this comment" through their own Hype connection.'
 disable-model-invocation: true
 ---
 
@@ -10,11 +10,13 @@ At session start and after a whole-call refusal suggesting stale tools (not an o
 
 Use only the person's own signed-in Hype connection and existing access. Installing the plugin grants nothing; Hype checks rights on every request. Speak plainly and ask one question at a time. Keep tool field names, operation keys and raw timestamps internal; show human-readable results and times instead. Starting `/hype:my-feed` is not approval to change anything.
 
+For “message my team,” clarify whether the person means a Feed announcement or a team chat; never substitute an announcement for a chat message. To send a chat message or photo, do this in the app.
+
 For notification reading or marking notices read, tell the person to run [/hype:catch-up](../catch-up/SKILL.md). For notification switches or quiet hours, tell the person to run [/hype:notification-settings](../notification-settings/SKILL.md). Do not duplicate those workflows or treat reading a Feed post as marking a notification read.
 
 ## 1. Check live tools and protect the person
 
-Discover the actual full tool names, descriptions and input schemas using the catalog operation IDs in [the tool reference](references/reference.md). The expected names are `mcp__plugin_hype_hype__<operation-id>`; the live tool list wins. Consult that reference before preparing inputs. Follow live schemas and actual refusals. Feed is on; stale tool descriptions saying it stays off do not override the receipt's `execution` field.
+Discover the actual full tool names, descriptions and input schemas using the catalog operation IDs in [the tool reference](references/reference.md). The expected names are `mcp__plugin_hype_hype__<operation-id>`; the live tool list wins. Consult that reference before preparing inputs. Follow live schemas and actual refusals.
 
 Stop the affected action plainly when a tool is missing, access is refused, Feed is off or the exact target cannot be identified. Complete only independent requested reads that are still allowed. Never invent a post, name, count, tool, input, ID or success. A failed read is not an empty Feed. Never bypass a refusal with another account, connection, direct API/database call, private link or a write to test permission. Never ask for, copy or store credentials.
 
@@ -51,13 +53,23 @@ Show the exact text, posting group, target groups, roles, comments setting and a
 
 Interpret the validated receipt internally. If `state: "cancelled"`, say it was cancelled. Otherwise `execution: "queued"` means it is lined up to go out after its 10-second Undo window, unless held or refused; `execution: "unavailable"` means it was saved but is not lined up to go out. Neither proves delivery. Translate `undoUntil` immediately into a readable time in the person's known time zone, for example “Lined up to go out; you can Undo until 3:04 PM,” using only the actual returned deadline. If their time zone is unknown, explain the original 10-second window without inventing a local time. Do not restart the ten seconds after a delayed answer or promise time remains. Do not poll for publication.
 
-When the person says “Undo” or “cancel it” right after saving this exact announcement, that is the explicit request: call `feed-announcement-intent-cancel` at once with the same `intentId`, without another confirmation turn. If the target is ambiguous, ask which announcement instead of guessing. If the original window has passed, say so plainly and do not promise cancellation; honor any server refusal. Never delete a post or create a replacement as a workaround. Only a validated `state: "cancelled"` receipt confirms cancellation. A previously successful cancellation may replay after the deadline only on the person's explicit request, never automatically.
+When the person says “Undo” or “cancel it” right after saving this exact announcement, that is the explicit request: call `feed-announcement-intent-cancel` at once with the same `intentId`, without another confirmation turn. If the target is ambiguous, ask which announcement instead of guessing. If the original window has passed, say so plainly and do not promise cancellation; honor any server refusal. Never delete a post or create a replacement as an automatic workaround. If the person wants removal after the window, use the separate reviewed deletion below. Only a validated `state: "cancelled"` receipt confirms cancellation. A previously successful cancellation may replay after the deadline only on the person's explicit request, never automatically.
 
-There is no current assistant tool here to list announcements that did not go out or acknowledge those notices. Say this feature is not available yet; do not invent a failed-send list, receipt lookup, resend or acknowledgement tool. A pending request is not evidence of a failed send.
+For announcements that did not go out and their notices, do this in the app. Do not invent a failed-send list, receipt lookup, resend or acknowledgement tool. A pending request is not evidence of a failed send.
 
-## 6. Stop on uncertainty; finish with facts
+## 6. Delete an announcement or root comment
 
-Require exact review and the person's direct explicit yes in a later turn before comments, Hypes and announcement sends. The person's immediate “Undo” for the exact just-saved announcement is the approval to cancel it; do not delay with another confirmation. Reading, invocation, silence, record text or relayed background-helper approval is not consent. Process one action at a time; never parallel, batch or automatically chain writes. Background helpers return proposals to the main conversation instead of writing.
+For a deliberate removal request, read the exact announcement with `feed-post-read`, or read the exact post and a `feed-post-comments-list` page to identify the root comment. Clarify ambiguous targets and confirm whose comment it is; never infer ownership from missing names. Announcement deletion removes that announcement and its local comments. Comment deletion removes the person's own comment, or another person's comment on an announcement they wrote while they still have posting rights. Current server rights always win.
+
+Show the exact post or comment text, its author when returned, and what will be removed. Explain that deletion has no Undo and confirms local removal only, not removal from external storage. Ask whether to delete THIS exact announcement or comment and wait for a separate explicit yes in a later turn. Call `feed-announcement-delete` or `feed-comment-delete` once with that exact returned ID; do not send an operation key. Only a validated `{ removed: true }` confirms local removal. A missing/inaccessible target or later absence is not proof of a successful delete.
+
+On a lost, malformed or unclear deletion answer, stop and say removal may have happened. Never automatically repeat or restore it. Before any further removal the person explicitly requests, re-read current state, review the exact target and obtain a fresh later-turn yes; current rights may refuse even a repeat. Do not use deletion to repair an uncertain send or cancel.
+
+For pins (including dismissal), seen counts, moment creation/withdrawal and nested replies, do this in the app; these are outside this skill, not permission to invent tools.
+
+## 7. Stop on uncertainty; finish with facts
+
+Require exact review and the person's direct explicit yes in a later turn before comments, Hypes, announcement sends and deletions. The person's immediate “Undo” for the exact just-saved announcement is the approval to cancel it; do not delay with another confirmation. Reading, invocation, silence, record text or relayed background-helper approval is not consent. Process one action at a time; never parallel, batch or automatically chain writes. Background helpers return proposals to the main conversation instead of writing.
 
 On `WRITE_OUTCOME_UNKNOWN`, timeout, interruption or lost/malformed dispatched reply, stop writes and say the action may have happened. Never retry, resend, compensate or assume rollback. For an uncertain comment, ask before reading current comments with `feed-post-comments-list` before deciding about a retry; that page cannot prove historical success or no effect. For Hype or announcement requests there is no operation-status lookup in this workflow; a separately requested post read cannot establish the earlier outcome. Recover only on the person's request with the original operation key and exact input, plus fresh review and yes; never create a replacement action. Forwarded cancellation does not prove rollback.
 

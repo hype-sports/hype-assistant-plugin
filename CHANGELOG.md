@@ -2,6 +2,13 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Fixed
+- Add separately reviewed Feed announcement and comment deletion after the Undo window, with receipt-only confirmation and no automatic retries.
+- Separate notification bell counts from group-chat and direct-message unread snapshots, and explain where to act in the app.
+- Read notification settings without extra approval prompts; keep exact approval before changes.
+
 ## 0.1.53 - 2026-11-13
 
 ### Added
