@@ -15,6 +15,7 @@ Check the live tool list before use.
 | `my-deletion-request` | Start an email-confirmed request, not erasure or confirmation |
 | `my-deletion-status-read`, `my-deletion-cancel` | Read status or cancel the pending request |
 | `my-sessions-list`, `my-session-revoke`, `my-other-sessions-revoke` | List own devices, sign out one other session or all other sessions |
+| `my-assistant-connections-list`, `my-assistant-disconnect` | List own connected assistants, or disconnect exactly one of them (including this assistant) |
 
 ## Current tool inputs
 
@@ -34,6 +35,8 @@ Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-re
 | `my-sessions-list` | Read own device sessions | No parameters beyond the envelope above |
 | `my-session-revoke` | Sign out one exact other own session | `pathParams.id`, a UUID returned by the own-session list |
 | `my-other-sessions-revoke` | Sign out all own sessions except the assistant's | `query.scope: "others"` |
+| `my-assistant-connections-list` | Read own connected assistants: `clientId`, `clientName`, `mode`, connection and last-used times | No parameters beyond the envelope above |
+| `my-assistant-disconnect` | Disconnect exactly one own assistant | `body.clientId`, an exact `clientId` returned by the connections list |
 
 `my-profile-update` can also accept an own phone change/clear or explicit photo removal, but this skill deliberately covers name only. Do not include those fields in a name save. Its answer and `my-profile-read` expose only ID, name and version; no email, phone or photo. Appearance settings other than the time zone, player erasure and ownership transfers are also outside this workflow.
 

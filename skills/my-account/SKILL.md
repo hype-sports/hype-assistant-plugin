@@ -1,6 +1,6 @@
 ---
 name: my-account
-description: 'This skill should be used when the user asks to "show my account", "change my name", "change my time zone", "change my password", "delete my account", "check or cancel my deletion request", "sign out my other devices". It covers only the signed-in person’s own Hype account, with approval before each change.'
+description: 'This skill should be used when the user asks to "show my account", "change my name", "change my time zone", "change my password", "delete my account", "check or cancel my deletion request", "sign out my other devices", "show my connected assistants", "disconnect an assistant". It covers only the signed-in person’s own Hype account, with approval before each change.'
 disable-model-invocation: true
 ---
 
@@ -40,6 +40,7 @@ Read [exact tool inputs and source limits](references/reference.md) and the matc
 | Check my deletion request | [Report status and advisory ownership limits only](references/workflows.md#6-check-my-deletion-request) |
 | Cancel my deletion request | [Review and cancel only the request pending at execution](references/workflows.md#7-cancel-my-deletion-request) |
 | Show my devices / sign out other devices | [Select exact own sessions and review one-device or all-other-device effects](references/workflows.md#8-show-my-devices--sign-out-other-devices) |
+| Show or disconnect my connected assistants | [Choose one exact own assistant, explain the loss of access and wait for a later-turn yes](references/workflows.md#9-show-my-connected-assistants--disconnect-an-assistant) |
 
 ## 2. Report only what is known
 

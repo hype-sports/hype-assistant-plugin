@@ -1,6 +1,6 @@
 # Check the Hype tool versions
 
-Plugin release: 0.1.53. Expected operation catalog version: 1.
+Plugin release: 0.1.54. Expected operation catalog version: 1.
 
 At session start, before using a signed-in Hype connection, and after a whole-call refusal suggesting stale tools (unknown tool, `VALIDATION_FAILED` naming `catalogVersion`, or a tool in the live list that the server no longer has), check `my-identity-read` once through that same connection using its discovered live input schema. Ordinary business, permission, target-not-found or other validation refusals do not trigger this check. Reuse only a successful identity read made for this check in this session and since the latest such refusal or reconnect; do not read it twice. Only this identity read accepts a different positive whole-number `catalogVersion` (still required, with no extra input fields), so after another tool refuses a catalog-version mismatch it can still return the server's actual version for comparison; all other tools require the exact server catalog version. This is a compatibility check only, never permission to change Hype or retry a refused action.
 
