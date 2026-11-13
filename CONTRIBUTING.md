@@ -7,6 +7,7 @@
 - Add a README Skills row with the command, what it helps with, and **Available** or **Preview**. Use Available only after the main journey has run end to end on a test account; otherwise use Preview.
 - Raise `version` in `.claude-plugin/plugin.json` and add an entry for that version in `CHANGELOG.md`. Also update the `Plugin release:` line in `agents/hype.md` and `skills/my-account/references/tool-versions.md` to match; `check.sh` enforces both pins.
 - Run `bash scripts/check.sh` and paste its output in the pull request. It checks JSON, skill front matter, relative Markdown file links, the version increase over `origin/main`, and the matching changelog entry. It also runs strict plugin and marketplace validation when Claude Code is available; if those checks are skipped, have a reviewer run them before merge.
+- Keep internal ticket numbers and numbered decision references out of all public files; `check.sh` rejects them and reports only the file and line.
 - Get one independent review before merge.
 
 ## Reporting problems
