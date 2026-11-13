@@ -2,6 +2,16 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.55 - 2026-11-13
+
+### Changed
+- Manage my team: add, change, take off and put back Roster entries, invite a parent/guardian for a roster spot and roll a Roster over to the next season, each after your yes in a later turn. A lost answer is treated as unknown: the lists are read again, never retried blindly.
+- Staff invitations now get a request key from `request-key-new`, so a repeated send cannot cancel the first offer and email again; resend and cancel a waiting staff invitation.
+- Answer parent/guardian requests one at a time (approve, decline or block) and request, answer, leave, place or remove league memberships within each tool's own limits.
+- Emergency-contact guidance moved to its own reference page; the skill description now covers emergency contacts and "who coaches my team". Team chat is left to the Messaging skill once it is released.
+- The assistant's command list now includes Manage my team, Clubs and Tournaments, My support and Terms and privacy.
+- The plugin listing now links Hype's existing Privacy Policy and Terms of Service, and its support page.
+
 ## 0.1.53 - 2026-11-13
 
 ### Added
