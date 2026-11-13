@@ -8,7 +8,7 @@ Use `catalogVersion: 1` with these current schemas. Omit absent sections; never 
 
 | Catalog operation ID | pathParams | Other inputs | Result / limit |
 | --- | --- | --- | --- |
-| `my-home-entities-list` | None | `query` with live-schema filters (archived teams only when the person asks); no body | The person's own Home list: teams, leagues and divisions with their role and seasons; caller-scoped, read-only, grants nothing. Use it first for "my teams" and "my role", and match `entities` by `type: "team"` and exact `id`, then check `userRoles` for `admin` (Admin) or `staff` (Staff); any matching entry qualifies for staff-only offers (see SKILL.md section 1), not roles on a league/division row or a title. Other, missing or unknown team roles do not qualify; the role tailors offers, never overrides Hype's checks |
+| `my-home-entities-list` | None | `query` with live-schema filters (archived teams only when the person asks); no body | The person's own Home list: teams, leagues and divisions with their role and seasons; caller-scoped, read-only, grants nothing. Use it first for "my teams" and "my role", and match `entities` by `type: "team"` and exact `id`, then check `userRoles` for `admin` (Admin) or `staff` (Staff); any matching entry qualifies for Staff-invitation and follow-request offers (see SKILL.md section 1), not roles on a league/division row or a title; parent/guardian requests and league memberships are not gated on it. Other, missing or unknown team roles do not qualify; the role tailors offers, never overrides Hype's checks |
 | `team-search` | None | `query` with live-schema search/page filters; no body | Public teams and pagination only; hidden and archived teams are excluded even for staff; no permission granted |
 | `team-seasons-list` | `{ id: teamId }` | No query/body | `seasons` newest first: id, name, ageGroup, dates, wins/losses/ties, isCurrent |
 | `team-roster-list` | `{ id: teamId }` | `query: {}` for current, or `{ season: returnedTeamSeasonId }`; no body | `teamId`, `entries`; tier-filtered facts, no contacts/photos/profile identifiers in the MCP projection |
@@ -60,7 +60,7 @@ For a staff invitation, validate the directly supplied address using the live sc
 
 ## Outside this skill
 
-Team chat is covered by the Messaging skill once it is released. Answering follow requests, team creation, settings, archiving, Staff title changes or removal, season starts and unrelated family/profile workflows are outside this skill's requested scope; whole parent/guardian request groups are answered in `/hype:players-families`. Account-addressed staff offers exist in ordinary app contracts, but this skill sends email invitations only.
+Team chat is covered by the Messaging skill once it is released. Answering follow requests, team creation, settings, archiving, Staff title changes or removal, season starts and unrelated family/profile workflows are outside this skill's requested scope; whole parent/guardian request groups are answered in `/hype:players-families`. Account-addressed staff offers exist in ordinary app contracts, but this skill creates email invitations only.
 
 ## Verification status
 
