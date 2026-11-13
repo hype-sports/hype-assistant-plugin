@@ -2,6 +2,12 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.52 - 2026-11-13
+
+### Changed
+- Clarify the team emergency-contact read, add-only save and whole-list replacement tools, including optional relationships and preserving unchanged coach contacts.
+- Keep sign-up contact values hidden and linked-parent details limited to what the requested read returns. Explain that team contact counts exclude sign-up contacts and cannot prove that nothing is on file.
+
 ## 0.1.51 - 2026-11-13
 
 ### Added
