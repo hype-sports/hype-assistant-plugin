@@ -39,6 +39,7 @@ Call `my-support-status-read`. It reads only what Hype has saved; it is not a re
 - `ended`: Hype's saved support for them has ended. Don't say they paid before; an attempt that never completed can also read as ended.
 - `none`: no support is saved.
 - `unknown`: Hype can't tell right now. Say so; never treat unknown as yes or no.
+- `activeStoreSubscriptions`, when it lists an Apple or Google item: that subscription is changed or cancelled in that phone's own subscription settings. Its `until` is the latest paid-up date Hype has saved, not a promise that it stops or renews then. When `retrying` is true, the store is still trying to take payment and `until` is not a paid-up date: never say "paid up to" for it.
 
 Never state an amount or a price; the answer doesn't include one.
 
@@ -52,7 +53,7 @@ Only for the person's own ring. Read `my-preferences-read` and say what `showSup
 
 ## 4. Support Hype, or manage or cancel support
 
-Don't do it here. Supporting and managing support happen only in the Hype app or on Hype's website: support paid on the web is managed from Hype's website, and a subscription bought through Apple or Google is changed or cancelled in that phone's own subscription settings. If the app doesn't offer it to them yet, say that's expected and don't promise when it will.
+Don't do it here. Supporting and managing support happen only in the Hype app or on Hype's website: support paid on the web is managed from Hype's website, and a subscription bought through Apple or Google is changed or cancelled in that phone's own subscription settings. If they can't find it in the app, say you can't see what their app offers, and don't promise when it will be there.
 
 ## Report only what is known
 
