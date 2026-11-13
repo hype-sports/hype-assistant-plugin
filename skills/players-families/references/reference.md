@@ -34,7 +34,7 @@ The live connection's descriptions and schemas win. These are operation IDs; dis
 | `league-guardian-invitation-accept` | `{id: invitationId}` | No body/query; `{guardianId}`; registration access/notifications, no profile creation/link |
 | `league-guardian-invitation-decline` | `{id: invitationId}` | No body/query; `{}`; refuses only this offer |
 | `league-guardian-invitation-registration-read` | `{id: acceptedInvitationId}` | No body/query; current player first name, league name and nullable division name only after own acceptance with continuing independent guardian standing |
-| `league-player-profile-link` | `{id: leagueId, playerId: leaguePlayerId}` | `body: {playerProfileId}`; caller must manage profile AND already be a registration parent/guardian. Returns `{leaguePlayerId, playerProfileId}` |
+| `league-player-profile-link` | `{id: leagueId, playerId: leaguePlayerId}` | `body: {playerProfileId}`; caller must manage profile AND already be a registration parent/guardian. Returns `{leaguePlayerId, playerProfileId, registrationLinked}`; false is still successful repair, not an undo token |
 | `player-profile-sport-add` | `{id: playerProfileId}` | `body: {sport, details?}`; confirmed lowercase catalog code and allowed sport details; authoritative sport-row `{id}` |
 | `player-profile-sport-update` | `{id: playerProfileId, sportId}` | `body: {details}`; COMPLETE replacement of stored sport details, omitted fields cleared; `{}` |
 | `player-profile-sport-remove` | `{id: playerProfileId, sportId}` | No body/query; `{}` removes only that sport row |
