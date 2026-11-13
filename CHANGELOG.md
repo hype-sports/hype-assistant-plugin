@@ -2,6 +2,14 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.57 - 2026-11-13
+
+### Changed
+- Season scheduling now names the live team lists and saved Place/Field readers. Keep whole-season plans unsaved because shared games accept location text, not saved Fields; never send saved IDs to those tools.
+- Add plain request phrases and cancellation undo for one shared game after a fresh read and explicit yes. Explain its restored notice to eligible members, with no email or announcement. Leave archive and permanent delete to the app; shared-game unarchive has a live tool but no app action yet.
+- Clarify that the app's Add game also accepts only a typed location, not saved Fields. Restore write-access and data-collection safeguards, distinguish saved directories from team lists, and give short numbered steps for one-game changes and unclear results.
+- Remove repeated season guidance, clarify optional schedule-card filters and keep technical error codes out of replies. Update the examples to match.
+
 ## 0.1.56 - 2026-11-13
 
 ### Changed
