@@ -72,6 +72,23 @@ with tempfile.TemporaryDirectory(prefix='hype-plugin-check-') as temp:
         assert (result.returncode == 0) == expected, (label, output)
         assert needle in output, (label, output)
         print(f'PASS: {label}')
+        return output
+    public_file = root / 'public.txt'
+    for label, value in (
+        ('ticket reference rejected', 'HYPE-' + '1234'),
+        ('singular decision reference rejected', 'decision ' + '12'),
+        ('mixed-case plural decision reference rejected', 'DeCiSiOnS ' + '1234'),
+        ('lowercase ticket reference rejected', 'hype-' + '42'),
+        ('numbered decision with a hash rejected', 'decision #' + '7'),
+    ):
+        public_file.write_text('Public notes\n' + value + '\n')
+        git('add', 'public.txt')
+        output = check(label, False, 'FAIL: public.txt:2\n')
+        assert [line for line in output.splitlines() if line.startswith('FAIL:')] == ['FAIL: public.txt:2'], output
+        assert value not in output, 'Private reference appeared in checker output'
+    public_file.write_text('Public release notes describe a scheduling change.\nVersion 0.1.50 shipped in 2026; a decision was made.\n')
+    check('clean public file passes', True, 'Public references:')
+    public_file.unlink()
     check('valid files and validator invocation', True, 'STUB validator: plugin validate --strict .\n')
     check('plugin manifest validation', True, 'STUB validator: plugin validate --strict .claude-plugin/plugin.json')
     check('marketplace validation', True, 'STUB validator: plugin validate --strict .claude-plugin/marketplace.json')

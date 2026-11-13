@@ -14,6 +14,19 @@ from urllib.parse import unquote, urlsplit
 
 errors = []
 files = [p for p in Path('.').rglob('*') if p.is_file() and '.git' not in p.parts]
+private_reference = re.compile(r'(?i:\bHYPE-[0-9]+\b|\bdecisions?\s+#?[0-9]+\b)')
+text_count = 0
+for path in sorted(files):
+    try:
+        lines = path.read_text().splitlines()
+    except UnicodeDecodeError:
+        continue
+    text_count += 1
+    for number, line in enumerate(lines, 1):
+        if private_reference.search(line):
+            errors.append(f'{path}:{number}')
+print(f'Public references: checked {text_count} text files')
+
 json_files = sorted(p for p in files if p.suffix == '.json')
 for path in json_files:
     try:
