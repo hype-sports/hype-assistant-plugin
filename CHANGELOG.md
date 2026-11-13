@@ -2,6 +2,13 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+- Match account-deletion guidance to every staff and Admin role that must be left first, and keep the status waiting list separate from those blockers.
+- Cover login history, assistant activity, personal Blocks and managed-player erase requests, with separate approval before each change and later-turn confirmation before scheduling player erasure.
+- Read Terms state from its returned fields without assuming publication history, and point account/player erasure requests to `my-account`.
+
 ## 0.1.53 - 2026-11-13
 
 ### Added
