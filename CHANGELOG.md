@@ -4,11 +4,15 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## Unreleased
 
+### Added
+- Add or edit a child's profile and emergency contacts, see who manages the profile, leave it, or ask to join a team as a parent/guardian, with confirmation before every change.
+- Answer, resend or cancel supported parent/guardian invitations, review team requests, and read league or division players within the person's own access.
+- Add parent, coach and league-admin examples, including what to say when an earlier invitation email's result is unknown.
+
 ### Changed
-- Organize Players & Families by parent/guardian, team staff and league/division admin, with current invitation, resend, manager and player-list tools and confirmation before every change.
-- Add child profile creation and edits, emergency-contact additions and edits, profile leaving and team join requests; keep irreversible player erasure in the app's guided flow.
-- List incoming team parent/guardian requests before answering individual requests, explain the limited league invitation read, and link to the existing league invitation skills instead of repeating their send workflows.
-- Add a parent profile example and exact tool-input guidance, including server-issued request keys and safe handling of uncertain results.
+- Organize Players & Families by who is asking and link to the existing league invitation skills instead of repeating their sends.
+- Show names instead of record numbers, find the team before a join request, and explain that one coach approval answers one player's request.
+- Keep irreversible player erasure and withdrawing mistaken team requests in the app; explain possible duplicate emails before asking to resend.
 
 ## 0.1.53 - 2026-11-13
 
