@@ -44,14 +44,14 @@ Only current accepted Admins can read the protected Club/Tournament details, sta
 | `tournament-details-update` | `pathParams: { id: tournamentId }`, `body: { name, sport, startDate?, endDate?, city?, state?, isPrivate, expectedRevision, rules? }` | Replaces **all** details and, if supplied, the entire Rules set; omitted Rules stay unchanged. Returns `{ id, details, revision, viewer }` without Rules; read back to verify Rules |
 | `tournament-admin-invite` | `pathParams: { id: tournamentId }`, `body: { email, idempotencyKey }` | Saves Admin offer; `{ invitationId, createdAt, expiresAt, delivery: "inactive" }`; no email is sent |
 | `club-admin-invitation-cancel` | `pathParams: { id: clubId, invitationId }` | Current Club Admin cancels an exact pending, unexpired offer; `{ status: "canceled" }`; no accepted appointment removed |
-| `club-admin-remove` | `pathParams: { id: clubId, userId }` | Removes another accepted Admin, including a banned Admin; `{ removed: true }`; keeps staff history, Club, Teams and other Admins. Never self-remove |
+| `club-admin-remove` | `pathParams: { id: clubId, userId }` | Removes another accepted Admin, including a banned Admin; Club Admin invitations they sent can no longer be accepted; `{ removed: true }`; keeps staff history, Club, Teams and other Admins. Never self-remove |
 | `tournament-admin-invitation-cancel` | `pathParams: { id: tournamentId, invitationId }` | Current Tournament Admin cancels an exact pending, unexpired offer; `{ status: "canceled" }`; no accepted appointment removed |
 
 Accept grants real Admin authority. Decline consumes that offer without granting or removing any existing Admin authority. Both answers are final, not toggles. Unknown, another person's, expired or answered offers share `NOT_FOUND`; do not guess which. The invitation ID is not the Club/Tournament ID.
 
 Admin offers need the person's directly supplied valid email (trimmed, at most 254 characters). Club delivery may be stopped by a per-recipient daily cap even when the offer saves; Tournament delivery is inactive. Never send another offer to repair delivery. Current offers last 14 days; use returned expiry. Sender limits return `RATE_LIMITED`.
 
-Cancellation needs the exact current pending, unexpired row; a hidden address needs explicit row/ID selection or an app handoff. Being sender or recipient alone gives no cancellation right. There is no Tournament Admin removal tool: do this in the app. For Club removal, use the returned staff `userId`, never yourself; follow the workflow's separate-yes and no-follow-up rules.
+Cancellation needs the exact current pending, unexpired row; a hidden address needs explicit row/ID selection or an app handoff. Being sender or recipient alone gives no cancellation right. Removing another Tournament Admin is not available in the assistant or the app yet. For Club removal, use the returned staff `userId`, never yourself; follow the workflow's separate-yes and no-follow-up rules.
 
 ## Club Overview
 
