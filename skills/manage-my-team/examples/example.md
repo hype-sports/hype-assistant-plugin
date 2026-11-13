@@ -76,7 +76,7 @@ Check that `my-home-entities-list` shows Admin or Staff for this team before off
 
 **Person:** Approve Casey Sample's request for Quinn.
 
-Select that exact [request ID] from `team-guardian-requests-list`, show the player and asker, and explain that approving gives Casey parent/guardian access to Quinn on this team. After a later yes, call `guardian-request-approve` once and report the returned outcome (`already` means nobody new was added).
+Select that exact [request ID] from `team-guardian-requests-list`, show the player and asker, and explain that approving gives Casey parent/guardian access to Quinn on this team and may also link a player profile Casey offered, with its family and notice effects. After a later yes, call `guardian-request-approve` once and report the returned outcome (`already` means nobody new was added).
 
 **Person:** Show the team's leagues and put it in Cedar Division.
 
