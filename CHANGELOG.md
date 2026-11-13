@@ -5,7 +5,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 ## 0.1.54 - 2026-11-13
 
 ### Added
-- `my-account` lists your connected assistants and disconnects exactly one of them on your request, including the assistant you are talking to. Claude names the exact assistant, explains it loses Hype access until you connect it again in the app, and waits for your yes in a later turn. No retries; a lost answer is reported as unknown. Connecting stays in the Hype app.
+- `my-account` lists your connected assistants and disconnects exactly one of them on your request, including the assistant you are talking to. Claude names the exact assistant, explains it loses Hype access until you approve a new connection, and waits for your yes in a later turn. No retries; a lost answer is reported as unknown. A read-only connection can list but not disconnect, and is pointed to the app's Connected assistants screen.
 
 ## 0.1.53 - 2026-11-13
 
