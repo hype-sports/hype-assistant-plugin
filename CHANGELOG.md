@@ -13,6 +13,15 @@ All notable changes to this plugin are documented here, following [Keep a Change
 - Removed maintainer-only material from the README and testing-status notes from skill text; the Skills table's Preview label covers it.
 - Removed the repository's `.claude/settings.json`, which turned on authoring plugins for anyone who opened the repository.
 
+## 0.1.63 - 2026-11-13
+
+### Changed
+- Shorten league setup, route staff work and larger family invitations to their dedicated skills, use the division readiness checklist and explain which registration actions stay in the app.
+- Offer approved demo artwork only when requested, never as an upload of a person's own picture; custom logos stay in the app.
+- Align league staff with separate Admin/title choices, title-only edits, own Division Admin self-leave and recipient accept/decline.
+- Show a parent contact back only to the person who typed it, in that person's immediate approval.
+- Show the current family-invitation allowance, check one supplied sign-up contact when asked, and keep same-sheet contact imports add-only without a replacement fallback.
+
 ## 0.1.62 - 2026-11-13
 
 ### Added
