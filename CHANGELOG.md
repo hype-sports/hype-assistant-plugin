@@ -2,6 +2,14 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+- Align evaluation creation with Division Admin management rights without promising a private scoring sheet or scoring access.
+- Find manageable evaluations without a saved sheet, read who came to each tryout date, and mark or clear one player's attendance after a separate preview and yes.
+- Clarify manual evaluation-review invocation, tryout request phrases and distinct paging inputs; keep archiving and restoring deliberately in the app.
+- Move detailed evaluation actions and ranking/file rules into linked references with worked examples, preserving approval, privacy and uncertain-outcome safeguards.
+
 ## 0.1.53 - 2026-11-13
 
 ### Added
