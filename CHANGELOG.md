@@ -2,6 +2,14 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+- Organize Players & Families by parent/guardian, team staff and league/division admin, with current invitation, resend, manager and player-list tools and confirmation before every change.
+- Add child profile creation and edits, emergency-contact additions and edits, profile leaving and team join requests; keep irreversible player erasure in the app's guided flow.
+- List incoming team parent/guardian requests before answering individual requests, explain the limited league invitation read, and link to the existing league invitation skills instead of repeating their send workflows.
+- Add a parent profile example and exact tool-input guidance, including server-issued request keys and safe handling of uncertain results.
+
 ## 0.1.53 - 2026-11-13
 
 ### Added
