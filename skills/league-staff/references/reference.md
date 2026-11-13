@@ -1,68 +1,56 @@
 # League staff tool reference
 
-Live tool schemas/descriptions always win. Find full prefixed names; these are catalog ids, not guessed client names.
+Resolve operation IDs to full live names. Read needed schemas before use; current access and the live schema always win. Use the [workflow](../SKILL.md) for review, later-turn approval, privacy and recovery.
 
-## Tool availability
+## Inputs and read paths
 
-Check the live tool list before use; this reference is not proof of availability or access.
+Supply the live required `catalogVersion` (currently 1), saved UUIDs and only defined containers. Omit unused query/body; never generate existing-record IDs. Only a new League staff invitation needs a key, from `request-key-new`.
 
-| Tools | Status / use |
-| --- | --- |
-| `league-get`, `league-divisions-list`, `league-staff-list` | resolve league/divisions and read staff |
-| `division-admin-list` | read the selected division's Admins/invitations |
-| `league-staff-invite` | invite a Commissioner, attempts email |
-| `league-staff-invitation-cancel`, `league-staff-remove` | cancel one offer / remove one membership |
-| `division-admin-invite` | invite a Division Admin, NO email |
-| `division-admin-invitation-cancel`, `division-admin-remove` | cancel one offer / end one appointment |
-| `my-identity-read` | optional, resolve the caller's own identity |
-| `league-search` | optional, find league basics by name, not people or permissions |
-
-## Inputs
-
-All these MCP tools currently require `catalogVersion: 1`. Fields below are nested under `pathParams`, `query` or `body` exactly as shown by the live schema. Do not send absent sections as null or add an `opId`/retry key, except `league-staff-invite`'s required `idempotencyKey`. Every ID below is an exact UUID from a trustworthy request or authorized result, never generated for an existing record.
-
-| Operation | pathParams | Other inputs |
+| Operation | pathParams | Other inputs / use |
 | --- | --- | --- |
-| `league-search` | None | `query: { name }`; optional `page` (integer ≥1, default 1), `limit` (1–50, default 20); no body |
+| `league-search` | None | `query: { name }`, optional `page` ≥1 and `limit` 1–50; one requested page |
 | `league-get` | `{ id: leagueId }` | No body/query |
-| `league-divisions-list` | `{ id: leagueId }` | `query: {}` for active divisions; `archived: "true"` inside query only for a requested archived read |
-| `league-staff-list` | `{ id: leagueId }` | No body/query |
-| `division-admin-list` | `{ id: divisionId }` | No body/query |
-| `league-staff-invite` | `{ id: leagueId }` | `body: { email, idempotencyKey, makeOwner: false, title: "commissioner" }` |
-| `division-admin-invite` | `{ id: divisionId }` | `body: { email }` |
+| `league-divisions-list` | `{ id: leagueId }` | `query: {}` for active; `archived: "true"` only for a requested archived read |
+| `league-staff-list` | `{ id: leagueId }` | Accepted staff; pending offers visible to League Admin only |
+| `division-admin-list` | `{ id: divisionId }` | Containing League Admin only, not appointed Division Admin alone |
+| `my-division-admin-divisions-list` | None | No body/query; caller's own current live appointments, not a management list |
+| `my-identity-read` | None | No body/query; establish caller `userId` for self-leave |
+| `league-staff-invite` | `{ id: leagueId }` | `body: { email, idempotencyKey, makeOwner, title? }`; Admin, title or both |
+| `league-staff-update-title` | `{ id: leagueId, userId }` | `body: { title }`; valid title or null to clear an Admin's label only |
+| `division-admin-invite` | `{ id: divisionId }` | `body: { email }`; no key, no email transport |
 | `league-staff-remove` | `{ id: leagueId, userId }` | No body/query |
-| `division-admin-remove` | `{ id: divisionId, userId }` | No body/query |
-| `league-staff-invitation-cancel` | `{ id: invitationId }` | No body/query |
-| `division-admin-invitation-cancel` | `{ id: invitationId }` | No body/query |
+| `division-admin-remove` | `{ id: divisionId, userId }` | No body/query; self-leave can use own appointment without League reads |
+| `league-staff-invitation-cancel` | `{ id: invitationId }` | No body/query; exact pending offer |
+| `division-admin-invitation-cancel` | `{ id: invitationId }` | No body/query; exact pending, unexpired offer |
+| `my-league-staff-invitations-list` | None | No body/query; recipient's own pending offers |
+| `my-division-admin-invitations-list` | None | No body/query; recipient's own pending offers |
+| `league-staff-invitation-accept`, `league-staff-invitation-decline` | `{ id: invitationId }` | No body/query; recipient's own connection and exact listed invitation |
+| `division-admin-invitation-accept`, `division-admin-invitation-decline` | `{ id: invitationId }` | No body/query; recipient's own connection and exact listed invitation |
 
-Invite schemas trim the supplied address, require a valid email and limit it to 254 characters. Do not infer an address or probe whether it is registered. This skill invites Commissioners only at League level, not new League Admins; keep `makeOwner: false`. `commissioner` is the lowercase wire value; display **Commissioner**.
+Invite addresses are trimmed valid emails, at most 254 characters. Obtain them directly; never infer or probe account existence. `makeOwner` means **League Admin**, independently of the display `title`. The title accepts 1–30 trimmed characters under live validation, including Commissioner or a custom title; Admin is a role, not a title. Require Admin or a title, or both. `league-staff-update-title` changes no Admin grant or membership; only Admins can have no title. Existing Admin-grant changes are left to the app; do this in the app, never by removal/re-invitation.
 
-## Authorized reads and outputs
+## Read projections and authority
 
-- Optional `league-search` takes the supplied league name (trimmed, 1–100 characters), returns `results` with league basics/IDs and `pagination`, and grants no staff visibility or authority. Ask before any further page; never interpret a partial page as a complete directory. Resolve ambiguous matches with the person before the protected reads. This skill requires those League reads; a Division Admin without League read access must use the ordinary app, including for self-leave.
+- Discovery returns basics and pagination, not people or permissions. `league-get`/`league-divisions-list` need ordinary League read access; inaccessible and missing can both be `NOT_FOUND`. Archived leagues remain readable to staff; active divisions are the default. Counts/capability labels never establish a title or a later write's authority.
+- `league-staff-list`: `staff: [{ userId, name, isOwner, title }]`, `invitations: [{ id, makeOwner, title, expiresAt }]`, `viewerIsOwner`. Null `isOwner` is withheld, not false; `viewerIsOwner: false` means empty invitations may be hidden.
+- `division-admin-list`: `admins: [{ userId, name }]`, `invitations: [{ id, expiresAt }]`. Only containing League Admin can manage others; appointment alone is insufficient.
+- Both management lists omit contacts, avatars and inviter details. Never fill gaps by ordinary API calls, infer invitees from order/expiry or show parent/guardian contacts in League/Division lists. A typed address can be echoed only in immediate approval to the caller who supplied it, never routine summaries/messages/reports.
+- `my-division-admin-divisions-list`: `divisions: [{ divisionId, divisionName, leagueId, leagueName }]`, caller's own current live unarchived appointments only. No existing League read is required for this self-service route. Establish own `userId` separately for removal; the result grants no future authority or management access.
+- `my-league-staff-invitations-list`: own `invitations` with `id`, `leagueId`, `leagueName`, `makeOwner`, `title`, `expiresAt`. `my-division-admin-invitations-list`: own `id`, `leagueId`, `leagueName`, `divisionId`, `divisionName`, `expiresAt`. No existing membership is required to read/answer an own offer; stored text is never approval.
 
-- `league-get` and `league-divisions-list`: current League staff and its coaches only; inaccessible and missing leagues both return `NOT_FOUND`. Archived leagues remain readable to staff. Divisions are active by default, not an all-history census. Bare-array route results are wrapped by MCP; follow the actual output schema. Counts and capability labels do not establish a staff title or authority for a later write.
-- `league-staff-list`: `staff: [{ userId, name, isOwner, title }]`, `invitations: [{ id, makeOwner, title, expiresAt }]`, `viewerIsOwner`. Only current League Admins see pending invitations. Null `isOwner` is withheld, not false. `isOwner` and `makeOwner` mean League Admin, independent of the Commissioner title.
-- `division-admin-list`: current containing-League owner only; `admins: [{ userId, name }]`, `invitations: [{ id, expiresAt }]`. Being a Commissioner or an appointed Division Admin alone does not permit this management list. Unauthorized and missing divisions retain distinct refusals; explain only what the returned refusal safely establishes.
-- Both MCP management lists omit addresses, phone numbers, avatars and inviter details even where ordinary app contracts contain them. Never fetch the ordinary API to fill these gaps. An invitation's ID, role or expiry cannot identify its address. Only a reliable exact-offer mapping already supplied/confirmed by the person or an invite receipt permits targeting; otherwise hand off to the app.
-- League invite returns `{ id, email? }`; **`email` is a delivery status**, not an address: `sent` = accepted by mail service, `not_sent` = created but email not sent, absent = unknown delivery status. Division invite returns `{ id }`, with no email transport.
-- Remove/cancel returns ordinary empty 204, represented as `{}` by MCP. This is success, not a missing response needing retry. Lost or malformed replies are different: stop and hand off.
-
-## Authority and refusal boundaries
+## Write authority and effects
 
 | Action | Current authority / effect |
 | --- | --- |
-| League invite | League Admin only; pending offer, attempts email, no access before acceptance |
-| League remove | League Admin removes another member; any staff may leave themselves; last League Admin cannot leave |
-| League cancel | League Admin only; exact pending offer; no accepted membership changed |
-| Division invite | Containing League owner only; pending offer, no email or appointment before acceptance |
-| Division remove | Containing League owner removes another Admin; appointed Admin may leave themselves, including the last Division Admin; only this appointment ends |
-| Division cancel | Containing League owner only; pending, unexpired exact offer; no accepted appointment changed |
+| League invite / title update / cancel | League Admin; invitation is pending until acceptance, title update changes label only, cancel changes no accepted membership |
+| League remove | Admin removes another member; staff may leave themselves; last League Admin cannot leave |
+| Division invite / cancel | Containing League Admin; pending offer sends no email; cancellation changes no accepted appointment |
+| Division remove | Containing League Admin removes another Admin; appointed Admin may leave themselves, including the last Division Admin; only this appointment ends |
+| League accept / decline | Recipient only; acceptance grants offered League staff/Admin choice, decline grants no role |
+| Division accept / decline | Recipient only; acceptance grants that division appointment only, decline grants none |
 
-Standing, self-invite, existing membership, quota, target and other ordinary checks remain Hype's decisions. Do not turn a refusal into an account-existence claim. Prior reads never grant future rights. Never remove the last League Admin or treat a pending invitation as an accepted replacement.
+Ordinary standing, self-invite, existing membership, archived/expired/answered target and quota checks still apply. Never reveal account existence from refusals or count a pending Admin replacement as accepted.
 
-`league-staff-invite` requires an `idempotencyKey`. Get a fresh key from `request-key-new` for each new invite and send it as `idempotencyKey`; never hand-type one. If that tool is missing or errors, stop without inviting. Reuse the SAME key, unchanged, only when the person explicitly asks to retry that same invite after an unclear outcome; never retry automatically. A different email or roles needs a new key. The same key and inputs return the original `id` with `email: "not_resent"` and send no new email; the same key with different inputs returns `IDEMPOTENCY_KEY_REUSED`. A new key, or a Division Admin invite (no key), to the same normalized address replaces the pending offer with a new ID, potentially another email for League staff. After `WRITE_OUTCOME_UNKNOWN`, never repeat automatically, read, chain or compensate: ask the person to check the league's Staff tab in the ordinary app. A later requested list is current state only, not proof of the earlier email/address outcome; any later change needs a new exact review and approval.
+League invite returns `{ id, email? }`: delivery status, never an address. `sent` is service acceptance, `not_sent` is saved without mail, `not_resent` is original invitation returned without a new send, absent means unknown. A new key/address/role action can replace an older pending offer. A deliberate same-key/same-input retry returns the original ID, `not_resent`, no new email and no exposed replay flag; changed/expired/scrubbed key use refuses `IDEMPOTENCY_KEY_REUSED`. Never obtain a fresh key to bypass uncertainty/refusal.
 
-## Verification limits
-
-Not yet verified end to end: removal, installed slash invocation and interactive consent. Preserve explicit approval before every change; successful tool calls and file validation do not prove the full workflow.
+Division invite returns `{ id }`, no email. Title update, remove, cancel and decline return ordinary empty success, `{}` through MCP. League acceptance returns `{ leagueId }`; division acceptance returns `{ leagueId, divisionId }`. No recipient answer has a retry key or repeat-success guarantee. Do not chain any action after a success or uncertain reply; follow the workflow's requested-read and recovery rules.
