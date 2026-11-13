@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.50
+
+### Fixed
+- Remove private reference numbers from release notes and reject them in future public-file checks.
+
 ## 0.1.49 - 2026-11-11
 
 Combined feedback release for progress records, version checks, reconnect guidance, two-parent imports and reviewed invitation/contact jobs.
@@ -9,7 +14,7 @@ Combined feedback release for progress records, version checks, reconnect guidan
 ### Changed
 - Show the invitation preview's remaining allowance, limiting budget, availability time and proposed usage as a snapshot, and read back unfinished attempts before any approved resume without sending twice.
 - Add missing Parent 1 and Parent 2 emergency contacts from the same invitation-sheet rows to exactly paired team roster entries, with separate per-team table approval, existing contacts preserved, skipped and missing-phone rows explained, and a readback after each add-only save.
-- Pair a league registration with its team roster entry only through `team-roster-contact-status` (`registrationId` to `entryId`), never by player name; an unpaired row is left out and explained (HYPE-5173).
+- Pair a league registration with its team roster entry only through `team-roster-contact-status` (`registrationId` to `entryId`), never by player name; an unpaired row is left out and explained.
 - Map parent columns from any readable spreadsheet layout and review one complete invitation job across divisions in one league, previewing batches of up to 200 rows and sending first parents before second parents in ordered parts of at most 25 rows under one yes.
 - Resume requested invitation jobs from the chosen progress record, reconciling unfinished batches with the same key and exact ordered rows without another email attempt; show possible-parent hints without automatically skipping them.
 - Check the server's catalog and minimum plugin versions at session start and after a whole-call refusal suggesting stale tools, not an ordinary business refusal; say how to reconnect when tools changed and how to update first when the plugin is too old, without retrying writes or clearing sign-in. Pin the instruction versions to this release and exercise older/current comparisons offline.
@@ -55,22 +60,22 @@ Combined feedback release for progress records, version checks, reconnect guidan
 ## 0.1.44 - 2026-11-08
 
 ### Changed
-- Let people keep requested contact details in their chosen files and progress records, replacing the blanket file ban; publishing, sharing and credentials remain prohibited (HYPE-5468, decision 900).
+- Let people keep requested contact details in their chosen files and progress records, replacing the blanket file ban; publishing, sharing and credentials remain prohibited.
 
 ## 0.1.43 - 2026-11-08
 
 ### Fixed
-- Keep a person's own files and requested progress records where they choose, with one shared rule for storage and minimal resume details (HYPE-5468). Contact details still never go into files; publishing, sharing and credentials remain prohibited. Draft progress may record picks made, but private player lists, evaluation scores and coaches' private pick lists stay out of files.
+- Keep a person's own files and requested progress records where they choose, with one shared rule for storage and minimal resume details. Contact details still never go into files; publishing, sharing and credentials remain prohibited. Draft progress may record picks made, but private player lists, evaluation scores and coaches' private pick lists stay out of files.
 
 ## 0.1.42 - 2026-11-07
 
 ### Changed
-- Use the add-only emergency-contact tool for reviewed additions, preserving existing contacts; keep whole-list replacement for edits/removals and explain the existing update fallback when the add tool is not live yet (HYPE-5328). Approval, privacy, family takeover and unknown-outcome stops remain unchanged.
+- Use the add-only emergency-contact tool for reviewed additions, preserving existing contacts; keep whole-list replacement for edits/removals and explain the existing update fallback when the add tool is not live yet. Approval, privacy, family takeover and unknown-outcome stops remain unchanged.
 
 ## 0.1.41 - 2026-11-07
 
 ### Changed
-- Allow one later-turn yes for one exact reviewed table of parent/guardian invitation sends and team-player emergency-contact replacements, limited to one team or division, with paged approvals, fresh reads, sequential pacing and stop-on-change/refusal/unknown recovery (HYPE-5180). All other writes keep individual approval.
+- Allow one later-turn yes for one exact reviewed table of parent/guardian invitation sends and team-player emergency-contact replacements, limited to one team or division, with paged approvals, fresh reads, sequential pacing and stop-on-change/refusal/unknown recovery. All other writes keep individual approval.
 
 ## 0.1.40
 
@@ -80,22 +85,22 @@ Combined feedback release for progress records, version checks, reconnect guidan
 ## 0.1.39 - 2026-11-06
 
 ### Changed
-- Season scheduling: tell the commissioner that the assistant checks its plan for team and Field clashes, but Hype won't stop a double-booking and games added outside the plan or edited later aren't checked (HYPE-4726).
+- Season scheduling: tell the commissioner that the assistant checks its plan for team and Field clashes, but Hype won't stop a double-booking and games added outside the plan or edited later aren't checked.
 
 ## 0.1.38 - 2026-11-06
 
 ### Changed
-- Recommend account-wide installation for commissioners and coaches with `--scope user`, and explain how to enable Hype when its tools are missing in another folder (HYPE-5176).
+- Recommend account-wide installation for commissioners and coaches with `--scope user`, and explain how to enable Hype when its tools are missing in another folder.
 
 ## 0.1.37 - 2026-11-06
 
 ### Fixed
-- Team emergency contacts use the requested player's `team-roster-list` row `id` as `entryId`, never `playerProfileId` or a person's ID; `NOT_FOUND` means not found or not visible, without retrying another kind of ID (HYPE-5131).
+- Team emergency contacts use the requested player's `team-roster-list` row `id` as `entryId`, never `playerProfileId` or a person's ID; `NOT_FOUND` means not found or not visible, without retrying another kind of ID.
 
 ## 0.1.36 - 2026-11-06
 
 ### Changed
-- League staff and League setup: each new `league-staff-invite` gets a fresh `idempotencyKey` from `request-key-new` (HYPE-4855, HYPE-4892); the same key is reused, unchanged, only when the person explicitly asks to retry that same invite after an unclear outcome, and a different email or roles needs a new key.
+- League staff and League setup: each new `league-staff-invite` gets a fresh `idempotencyKey` from `request-key-new`; the same key is reused, unchanged, only when the person explicitly asks to retry that same invite after an unclear outcome, and a different email or roles needs a new key.
 
 ## 0.1.35 - 2026-11-06
 
@@ -110,12 +115,12 @@ Combined feedback release for progress records, version checks, reconnect guidan
 ## 0.1.33 - 2026-11-06
 
 ### Changed
-- Clubs and Tournaments: get each new create or Admin-offer key from the shared `request-key-new` tool (HYPE-4892), never asking for a new key on a retry and reusing it only for an exact retry after the re-check and a fresh yes, instead of generating one yourself; the app remains the fallback when that tool is unavailable or fails.
+- Clubs and Tournaments: get each new create or Admin-offer key from the shared `request-key-new` tool, never asking for a new key on a retry and reusing it only for an exact retry after the re-check and a fresh yes, instead of generating one yourself; the app remains the fallback when that tool is unavailable or fails.
 
 ## 0.1.32 - 2026-11-06
 
 ### Changed
-- Team management explains staff-only reading and whole-list editing of one player's emergency contacts (HYPE-5081): read first, review the exact replacement, get explicit yes in a later turn, respect family takeover and keep contacts out of summaries and files. Requires the two tools to be present in the live connection; source changes alone do not make them live.
+- Team management explains staff-only reading and whole-list editing of one player's emergency contacts: read first, review the exact replacement, get explicit yes in a later turn, respect family takeover and keep contacts out of summaries and files. Requires the two tools to be present in the live connection; source changes alone do not make them live.
 
 ## 0.1.31 - 2026-11-06
 
@@ -125,12 +130,12 @@ Combined feedback release for progress records, version checks, reconnect guidan
 ## 0.1.30 - 2026-11-06
 
 ### Changed
-- League setup: a league's logo can now change through `league-update` (HYPE-4839), but only to a picture the person uploaded with `demo-logo-upload`; never a web address from the chat, never fetched. The assistant cannot see the picture, so it asks the person to check the logo in the app; removing a logo needs their explicit yes, and leaving it out keeps it. Live after the next API deploy.
+- League setup: a league's logo can now change through `league-update`, but only to a picture the person uploaded with `demo-logo-upload`; never a web address from the chat, never fetched. The assistant cannot see the picture, so it asks the person to check the logo in the app; removing a logo needs their explicit yes, and leaving it out keeps it. Live after the next API deploy.
 
 ## 0.1.29 - 2026-11-06
 
 ### Changed
-- Season scheduling: each new game's key now comes from `request-key-new` (HYPE-4892), reused only for an explicit retry with unchanged inputs, instead of a UUID the assistant makes itself.
+- Season scheduling: each new game's key now comes from `request-key-new`, reused only for an explicit retry with unchanged inputs, instead of a UUID the assistant makes itself.
 
 ## 0.1.28 - 2026-11-06
 
