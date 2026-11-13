@@ -2,6 +2,18 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.62 - 2026-11-13
+
+### Added
+- Add or edit a child's profile and emergency contacts, see who manages the profile, leave it, or ask to join a team as a parent/guardian, with confirmation before every change.
+- Answer, resend or cancel supported parent/guardian invitations, review team requests, and read league or division players within the person's own access.
+- Add parent, coach and league-admin examples, including what to say when an earlier invitation email's result is unknown.
+
+### Changed
+- Organize Players & Families by who is asking and link to the existing league invitation skills instead of repeating their sends.
+- Show names instead of record numbers, find the team before a join request, and explain that one coach approval answers one player's request.
+- Keep irreversible player erasure and withdrawing mistaken team requests in the app; explain possible duplicate emails before asking to resend.
+
 ## 0.1.61 - 2026-11-13
 
 ### Changed
