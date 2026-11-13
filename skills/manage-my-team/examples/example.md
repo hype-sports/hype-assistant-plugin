@@ -12,33 +12,49 @@ Check live tools/schemas. Resolve the exact team using its known ID or a request
 
 Read `team-seasons-list`; let the person choose [returned season ID] for this team, then call `team-roster-list` with `query: { season: [returned season ID] }`. Keep current/past labels clear. Describe an empty result as no entries visible, not proof there were no players. Make no changes.
 
-## 2. Add, take off and put back
+## 2. Add, change, take off and put back
 
 **Person:** Add Quinn Example to Cedar Comets with jersey 0.
 
-**Assistant:** Adding a player through the assistant is coming soon. Use Cedar Comets' Roster in Hype; a jersey is optional and 0 is valid. I haven't added a player.
+Read `team-roster-list` (current season) and check no Quinn Example is already listed.
 
-**Person:** Take Quinn off the Roster, then put Quinn back.
+**Assistant:** Add Quinn Example to Cedar Comets' Roster this season as a player with jersey 0? No parent details are needed. Shall I add this player?
 
-Explain that these assistant tools are also unavailable through the assistant. Direct removal to the app's Roster and put-back to Removed this season. Explain history is kept; do not delete a profile or create a duplicate player. Keep the unavailable roster actions outside this skill; never execute either write or treat one request as approval for two changes.
+**Person:** Yes.
+
+Call `team-roster-entry-create` once with `role: "player"`, the names and `jerseyNumber: 0`. Report the returned [entry ID] as added. Never call again for the same player; another call can create a duplicate.
+
+**Person:** Make Quinn number 7, then take Rowan Sample off the Roster.
+
+These are two changes. Review the jersey change for [Quinn's entry ID] and, after a later yes, call `team-roster-entry-update` once with only `jerseyNumber: 7`. Then review the removal separately: it ends Rowan's entry for this season, keeps history, deletes no profile and notifies Rowan's parents/guardians. Only after a separate yes, call `team-roster-entry-remove` once.
+
+**Person:** Put Rowan back.
+
+Read `team-roster-removed-list`, choose Rowan's exact [removed entry ID], explain that parents/guardians are notified, and after a later yes call `team-roster-entry-restore` once. If it refuses `PAST_SEASON`, explain the entry belongs to an earlier season and offer a fresh add to this season instead; on `PROFILE_ALREADY_ON_ROSTER`, read the Roster again and show Rowan is already on it. Never add a duplicate as a substitute.
+
+**Person:** Roll the Roster over to next season.
+
+Read `team-roster-start-sources-list` for Cedar Comets and `team-seasons-list` for its [next season ID]. Show the source team and season, the destination season and every selected player and staff member. Explain they are added directly with eligible parent/guardian links and staff permissions, and no invitation or email is sent. After a later yes, get a fresh key from `request-key-new` and call `team-roster-roll-over` once with it as `operationId`; report the six counts.
 
 ## 3. Invite a coach; delivery is not membership
 
 **Person:** Invite Robin Example as Assistant Coach for Cedar Comets.
 
-Resolve the exact team; read its role from `my-home-entities-list` and proceed only for Admin or Staff. Inspect `team-staff-list`. Ask for the exact address directly, without account lookup. Check only that supplied address with `team-invitations-list`. For the example's false pending answer, prepare email-only `team-invitation-create`, `title: "assistant_coach"`, `makeOwner: false`. Stop a new create if true; explain and ask if null, never assume no pending offer.
+Resolve the exact team; read its role from `my-home-entities-list` and proceed only for Admin or Staff. Inspect `team-staff-list`. Ask for the exact address directly, without account lookup. Check only that supplied address with `team-invitations-list`. For the example's false pending answer, prepare email-only `team-invitation-create`, `title: "assistant_coach"`, `makeOwner: false`. Stop a new create if true (offer resend); explain and ask if null, never assume no pending offer.
 
 **Assistant:** Invite Robin to Cedar Comets [team ID] as Assistant Coach, not Admin, at the address supplied? This sends a real invitation email attempt; Robin gains Staff access only after accepting. Staff can see players' emergency contacts in Hype while on the current roster of an active team. Repeating a send can replace an earlier pending offer and send another email. Shall I send this exact invitation?
 
 **Person:** Yes.
 
-Call once. With `{ id, recipientMode: "email", email: "not_sent", overlaps: [] }`, say the invitation was created and is waiting for Robin's answer, but email was not sent. Do not create again or send a separate message.
+Get a fresh key from `request-key-new` (input `{}`), send it as `idempotencyKey` and call once. With `{ id, recipientMode: "email", email: "not_sent", overlaps: [] }`, say the invitation was created and is waiting for Robin's answer, but email was not sent. Do not create again or send a separate message.
 
 **Person:** Resend it.
 
-Explain resend and repeat-safe invitations are not available yet; hand off to Hype's Staff area. Never substitute another create.
+Read `team-invitations-list` and choose Robin's exact [invitation ID] by title, expiry and last sent (no addresses are shown). If `canResend` is true, explain that it sends another real email; after a later yes, get a fresh key and call `team-invitation-resend` once. Never use create as a resend.
 
-For verification, do not create this invitation unless a supported immediate cancellation/cleanup route exists. Staff-invite cancellation is not available through the assistant. Stop irreversible verification sends and report the limit; never leave an invitation behind just to claim a pass.
+**Person:** Actually, cancel Robin's invitation.
+
+Review the same exact invitation: it withdraws the offer and removes nobody already on Staff. After a later yes, call `team-invitation-cancel` once. For verification, cancel any test invitation this way so none is left behind.
 
 ## 4. Answer my Staff invitation
 
@@ -56,11 +72,15 @@ For a decline request instead, review the exact offer and explain no joining or 
 
 **Person:** Who is waiting to join Cedar Comets?
 
-Check that `my-home-entities-list` shows Admin or Staff for this team before offering the staff-only lists below. Ask which list: Staff offers, followers, player parent/guardian requests or league memberships. Use `team-invitations-list` for the first and `team-relationship-requests-list` with `status: "pending"` for follower/historical family requests. Explain that incoming player parent/guardian requests are not available yet; do not pretend the follower list is that queue. Do not answer any request as part of listing.
+Check that `my-home-entities-list` shows Admin or Staff for this team before offering Staff offers or follow requests; for parent/guardian requests and league memberships the Home role only tailors the offer and the live tool decides. Ask which list: Staff offers, followers, player parent/guardian requests or league memberships. Use `team-invitations-list` for the first, `team-relationship-requests-list` with `status: "pending"` for followers and `team-guardian-requests-list` for parent/guardian requests; never treat the follower list as that queue. Do not answer any request as part of listing.
+
+**Person:** Approve Casey Sample's request for Quinn.
+
+Select that exact [request ID] from `team-guardian-requests-list`, show the player and asker, and explain that approving gives Casey parent/guardian access to Quinn on this team and may also link a player profile Casey offered, with its family and notice effects. After a later yes, call `guardian-request-approve` once and report the returned outcome (`already` means nobody new was added).
 
 **Person:** Show the team's leagues and put it in Cedar Division.
 
-Read `team-memberships-list` for the exact team. Preserve its scope, archive dates and unknown co-owner state. Explain that placing a team, answering or leaving a membership is not available yet; direct league staff to Hype. Do not infer placement powers from membership/destination facts or create a replacement team.
+Read `team-memberships-list` for the exact team. Preserve its scope, archive dates and unknown co-owner state. Placing a team in a division is a League staff action: proceed only when Home shows the person as staff of that league, read `league-divisions-list` for Cedar Division's exact ID, review the move and, after a later yes, call `team-membership-place-in-division` once. Otherwise explain that the league's staff place teams. Do not infer placement powers from membership facts or create a replacement team.
 
 ## 6. Refused tool or unclear send
 
@@ -74,6 +94,6 @@ If the approved coach invite has a lost reply instead of a confirmed result, say
 
 Discover live tools/schemas and select Cedar Comets' exact team row from `my-home-entities-list`. For this scenario, its `userRoles` is `["fan"]`: follower, not Admin or Staff. Use that role to limit offers, not to test permission by calling restricted tools.
 
-**Assistant:** Your Home list shows you follow Cedar Comets, rather than being team Admin or Staff. Pending Staff invitations, follow requests, league memberships and coach invitations need that team access, so I won't request those lists or send an invitation. I can show the Roster within your access; I can also help with Staff or season information that Hype allows you to see.
+**Assistant:** Your Home list shows you follow Cedar Comets, rather than being team Admin or Staff. Pending Staff invitations, follow requests and coach invitations need that team access, so I won't request those lists or send an invitation. I can show the Roster within your access, and I can ask Hype for the league memberships it lets you see; I can also help with Staff or season information that Hype allows you to see.
 
-Complete the requested independent `team-roster-list` read and show only its returned fields. Do not call `team-invitations-list` (with or without an email), `team-relationship-requests-list`, `team-memberships-list` or `team-invitation-create`; do not ask for a coach's address. Offer the same limited choices for a missing or unknown role. Keep the person's own incoming Staff invitation inbox available through SKILL.md section 5 (scenario 4 above). If a later Home read shows Admin or Staff, allow the requested staff workflow to proceed normally, but report any subsequent server refusal if that role has changed again; never retry or work around it.
+Complete the requested independent `team-roster-list` read and show only its returned fields. Do not call `team-invitations-list` (with or without an email), `team-relationship-requests-list` or `team-invitation-create`; `team-memberships-list` may be read and its refusal, if any, reported; do not ask for a coach's address. Offer the same limited choices for a missing or unknown role. Keep the person's own incoming Staff invitation inbox available through SKILL.md section 5 (scenario 4 above). If a later Home read shows Admin or Staff, allow the requested staff workflow to proceed normally, but report any subsequent server refusal if that role has changed again; never retry or work around it.
