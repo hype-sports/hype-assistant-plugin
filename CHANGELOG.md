@@ -2,6 +2,13 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.53 - 2026-11-13
+
+### Added
+- `my-feed` Preview skill for your Feed or one team's posts, comments and Hypes, with a separate approval for every write and no automatic retries.
+- Announcement audience choices, reach snapshots, pending-request saves and original-window Undo guidance. Pending or queued requests do not prove publication or delivery; failed-send history is not available yet.
+- Feed tool reference and worked evaluation scenarios; notification reading and settings stay with their existing skills.
+
 ## 0.1.52 - 2026-11-13
 
 ### Changed
