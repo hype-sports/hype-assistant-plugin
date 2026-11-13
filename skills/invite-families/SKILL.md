@@ -16,7 +16,7 @@ Use `/hype:league-setup` instead to create divisions or import registrations; th
 
 ## 1. Check the connection and map the input
 
-Use only the person's own signed-in Hype connection and existing rights. Follow the [Players & Families boundaries](../players-families/SKILL.md#0-check-live-tools-and-boundaries). Discover full live tool names, descriptions and schemas; operation IDs below are not an assumed installed prefix.
+Use only the person's own signed-in Hype connection and existing rights. Follow the [Players & Families boundaries](../players-families/SKILL.md#check-tools-and-confirm-every-change). Discover full live tool names, descriptions and schemas; operation IDs below are not an assumed installed prefix.
 
 For an invitation job, require `my-home-entities-list`, an authorized registration list/lookup, `league-player-guardian-invitations-list`, `league-player-guardian-invitations-match`, `request-key-new`, `league-guardian-invitations-batch-preview` and `league-guardian-invitations-batch-send`. Require the live batch schemas described in [Reviewed batches and progress](references/reviewed-job.md). If a needed tool/schema is missing or refused, explain the blocked part and stop; never substitute per-player sends, an unkeyed fallback, invented fields, locally generated keys, direct API/database access or another account. Never send an invitation to test access or discover who owns an address.
 

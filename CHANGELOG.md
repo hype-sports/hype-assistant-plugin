@@ -11,6 +11,34 @@ All notable changes to this plugin are documented here, following [Keep a Change
 - Show a parent contact back only to the person who typed it, in that person's immediate approval.
 - Show the current family-invitation allowance, check one supplied sign-up contact when asked, and keep same-sheet contact imports add-only without a replacement fallback.
 
+## 0.1.62 - 2026-11-13
+
+### Added
+- Add or edit a child's profile and emergency contacts, see who manages the profile, leave it, or ask to join a team as a parent/guardian, with confirmation before every change.
+- Answer, resend or cancel supported parent/guardian invitations, review team requests, and read league or division players within the person's own access.
+- Add parent, coach and league-admin examples, including what to say when an earlier invitation email's result is unknown.
+
+### Changed
+- Organize Players & Families by who is asking and link to the existing league invitation skills instead of repeating their sends.
+- Show names instead of record numbers, find the team before a join request, and explain that one coach approval answers one player's request.
+- Keep irreversible player erasure and withdrawing mistaken team requests in the app; explain possible duplicate emails before asking to resend.
+
+## 0.1.61 - 2026-11-13
+
+### Changed
+- Match account-deletion guidance to every staff and Admin role that must be left first, and keep the status waiting list separate from those blockers.
+- Cover login history, assistant activity, personal Blocks and managed-player erase requests, with separate approval before each change and later-turn confirmation before scheduling player erasure.
+- Read Terms state from its returned fields without assuming publication history, and point account/player erasure requests to `my-account`.
+
+## 0.1.60 - 2026-11-13
+
+### Changed
+- Align evaluation creation with Division Admin management rights without promising a private scoring sheet or scoring access.
+- Find manageable evaluations without a saved sheet, read who came to each tryout date, and mark or clear one player's attendance after a separate preview and yes.
+- State attendance's current player-list editor and date-start requirements without claiming a draft effect; clarify accepted page-size forms and include attendance in command summaries.
+- Clarify manual evaluation-review invocation, tryout request phrases and distinct paging inputs; keep archiving and restoring deliberately in the app.
+- Move detailed evaluation actions and ranking/file rules into linked references with worked examples, preserving approval, privacy and uncertain-outcome safeguards.
+
 ## 0.1.59 - 2026-11-13
 
 ### Changed
