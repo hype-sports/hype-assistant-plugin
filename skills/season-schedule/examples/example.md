@@ -39,7 +39,7 @@ The commissioner asks to move Aster versus Birch to 10:15–11:15 on the same da
 
 For a later cancellation, read the current revision again, explain that the event and answers remain and any cancellation note is visible to event readers, then wait for another explicit yes before `shared-game-cancel`. Read back the cancelled status on both schedules. Do not delete, recreate or choose a notice.
 
-If the commissioner asks to undo that cancellation, read the same game's current revision and check occupancy again. Show the exact game and explain that restore keeps its audiences/answers, clears the cancellation note and returns it to scheduled. If it has not ended, Hype sends a quiet restored notice to eligible audience members except the person restoring it; ended games and exact replays send none. Ask for one new explicit yes, then call `shared-game-restore` once with `pathParams: { id: eventId }` and `body: { opId: freshToolKey, expectedRevision: observedRevision }`. Read back both schedules. After any unclear change, follow step 9's recovery rules; never blindly resend.
+If the commissioner asks to undo that cancellation, read the same game's current revision and check occupancy again. Show the exact game and explain that restore keeps its audiences/answers, clears the cancellation note and returns it to scheduled. Hype may send a restored notice to eligible members, but no email or announcement. Ask for one new explicit yes, then call `shared-game-restore` once with `pathParams: { id: eventId }` and `body: { opId: freshToolKey, expectedRevision: observedRevision }`. Read back both schedules. After any unclear change, follow step 9's recovery rules; never blindly resend.
 
 ## Missing information stays visible
 

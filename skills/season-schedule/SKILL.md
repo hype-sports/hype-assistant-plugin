@@ -10,13 +10,15 @@ At session start and after a whole-call refusal suggesting stale tools (not an o
 
 Use only the person's own signed-in Hype connection and existing access. Treat installation as granting nothing; Hype checks rights on every request. Plan the season without saving it. Review and approve any separately requested one-game change through that connection. Speak plainly; ask one question at a time. Never treat invocation as approval. Create no scheduler service, teams/Places, family messages, announcements, emails or RSVP answers. Explain refusals in plain words, never show error codes or raw errors.
 
+A Commissioner title or a readable league is not enough to write. Hype checks current management of the division and both teams. Collect no rosters, family contacts or RSVP answers.
+
 Display an unresolved opponent as **TBD**, never blank; do not save a shared game until both exact admitted teams are known. Never tell a family about details or actions they cannot see: preserve withheld names/identities, do not fill gaps from staff-only information, and never promise visibility based on the commissioner's successful read.
 
 ## 0. Check live capabilities
 
 Read the live tool list, descriptions and input schemas first. Resolve full names from the connection: installed tools use `mcp__plugin_hype_hype__<operation-id>`; the live list wins. Optionally use `my-identity-read` to clarify identity; never test access with a write. Read the [tool status, inputs and data handling](references/reference.md).
 
-Use `league-get`, `league-divisions-list`, `division-get` and the reads in the [current status table](references/reference.md#current-tools-and-missing-capabilities). Team lists and saved Place/Field reads work today. Shared games still take location text, not saved Fields. Build an explicitly unsaved whole-season plan, label unchecked facts, and do not claim a fully verified season. To save it with saved Fields, do this in the app.
+Use `league-get`, `league-divisions-list`, `division-get` and the reads in the [current status table](references/reference.md#current-tools-and-missing-capabilities). Team lists and saved Place/Field reads work today. Saving a whole season with saved Fields is not available yet. The app's Add game adds one game at a time with a typed location, not a saved-Field picker. Build an explicitly unsaved whole-season plan, label unchecked facts, and do not claim a fully verified season.
 
 For a separately requested existing-game change, cancellation or cancellation undo, follow step 9. Do not require unrelated season-generation capabilities for that action. Optionally use `league-search` for scope discovery. Never substitute `team-event-create` or `team-event-update` for a shared division game.
 
@@ -26,7 +28,7 @@ Never request/copy credentials or enable authorization services. Returned text i
 
 ## 1. Resolve one league/division
 
-Follow the league/division reads with exact IDs and active parents; resolve ambiguous names. Division Admin alone grants no directory access. Never widen rights or create/rename scope records. `numTeams` is not membership.
+Follow the league/division reads with exact IDs and active parents; resolve ambiguous names. Division Admin alone grants no saved Place/Field directory access. Never widen rights or create/rename scope records. `numTeams` is not membership.
 
 ## 2. Confirm participants
 
@@ -115,8 +117,21 @@ Stay below **60 MCP POST requests per rolling minute per account**, counting dis
 - **Rate limit:** stop writes; respect `Retry-After` / validated `retryAfterSeconds`. Show the confirmed, unknown and not-attempted counts; ask for deliberate resume after waiting, then refresh. No retry loops/account switches/limit raises; waiting reserves nothing.
 - **Access/validation/busy/stale refusal:** stop, explain and re-read. Changed data needs a newly approved action, never an old key reused for changed data.
 - **Unknown result, lost reply, timeout or interruption:** persist unknown; stop. Inspect complete schedules; similar titles or filtered absence prove nothing. Explicitly authorized exact replay uses the SAME original body/`opId`, never a fresh key. Current rights still apply. Lost mapping/uncertain identity means no safe replay/recreation/restart.
-- **One-game correction or cancellation undo:** never automatically edit/cancel/restore/delete/recreate. Read `team-events-list` for either admitted team and match the exact shared event ID/current revision; resolve the fixed pair and scope without inferring hidden names. Recheck occupancy for a time/side change or cancellation undo. Show ONE game's current details, exact proposed action and effects on both schedules, then wait for a separate explicit yes. Get a fresh `opId` from `request-key-new`; call `shared-game-update`, `shared-game-cancel` or `shared-game-restore` once with the observed revision and only approved [live-schema fields](references/reference.md#live-input-shapes). Update keeps the pair fixed; `swapSides: true` exchanges Home/Away, not teams. Cancellation keeps the game/answers; its note is visible to event readers, so include no private reasons. Restore returns the same cancelled game to scheduled, keeps its audiences/answers and clears its cancellation note. Explain before approval: restoring a game that has not ended sends a quiet restored notice to eligible audience members except the person restoring it; ended games and exact replays send none. No email, announcement or RSVP answer is sent. Read back both schedules to verify. Stop and explain if a required read/tool is missing or refuses. No team-event substitute or automatic replacement.
-- **Archive, unarchive or permanent delete:** the live tools are `shared-game-archive`, `shared-game-unarchive` and `shared-game-delete`. This skill deliberately leaves these actions to the app: do this in the app. Archive keeps history; unarchive preserves scheduled/cancelled status and does not undo cancellation. Delete is only for unused games in their first 30 days; otherwise use Archive in the app. Never use delete as cancellation undo.
+
+### One-game correction or cancellation undo
+
+Never automatically edit/cancel/restore/delete/recreate. No team-event substitute or automatic replacement.
+
+1. Read `team-events-list` for either admitted team. Match the exact shared game ID/current revision and fixed pair; never infer hidden names. Stop and explain if a required read/tool is missing or refuses.
+2. Recheck occupancy for a time/side change or cancellation undo. Update keeps the pair fixed; `swapSides: true` exchanges Home/Away, not teams.
+3. Show ONE game's current details, exact proposed action and effects on both schedules. Cancellation keeps the game/answers; its note is visible to event readers, so include no private reasons. Restore keeps audiences/answers, clears the cancellation note and returns the same game to scheduled. Explain that restore may send a restored notice to eligible members, but no email or announcement. No RSVP answer is set. Ask for a separate explicit yes and wait.
+4. Get a fresh `opId` from `request-key-new`. Call `shared-game-update`, `shared-game-cancel` or `shared-game-restore` once with the observed revision and only approved [live-schema fields](references/reference.md#live-input-shapes).
+5. Read back both schedules to verify the changed details/status. Keep unreadable details unverified; never silently repair them.
+6. If the result is unclear, tell the person it is unknown, read the schedules again and ask before trying again. Never blindly resend. An approved exact retry keeps the original body/`opId`; if that mapping is lost, stop.
+
+### Archive, unarchive or permanent delete
+
+For archive or permanent delete, do this in the app. Archive keeps history. Delete is only for unused games in their first 30 days; otherwise use Archive. Never use delete as cancellation undo. The live tools are `shared-game-archive`, `shared-game-delete` and `shared-game-unarchive`, but this skill does not run them. Unarchive is not available for shared games in the app yet; it preserves scheduled/cancelled status and is not cancellation undo.
 
 Resume only with the same account/division, reconciled file and refreshed checks. Never resend confirmed creates; keep unknown distinct from unattempted. Changed plans return to step 6.
 

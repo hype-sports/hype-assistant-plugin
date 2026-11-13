@@ -10,9 +10,9 @@ Require each needed operation in the live list before using it.
 | --- | --- | --- |
 | Division/league team lists | `division-teams-list`, `league-teams-list` read current team directories. `shared-game-choices-list` reads eligible choices and season IDs. | Directories have no season IDs or total count. Choices are filtered by management rights, not a census; compare with the division's observed counts. |
 | Saved Places and Fields | `saved-places-list`, `saved-place-fields-list` read permitted directories and current version references. | Use the division's league directory and selectable records. Directory access grants no game-management rights; preserve redacted facts. |
-| Attach a saved Field to a shared game | Missing from `shared-game-create` and `shared-game-update`; these accept location/address text only. | Keep whole-season plans unsaved. To save with saved Fields, do this in the app; never substitute typed labels or send saved IDs to these tools. |
+| Attach a saved Field to a shared game | Missing from `shared-game-create` and `shared-game-update`; these accept location/address text only. | Whole-season saving with saved Fields is not available yet. The app's Add game adds one game at a time with a typed location. Keep the plan unsaved; never send saved IDs to these tools. |
 
-Single-game updates, cancellations and cancellation undo work through `shared-game-update`, `shared-game-cancel` and `shared-game-restore`. Follow step 9 for one game and one explicit yes. Archive/unarchive/delete tools also exist; this skill deliberately leaves them to the app, as explained there.
+Single-game updates, cancellations and cancellation undo work through `shared-game-update`, `shared-game-cancel` and `shared-game-restore`. Follow step 9 for one game and one explicit yes. This skill deliberately leaves archive/delete to the app. The live unarchive tool is outside this skill; shared-game unarchive is not available in the app yet.
 
 Other reads: `league-search`, `league-get`, `league-divisions-list`, `division-get` resolve scope; `event-cards-list` reads schedule windows; `team-events-list` supplies an exact game's revision. `my-identity-read` can clarify the signed-in identity without testing access through a write.
 
@@ -33,7 +33,7 @@ Follow the live schema exactly. All operations currently require `catalogVersion
 - `shared-game-create`: `body: { opId, divisionId, homeTeamId, awayTeamId, title, date, startTime, endTime, timeZone, attendanceRequired, includesFamilies }`, with optional live-schema description/location/address/arrival offset. Distinct admitted teams, a future start and same-local-day end after start are required. For the guarded season path use `attendanceRequired: true` and the agreed family flag. Today's text-only body must not be used to save the whole-season plan.
 - `shared-game-update`: `pathParams: { id: eventId }`, `body: { opId, expectedRevision, ...approvedChanges }`. Changes include title/date/startTime/endTime/timeZone, description/location/address, `arriveMinutesBefore`, attendanceRequired/includesFamilies and `swapSides: true`. No saved Place/Field IDs or versions.
 - `shared-game-cancel`: `pathParams: { id: eventId }`, `body: { opId, expectedRevision, note? }`.
-- `shared-game-restore`: `pathParams: { id: eventId }`, `body: { opId, expectedRevision }`. This undoes cancellation, not archive. There is no start-time limit; explain the quiet restored notice described in step 9 before approval.
+- `shared-game-restore`: `pathParams: { id: eventId }`, `body: { opId, expectedRevision }`. This undoes cancellation, not archive. There is no start-time limit; explain the restored notice to eligible members described in step 9 before approval. No email or announcement is sent.
 
 Never send `notice` to the shared-game tools: their live assistant schemas exclude it. Get keys and reconcile unknown results through steps 8–9, not automatic retries.
 
