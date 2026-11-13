@@ -2,6 +2,15 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.59 - 2026-11-13
+
+### Changed
+- Run a draft with today's tools: draw and reveal pick order, assign who picks for a team, refresh teams, manage Saves and player links, change settings, and manage a private pick list or the team's own turn, one yes per change.
+- Explain paced Hat draws for marked players at the app's current pace and separately approved assistant draws, with limited Undo rather than calling each group final; never start an automatic timer or substitute all-at-once placement.
+- Add clear Cancel, Delete and Archive warnings, private cutoff-age reading and the person's own Division Skip preference; read current settings and keep clock recovery and unchanged-request retries in one reference.
+- Stop if the request-key tool is missing or fails instead of generating a replacement key; use one shared missing-tool rule.
+- Match Cancel and Delete explanations to the app's confirmation wording, and distinguish the draft's scheduled time and clock expiry settings from calendar entries and a team's own auto-pick switch.
+
 ## 0.1.58 - 2026-11-13
 
 ### Added
