@@ -7,6 +7,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 ### Changed
 - Align evaluation creation with Division Admin management rights without promising a private scoring sheet or scoring access.
 - Find manageable evaluations without a saved sheet, read who came to each tryout date, and mark or clear one player's attendance after a separate preview and yes.
+- State attendance's current player-list editor and date-start requirements without claiming a draft effect; clarify accepted page-size forms and include attendance in command summaries.
 - Clarify manual evaluation-review invocation, tryout request phrases and distinct paging inputs; keep archiving and restoring deliberately in the app.
 - Move detailed evaluation actions and ranking/file rules into linked references with worked examples, preserving approval, privacy and uncertain-outcome safeguards.
 

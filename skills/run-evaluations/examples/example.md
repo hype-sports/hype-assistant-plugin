@@ -7,9 +7,9 @@ These conversations illustrate the [main workflow](../SKILL.md); they are not to
 **Person:** Mark Robin Lane as came at Saturday's tryout.
 
 1. Check the signed-in connection, tool versions and live schemas. Resolve the exact evaluation through `private-evaluations-manageable-list`, even if the person has no private sheet. Resolve Saturday's exact event through permitted event discovery and confirm its evaluation with event context. Ask which date or player if ambiguous.
-2. Read `private-evaluation-players-list` for that evaluation and `evaluation-attendance-read` for that evaluation/date. Match Robin by the permitted list's participant identity, not a registration ID. Suppose the returned attendance is not marked came.
+2. Require current permission to edit this evaluation's player list; only its current editors can read or mark attendance, and Hype checks every call. Read `private-evaluation-players-list` and `evaluation-attendance-read` for that evaluation/date. Match Robin by the permitted list's participant identity, not a registration ID. Confirm that this exact date has started before offering to mark or clear attendance; otherwise stop. Suppose the date has started and the returned attendance is not marked came.
 
-**Assistant:** Robin Lane is not marked came at Saturday's tryout in Spring Skills. Mark Robin as came for that date? This changes shared attendance and can affect which players enter the draft's hat stage. It does not change scores, notes, the player list or an RSVP.
+**Assistant:** Robin Lane is not marked came at Saturday's tryout in Spring Skills. Mark Robin as came for that date? This changes shared attendance for this evaluation date, not private scores, notes, player lists or RSVPs.
 
 **Person:** Yes.
 

@@ -58,9 +58,9 @@ If the minimum is greater than this release, add this sentence in the same messa
 - `/hype:notification-settings`: notification categories and channels.
 - `/hype:players-families`: managed players and parent/guardian workflows.
 - `/hype:invite-families`: map supplied enrollment columns, review one invitation job across divisions in one league, and resume from the chosen progress record; review same-row emergency contacts separately per team.
-- `/hype:review-evaluations`: read your own evaluation scores, scores shared with you and player lists you manage.
+- `/hype:review-evaluations`: find evaluations you manage; read your own or shared scores, player lists and who came to each tryout date.
 - `/hype:run-a-draft`: commissioner draft workflow.
-- `/hype:run-evaluations`: approved scoring, private notes, sharing, player-list changes, setup, dates and the person's private draft evaluation choice.
+- `/hype:run-evaluations`: approved scoring, private notes, sharing, player-list changes, setup, dates, marking or clearing who came to a tryout date, and the person's private draft evaluation choice.
 - `/hype:season-schedule`: division season scheduling.
 
 ## Your output
