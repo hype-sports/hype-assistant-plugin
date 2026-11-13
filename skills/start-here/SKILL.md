@@ -5,7 +5,7 @@ description: 'This skill should be used when the person asks for Hype help in pl
 
 # Start here
 
-Point the person to the right Hype command. This skill only names a command and describes it in one line. Never run a command for the person, never call a Hype tool that saves, changes, sends or deletes anything, and never change anything here. Routing needs no Hype tools; the named command runs the [tool-version check](../my-account/references/tool-versions.md) itself when the person starts it.
+Point the person to the right Hype command. This skill only names a command and describes it in one line. Never run a command for the person, never call any Hype tool (reading or changing), and never change anything here. Routing needs no Hype tools; the named command runs the [tool-version check](../my-account/references/tool-versions.md) itself when the person starts it.
 
 ## How to answer
 
@@ -14,13 +14,14 @@ Point the person to the right Hype command. This skill only names a command and 
 3. If two rows fit, name both and ask which one they mean.
 4. If no row fits, say plainly that there is no guided command for that yet. Do not guess, and do not do the work with raw Hype tools instead. For "where is it in the app" questions, `/hype:find-in-hype` can still give directions.
 
+For "what can you do?" or "where do I start?", show the table below as a short list of commands with their one-line descriptions.
+
 Use plain words and made-up names only in examples.
 
 ## Routing table
 
 | The person says something like | Command | What it does |
 | --- | --- | --- |
-| "What can you do?", "Where do I start?" | `/hype:start-here` | Lists the commands below; changes nothing. |
 | "Set up my league", "add divisions", "register a player", "import a sign-up sheet" | `/hype:league-setup` | Creates a league and its divisions, renames it, registers players and archives it. |
 | "Am I a supporter?", "hide my supporter ring" | `/hype:my-support` | Shows supporter status and changes whether the supporter ring shows. |
 | "Plan our season", "make a round-robin schedule", "reschedule a game", "cancel a game" | `/hype:season-schedule` | Plans an unsaved round-robin season; changes, cancels or restores one game. |

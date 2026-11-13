@@ -6,7 +6,7 @@ Hype helps leagues, coaches, players and families run youth sports. This plugin 
 
 ## What you can ask
 
-Type the command, then say what you need. You can also just ask in plain words: Claude can point you to the right command (`/hype:start-here`).
+Type the command, then say what you need. You can also ask in plain words, or run `/hype:start-here`, and Claude points you to the right command.
 
 | You might say | Command | Status |
 | --- | --- | --- |
@@ -23,7 +23,7 @@ Type the command, then say what you need. You can also just ask in plain words: 
 | "Turn off push notifications for drafts." | `/hype:notification-settings` | Preview |
 | "Where do I change the theme in Hype?" | `/hype:find-in-hype` | Preview |
 
-**Available** means the command's main steps have been tried from start to finish on a test account. **Preview** means not every step has been tried yet. Every command checks what Hype offers before it starts and tells you plainly when something it needs is missing. The full list is in [Skills](#skills).
+**Available** means the command's main steps have been tried from start to finish on a test account. **Preview** means not every step has been tried yet. Commands that use Hype's tools check what Hype offers before they start and tell you plainly when something they need is missing. The full list is in [Skills](#skills).
 
 ## Install and update
 
@@ -51,12 +51,12 @@ If installed in another scope, use that original scope instead of `--scope user`
 
 1. In Claude Code, run `/mcp`, select `plugin:hype:hype` and choose **Authenticate**.
 2. Your browser opens Hype. Sign in with your own Hype account.
-3. Hype's approval page shows which assistant is asking and offers two choices: **Read only** lets it look but never change anything; **Read and change** lets it set things up for you, and each change still waits for your yes.
+3. Hype's approval page shows which assistant is asking and offers two choices: **Read only** lets it look but never change anything; **Read and change** lets it set things up for you, and each change still waits for your yes. Choose one and press **Allow** (or **Deny** to stop).
 4. Your browser hands the connection back to Claude Code, and `/mcp` shows `plugin:hype:hype` as connected.
 
 **Read-only connections.** A Read only connection has no change tools at all. If a command says the tools it needs to make a change are missing, that is your Read only choice, not an outage.
 
-**If you are signed out.** Run `/mcp`, select `plugin:hype:hype`, choose **Authenticate** and finish in the browser. Never paste sign-in links, codes or tokens into a chat. A new sign-in link replaces any earlier one, so always use the newest.
+**If you are signed out.** Run `/mcp`, select `plugin:hype:hype`, choose **Authenticate** and finish in the browser. Never paste sign-in links, codes or tokens into a chat. If you started sign-in more than once, use the newest link.
 
 **Refresh tools.** When Hype adds tools, or Claude says "Hype's tools changed", run `/mcp`, select `plugin:hype:hype` and choose **Reconnect**. If it also says the plugin is older than Hype needs, [update the plugin](#update-the-plugin) first.
 
@@ -82,7 +82,7 @@ Hype's connection is a standard MCP server at `https://api.hypesports.live/api/m
 - **Tested:** Claude Code, with this plugin.
 - **Untested:** custom connectors in claude.ai and Claude Desktop, ChatGPT connectors, and Codex. They may connect, but we have not tried them, so we give no setup steps for them yet.
 
-Other assistants get Hype's tools, and each tool's own safety rules, but not this plugin's skills, the Hype assistant or the `/hype:` commands.
+Other assistants would get Hype's tools, and each tool's own safety rules, but not this plugin's skills, the Hype assistant or the `/hype:` commands.
 
 ## Your privacy
 
@@ -103,7 +103,7 @@ Visit the [Hype support page](https://hypesports.live/support.html).
 | `/hype:season-schedule` | Plan an unsaved round-robin season; change, cancel or undo cancellation of one shared game. Whole-season saving with saved Fields is not available yet; the app's Add game adds one game at a time with a typed location | Preview |
 | `/hype:run-a-draft` | Prepare and run a division draft, with clock guidance and supported pause, resume, skip and undo actions | Preview |
 | `/hype:manage-my-team` | See your Roster, Staff and seasons; add, change, take off, put back and roll over players; invite coaches and parents/guardians, resend or cancel staff invitations; answer parent/guardian requests and league memberships; check emergency contacts | Preview |
-| `/hype:players-families` | Manage your players' profiles, team history and invitations | Preview |
+| `/hype:players-families` | Add or edit your child's profile and emergency contacts, manage parent/guardian invitations and team requests, and read league/division players | Preview |
 | `/hype:invite-families` | Map supplied enrollment columns, review one invitation job across divisions in one league, and resume from your chosen progress record; review same-row emergency contacts separately per team | Preview |
 | `/hype:league-staff` | See and manage a league's staff | Preview |
 | `/hype:clubs-and-tournaments` | Set up clubs and tournaments, invite Admins and answer invitations | Preview |
