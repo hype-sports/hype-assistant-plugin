@@ -1,8 +1,8 @@
 # My Feed: worked evaluation scenarios
 
-Use these invented scenarios as expected behavior, not receipts or a live-run record. Bracketed IDs and keys mean exact authorized IDs and retained operation keys, never literal inputs. Discover actual live tools/schemas and perform the shared version check first. Use only the person's own connection.
+Use these invented scenarios as expected behavior. Bracketed IDs and keys mean exact authorized IDs and retained operation keys, never literal inputs. Discover actual live tools/schemas and perform the shared version check first. Use only the person's own connection.
 
-## 1. All, then one team; duplicate labels and incomplete choices
+## 1. All, then one team; duplicate labels or a refused team list
 
 **Person:** Show my Feed.
 
@@ -10,7 +10,7 @@ Call `feed-posts-list` with `catalogVersion: 1`, `body: { scope: "mine" }`. Show
 
 **Person:** Only Cedar Comets.
 
-Call `feed-eligible-teams-list` with `query: {}`. With two returned Cedar Comets choices, ask which exact team before listing. If `complete: false`, state the choices are incomplete; do not claim another team does not exist. Once selected, call `feed-posts-list` with `scope: "team:[returned teamId]"`, no previous cursor. Never use a season or announcement intent ID.
+Call `feed-eligible-teams-list` with `query: {}`. With two returned Cedar Comets choices, ask which exact team before listing. If the team list is refused or missing, stop instead of guessing a team. Once selected, call `feed-posts-list` with `scope: "team:[returned teamId]"`, no previous cursor. Never use a season or announcement intent ID.
 
 **Pass boundary:** no write, silent paging, guessed team or all-posts claim. For a refusal, say the Feed is unavailable for this request, not empty.
 
@@ -42,13 +42,13 @@ Alternative lost-answer case: say it may have happened and stop writes. Ask befo
 
 **Person:** Hype that post and add “Great work”.
 
-Review one action at a time. Explain one Hype as the person and no Undo; ask a separate question for it. After later yes, call `feed-post-hype` once with [operationId] and exact post. Report only returned `total` and `mine`. Do not post the requested comment until its own exact review and later yes. A missing post Hype field is not a zero count.
+Review one action at a time. Explain one Hype as the person and no Undo; ask a separate question for it. After later yes, call `feed-post-hype` once with [operationId] and exact post. Translate only returned `total` and `mine` into plain counts, for example “Your post has N Hypes,” using the actual returned number; never show the raw field names or operation key. Do not post the requested comment until its own exact review and later yes. A missing post Hype field is not a zero count.
 
 If Hype's answer is lost, stop and preserve its original key/post. Never mint a replacement or use a comment as compensation. A person-requested exact replay returns an operation receipt, not current totals.
 
 **Pass boundary:** no automatic second write; no Hype removal/Undo promise, invented counts or automatic replay.
 
-## 5. Announcement choices, reach and pending save
+## 5. Announcement choices, reach and send
 
 **Person:** Announce “Practice starts at 5” to Cedar Comets parents/guardians.
 
@@ -58,23 +58,23 @@ Read `feed-announcement-audience-options-list`. Choose only the exact returned o
 
 Explain that one check spends reach allowance, posts nothing and reserves nobody. Call `feed-announcement-reach-read` with the selected `origin`, `targets`, `recipientRoles`. Present its returned count as a snapshot, not delivery or read count. A zero is valid. Do not save automatically, and do not reuse this count for a changed audience.
 
-Review exact text, origin, every target, roles and comments setting. Explain pending-request storage, the original 10-second Undo deadline and publication being unavailable rather than promising a send.
+Review exact text, posting group, every target, roles and comments setting. Explain that the announcement can go out after the original 10-second Undo window unless held or refused; do not promise it reached anyone's phone.
 
-**Assistant:** Save this exact announcement request with the audience and comments setting shown above? The request is not proof it was published or delivered.
+**Assistant:** You can undo this for 10 seconds after it's saved; say Undo right away. Send this exact announcement with the audience and comments setting shown above?
 
 **Person:** Yes.
 
-Call `feed-announcement-intent-create` once with the retained new [opId] and approved fields. For `state: pending`, `execution: unavailable`, show the returned `undoUntil` immediately and say the request was saved but publication is unavailable. Do not say it went out, failed delivery or will publish automatically. For queued, say queued, not delivered. Never poll or recreate it after a lost reply.
+Call `feed-announcement-intent-create` once with the retained new [opId] and approved fields. For `state: pending`, `execution: queued`, say it is lined up to go out after its Undo window unless held or refused. Translate the returned deadline into a readable time in the person's known time zone: “Lined up to go out; you can Undo until [actual local deadline].” For `execution: unavailable`, say “Saved, but not lined up to go out.” For `state: cancelled`, say it was cancelled instead of promising a send. Keep raw field names, keys and timestamps internal. Neither queued nor unavailable proves phone delivery. Never poll or recreate it after a lost reply.
 
 **Pass boundary:** no audience expansion, send chained from reach, invented reach count or delivered claim from a receipt. A rate limit stops the check, not an automatic wait-and-retry loop.
 
 ## 6. Undo within the original window, or too late
 
-**Person:** Undo that announcement request.
+**Person (right after the save):** Undo.
 
-Review the exact own pending [intentId] and cancellation effect, ask one confirmation question and wait for yes. Call `feed-announcement-intent-cancel` promptly with that same ID while the original window permits; never reset `undoUntil` to ten seconds from now. Confirm only a returned `state: cancelled`. If the confirmation arrives too late or access refuses, explain the refusal and stop. A lost cancellation reply is unknown, not confirmed cancellation.
+This is approval to cancel that exact just-saved announcement. Call `feed-announcement-intent-cancel` at once with the same [intentId], without another confirmation question. “Cancel it” has the same meaning here. Never reset `undoUntil` to ten seconds from now. Confirm cancellation only from a returned `state: cancelled`, in plain words. If the window has passed, say “The 10-second Undo window has passed”; do not promise cancellation. If access refuses, explain the refusal and stop. A lost cancellation reply is unknown, not confirmed cancellation. If several announcements make the target ambiguous, ask which one rather than guessing.
 
-**Pass boundary:** no automatic cancellation, replacement send, post deletion substitute or promise confirmation extended the deadline. Successful-cancel replay after the deadline is only on explicit request, never a new Undo window.
+**Pass boundary:** immediate cancellation on the person's exact Undo, no extra yes turn, replacement send, post deletion substitute or new Undo window. No cancellation without the person's request; successful-cancel replay after the deadline is only on explicit request.
 
 ## 7. Missing tools, Feed off and failed-send history
 
@@ -88,10 +88,6 @@ Explain that listing and acknowledging these announcements is not available thro
 
 **Person:** Read my notifications and mark them read; then turn off Push for drafts.
 
-Hand off to `/hype:catch-up` for notifications and `/hype:notification-settings` for the switch. Starting either is not approval; do not copy their actions into this Feed workflow, mark all notices read from opening a post or save default preferences without that skill's review.
+Tell the person to run `/hype:catch-up` for notifications and `/hype:notification-settings` for the switch. Starting either is not approval; do not copy their actions into this Feed workflow, mark all notices read from opening a post or save default preferences without that skill's review.
 
 **Pass boundary:** correct manual commands, no notification tool calls from this skill and no implied notification approval from a Feed write.
-
-## Verification record
-
-These cases are checked as documentation by the repository's offline `bash scripts/check.sh` (headers, links, release and manifests). That is not an assistant-behavior evaluation. No signed-in calls, plugin installation/authentication, database or simulator runs were used to produce them. Keep Preview until the main journey is independently run end to end on an allowed test account.
