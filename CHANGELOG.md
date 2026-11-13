@@ -6,9 +6,53 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ### Changed
 - Shorten league setup, route staff work and larger family invitations to their dedicated skills, use the division readiness checklist and explain which registration actions stay in the app.
-- Correct demo-only logo guidance: the assistant uploads approved demo artwork, not a person's own image; custom logos stay in the app.
-- Align league staff with separate Admin/title choices, title-only edits, own Division Admin self-leave and recipient accept/decline, with private supplied-address approval.
-- Add family invitation allowance reads and single-candidate sign-up contact matching, keep contact imports add-only without replacement fallback, and remove private source traces and maintenance notes from these workflows.
+- Offer approved demo artwork only when requested, never as an upload of a person's own picture; custom logos stay in the app.
+- Align league staff with separate Admin/title choices, title-only edits, own Division Admin self-leave and recipient accept/decline.
+- Show a parent contact back only to the person who typed it, in that person's immediate approval.
+- Show the current family-invitation allowance, check one supplied sign-up contact when asked, and keep same-sheet contact imports add-only without a replacement fallback.
+
+## 0.1.59 - 2026-11-13
+
+### Changed
+- Run a draft with today's tools: draw and reveal pick order, assign who picks for a team, refresh teams, manage Saves and player links, change settings, and manage a private pick list or the team's own turn, one yes per change.
+- Explain paced Hat draws for marked players at the app's current pace and separately approved assistant draws, with limited Undo rather than calling each group final; never start an automatic timer or substitute all-at-once placement.
+- Add clear Cancel, Delete and Archive warnings, private cutoff-age reading and the person's own Division Skip preference; read current settings and keep clock recovery and unchanged-request retries in one reference.
+- Stop if the request-key tool is missing or fails instead of generating a replacement key; use one shared missing-tool rule.
+- Match Cancel and Delete explanations to the app's confirmation wording, and distinguish the draft's scheduled time and clock expiry settings from calendar entries and a team's own auto-pick switch.
+
+## 0.1.58 - 2026-11-13
+
+### Added
+- Add tournament and managed player-profile links with read-only record selection, explicit page requests and no guessed IDs.
+
+### Fixed
+- Correct `find-in-hype` directions: Home, Feed, Messages and Events are the main tabs; Settings and Notifications open from the header.
+- Keep followed players out of profile-link lookups, direct team player requests to Members (Players filter), and describe the notification arrow under the list.
+- Name the existing workflow commands, keep app-only actions in the app, and describe Report a problem as a permanent prepared-email handoff rather than a pre-launch option. Suggest updating the app if the control is missing, and keep the signed-in Preview warning.
+
+## 0.1.57 - 2026-11-13
+
+### Changed
+- Season scheduling now names the live team lists and saved Place/Field readers. Keep whole-season plans unsaved because shared games accept location text, not saved Fields; never send saved IDs to those tools.
+- Add plain request phrases and cancellation undo for one shared game after a fresh read and explicit yes. Explain its restored notice to eligible members, with no email or announcement. Leave archive and permanent delete to the app; shared-game unarchive has a live tool but no app action yet.
+- Clarify that the app's Add game also accepts only a typed location, not saved Fields. Restore write-access and data-collection safeguards, distinguish saved directories from team lists, and give short numbered steps for one-game changes and unclear results.
+- Remove repeated season guidance, clarify optional schedule-card filters and keep technical error codes out of replies. Update the examples to match.
+
+## 0.1.56 - 2026-11-13
+
+### Changed
+- `my-support`: a shorter, plainer description, and no hard-coded "paying is not open yet" line, so the skill stays right once support payments open. It now names the four checkout and portal tools the connection may list and says they are left to the Hype app on purpose, and explains an Apple or Google subscription in the status: managed in the phone's settings, and a date that is still being retried is never called paid up.
+- `my-account` points supporter questions to `/hype:my-support`.
+
+## 0.1.55 - 2026-11-13
+
+### Changed
+- Manage my team: add, change, take off and put back Roster entries, invite a parent/guardian for a roster spot and roll a Roster over to the next season, each after your yes in a later turn. A lost answer is treated as unknown: the lists are read again, never retried blindly.
+- Staff invitations now get a request key from `request-key-new`, so a repeated send cannot cancel the first offer and email again; resend and cancel a waiting staff invitation.
+- Answer parent/guardian requests one at a time (approve, decline or block) and request, answer, leave, place or remove league memberships within each tool's own limits.
+- Emergency-contact guidance moved to its own reference page; the skill description now covers emergency contacts and "who coaches my team". Team chat is left to the Messaging skill once it is released.
+- The assistant's command list now includes Manage my team, Clubs and Tournaments, My support and Terms and privacy.
+- The plugin listing now links Hype's existing Privacy Policy and Terms of Service, and its support page.
 
 ## 0.1.53 - 2026-11-13
 
