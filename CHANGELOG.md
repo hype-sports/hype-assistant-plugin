@@ -2,6 +2,12 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.51 - 2026-11-13
+
+### Added
+- Players & Families: approve or decline a known whole Team parent/guardian request with current Team permission and a separate explicit yes; before approval, show who is asking, the Team and every waiting player exactly as in the app, and report each player's result.
+- Show your own Team spots waiting for a player profile without linking them or showing another family's spots; finding incoming requests and resending invitations remain outside this workflow.
+
 ## 0.1.50 - 2026-11-12
 
 ### Fixed
