@@ -45,7 +45,9 @@ Read [exact tool inputs and source limits](references/reference.md) and the matc
 | Check a player's erase request | [Read latest status or one exact request for a managed player](references/workflows.md#11-check-a-players-erase-request) |
 | Erase a player's details / cancel that request | [Keep authorization, later-turn confirmation and cancellation separate](references/workflows.md#12-erase-a-players-details--cancel-that-erase-request) |
 
-Use `/hype:notification-settings` for Quiet Hours or notification switches, `/hype:my-support` for the supporter ring, and `/hype:terms-and-privacy` for Terms or Privacy Policy questions. Do not combine their changes with this job.
+Use `/hype:notification-settings` for Quiet Hours or notification switches and `/hype:terms-and-privacy` for Terms or Privacy Policy questions. Do not combine their changes with this job.
+
+Supporter status, the supporter ring, and supporting Hype are handled by `/hype:my-support`.
 
 ## 2. Report only what is known
 
