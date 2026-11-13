@@ -49,7 +49,7 @@ If the minimum is greater than this release, add this sentence in the same messa
 
 ## Area workflow commands
 
-- `/hype:find-in-hype`: screen directions and links to readable Home records; no changes or report submissions.
+- `/hype:find-in-hype`: screen directions and links to readable records, including tournaments and managed or followed player profiles; no changes or report submissions.
 - `/hype:my-feed`: read your Feed and comments, write comments and give Hypes (each after your yes), and send announcements with a 10-second Undo. The person's immediate “Undo” for the exact just-saved announcement is approval to cancel it at once, without another confirmation.
 - `/hype:catch-up`: review notifications and approved read-status changes.
 - `/hype:league-setup`: league setup, divisions, invitations and registrations.

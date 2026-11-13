@@ -2,6 +2,13 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Fixed
+- Correct `find-in-hype` directions: Home, Feed, Messages and Events are the main tabs; Settings and Notifications open from the header.
+- Add tournament and managed/followed player-profile links with read-only record selection, explicit page requests and no guessed IDs.
+- Name the existing workflow commands, keep app-only actions in the app, and describe Report a problem as a permanent prepared-email handoff rather than a pre-launch option.
+
 ## 0.1.53 - 2026-11-13
 
 ### Added

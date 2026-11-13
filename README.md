@@ -92,7 +92,7 @@ The connection has your own rights in Hype and nothing more. To stop using it in
 | `/hype:catch-up` | Catch up on your notifications | Preview |
 | `/hype:notification-settings` | Change which notifications you get and when | Preview |
 | `/hype:my-account` | Look after your own account details and settings | Preview |
-| `/hype:find-in-hype` | Find screens and readable Home records, get links, locate appearance settings, and check where Report a problem is offered; no changes or submissions | Preview |
+| `/hype:find-in-hype` | Find screens and readable records, including tournaments and managed or followed player profiles; get links, locate appearance settings and Report a problem; no changes or submissions | Preview |
 | `/hype:terms-and-privacy` | Read Hype's Terms and privacy information | Preview |
 | `/hype:review-evaluations` | Look over your own evaluation scores, scores another coach shared with you and player lists you manage, then rank or summarise them | Preview |
 | `/hype:run-evaluations` | Score players, save private notes, manage sharing and player lists, start evaluations, add dates and choose your private evaluation source for a draft | Preview |
