@@ -9,5 +9,8 @@
   "icon": "./logo.png",
   "homepage": "https://hypesports.live",
   "repository": "https://github.com/hype-sports/hype-assistant-plugin",
-  "keywords": ["hype", "sports", "leagues", "teams", "players", "scheduling"]
+  "keywords": ["hype", "sports", "leagues", "teams", "players", "scheduling"],
+  "privacyPolicyUrl": "https://hypesports.live/privacy.html",
+  "termsOfServiceUrl": "https://hypesports.live/terms.html",
+  "supportUrl": "https://github.com/hype-sports/hype-assistant-plugin/issues"
 }
