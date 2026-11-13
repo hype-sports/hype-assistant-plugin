@@ -88,6 +88,7 @@ The connection has your own rights in Hype and nothing more. To stop using it in
 | `/hype:invite-families` | Map supplied enrollment columns, review one invitation job across divisions in one league, and resume from your chosen progress record; review same-row emergency contacts separately per team | Preview |
 | `/hype:league-staff` | See and manage a league's staff | Preview |
 | `/hype:clubs-and-tournaments` | Set up clubs and tournaments, invite Admins and answer invitations | Preview |
+| `/hype:messaging` | Read your chats and unread counts, and send exact approved text as yourself | Preview |
 | `/hype:catch-up` | Catch up on your notifications | Preview |
 | `/hype:notification-settings` | Change which notifications you get and when | Preview |
 | `/hype:my-account` | Look after your own account details and settings | Preview |

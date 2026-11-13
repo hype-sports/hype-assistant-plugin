@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.53 - 2026-11-13
+
+### Added
+- Messaging preview: find your chats, check unread counts, read one recent page and send exact approved text as yourself through the current app rules. Unknown sends stop without a replacement key or automatic retry.
+
 ## 0.1.52 - 2026-11-13
 
 ### Changed
