@@ -2,7 +2,7 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## 0.1.50
+## 0.1.50 - 2026-11-12
 
 ### Fixed
 - Remove private reference numbers from release notes and reject them in future public-file checks.

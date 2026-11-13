@@ -14,7 +14,7 @@ from urllib.parse import unquote, urlsplit
 
 errors = []
 files = [p for p in Path('.').rglob('*') if p.is_file() and '.git' not in p.parts]
-private_reference = re.compile(r'\bHYPE-[0-9]+\b|(?i:\bdecisions? [0-9]{2,4}\b)')
+private_reference = re.compile(r'(?i:\bHYPE-[0-9]+\b|\bdecisions?\s+#?[0-9]+\b)')
 text_count = 0
 for path in sorted(files):
     try:
