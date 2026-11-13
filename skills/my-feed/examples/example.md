@@ -96,8 +96,8 @@ Tell the person to run `/hype:catch-up` for notifications and `/hype:notificatio
 
 **Person:** The Undo window passed. Delete that announcement instead.
 
-Read the exact announcement, show its text and explain that deleting it also removes its local comments, has no Undo and does not confirm external-storage removal. Ask whether to delete this exact announcement. Only after a later explicit yes call `feed-announcement-delete` once with its post ID, not its intent ID. Confirm local removal only from `{ removed: true }`.
+Find the post ID in the Feed list, not the send receipt's intent ID. Read the exact post, check its returned kind is announcement and confirm it is the person's own announcement. Show its text and explain that it and its comments will be removed for everyone; this can't be undone. Ask whether to delete this exact announcement. Only after a later explicit yes call `feed-announcement-delete` once with its post ID. Confirm removal only from `{ removed: true }`.
 
-For “delete this comment,” read the post and comment page, identify the exact root comment and confirm whose it is before the same review and later yes. Use `feed-comment-delete` with the comment ID. Missing author names never prove ownership; current server rights may refuse.
+For “delete this comment,” read the post and comment page, identify the exact root comment and confirm whose it is before the same review and later yes. Use `feed-comment-delete` with the comment ID. Missing author names never prove ownership. To delete someone else's comment, the person must have written that announcement and still have posting rights for it; current server rights may refuse.
 
 **Pass boundary:** no deletion as an automatic Undo fallback. A lost answer means unknown, not success or failure; no retry, replacement or restore. A later missing row does not prove the earlier deletion worked.

@@ -29,4 +29,4 @@ For Feed lists, keep `scope`, `kind` and `limit` unchanged while using returned 
 
 Tell the person to run [catch-up](../../catch-up/SKILL.md) for notification reading/read-state or [notification-settings](../../notification-settings/SKILL.md) for notification choices.
 
-For failed-send notices, moment creation/withdrawal, nested replies, pins (listing or dismissal) and seen counts, do this in the app. These remain outside this skill even when a tool exists. Do not invent operation-status lookup or resend tools. Send chat messages and photos in the app, not as substitute Feed announcements.
+For failed-send notices, pins (listing or dismissal) and seen counts, do this in the app. These remain outside this skill even when a tool exists. Comments are one level only. Hype makes moments itself; people cannot create or withdraw them. Do not invent operation-status lookup or resend tools. Send chat messages and photos in the app, not as substitute Feed announcements.

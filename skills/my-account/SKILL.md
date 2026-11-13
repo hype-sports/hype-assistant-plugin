@@ -1,6 +1,6 @@
 ---
 name: my-account
-description: 'This skill should be used when the user asks to "show my account", "change my name", "change my time zone", "change my password", "delete my account", "check or cancel my deletion request", "sign out my other devices". It covers only the signed-in person’s own Hype account, with approval before each change.'
+description: 'This skill should be used for Hype requests such as "my account", "change my name or time zone", "change my password", "sign out devices", "delete my account", "login history", "assistant activity", "block or unblock someone", or "erase a player’s details". Every change needs approval.'
 disable-model-invocation: true
 ---
 
@@ -14,7 +14,7 @@ Not yet verified end to end.
 
 ## 0. Check live capabilities and safety
 
-Use only the person's own supported, signed-in Hype connection and existing access. Installing this plugin grants nothing; Hype checks rights on every request. Never act for another person's account, even if asked; do not accept a target person ID or email.
+Use only the person's own supported, signed-in Hype connection and existing access. Installing this plugin grants nothing; Hype checks rights on every request. Account settings and history cover only the signed-in person: never accept another target account or email for those jobs. Blocking changes only their own Block of an exact identified account; player erasure covers only profiles they currently manage, not another adult's account.
 
 Read the live tool list, descriptions and input schemas first. Find each full installed tool name, `mcp__plugin_hype_hype__<operation-id>`, using the operation IDs in [the tool reference](references/reference.md); the live tool list wins. Check only the tools needed for the requested job. Source presence is not deployment or permission.
 
@@ -40,6 +40,14 @@ Read [exact tool inputs and source limits](references/reference.md) and the matc
 | Check my deletion request | [Report status and advisory ownership limits only](references/workflows.md#6-check-my-deletion-request) |
 | Cancel my deletion request | [Review and cancel only the request pending at execution](references/workflows.md#7-cancel-my-deletion-request) |
 | Show my devices / sign out other devices | [Select exact own sessions and review one-device or all-other-device effects](references/workflows.md#8-show-my-devices--sign-out-other-devices) |
+| Show login history / assistant activity | [Read only the requested own history and explain its limits](references/workflows.md#9-show-my-login-history--assistant-activity) |
+| Show blocked people / Block or Unblock someone | [Resolve the exact account and approve one change to the person's own Block](references/workflows.md#10-show-my-blocked-people--block-or-unblock-someone) |
+| Check a player's erase request | [Read latest status or one exact request for a managed player](references/workflows.md#11-check-a-players-erase-request) |
+| Erase a player's details / cancel that request | [Keep authorization, later-turn confirmation and cancellation separate](references/workflows.md#12-erase-a-players-details--cancel-that-erase-request) |
+
+Use `/hype:notification-settings` for Quiet Hours or notification switches and `/hype:terms-and-privacy` for Terms or Privacy Policy questions. Do not combine their changes with this job.
+
+Supporter status, the supporter ring, and supporting Hype are handled by `/hype:my-support`.
 
 ## 2. Report only what is known
 

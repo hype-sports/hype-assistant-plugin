@@ -1,47 +1,116 @@
 # Players & Families tool reference
 
-The live connection's descriptions and schemas always win. These are catalog operation ids; discover full prefixed names on that connection. Hype's active sport catalog decides supported codes; sport-detail rules alone do not define that catalog.
+The live connection's descriptions and schemas win. These are operation IDs; discover full prefixed names before use. These route tools currently require `catalogVersion: 1`. **Exception: `request-key-new` takes only `{}`**, with no catalogVersion. “None” means omit that section, not send null. Required empty `query`/`body` objects are shown explicitly. Use exact saved IDs from authorized results or a trustworthy known request, never generated/guessed IDs or another record type. Supply no caller, credential, header or recipient-identity overrides.
 
-## Current tools used by this skill
+## Parent/guardian tools
 
-All currently take `catalogVersion: 1`. “None” means omit that section, not send null. UUIDs must identify the exact saved record from an authorized result or trustworthy known request; never generate or guess one. No caller, email-recipient identity, method, headers or token overrides.
-
-| Operation | pathParams | Other inputs / safe result |
+| Operation | pathParams | Other inputs / result and limit |
 | --- | --- | --- |
+| `request-key-new` | None | Input `{}` only; returns `{key}`. One fresh key per intended keyed change, never a new key for a retry; grants no access |
 | `my-player-profiles-list` | None | No body/query; `players` with `id`, `firstName`, `lastName` only |
-| `player-profile-read` | `{ id: playerProfileId }` | No body/query; name and `sports: [{ id, sport, details }]` only |
-| `player-profile-teams-list` | `{ id: playerProfileId }` | No body/query; historical team references, not current roster membership |
-| `player-profile-registrations-list` | `{ id: playerProfileId }` | No body/query; linked/linkable registrations and read-time rights; current profile manager only |
-| `my-guardian-seasons-list` | None | Optional live-schema team filter; preserve history/order/nulls, not permission to open a team |
+| `player-profile-read` | `{id: playerProfileId}` | No body/query; `id`, name and `sports: [{id, sport, details}]` only, no saved contacts or contact IDs |
+| `player-profile-create` | None | Required `body: {firstName, lastName, dateOfBirth}`; optional profile fields, `sports` and `emergencyContacts` per live schema; returns `{id}`. Check managed list first; parent/guardian creates as themselves |
+| `player-profile-update` | `{id: playerProfileId}` | Required nonempty `body`; send only requested `firstName`, `lastName`, `currentSchool`, `currentGrade`, `graduationYear`, `bio`, `city`, `state`. City/state together, both values or both null. **Never send `emergencyContacts[]` or `sports[]`: they replace whole lists.** No birth date/photos in this workflow. Returns `{}`; no revision protection |
+| `emergency-contact-add` | `{id: playerProfileId}` | `body: {name, phone, email?, relationship?}`; name 1–100 trimmed characters, phone 7–25 trimmed characters and accepted by Hype's phone validation; optional nullable valid email (max 254) and relationship (max 50). Returns authoritative contact `{id}` |
+| `emergency-contact-update` | `{id: playerProfileId, contactId}` | Required nonempty `body` with at least one of `name`, `phone`, `email`, `relationship`; same validation as add. Omitted fields unchanged; null email/relationship clears. Returns `{}`; never replaces other contacts |
+| `player-profile-owners-read` | `{id: playerProfileId}` | No body/query; `{owners: [{name, isYou, since}], invitations: [{id, createdAt, expiresAt}]}`. Current managers only, no contacts/user IDs; pending unexpired offers only |
+| `owner-invitation-create` | `{id: playerProfileId}` | `body: {email, idempotencyKey}`; directly supplied trimmed lowercase valid address, max 254; current manager only. New key replaces pending same-address offer. Returns `{id, email: "sent" \| "not_sent" \| "not_resent"}` |
+| `owner-invitation-resend` | `{id: invitationId}` | `body: {idempotencyKey}`; current profile manager, exact known offer. Returns `{email: "sent" \| "not_sent" \| "not_resent"}` |
+| `owner-invitation-cancel` | `{id: invitationId}` | No body/query; current manager may cancel another sender's pending offer. Returns `{}`; no accepted-manager removal or email |
+| `player-profile-leave` | `{id: playerProfileId}` | No body/query; `{hidden: boolean}`. Ends only caller's management and their pending offers; no team departure/deletion. Last manager's departure hides the profile from everyone and cannot be undone in the app |
+| `player-profile-teams-list` | `{id: playerProfileId}` | No body/query; historical references, not current membership or team-opening rights |
+| `player-profile-registrations-list` | `{id: playerProfileId}` | No body/query; linked/linkable registrations and read-time rights; current profile manager only |
+| `my-guardian-seasons-list` | None | Required `query: {}` or optional live-schema team filter; no body. History/order/nulls are not permission to open a team |
 | `my-parent-guardian-invitations-list` | None | No body/query; incoming profile offers with first names, nullable inviter name and expiry |
 | `my-team-guardian-invitations-list` | None | No body/query; incoming team offers with team name, player first name, nullable sender and expiry |
-| `my-league-guardian-invitations-list` | None | No body/query; invitation IDs only, no player/league/sender facts |
-| `my-guardian-requests-list` | None | No body/query; own sent requests only, no team/entry IDs; statuses pending, accepted, declined, cancelled, expired; closedBy you/team/null |
-| `my-unlinked-guardian-spots-list` | None | No body/query or person selector; caller's own live parent/guardian spots without a profile on live current-season Teams only. Returns `{ spots: [{ rosterEntryId, teamId, teamName, playerFirstName, registrationId, leagueId }] }`, with nullable `registrationId` and `leagueId`; preserve order, duplicates, strings and nulls. No contacts, birth dates, staff access to another family or linking authority; a set `registrationId` identifies the registration to link through, null means the spot itself. Empty means no eligible spots now, not no history. |
-| `guardian-request-group-approve` | `{ askGroupId }` | No body/query; current decider for this exact Team only; a group ID alone grants nothing. Show the asker, exact Team and every waiting player exactly as in the app, explain effects and wait for explicit yes in this chat in a later turn. Grants eligible players' parent/guardian access with optional profile-link, audience and notice effects, no email. Returns only `{ results: [{ requestId, outcome }] }`, no guardian IDs or contacts; preserve all rows/order. Outcomes: `approved`, `already`, `PLAYER_NOT_ON_ROSTER`, `INVITATION_EXPIRED`, `INVITATION_REVOKED`, `ALREADY_RESPONDED`; one refusal does not stop other players, and `already` adds no guardian. |
-| `guardian-request-group-decline` | `{ askGroupId }` | No body/query; current decider for this exact Team only. Show the Team and every waiting player, explain effects and wait for explicit yes in this chat in a later turn. Retains waiting requests as declined; answered players stay unchanged. Tells the asker once without naming the coach; they may ask again. No guardian grant, deletion or email. Ordinary empty 204 becomes strict `{}`. For either group answer, missing/no-waiting groups and refused callers share `NOT_FOUND`; no automatic retry, discovery, follow-up read or chained action. Lost/malformed answers are `WRITE_OUTCOME_UNKNOWN`, not success or rollback proof. |
-| `owner-invitation-accept` | `{ id: invitationId }` | No body/query; returns `{ playerProfileId }`; profile management, not team/league acceptance |
-| `owner-invitation-decline` | `{ id: invitationId }` | No body/query; returns `{}`; refuses profile-management offer only |
-| `guardian-invitation-decline` | `{ id: invitationId }` | No body/query; returns `{}`; refuses team parent/guardian offer only |
-| `league-guardian-invitation-accept` | `{ id: invitationId }` | No body/query; returns `{ guardianId }`; no profile creation/link |
-| `league-guardian-invitation-decline` | `{ id: invitationId }` | No body/query; returns `{}`; no access granted or removed |
-| `league-guardian-invitation-registration-read` | `{ id: acceptedInvitationId }` | No body/query; current player first name, league name, nullable division name, only after own acceptance with continuing independent standing |
-| `league-player-profile-link` | `{ id: leagueId, playerId: leaguePlayerId }` | `body: { playerProfileId }`; returns `{ leaguePlayerId, playerProfileId }` |
-| `player-profile-sport-add` | `{ id: playerProfileId }` | `body: { sport, details? }`; map and confirm a lowercase code from SKILL.md, not a free-text name; `other` has its own `position` detail; follow the live input schema; returns authoritative sport-row `{ id }` |
-| `player-profile-sport-update` | `{ id: playerProfileId, sportId }` | `body: { details }`, COMPLETE replacement for stored sport; returns `{}` |
-| `player-profile-sport-remove` | `{ id: playerProfileId, sportId }` | No body/query; returns `{}`, removes sport row only |
-| `my-home-entities-list` | None | `query: {}` or optional `search` and `includeArchived` strings (only `"true"` includes archived records); no body; returns `entities` with `id`, `type`, optional `parentLeagueId`/`parentDivisionId` and `userRoles`, not registration IDs; roles are information, not permission |
-| `division-players-lookup` | `{ id: divisionId }` | `query: {}` or live-schema name/page filters; limited identities/status and page metadata |
-| `league-player-guardian-invitations-list` | `{ id: leagueId, playerId: leaguePlayerId }` | No body/query; pending registration offers, address always withheld as `inviteeEmail: null` |
-| `league-player-guardian-invitation-create` | `{ id: leagueId, playerId: leaguePlayerId }` | `body: { email, idempotencyKey }`; email is the address the person supplied for this send, trimmed, lowercase, valid and at most 254 characters. For each new send, get the key from `request-key-new`; reuse the same key with the same inputs only for a deliberate retry of that same send; never make up a key. A missing key is refused (`VALIDATION_FAILED`); a changed or used key is refused (`IDEMPOTENCY_KEY_REUSED`). An unchanged retry can also be refused with that code if the earlier invitation has expired or is no longer pending; stop without a new key or send, and keep the earlier outcome unresolved rather than calling it failed. Follow the [workflow](../SKILL.md#4-execute-once-stop-safely). Returns `{ id, email: "sent" \| "not_sent" \| "unknown", replaced, replacedInvitationId, replayed }`: `replaced: true` means an earlier pending invite to that address was replaced; `replayed: true` means a retry returned the first answer and sent nothing new; its `replaced` and `replacedInvitationId` repeat the first call's facts, so `replaced: true` on a replay is not a new replacement; `"unknown"` means the first email may already have arrived. |
-| `league-guardian-invitation-cancel` | `{ id: invitationId }` | No body/query; current same-league staff; `{}` cancels pending offer, not accepted standing |
-| `guardian-invitation-cancel` | `{ id: invitationId }` | No body/query; current permitted same-team decider; `{}` cancels pending offer, not accepted standing |
+| `my-league-guardian-invitations-list` | None | No body/query; invitation IDs only, no player/league/sender labels |
+| `my-guardian-requests-list` | None | No body/query; own sent requests, not a staff queue. Preserve order, duplicates, labels and nulls; statuses pending/accepted/declined/cancelled/expired, closedBy you/team/null |
+| `my-unlinked-guardian-spots-list` | None | No body/query/person selector; `{spots: [{rosterEntryId, teamId, teamName, playerFirstName, registrationId, leagueId}]}`; registrationId/leagueId nullable. Own live current-season spots only. Set registrationId means link through that registration; null means the spot itself. No linking authority or staff queue; empty is not no history |
+| `team-guardian-request-create` | `{id: teamId}` | `body: {entryIds, profiles?}`; 1–10 distinct live roster entry IDs. Optional `profiles: [{entryId, playerProfileId}]`, one managed profile per selected entry, each profile once. No private-link field. Returns `{askGroupId}`, not approval |
+| `owner-invitation-accept` | `{id: invitationId}` | No body/query; `{playerProfileId}`; profile management plus eligible linked rights, not team/league acceptance |
+| `owner-invitation-decline` | `{id: invitationId}` | No body/query; `{}`; refuses only this profile offer |
+| `guardian-invitation-accept` | `{id: invitationId}` | Required `body: {}` or `{playerProfileId}` for separately reviewed optional linking; no query. `{guardianId, linkedProfileId}`; linkedProfileId is null without a supplied profile |
+| `guardian-invitation-decline` | `{id: invitationId}` | No body/query; `{}`; refuses team offer, removes no accepted access/link |
+| `league-guardian-invitation-accept` | `{id: invitationId}` | No body/query; `{guardianId}`; registration access/notifications, no profile creation/link |
+| `league-guardian-invitation-decline` | `{id: invitationId}` | No body/query; `{}`; refuses only this offer |
+| `league-guardian-invitation-registration-read` | `{id: acceptedInvitationId}` | No body/query; current player first name, league name and nullable division name only after own acceptance with continuing independent guardian standing |
+| `league-player-profile-link` | `{id: leagueId, playerId: leaguePlayerId}` | `body: {playerProfileId}`; caller must manage profile AND already be a registration parent/guardian. Returns `{leaguePlayerId, playerProfileId, registrationLinked}`; false is still successful repair, not an undo token |
+| `player-profile-sport-add` | `{id: playerProfileId}` | `body: {sport, details?}`; confirmed lowercase catalog code and allowed sport details; authoritative sport-row `{id}` |
+| `player-profile-sport-update` | `{id: playerProfileId, sportId}` | `body: {details}`; COMPLETE replacement of stored sport details, omitted fields cleared; `{}` |
+| `player-profile-sport-remove` | `{id: playerProfileId, sportId}` | No body/query; `{}` removes only that sport row |
 
-These are not the whole Players catalog. Profile creation, division registration creation, friend cards, profile-match hints and profile-offer cancellation are outside this skill's workflows; do not improvise them as workarounds.
+For profile creation, names are 1–50 trimmed characters and birth date is the supplied valid `YYYY-MM-DD` date Hype accepts, not an inferred age. Include optional fields only when requested; city/state go together. Optional creation contacts require each `name` and `phone`; optional sports require each `sport` and the matching detail rules below. Never guess stored facts, fill optional fields with defaults, or invent photo paths. Creation does not register a player or add a team spot.
+
+A contact ID from a confirmed add is authoritative only for that exact contact/profile. A name or phone is not an ID. The profile read cannot discover or review existing contacts: hand off unidentified edits to the app. Do not use team-staff contacts or a whole-profile contact replacement as a workaround.
+
+## Coach / team staff tools
+
+| Operation | pathParams | Other inputs / result and limit |
+| --- | --- | --- |
+| `team-guardian-requests-list` | `{id: teamId}` | Required `query: {}`; no body. Pending asks only: `{requests: [{id, playerName, askerName, status, isSelfAsk, askedByYou, askerMatchesEntryEmail}]}`. **No askGroupId or outgoing invitations**. Current team-decider access |
+| `guardian-request-approve` | `{id: requestId}` | No body/query; `{requestId, outcome}` for one selected player row; that person's other rows stay waiting. Show player/asker names, never the request ID. `already` grants no new access; do not invent a guardian ID |
+| `guardian-request-decline` | `{id: requestId}` | No body/query; `{}` retains the request as declined, tells asker once without coach name; no email or access grant |
+| `guardian-request-group-approve` | `{askGroupId}` | No body/query; `{results: [{requestId, outcome}]}` only. Independently known exact whole group and all waiting players required; not discoverable from the staff queue |
+| `guardian-request-group-decline` | `{askGroupId}` | No body/query; `{}` retains waiting requests as declined, answered players unchanged; no access grant/deletion/email |
+| `guardian-invitation-resend` | `{id: invitationId}` | **No body/query/key**; `{email: "sent" \| "not_sent"}`. Current team authority; recipient or profile manager alone insufficient |
+| `guardian-invitation-cancel` | `{id: invitationId}` | No body/query; `{}` ends pending offer only, no accepted-parent removal/email. Current permitted same-team staff/owner or permitted creating-co-owning unarchived league authority |
+
+Use `askedByYou` to identify the caller's own pending ask. `isSelfAsk` means self-approved, not “this pending ask is yours.” `askerMatchesEntryEmail` compares verified sign-in email with the held parent email; it exposes no address and is not approval or identity proof.
+
+### Whole request groups
+
+Never substitute an individual request ID for `askGroupId`, infer groups from names or derive staff authority from the asker's outgoing list. For a separately supplied trustworthy exact group, show the asker, team and **every waiting player exactly as the app shows them**, state when Hype cannot confirm those details here, explain effects, and get a later-turn yes. If anything is missing, use the list-first individual flow or the app, not a guessed group.
+
+Group approval grants eligible waiting players' access, with possible profile-link/audience/notices. Preserve all `results` and order; one refusal does not stop other players. Outcomes include `approved`, `already`, `PLAYER_NOT_ON_ROSTER`, `INVITATION_EXPIRED`, `INVITATION_REVOKED`, `ALREADY_RESPONDED`. Empty/missing results are not whole-group success. Decline tells the asker once without naming the coach and allows a later ask. Neither action sends email. No automatic follow-up read or retry.
+
+## League / division tools and shared discovery
+
+| Operation | pathParams | Other inputs / result and limit |
+| --- | --- | --- |
+| `my-home-entities-list` | None | Required `query: {}` or live-schema filters; no body. Start here to find the requested team; exact IDs, types, parent scope and userRoles guide selection, not authorization. Home IDs are not registrations |
+| `team-search` | None | Required `query` with supplied-name/live-schema filters; no body. If the team is absent from Home, show one requested public search page and let the person choose the exact match. Hidden/archived teams excluded; no new access or automatic next page |
+| `team-roster-list` | `{id: teamId}` | Required `query: {}` for current roster; no body. Select `role: player` rows and use their `id` as entryId, not person/profile IDs. Facts are tier-filtered; no contacts/photos/profile IDs. If those facts cannot identify the right child, use the app; never guess |
+| `division-players-lookup` | `{id: divisionId}` | Required `query: {}` or live-schema filters; active-division narrow lookup and page metadata, not a complete directory |
+| `division-players-list` | `{id: divisionId}` | Required `query: {}` or live-schema search/page/pageSize/archived filters; default page 1, size 25, max 100. `archived: "only"` requires commissioner |
+| `league-players-list` | `{id: leagueId}` | Required `query: {}` or live-schema search/page/pageSize/divisionId filters; same pagination, no archived filter |
+| `division-player-read` | `{id: registrationId}` | Required `query: {divisionId}`; optional `archived: "only"` for commissioner. Registration identity/status; commissioners may also receive joined guardian `{userId, name}` rows. Show guardian names only, never user IDs. Missing guardians stay unknown |
+| `division-registration-read` | `{id: divisionId, registrationId}` | Required `query: {}`; no body. Accepted Division Admin in this exact live division only; identity and read-only viewer capabilities, no birth dates/contacts/evaluation details |
+| `league-guardian-invitation-read` | `{id: invitationId}` | No body/query; `{invitation: {id, status, expiresAt}}` only, even for staff. No target/sender/recipient labels or new authority |
+| `league-player-guardian-invitations-list` | `{id: leagueId, playerId: leaguePlayerId}` | No body/query; pending registration offers, `inviteeEmail: null`; cannot identify recipient by address |
+| `league-guardian-invitation-cancel` | `{id: invitationId}` | No body/query; current same-league staff; `{}` cancels pending offer, leaves accepted standing alone |
+| `league-guardian-invitation-resend` | `{id: invitationId}` | `body: {idempotencyKey}` from request-key-new; current league staff, exact identified offer. `{email: "sent" \| "not_sent" \| "unknown", replayed}`. If the first email result is not known from this conversation, treat it as unknown; the invitation reads do not supply it. Explain that the first email may have gone out and another could arrive twice, then ask for yes |
+
+Player lists return `{items, page, pageSize, total}` with registration IDs, first/last names, division labels and status only. No contacts, birth dates, photos or evaluation details. A search may match fields not returned; do not infer those fields. Empty/partial pages prove no census and grant no access; no automatic traversal or enrichment. League staff status does not substitute for the exact Division Admin appointment required by `division-registration-read`.
+
+Create league parent invitations through [league-setup](../../league-setup/SKILL.md#5-register-players-invite-parentsguardians) or [invite-families](../../invite-families/SKILL.md), not a duplicate send workflow here. Those skills cover supplied-address checks, required `request-key-new` keys, review/batch approval, replacement/replay and recipient ordering. Imports are separate from invitation approval and preserve both parents.
+
+## Team acceptance with a profile
+
+Without a profile, accepting grants only the recipient's parent/guardian access to that player on that team and sends in-app notices. To add the optional profile, select it from the caller's managed list and explicitly review all these effects before yes:
+
+- Share the profile with the team and its other parents/guardians.
+- Add its other current managers as that player's team parents/guardians unless a prior removal still blocks that grant.
+- Extend an earlier coach removal to the removed adult's other covered roster spots, ending their access and cancelling waiting requests/invitations there; a later coach-approved grant remains.
+- Notify the other profile managers and the team owners/titled coaches of the link, and the player's other parents/guardians and team owners/titled coaches of acceptance.
+
+If the optional link refuses, the invitation stays waiting. Never infer identity/link eligibility from matching names. Acceptance, profile management and registration linking are separate scopes.
+
+## Invitation keys and delivery
+
+For `owner-invitation-create`, `owner-invitation-resend` and `league-guardian-invitation-resend`, get a fresh key from `request-key-new` **only for a new approved action**. Keep the original key and exact inputs after an unclear result; never mint a replacement key to recover it. A deliberate unchanged retry still needs a separate request, review and later-turn yes. `IDEMPOTENCY_KEY_REUSED` is a stop, not permission to change the key. Team parent/guardian resend takes no key and has no replay protection.
+
+- Profile create/resend replay returns `not_resent`, sends nothing new and proves no earlier delivery. Changed, foreign, expired or scrubbed keys refuse.
+- League resend replay returns the first email outcome with `replayed: true`, no new email. If this conversation records the first result, offer a new Resend for `not_sent` or `unknown`, not a known `sent`. The pending-invitation list and exact-invitation read return no email outcome. If it is not known from this conversation, treat delivery as unknown: say the first email may have gone out, a resend could arrive twice, and ask whether the person wants another attempt. Wait for their later-turn yes; never infer delivery from an invitation row.
+- Resend renews the pending invitation and attempts email; a failed email does not undo that saved change. Team resend makes the caller its sender.
+- Team/league resend may require the original sender for untyped, non-draft invitations. On `INVITATION_SENDER_REQUIRED`, explain that the sender must resend or a current decider can request a new invitation; never substitute a new send automatically.
+- `sent` means service acceptance, not mailbox delivery, acceptance or access. `not_sent` leaves the offer saved. `unknown` may already have reached the recipient. Never retry or resend as an automatic repair.
+- Cancellation/decline keeps the offer record and changes no accepted rights. Expired/answered/hidden offers may be absent from lists; disappearance is never a receipt for a lost write. A pending invitation grants no player/profile facts or identity proof.
 
 ## Sport detail fields
 
-Use only requested fields for the confirmed sport. Omit `details` on add when no details are requested. Treat update `details` as the complete replacement, not a patch; show retained and cleared fields before approval. Refuse to guess fields from the tool's open-object schema. Stop on validation refusal.
+Map and confirm lowercase catalog codes: `baseball`, `softball`, `basketball`, `cheerleading`, `football`, `soccer`, `hockey`, `volleyball`, `lacrosse`, `other`. Hype's active catalog decides acceptance. Clarify ambiguous sport words; never use a free-text name as a code. `other` displays as Other and does not save a custom sport name; its `position` is a detail, not a name workaround.
+
+Use only requested fields for the confirmed sport. Omit `details` on add when none were requested. Treat update `details` as the complete replacement: review retained and cleared fields before yes. Never infer validation from an open-object schema.
 
 | Sport code | Optional detail fields and values |
 | --- | --- |
@@ -55,30 +124,12 @@ Use only requested fields for the confirmed sport. Omit `details` on add when no
 | `other` | `position`: text; not a custom sport name |
 | `cheerleading` | No detail fields; omit add details and do not attempt a details update |
 
-Trim text positions to 1–30 UTF-16 units; limit position lists to 10 entries. Confirm `L` as left, `R` as right and `S` as switch. Do not invent detail rules for a newer catalog code; use Hype's app when the live schema and this reference cannot safely describe the requested change.
+Trim text positions to 1–30 UTF-16 units; limit lists to 10 entries. Confirm L as left, R as right, S as switch. Use the app when a newer code's details cannot be safely described. Duplicate adds or missing rows are refusals, not replay success. No revision protection: after an unclear sports change, inspect saved sports in the app before another action.
 
-## Access and effects to keep distinct
+## Boundaries and verification
 
-- A profile manager can read only their allowed profile facts; readable staff access does not permit managing its sports. Team or registration parent/guardian standing alone does not grant full-profile access. There is no manager directory in current profile output.
-- Lookup is an active-division name search for permitted league staff, exact-division team staff or a scoped Division Admin, not a complete player directory. No birth dates, contacts or evaluation numbers are exposed. Page metadata limits completeness claims.
-- Invitations addressed to the caller require their current confirmed sign-in email; supplying an address or changing caller identity is not allowed. Expired/answered/hidden invitations may be absent from incoming lists. An exact known still-pending offer may be declined even past its deadline; a persisted expired or answered state refuses. Cancelled offers refuse as revoked; terminal states are never repeat success.
-- Profile acceptance grants management plus eligible linked-record rights and inherited family-audience/chat effects, preserving existing removal limits. League acceptance grants registration parent/guardian access and notifications only. Link requires BOTH current profile management and existing independent registration standing; it immediately extends registration access to other profile managers. It can attach eligible existing draft team spots, never add team membership. Pending invitation, accepted access and profile link are three different states.
-- League staff invite sends an in-app notice and attempts email; same-address pending replacement is a new send, not a harmless retry. Returned `email` is delivery status, never an address. `not_sent` does not undo the offer. Contact-free pending lists cannot establish an address-specific duplicate or identify the invitee.
-- Coach cancellation needs permitted same-team standing, not any league role. Creating-league authority is limited to the unarchived league still co-owning the team; a merely joined league is not enough. No team staff invitation discovery tool is supplied here.
-- Sports updates replace, not merge, details and have no version guard. Use read/receipt sport-row IDs. Duplicate add, missing remove and repeated answer/cancel refusals are not replay success.
-- Ordinary empty 204 write success is represented as strict `{}` by MCP; it is not a missing reply. Lost/malformed replies differ: stop without retry. A later current read informs a new decision but cannot prove a past dispatched write happened or did not happen. Ask for that read first; never quietly chain it. Sports recovery requires inspection in the app before another write.
-- Reads can still write private activity/rate bookkeeping; do not promise zero internal activity. Every admitted MCP POST, discovery included, shares the 60-per-rolling-minute account bucket. Respect returned wait timing and obtain a separate request before resuming.
+Erasing a player or their data stays in the **Hype app**, because it cannot be undone and the app walks through it. The assistant does not invoke those tools here; they are not “unavailable.” Do not substitute leaving, unlinking, registration deletion or another family's profile work. Withdraw a mistaken team request in the app: `guardian-request-withdraw` is deliberately outside this skill. Unrelated friend-card, removal, archive and direct team-spot linking workflows are not added by this guide.
 
-## Coming soon — do not call or guess names
+Ordinary empty 204 write success is strict `{}`; a lost/malformed reply is different and may follow a saved change. Stop without automatic retry/read/polling/chaining. Ask before an authorized fresh read; current state cannot settle the lost call's historical outcome. Reads can still write private activity/rate bookkeeping; never promise zero internal activity. Every admitted MCP POST shares the 60-per-rolling-minute account bucket; wait timing reserves no slot.
 
-These capabilities are not available yet and remain outside this workflow. Re-check live tools and schemas before extending this skill; a proposed tool name is not proof of availability.
-
-- Division and league player lists
-- Who manages a player
-- Read one player of a division
-- Resend an invitation
-- Read one league invitation before acceptance
-- Accept a team parent/guardian invitation
-- Coach reads incoming join requests
-
-Inviting another parent/guardian to a personal profile also has no supported create tool here. Use Hype's app; no substitute email, staff invitation or new connection. Read the [workflow and verification limits](../SKILL.md) before making readiness claims.
+Keep the [workflow's confirmation and recovery rules](../SKILL.md). No signed-in journey, installed invocation or later-turn approval has been verified by these file checks. Keep Preview status; do not infer live availability from source alone.

@@ -81,21 +81,21 @@ The connection has your own rights in Hype and nothing more. To stop using it in
 | --- | --- | --- |
 | `/hype:league-setup` | Create a league and its divisions, rename it, register players and archive it | Available |
 | `/hype:my-support` | See your supporter status and change your supporter ring setting | Available |
-| `/hype:season-schedule` | Plan a division's round-robin season as an unsaved draft, and change or cancel existing shared games; saving a whole season is not available yet | Preview |
+| `/hype:season-schedule` | Plan an unsaved round-robin season; change, cancel or undo cancellation of one shared game. Whole-season saving with saved Fields is not available yet; the app's Add game adds one game at a time with a typed location | Preview |
 | `/hype:run-a-draft` | Prepare and run a division draft, with clock guidance and supported pause, resume, skip and undo actions | Preview |
-| `/hype:manage-my-team` | See your Roster, Staff and seasons, invite a coach and answer staff invitations | Preview |
-| `/hype:players-families` | Manage your players' profiles, team history and invitations | Preview |
+| `/hype:manage-my-team` | See your Roster, Staff and seasons; add, change, take off, put back and roll over players; invite coaches and parents/guardians, resend or cancel staff invitations; answer parent/guardian requests and league memberships; check emergency contacts | Preview |
+| `/hype:players-families` | Add or edit your child's profile and emergency contacts, manage parent/guardian invitations and team requests, and read league/division players | Preview |
 | `/hype:invite-families` | Map supplied enrollment columns, review one invitation job across divisions in one league, and resume from your chosen progress record; review same-row emergency contacts separately per team | Preview |
 | `/hype:league-staff` | See and manage a league's staff | Preview |
 | `/hype:clubs-and-tournaments` | Set up clubs and tournaments, invite Admins and answer invitations | Preview |
-| `/hype:my-feed` | Read your Feed and comments, write comments and give Hypes (each after your yes), and send announcements with a 10-second Undo | Preview |
+| `/hype:my-feed` | Read your Feed and comments, write comments and give Hypes (each after your yes), send announcements with a 10-second Undo, and delete your own announcement or comment (after a separate yes) | Preview |
 | `/hype:catch-up` | Catch up on your notifications | Preview |
 | `/hype:notification-settings` | Change which notifications you get and when | Preview |
 | `/hype:my-account` | Look after your own account details and settings | Preview |
-| `/hype:find-in-hype` | Find screens and readable Home records, get links, locate appearance settings, and check where Report a problem is offered; no changes or submissions | Preview |
+| `/hype:find-in-hype` | Find screens and readable records, including tournaments and managed player profiles; get links, locate appearance settings and Report a problem; no changes or submissions | Preview |
 | `/hype:terms-and-privacy` | Read Hype's Terms and privacy information | Preview |
-| `/hype:review-evaluations` | Look over your own evaluation scores, scores another coach shared with you and player lists you manage, then rank or summarise them | Preview |
-| `/hype:run-evaluations` | Score players, save private notes, manage sharing and player lists, start evaluations, add dates and choose your private evaluation source for a draft | Preview |
+| `/hype:review-evaluations` | Find evaluations you manage, review your own or shared scores, player lists and who came to each tryout date, then rank or summarise scores | Preview |
+| `/hype:run-evaluations` | Score players, save private notes, manage sharing and player lists, start evaluations, add dates, mark or clear who came to a tryout date and choose your private evaluation source for a draft | Preview |
 
 For how a skill works and its limits, open its `SKILL.md`; for example, the [season scheduling workflow](skills/season-schedule/SKILL.md) and its [tools and data handling](skills/season-schedule/references/reference.md).
 
