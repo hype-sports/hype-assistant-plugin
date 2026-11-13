@@ -9,6 +9,45 @@ All notable changes to this plugin are documented here, following [Keep a Change
 - Read and edit Club Overview sections with current permissions, exact previews and separate approval, including clear permanent-deletion effects and no automatic retries or follow-up reads after saving.
 - Align the tool reference and examples with current tools, remove stale tool counts and shorten repeated guidance.
 
+## 0.1.64 - 2026-11-13
+
+### Added
+- `start-here`: ask in plain words and get the right `/hype:` command to run, with one line on what it does. It never runs a command and changes nothing.
+- `check.sh` also checks the commit messages since `origin/main` for internal tracker references.
+
+### Changed
+- The README now reads as a product page: what it is, what you can ask, install and update, sign in (including Read only connections and what to do if you are signed out), who can use it today, how it keeps you safe, other assistants, privacy links and where to get help.
+- Removed maintainer-only material from the README and testing-status notes from skill text; the Skills table's Preview label covers it.
+- Removed the repository's `.claude/settings.json`, which turned on authoring plugins for anyone who opened the repository.
+
+## 0.1.63 - 2026-11-13
+
+### Changed
+- Shorten league setup, route staff work and larger family invitations to their dedicated skills, use the division readiness checklist and explain which registration actions stay in the app.
+- Offer approved demo artwork only when requested, never as an upload of a person's own picture; custom logos stay in the app.
+- Align league staff with separate Admin/title choices, title-only edits, own Division Admin self-leave and recipient accept/decline.
+- Show a parent contact back only to the person who typed it, in that person's immediate approval.
+- Show the current family-invitation allowance, check one supplied sign-up contact when asked, and keep same-sheet contact imports add-only without a replacement fallback.
+
+## 0.1.62 - 2026-11-13
+
+### Added
+- Add or edit a child's profile and emergency contacts, see who manages the profile, leave it, or ask to join a team as a parent/guardian, with confirmation before every change.
+- Answer, resend or cancel supported parent/guardian invitations, review team requests, and read league or division players within the person's own access.
+- Add parent, coach and league-admin examples, including what to say when an earlier invitation email's result is unknown.
+
+### Changed
+- Organize Players & Families by who is asking and link to the existing league invitation skills instead of repeating their sends.
+- Show names instead of record numbers, find the team before a join request, and explain that one coach approval answers one player's request.
+- Keep irreversible player erasure and withdrawing mistaken team requests in the app; explain possible duplicate emails before asking to resend.
+
+## 0.1.61 - 2026-11-13
+
+### Changed
+- Match account-deletion guidance to every staff and Admin role that must be left first, and keep the status waiting list separate from those blockers.
+- Cover login history, assistant activity, personal Blocks and managed-player erase requests, with separate approval before each change and later-turn confirmation before scheduling player erasure.
+- Read Terms state from its returned fields without assuming publication history, and point account/player erasure requests to `my-account`.
+
 ## 0.1.60 - 2026-11-13
 
 ### Changed

@@ -91,4 +91,4 @@ On `WRITE_OUTCOME_UNKNOWN`, timeout, interruption or a lost/malformed reply, sto
 
 On access, validation, stale-target or busy refusal, explain plainly and stop that part without revealing account existence or guessing repairs. A failed read is not an empty list. Respect `Retry-After` or `retryAfterSeconds`, ask before resuming and never poll, except the reviewed-batch rule's confirmed 429 wait. Stay below 60 MCP POSTs per rolling minute per account, shared with discovery and other sessions.
 
-End with confirmed facts and actions, pending invitations, refusals, unknown outcomes and anything not attempted. Keep contacts out of the summary. See the [worked scenarios](examples/example.md) for expected decisions and the [verification status](references/reference.md#verification-status) before making readiness claims.
+End with confirmed facts and actions, pending invitations, refusals, unknown outcomes and anything not attempted. Keep contacts out of the summary. See the [worked scenarios](examples/example.md) for expected decisions.

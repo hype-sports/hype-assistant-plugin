@@ -6,9 +6,17 @@ Use these invented scenarios as guidance, not a live-run record. Do not copy con
 
 The person asks to invite Alex Example as Commissioner of Riverside Youth League. Resolve the exact league and current staff through authorized reads. Ask for the address directly, without account lookup. Prepare only `title: "commissioner"`, `makeOwner: false` and the supplied address for that league.
 
-Before writing: explain that the offer grants no access until Alex accepts in Hype, attempts email, and replaces an older pending offer to the same address. Refer to the supplied address without repeating it. Ask for an explicit yes to this exact invitation. Only then get a fresh key from `request-key-new` and call once with it as `idempotencyKey`.
+Before writing: explain that the offer grants no access until Alex accepts in Hype, attempts email, and replaces an older pending offer to the same address. Apply [Contact privacy](../SKILL.md#contact-privacy), or use an unambiguous supplied-address reference. Ask for an explicit yes in a later turn to this exact invitation. Only then get a fresh key from `request-key-new` and call once with it as `idempotencyKey`.
 
 A result with an invitation ID and `email: "not_sent"` means: “Alex is invited, waiting for their answer. The invitation was created, but email was not sent.” Do not invite again to fix delivery. Do not say “Alex was added.”
+
+## Invite an Admin with a separate title
+
+The caller requests an Admin invitation for Sam Vale with the display title Registrar. Read current authorized scope/staff; review **Admin: yes; Title: Registrar**, exact league and directly supplied address. Explain that the Admin grant is independent of the title and begins only on recipient acceptance. After later-turn yes, get a fresh key and call `league-staff-invite` once with `makeOwner: true` and the approved title. Never silently turn an ordinary Commissioner offer into an Admin offer.
+
+## Change a label without removing membership
+
+Alex is a League Admin and wants the Commissioner label removed. Read the exact member and show old/new title with Admin unchanged. After separate later-turn approval, call `league-staff-update-title` with `title: null`; never call removal. A non-Admin cannot have no title: explain a refusal without removing them or changing Admin rights.
 
 ## Invite a Division Admin
 
@@ -27,6 +35,14 @@ With an exact trusted invitation ID and confirmed target/scope/role instead, sho
 Alex appears in the current league staff list as Commissioner. Show the exact returned member ID and Riverside Youth League, and explain that removal ends that League staff membership, not unrelated roles. Wait for an explicit yes. Never remove the last League Admin; a pending offer is not a replacement.
 
 Removing Jamie from Cedar Division ends only that appointment; other divisions and independent roles remain. The last Division Admin may leave themselves if Hype permits; do not invent a last-Division-Admin restriction.
+
+## Leave an own appointment without League access
+
+Jamie asks to leave Cedar Division. Read `my-division-admin-divisions-list`, select the exact returned Cedar appointment and establish Jamie's own `userId` with `my-identity-read`. Do not require League reads or the management list. Review this appointment only, with other roles/history preserved; wait for later-turn yes, then call `division-admin-remove` for that division and own ID once.
+
+## Answer an own invitation
+
+Sam asks to accept the League Admin/Registrar invitation. Through Sam's own connection, read `my-league-staff-invitations-list`; review the exact ID, Riverside Youth League and offered Admin/title facts. After Sam's later-turn yes, call `league-staff-invitation-accept` once. Do not use the sender's connection, require pre-existing League access or read more automatically. A Division Admin recipient uses their own division invitation list and exact accept/decline tool instead. Declining always needs its own exact review/yes and grants no role.
 
 ## Lost reply must stop
 

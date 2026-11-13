@@ -78,7 +78,7 @@ _Call `division-update` once, read the same id and compare the saved setting and
 
 **Commissioner:** Invite Morgan Vale at morgan.vale@example.net as Commissioner, not Admin.
 
-_Read `league-staff-list` as the League Admin in this example._
+_Use `/hype:league-staff` and its exact invitation policy; read `league-staff-list` as the League Admin in this example._
 
 **Assistant:** Invite **morgan.vale@example.net** to **Meadowbrook Youth League**? **Admin: no. Commissioner: yes.** This creates a pending offer and attempts email. Morgan must accept separately. A pending offer to the same address would be replaced.
 
@@ -135,7 +135,7 @@ _Get a fresh key from `request-key-new`, then call `league-player-guardian-invit
 
 ## Read-only readiness
 
-_After the person requests a readiness check, refresh permitted reads and support only this summary._
+_After the person requests readiness, read `division-onboarding-get` for 8U Boys and supplement only with permitted requested reads. Report returned checklist items/details as in place, missing or unknown. A done flag is a snapshot, not scheduling proof or authority to fill gaps. Support only this additional summary._
 
 | 8U Boys | In place | Missing or unknown |
 | --- | --- | --- |
@@ -144,7 +144,7 @@ _After the person requests a readiness check, refresh permitted reads and suppor
 | Staff | Caller is accepted league staff | No accepted Division Admin in the returned list; Avery/Morgan offers are pending |
 | Players | One visible active registration | Team assignment and accepted guardian access unknown |
 
-**Assistant:** No games scheduled. Use **`/hype:season-schedule`** next; it checks its own live tools, complete teams, saved Fields, dates and conflicts.
+**Assistant:** This setup check does not prove whether games are scheduled. Use **`/hype:season-schedule`** next; it checks its own live tools, complete teams, saved Fields, dates and conflicts.
 
 ## A later season-end request
 
