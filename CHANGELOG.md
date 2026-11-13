@@ -2,6 +2,15 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.63 - 2026-11-13
+
+### Changed
+- Shorten league setup, route staff work and larger family invitations to their dedicated skills, use the division readiness checklist and explain which registration actions stay in the app.
+- Offer approved demo artwork only when requested, never as an upload of a person's own picture; custom logos stay in the app.
+- Align league staff with separate Admin/title choices, title-only edits, own Division Admin self-leave and recipient accept/decline.
+- Show a parent contact back only to the person who typed it, in that person's immediate approval.
+- Show the current family-invitation allowance, check one supplied sign-up contact when asked, and keep same-sheet contact imports add-only without a replacement fallback.
+
 ## 0.1.62 - 2026-11-13
 
 ### Added
