@@ -2,7 +2,7 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## Unreleased
+## 0.1.65 - 2026-11-13
 
 ### Changed
 - Clubs and Tournaments: list your administered Tournaments, cancel waiting Club Admin offers, remove another Club Admin and edit saved Tournament Rules after your separate yes. Removing another Tournament Admin is not available yet.
