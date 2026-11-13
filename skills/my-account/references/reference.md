@@ -16,7 +16,7 @@ Check the live tool list before use.
 | `my-deletion-status-read`, `my-deletion-cancel` | Read status or cancel the pending request |
 | `my-sessions-list`, `my-session-revoke`, `my-other-sessions-revoke` | List own devices, sign out one other session or all other sessions |
 | `my-login-history-list`, `my-assistant-activity-list` | Read own recorded login events or assistant activity |
-| `my-blocked-people-list`, `my-person-blocks-list` | Read own blocked people's current names/IDs or block IDs/times |
+| `my-blocked-people-list`, `my-person-blocks-list` | Read own blocked people's current names/IDs or blocked account IDs and Block times |
 | `person-block`, `person-unblock` | Change only the signed-in person's own Block of one exact account |
 | `my-player-profiles-list` | Select a player profile the person manages |
 | `player-profile-erasure-status-read`, `player-profile-erasure-request-read` | Read latest or exact managed-player erase request |
@@ -43,7 +43,7 @@ Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-re
 | `my-login-history-list` | Read up to 50 own login events | No parameters beyond the envelope above |
 | `my-assistant-activity-list` | Read own assistant activity from the last 90 days | `query: {}` for the first page; optional `query.limit` from 1–100. Further pages use both exact `beforeAt` and `beforeId` from returned `nextCursor` |
 | `my-blocked-people-list` | Read own blocked people's names/IDs, nullable for unavailable accounts | No parameters beyond the envelope above |
-| `my-person-blocks-list` | Read own block IDs/times | No parameters beyond the envelope above |
+| `my-person-blocks-list` | Read own blocked account `profileId` values and `blockedAt` times | No parameters beyond the envelope above |
 | `person-block`, `person-unblock` | Block or Unblock one exact identified account as the signed-in person | Only `body.profileId`, the exact account UUID; no target caller ID |
 | `my-player-profiles-list` | Read managed-player names/IDs for selection | No parameters beyond the envelope above |
 | `player-profile-erasure-status-read` | Read the latest erase request visible to this manager | `pathParams.id`, the exact managed-player profile UUID |
@@ -59,7 +59,7 @@ Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-re
 - Account tools remain subject to the live connection's admission and access checks.
 - The password hand-off returns the app's own Settings link alongside permitted route tools. Only the person opens it.
 - Device-bound account cleanup and password submission are app-only, not missing assistant tools to invent or direct routes to call. Passwords never enter the assistant. Own-account deletion confirmation likewise stays with the person's separate email-linked confirmation button; this skill never handles its link/token or executes erasure.
-- Own-account deletion is caller-only. Starting a request requires leaving or handing over every Team staff, League staff, Division Admin, Club Admin and Tournament Admin role. A held-role refusal returns the complete blocker list: show every item. The status tool's advisory `waitingFor` list covers Team, League, Club and Tournament ownership only, not all held-role blockers. Missing or unreadable is unknown; empty is not erasure clearance.
+- Own-account deletion is caller-only. Starting a request requires leaving or handing over every Team staff, League staff, Division Admin, Club Admin and Tournament Admin role. The assistant's held-role refusal returns `ACCOUNT_HAS_ROLES` without blocker details; direct the person to the app's **Delete account** screen for the complete role list, never reconstruct it. The status tool's advisory `waitingFor` list covers Team, League, Club and Tournament ownership only, not all held-role blockers. Missing or unreadable is unknown; empty is not erasure clearance.
 - Managed-player erasure is separate from own-account deletion. Only a current managing parent/guardian may use it; viewer, follower, friend, coach or staff access alone is not enough. Unscheduled requests remain tied to the original requester, their same open management stint and unchanged captured links. Confirmation requires that original requester/stint. Scheduled requests can be read or, before due and subject to server checks, canceled by another current manager. `canCancel` is display information, not approval or authority.
 - Profile and session writes forbid automatic follow-up reads; deletion request/cancel do too. Stop on an unclear result, get a separate request to read again, then ask before any newly proposed change. No lost-result retry or automatic action chain.
 
