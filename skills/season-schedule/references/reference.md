@@ -39,6 +39,3 @@ Never send `notice` to the shared-game tools: their live assistant schemas exclu
 
 Expect a narrow write receipt: `id`, `revision`, `status`, `archived`, `type`, `title`, `date`. It does not verify times, sides, saved links or family visibility. Follow step 9's readback and keep unreadable facts unverified.
 
-## Verification limits
-
-These instructions alone do not prove installed slash invocation, interactive per-write approvals, family visibility, pagination, daylight-saving runtime or uncertainty recovery. Whole-season saving remains stopped. Successful individual operations do not verify the whole skill.

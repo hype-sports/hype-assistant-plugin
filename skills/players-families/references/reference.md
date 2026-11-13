@@ -132,4 +132,4 @@ Erasing a player or their data stays in the **Hype app**, because it cannot be u
 
 Ordinary empty 204 write success is strict `{}`; a lost/malformed reply is different and may follow a saved change. Stop without automatic retry/read/polling/chaining. Ask before an authorized fresh read; current state cannot settle the lost call's historical outcome. Reads can still write private activity/rate bookkeeping; never promise zero internal activity. Every admitted MCP POST shares the 60-per-rolling-minute account bucket; wait timing reserves no slot.
 
-Keep the [workflow's confirmation and recovery rules](../SKILL.md). No signed-in journey, installed invocation or later-turn approval has been verified by these file checks. Keep Preview status; do not infer live availability from source alone.
+Keep the [workflow's confirmation and recovery rules](../SKILL.md).

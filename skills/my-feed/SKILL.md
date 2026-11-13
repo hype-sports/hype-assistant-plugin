@@ -63,4 +63,4 @@ On `WRITE_OUTCOME_UNKNOWN`, timeout, interruption or lost/malformed dispatched r
 
 On validation, access, disabled-feature, busy or rate-limit refusal, stop that part and explain only the returned facts. Respect any supplied wait; it is not a reserved slot or permission to retry. No polling or automatic paging, refresh or retry. Stay below 60 MCP POSTs per rolling minute per account, shared with discovery and other sessions.
 
-End with confirmed reads/actions, pending announcements, refusals, unknown outcomes and what was not attempted. This skill is Preview: signed-in journeys and the [worked evaluation scenarios](examples/example.md) have not been run end to end. `bash scripts/check.sh` checks files, links and manifests, not assistant behavior or delivery.
+End with confirmed reads/actions, pending announcements, refusals, unknown outcomes and what was not attempted. See the [worked scenarios](examples/example.md) for expected behavior.

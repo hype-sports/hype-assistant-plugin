@@ -4,7 +4,7 @@ description: 'This skill should be used when the person asks to "invite parents 
 disable-model-invocation: true
 ---
 
-# Invite families — Preview
+# Invite families
 
 The main journey has not yet been checked end to end in a live run; this workflow sends real invitation emails.
 

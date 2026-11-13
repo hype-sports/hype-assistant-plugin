@@ -2,6 +2,17 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.64 - 2026-11-13
+
+### Added
+- `start-here`: ask in plain words and get the right `/hype:` command to run, with one line on what it does. It never runs a command and changes nothing.
+- `check.sh` also checks the commit messages since `origin/main` for internal tracker references.
+
+### Changed
+- The README now reads as a product page: what it is, what you can ask, install and update, sign in (including Read only connections and what to do if you are signed out), who can use it today, how it keeps you safe, other assistants, privacy links and where to get help.
+- Removed maintainer-only material from the README and testing-status notes from skill text; the Skills table's Preview label covers it.
+- Removed the repository's `.claude/settings.json`, which turned on authoring plugins for anyone who opened the repository.
+
 ## 0.1.63 - 2026-11-13
 
 ### Changed

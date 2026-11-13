@@ -63,8 +63,6 @@ Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-re
 - Managed-player erasure is separate from own-account deletion. Only a current managing parent/guardian may use it; viewer, follower, friend, coach or staff access alone is not enough. Unscheduled requests remain tied to the original requester, their same open management stint and unchanged captured links. Confirmation requires that original requester/stint. Scheduled requests can be read or, before due and subject to server checks, canceled by another current manager. `canCancel` is display information, not approval or authority.
 - Profile and session writes forbid automatic follow-up reads; deletion request/cancel do too. Stop on an unclear result, get a separate request to read again, then ask before any newly proposed change. No lost-result retry or automatic action chain.
 
-## Data handling and verification
+## Data handling
 
 The plugin adds no service or credential store. Keep only the requested own-account, history, block-list or managed-player request details in the private conversation. Do not publish them or write them into this repository; do not retain credentials or confirmation links. The assistant client's handling applies to the conversation.
-
-Treat both strict plugin validations as file-structure checks only. Do not call this a working signed-in journey until an end-to-end test-account run is separately verified; installing it does not enable assistant sign-in or change deployment restrictions.
