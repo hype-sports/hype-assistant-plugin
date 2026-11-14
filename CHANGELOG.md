@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.67 - 2026-11-13
+
+- manage-my-team: plain roster requests such as "On <team>, add two players and change a jersey number" now start the team skill, so its one review and one yes apply.
+
 ## 0.1.66 - 2026-11-13
 
 - Send announcements last, back to back when several are approved, with each original Undo window explained before yes and the full result report in the immediate final message.
