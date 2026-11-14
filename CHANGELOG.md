@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.76 - 2026-11-14
+
+- my-account: when account deletion is refused because roles remain, the assistant now receives and shows the list of roles to leave or hand over first.
+- players-families: delete one emergency contact after showing its name and relationship in the shared review and getting one yes, without replacing or wiping the contact list.
+
 ## 0.1.75 - 2026-11-14
 
 - league-setup: every imported row now tells the server what the preview showed for it, so a player added or changed by someone else after the preview stops the import and is reported, instead of being quietly left as it was.
