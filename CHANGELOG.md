@@ -4,7 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.71 - 2026-11-14
 
-- league-setup: parent phone numbers written US-style (202-555-0123) are converted to the full international form (+12025550123) and shown in the review, never dropped. Any preview refusal or difference stops for a new yes; no row value is changed to get past it.
+- league-setup: for a league in a US state, parent phone numbers written US-style (202-555-0123) are converted to the full international form (+12025550123) and shown as "was → becomes" before your yes; anything else is listed for you to correct, never dropped. Any preview refusal or difference stops for a new yes; no row value is changed to get past it.
 - league-setup: the plan lists the exact invitations, the allowance is read only for the league being acted on, and a changed count or recipient list stops for a new yes. Never more invitations than the plan listed.
 
 ## 0.1.70 - 2026-11-14

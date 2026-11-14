@@ -21,7 +21,7 @@ Outside invite-families, an update fallback is possible only when add is absent 
 
 ## Invitation allowance
 
-For a requested allowance check or individual parent/guardian invitations, use `league-invitation-allowance-get` with live `catalogVersion`, league `pathParams: { id }`, no body/query. Invitation batch jobs instead use their required preview's `allowance`; do not add this extra read.
+Use only the id of the league being acted on, never another league's, archived or not. For a requested allowance check or individual parent/guardian invitations, use `league-invitation-allowance-get` with live `catalogVersion`, league `pathParams: { id }`, no body/query. Invitation batch jobs instead use their required preview's `allowance`; do not add this extra read.
 
 Show returned `remaining`, `limitedBy` and `availableAt`. At zero capacity name the limiting scope/opening time, never guess a reset. Batch preview `wouldUse` is proposed usage, not remaining capacity: add usage across the job, never add remaining amounts. If proposed usage exceeds the first preview's remaining amount, explain that the job may stop at the allowance and require a requested resume. Snapshots reserve nothing; other sessions, player limits and shared budgets still apply. On requested resume use current allowance, never poll, switch accounts or wait out a daily cap on old approval.
 
