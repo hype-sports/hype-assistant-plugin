@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.73 - 2026-11-14
+
+- players-families: current league staff, or the adult themselves, can remove a parent/guardian from a league player. The review says who gets an in-app notice, that the link ends but its history is kept, and that an older invitation cannot bring them back.
+
 ## 0.1.72 - 2026-11-14
 
 - league-setup: a phone number that needs correcting stops the plan; Claude asks for it and never offers leaving it out as a default.
