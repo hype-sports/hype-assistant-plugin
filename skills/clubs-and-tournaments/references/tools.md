@@ -53,6 +53,27 @@ Admin offers need the person's directly supplied valid email (trimmed, at most 2
 
 Cancellation needs the exact current pending, unexpired row; a hidden address needs explicit row/ID selection or an app handoff. Being sender or recipient alone gives no cancellation right. Removing another Tournament Admin is not available in the assistant or the app yet. For Club removal, use the returned staff `userId`, never yourself; follow the shared list approval and result checks.
 
+## Whole-Club lifecycle and former-Admin notes
+
+Follow [One review, one yes, all changes](../../../agents/hype.md#one-review-one-yes-all-changes). Include the exact requested action, Club, returned counts, retained/deleted history and lifecycle-note effects in the complete review; wait for the person's explicit yes in their next message. A read or `body: {}` is not consent.
+
+| Operation | Inputs besides catalogVersion | Result / effect |
+| --- | --- | --- |
+| `club-lifecycle-read` | `pathParams: { id: clubId }`; no query or body | Current Admin only; `{ archivedAt, canDelete, teams, admins, seasons, invitations }`. Archive time is a timestamp or null; counts are nonnegative integers without names or contacts. The server owns `canDelete`; do not calculate eligibility from counts or age |
+| `club-archive` | `pathParams: { id: clubId }`, required `body: {}`; no query | Current Admin only; `{ changed: true }`. Removes the Club from active lists and public results, preserves history and leaves Teams unchanged, not archived |
+| `club-restore` | Same Club path and required empty body; no query | Current Admin only, archived Club required; `{ changed: true }`. Returns the Club to active lists and allows Club changes again; does not restore a deleted Club |
+| `club-delete` | Same Club path and required empty body; no query | Current Admin only; `{ changed: true }`. Permanently removes only a Club made by mistake within its first 30 days and before anything uses it, including its setup and finished invitation history; writes the shared deletion record |
+| `club-lifecycle-notes-list` | Required `query: { after? }`; no path or body | Caller-addressed notes only; `{ notes: [{ id, clubId, clubName, kind, actorName, occurredAt }], nextCursor }`. `kind` is `archived` or `deleted`; actor name may be null. At most 50 per page; cursor is a UUID or null |
+| `club-lifecycle-note-dismiss` | `pathParams: { id: noteId }`, required `body: {}`; no query | `{ changed: true }`, even for a missing or hidden note. Hides only the caller's copy, never another Admin's. The last dismissal removes the note, not the Club or its shared deletion record; does not restore the Club |
+
+Read `club-lifecycle-read` before archive, restore or delete. Name the exact Club and action, show all returned counts, and explain what stays or is permanently removed. Use Archive for a Club that is no longer needed; Delete is only for a new, unused mistake. Even `canDelete: true` grants no consent and does not guarantee a later write will still be allowed. Never remove Teams, Admins, seasons or invitations to make Delete pass. Whole-Club lifecycle is separate from Overview section lifecycle.
+
+If Delete is refused, explain the returned reason and what still uses the Club using only returned blockers and relevant lifecycle counts, never guessed record names or hidden details. If the refusal does not identify a specific dependency, say that detail is not shown. `DELETE_WINDOW_PASSED` means the 30-day window has closed; `IN_USE_ARCHIVE_INSTEAD` means the Club is in use. Offer Archive, not automatic fallback: a changed action needs a revised complete review and later-turn yes under the shared rule. Access refusals, `CLUB_ARCHIVED`, a non-archived restore target and `BUSY` stop that action; never retry automatically or treat a refusal as permission to change something else.
+
+Only Admins present at archive/delete receive lifecycle notes. Archived notes also require current Club Admin rights; a deleted Club's note can remain for a former Admin without granting Club access. Deleted Club names come from the shared deletion record; actor names are resolved live and suppressed for erased or deleting accounts. No actor or recipient IDs are returned. Keep `actorName: null` hidden, never reconstruct it. Ask before another page; pass the exact `nextCursor` as `query.after` only to this notes list. Reading or dismissing a note neither restores a Club nor grants Admin rights. Restore is a separate requested action with its own current-access check, not a side effect of dismissal.
+
+Before dismissal, read the notes list, select the exact returned note ID (not its Club ID), and explain in the shared review that only the person's copy disappears. `changed: true` confirms the caller-only dismiss operation, not that a visible note existed. Dismissal is idempotent but has no automatic retry or follow-up action. Archive/restore/delete have no safe replay contract. For any lost write answer, stop further writes and keep the outcome unknown: inspect only the affected Club once with authorized `club-lifecycle-read` for those three actions. There is no single-note read here for a lost dismissal; do not scan the notes list to prove it. A refused/missing lifecycle read after Delete proves neither success nor failure. Follow the [unknown-outcome workflow](../SKILL.md#unclear-outcome-re-check-never-resend), never resend or compensate automatically.
+
 ## Club Overview
 
 | Operation | Inputs besides catalogVersion | Result / effect |

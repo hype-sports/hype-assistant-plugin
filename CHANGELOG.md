@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.79 - 2026-11-14
+
+- clubs-and-tournaments: archive or restore a Club, or permanently delete a new, unused Club created by mistake; show its lifecycle counts first and use the shared review and your yes in the next message. A refused Delete offers Archive without doing it automatically.
+- Read your Club archive/deletion notes, including deleted-Club notes for former Admins, and dismiss only your own copy after the shared review and yes; dismissal never restores or deletes the Club.
+
 ## 0.1.78 - 2026-11-14
 
 - my-account: list your connected assistants and disconnect one of them, including this one, after naming it back and getting your yes in your next message. A read-only connection is pointed to the app instead.
