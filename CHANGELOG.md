@@ -2,6 +2,12 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.72 - 2026-11-14
+
+- league-setup: a phone number that needs correcting stops the plan; Claude asks for it and never offers leaving it out as a default.
+- league-setup and invite-families: invitation reviews show each address being invited, exactly as saved, so you can catch a typo before your yes.
+- league-setup: the invitation allowance is read after the import is saved (it grows with the league's registered players), and the plan never reads another league for defaults.
+
 ## 0.1.71 - 2026-11-14
 
 - league-setup: for a league in a US state, parent phone numbers written US-style (202-555-0123) are converted to the full international form (+12025550123) and shown as "was → becomes" before your yes; anything else is listed for you to correct, never dropped. Any preview refusal or difference stops for a new yes; no row value is changed to get past it.
