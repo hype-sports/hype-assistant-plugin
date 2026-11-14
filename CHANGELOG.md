@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.75 - 2026-11-14
+
+- league-setup: every imported row now tells the server what the preview showed for it, so a player added or changed by someone else after the preview stops the import and is reported, instead of being quietly left as it was.
+
 ## 0.1.74 - 2026-11-14
 
 - league-setup: two or more players (typed, pasted or from a file), or one player with two parents' details, now always go through the import (one preview, both parents kept as contacts, then one import), never one-at-a-time registration.
