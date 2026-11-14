@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+- manage-my-team uses the obvious team without asking: the only team you run, or the only one of your teams whose Roster has the player you named. It names that team in the review and asks when several or none fit.
+- Inviting a parent/guardian for a Roster spot: when you have not given their email, Claude asks for it in one question (or points you to the Roster spot in Hype), then shows the full review before anything is sent. It never takes an address from a roster or contact list.
+
 ## 0.1.67 - 2026-11-13
 
 - manage-my-team: plain roster requests such as "On <team>, add two players and change a jersey number" now start the team skill, so its one review and one yes apply.
