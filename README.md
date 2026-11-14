@@ -106,8 +106,8 @@ Visit the [Hype support page](https://hypesports.live/support.html).
 | `/hype:invite-families` | Map supplied enrollment columns, review one invitation job across divisions in one league, and resume from your chosen progress record; include requested same-row emergency contacts in the same review, grouped by team | Preview |
 | `/hype:league-staff` | See and manage a league's staff | Preview |
 | `/hype:clubs-and-tournaments` | Set up clubs and tournaments, invite Admins and answer invitations | Preview |
-| `/hype:my-feed` | Read your Feed and comments, write comments and give Hypes with one review and yes for the requested list, and send announcements with a 10-second Undo | Preview |
-| `/hype:catch-up` | Catch up on your notifications | Preview |
+| `/hype:my-feed` | Read your Feed and comments, write comments and give Hypes, send announcements with a 10-second Undo, and delete eligible announcements or comments; one review and yes cover the complete requested list | Preview |
+| `/hype:catch-up` | Catch up on notifications, with separate group-chat and direct-message unread snapshots | Preview |
 | `/hype:notification-settings` | Change which notifications you get and when | Preview |
 | `/hype:my-account` | Look after your own account details and settings | Preview |
 | `/hype:find-in-hype` | Find screens and readable records, including tournaments and managed player profiles; get links, locate appearance settings and Report a problem; no changes or submissions | Preview |
