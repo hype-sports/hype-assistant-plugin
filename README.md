@@ -60,7 +60,7 @@ If installed in another scope, use that original scope instead of `--scope user`
 
 **Refresh tools.** When Hype adds tools, or Claude says "Hype's tools changed", run `/mcp`, select `plugin:hype:hype` and choose **Reconnect**. If it also says the plugin is older than Hype needs, [update the plugin](#update-the-plugin) first.
 
-To stop using the connection in Claude Code, disable `plugin:hype:hype` in `/mcp`. To remove its access in Hype, open Settings, go to Security → Connected assistants and choose Disconnect for that assistant.
+To stop using the connection in Claude Code, disable `plugin:hype:hype` in `/mcp`. To remove its access in Hype, open Settings, go to Security → Connected assistants and choose Disconnect for that assistant, or, on a connection that may make changes, ask Claude to disconnect it: Claude names the exact assistant and waits for your yes first. A new connection always needs your own approval on Hype's page.
 
 ## Who can use it today
 
