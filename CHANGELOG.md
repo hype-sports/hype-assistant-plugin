@@ -4,7 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.78 - 2026-11-14
 
-- my-account: list your connected assistants and disconnect one of them, including this one, after naming it back and getting your yes in a later message. A read-only connection is pointed to the app instead.
+- my-account: list your connected assistants and disconnect one of them, including this one, after naming it back and getting your yes in your next message. A read-only connection is pointed to the app instead.
 
 ## 0.1.77 - 2026-11-14
 

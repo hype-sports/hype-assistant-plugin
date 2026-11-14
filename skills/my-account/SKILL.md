@@ -50,7 +50,7 @@ Read [exact tool inputs and source limits](references/reference.md) and the matc
 | Show blocked people / Block or Unblock someone | [Resolve the exact account and approve one change to the person's own Block](references/workflows.md#10-show-my-blocked-people--block-or-unblock-someone) |
 | Check a player's erase request | [Read latest status or one exact request for a managed player](references/workflows.md#11-check-a-players-erase-request) |
 | Erase a player's details / cancel that request | [Hand off erasure and cancellation to the app](references/workflows.md#12-erase-a-players-details--cancel-that-erase-request) |
-| Show or disconnect my connected assistants | [Choose one exact own assistant, explain the loss of access and wait for a later-turn yes](references/workflows.md#13-show-my-connected-assistants--disconnect-an-assistant) |
+| Show or disconnect my connected assistants | [Choose one exact own assistant, explain the loss of access and wait for a yes in the next message](references/workflows.md#13-show-my-connected-assistants--disconnect-an-assistant) |
 
 Use `notification-settings` for Quiet Hours or notification switches and `terms-and-privacy` for Terms or Privacy Policy questions. Include their requested changes in the same shared review, following the matching skill for each call.
 
