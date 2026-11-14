@@ -24,17 +24,29 @@ Read `team-roster-list` (current season) and check no Quinn Example is already l
 
 Call `team-roster-entry-create` once with `role: "player"`, the names and `jerseyNumber: 0`. Report the returned [entry ID] as added. Never call again for the same player; another call can create a duplicate.
 
-**Person:** Make Quinn number 7, then take Rowan Sample off the Roster.
+**Person:** Add Avery Example with jersey 4, make Quinn number 7, then take Rowan Sample off the Roster.
 
-These are two changes. Review the jersey change for [Quinn's entry ID] and, after a later yes, call `team-roster-entry-update` once with only `jerseyNumber: 7`. Then review the removal separately: it ends Rowan's entry for this season, keeps history, deletes no profile and notifies Rowan's parents/guardians. Only after a separate yes, call `team-roster-entry-remove` once.
+Read the current Roster and resolve exact entries. Show all three changes once:
+
+| Target | Exact change | Effect / notifications |
+| --- | --- | --- |
+| Avery Example, current Cedar Comets season | Add player, jersey 4 | New Roster entry, no Staff or guardian grant; state notice behavior only if the live tool specifies it |
+| Quinn Example, selected entry | Jersey 0 → 7 | Other fields unchanged; state notice behavior only if the live tool specifies it |
+| Rowan Sample, selected entry | Take off this season's Roster | Keeps history and profile; notifies parents/guardians |
+
+**Assistant:** Shall I make all three listed changes?
+
+**Person:** Yes.
+
+Call create, update and remove once each, in that order, without another question. Bind Avery only to the confirmed create receipt. If Quinn's update is refused, report it and still attempt Rowan's independent approved removal; if a reply is lost, stop writes and read only the affected item once through a supported authorized read and report current state; without one, keep it unknown rather than scan broader lists. Report done, refused, unknown and not attempted separately.
 
 **Person:** Put Rowan back.
 
-Read `team-roster-removed-list`, choose Rowan's exact [removed entry ID], explain that parents/guardians are notified, and after a later yes call `team-roster-entry-restore` once. If it refuses `PAST_SEASON`, explain the entry belongs to an earlier season and offer a fresh add to this season instead; on `PROFILE_ALREADY_ON_ROSTER`, read the Roster again and show Rowan is already on it. Never add a duplicate as a substitute.
+Read `team-roster-removed-list`, choose Rowan's exact [removed entry ID], explain that parents/guardians are notified, and after a yes in the person's next message call `team-roster-entry-restore` once. If it refuses `PAST_SEASON`, explain the entry belongs to an earlier season and offer a fresh add to this season instead; on `PROFILE_ALREADY_ON_ROSTER`, read the Roster again and show Rowan is already on it. Never add a duplicate as a substitute.
 
 **Person:** Roll the Roster over to next season.
 
-Read `team-roster-start-sources-list` for Cedar Comets and `team-seasons-list` for its [next season ID]. Show the source team and season, the destination season and every selected player and staff member. Explain they are added directly with eligible parent/guardian links and staff permissions, and no invitation or email is sent. After a later yes, get a fresh key from `request-key-new` and call `team-roster-roll-over` once with it as `operationId`; report the six counts.
+Read `team-roster-start-sources-list` for Cedar Comets and `team-seasons-list` for its [next season ID]. Show the source team and season, the destination season and every selected player and staff member. Explain they are added directly with eligible parent/guardian links and staff permissions, and no invitation or email is sent. After a yes in the person's next message, get a fresh key from `request-key-new` and call `team-roster-roll-over` once with it as `operationId`; report the six counts.
 
 ## 3. Invite a coach; delivery is not membership
 
@@ -50,11 +62,11 @@ Get a fresh key from `request-key-new` (input `{}`), send it as `idempotencyKey`
 
 **Person:** Resend it.
 
-Read `team-invitations-list` and choose Robin's exact [invitation ID] by title, expiry and last sent (no addresses are shown). If `canResend` is true, explain that it sends another real email; after a later yes, get a fresh key and call `team-invitation-resend` once. Never use create as a resend.
+Read `team-invitations-list` and choose Robin's exact [invitation ID] by title, expiry and last sent (no addresses are shown). If `canResend` is true, explain that it sends another real email; after a yes in the person's next message, get a fresh key and call `team-invitation-resend` once. Never use create as a resend.
 
 **Person:** Actually, cancel Robin's invitation.
 
-Review the same exact invitation: it withdraws the offer and removes nobody already on Staff. After a later yes, call `team-invitation-cancel` once. For verification, cancel any test invitation this way so none is left behind.
+Review the same exact invitation: it withdraws the offer and removes nobody already on Staff. After a yes in the person's next message, call `team-invitation-cancel` once. For verification, cancel any test invitation this way so none is left behind.
 
 ## 4. Answer my Staff invitation
 
@@ -76,17 +88,17 @@ Check that `my-home-entities-list` shows Admin or Staff for this team before off
 
 **Person:** Approve Casey Sample's request for Quinn.
 
-Select that exact [request ID] from `team-guardian-requests-list`, show the player and asker, and explain that approving gives Casey parent/guardian access to Quinn on this team and may also link a player profile Casey offered, with its family and notice effects. After a later yes, call `guardian-request-approve` once and report the returned outcome (`already` means nobody new was added).
+Select that exact [request ID] from `team-guardian-requests-list`, show the player and asker, and explain that approving gives Casey parent/guardian access to Quinn on this team and may also link a player profile Casey offered, with its family and notice effects. After a yes in the person's next message, call `guardian-request-approve` once and report the returned outcome (`already` means nobody new was added).
 
 **Person:** Show the team's leagues and put it in Cedar Division.
 
-Read `team-memberships-list` for the exact team. Preserve its scope, archive dates and unknown co-owner state. Placing a team in a division is a League staff action: proceed only when Home shows the person as staff of that league, read `league-divisions-list` for Cedar Division's exact ID, review the move and, after a later yes, call `team-membership-place-in-division` once. Otherwise explain that the league's staff place teams. Do not infer placement powers from membership facts or create a replacement team.
+Read `team-memberships-list` for the exact team. Preserve its scope, archive dates and unknown co-owner state. Placing a team in a division is a League staff action: proceed only when Home shows the person as staff of that league, read `league-divisions-list` for Cedar Division's exact ID, review the move and, after a yes in the person's next message, call `team-membership-place-in-division` once. Otherwise explain that the league's staff place teams. Do not infer placement powers from membership facts or create a replacement team.
 
 ## 6. Refused tool or unclear send
 
-If a needed tool is absent/refused, explain the limit and stop that part; still answer any other independent reads asked for in the same message, each refusal reported beside them. No direct API, account change or guessed input, and nothing that depended on the refused part.
+If a needed tool is absent/refused, explain the limit and stop that part; still complete other requested independent reads and approved independent changes that remain allowed, each refusal reported beside them. No direct API, account change or guessed input, and nothing that depended on the refused part.
 
-If the approved coach invite has a lost reply instead of a confirmed result, say it may have happened. Do not resend, cancel, poll or automatically read. Ask the person to check Staff in Hype. A separately requested authorized read shows only current facts, not whether the earlier email was sent; never treat a missing pending row as permission to send again. Require fresh review and yes for any later supported action.
+If the approved coach invite has a lost reply instead of a confirmed result, say it may have happened. Do not resend, cancel or poll. Inspect only the affected invitation once if a supported authorized item read exists; otherwise keep it unknown and use the app rather than scan Staff lists; the read shows only current facts, not whether the earlier email was sent; never treat a missing pending row as permission to send again. A person-requested supported keyed repeat needs a fresh complete review of the original exact request and risks and a yes in their next message, keeping the original key and unchanged inputs.
 
 ## 7. A follower asks for team management lists
 

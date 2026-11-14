@@ -13,11 +13,13 @@ Current envelope: `catalogVersion: 1`, plus only the listed `pathParams`, `query
 | `feed-post-read` | `pathParams: { id: postId }` | `post`; currently authorized exact post, not a seen/read mark |
 | `feed-post-comments-list` | `pathParams: { id: postId }`, `query: {}` or `{ limit, after }` | `comments`, `nextCursor`; root comments oldest first, default 20, maximum 50. Cursor is bound to caller, post and limit; even an empty page can continue |
 | `feed-post-comment-create` | `pathParams: { id: postId }`, `body: { operationId, text }` | `{ status: "confirmed", commentId }` or `{ status: "unavailable" }`; only confirmed plus ID confirms publication. Exact approved text, nonblank, within live limits |
+| `feed-announcement-delete` | `pathParams: { id: postId }` | Only `{ removed: true }` confirms local removal of the announcement and its comments; no Undo or external-storage removal promise |
+| `feed-comment-delete` | `pathParams: { id: commentId }` | Only `{ removed: true }` confirms local removal of one root comment; confirm whose comment, current rights apply, no Undo |
 | `feed-post-hype` | `pathParams: { id: postId }`, `body: { operationId }` | `total`, `mine`, `operationId`; one-way Hype with no Undo. A replay returns its saved receipt, not current counts |
 | `feed-announcement-audience-options-list` | `query: {}` | `origins: [{ origin: { type, id }, label, recipientRoles, targets: [{ type, id, label, parent? }] }]`; current permitted choices, not later authority |
 | `feed-announcement-reach-read` | `body: { origin, targets, recipientRoles }` | `{ count }`; current audience-size snapshot only. Consumes reach allowance, not a reservation or delivery promise |
 | `feed-announcement-intent-create` | `body: { opId, origin, targets, recipientRoles, text, commentsEnabled }` | `intentId`, `state` (`pending` or `cancelled`), `undoUntil`, `commentsEnabled`, `execution`. For a pending announcement, `queued` means lined up to go out after the 10-second Undo window unless held or refused; `unavailable` means saved but not lined up to go out. Neither proves phone delivery |
-| `feed-announcement-intent-cancel` | `pathParams: { id: intentId }` | Same receipt shape; only `state: "cancelled"` confirms Undo. Cancel the exact just-saved own announcement immediately on the person's “Undo”; no extra confirmation. Original 10-second window; successful cancellation can be replayed later only when requested |
+| `feed-announcement-intent-cancel` | `pathParams: { id: intentId }` | Same receipt shape; only `state: "cancelled"` confirms Undo. Cancel the exact just-saved own announcement immediately on the person's “Undo”; no extra confirmation. Original 10-second window; a requested replay of successful cancellation needs a fresh complete review and next-message yes, with unchanged original inputs |
 
 `origin` and each target are `{ type: "team" | "division" | "league", id }`, selected from the returned options for that origin. There must be 1–50 targets and 1–4 recipient roles, only as offered: `staff`, `parents_guardians`, `fans`, `league_staff`. Display these as Staff, parents/guardians, fans and league staff without inventing access. Preserve exact IDs and types. The API normalizes duplicate targets and roles; never use that as permission to broaden the approved audience. Comments setting is optional at the API boundary, but this workflow resolves and sends it explicitly for an unambiguous review.
 
@@ -25,6 +27,6 @@ For Feed lists, keep `scope`, `kind` and `limit` unchanged while using returned 
 
 ## Outside this workflow
 
-Tell the person to run [catch-up](../../catch-up/SKILL.md) for notification reading/read-state or [notification-settings](../../notification-settings/SKILL.md) for notification choices.
+Use [catch-up](../../catch-up/SKILL.md) for notification reading/read-state or [notification-settings](../../notification-settings/SKILL.md) for notification choices; a plain request selects the skill, with no typed command needed.
 
-Listing/acknowledging failed announcement sends has no assistant binding here. Do not invent operation-status lookup or resend tools. Moment creation/withdrawal and nested comment replies are unavailable. Deletion, pins and seen counts are outside this skill; use the app.
+For failed-send notices, pins (listing or dismissal) and seen counts, do this in the app. These remain outside this skill even when a tool exists. Comments are one level only. Hype makes moments itself; people cannot create or withdraw them. Do not invent operation-status lookup or resend tools. Send chat messages and photos in the app, not as substitute Feed announcements.

@@ -2,6 +2,22 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.66 - 2026-11-13
+
+- Send announcements last, back to back when several are approved, with each original Undo window explained before yes and the full result report in the immediate final message.
+- After a lost write answer, inspect only the affected item once; report current state and keep unsupported or unresolved outcomes unknown rather than retry or scan wider lists.
+
+- Delete requested announcements and comments under the shared complete-list review and one next-message yes, with no Undo and removal confirmed only by a validated answer.
+- Keep notification bell counts separate from group-chat and direct-message unread snapshots, and explain where to act in the app.
+- Read notification settings without a separate approval prompt, retaining one review and yes for changes. Use the app's labels, distinguish saved Email choices from actual sends, and do not offer daily summary controls: neither the assistant nor the app has them today.
+
+- Plain requests now select the matching Hype skill; commands remain optional shortcuts. Remove the command-only start-here guide and clarify skill ownership.
+- Use one complete review and one next-message yes for all requested changes, including mixed roster changes, child profiles with contacts and sports, and multi-part invitations. Preserve server access checks, request keys, receipts and safe recovery; change confirmation has no separate time limit.
+- Include requested same-row emergency contacts in the invitation review instead of asking again per team or page. Use the current live send limits without making the person manage parts; whole-list server-paced sending is not available yet.
+- Keep player erasure in the app and preserve the warning that saved child birth dates and contacts must be checked there.
+
+- players-families: after adding a child, say that the saved birth date and emergency contacts can't be read back here and should be checked in the app.
+
 ## 0.1.65 - 2026-11-13
 
 ### Changed

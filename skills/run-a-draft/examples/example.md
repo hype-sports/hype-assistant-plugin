@@ -2,67 +2,35 @@
 
 Use these illustrations with the [workflow](../SKILL.md), [input reference](../references/reference.md) and [request-key rules](../references/reference.md#request-keys), not as tool runs or permission. Use returned records and live schemas, never example IDs. If the key tool is missing or fails, stop; never invent a key. Apply the single [clock and recovery rules](../references/reference.md#clock-and-recovery) whenever an answer is unclear or time runs out.
 
-## Draw an order, then install it separately
+## Draw every requested position under one yes
 
-**Commissioner:** `/hype:run-a-draft` — Draw the pick order for Meadowbrook League, 10U, one team at a time.
+**Commissioner:** Draw the pick order for Meadowbrook League, 10U, one team at a time, then save the resulting random order.
 
-_Check tools and versions; find the requested draft with `drafts-list` and read `draft-get`. In this illustration it is scheduled, with Comets, Falcons and Otters. Read room and `draft-order-run-get`; no run is active._
+Check tools and versions; find the exact scheduled draft and read detail, room and current run. In this illustration it has Comets, Falcons and Otters, with no active run. Show the whole sequence once:
 
-**Assistant:** Start a one-position-at-a-time order draw for **Meadowbrook League, 10U**? Coaches watching will see each revealed position. Starting the draw does not replace the saved pick order. Each reveal and saving the final order will need a separate yes.
+1. Start the order draw; this does not replace the saved order.
+2. Reveal positions 1, 2 and 3 in order, one call per position. Their random contents are unknown before reveal, and watching coaches see the results.
+3. Install that resulting random order, replacing the saved order without starting the draft.
 
-**Commissioner:** Yes.
-
-_Get a new key from `request-key-new`; call `draft-order-run-start` once with the fresh revision. Retain that original revision. Read room/run for the requested next step._
-
-**Assistant:** The draw is ready. Reveal the first pick position now?
+**Assistant:** Shall I do all those steps, including saving the resulting random order?
 
 **Commissioner:** Yes.
 
-_Get a new key; call `draft-order-run-reveal` with the current run's next slot, without a revision. In this illustration Falcons are revealed first. Stop; do not reveal another slot from that yes._
-
-**Assistant:** Falcons have first pick. No other positions have been revealed.
-
-_After the commissioner separately requests and approves each remaining reveal, fresh run reads show the complete order: Falcons, Otters, Comets. Do not fabricate the unrevealed order._
-
-**Assistant:** Save this complete pick order for **Meadowbrook League, 10U**?
-
-1. Falcons
-2. Otters
-3. Comets
-
-This replaces the saved order but does not start the draft.
-
-**Commissioner:** Yes.
-
-_Confirm the draft still has the draw's original revision; get a new key and send `draft-order-run-install` for the current run. Read detail to verify. If the draft changed, follow the recovery rule rather than silently installing at a new revision._
+Get a new server key for Start and retain its original draft revision. Read the confirmed run, then reveal each reviewed next position with its own key and fresh exact run/slot guard, without asking again. Never guess unrevealed teams or advance beyond the listed positions. Suppose the confirmed results are Falcons, Otters, Comets. After all positions are confirmed, install that order with its own key and the draw's original revision; never substitute a newer revision to bypass a conflict. Read detail to verify.
 
 **Assistant:** Saved: Falcons, Otters, Comets. The draft has not started.
 
-_For “randomize the order now” instead, preview that `draft-order-draw` refreshes teams and immediately replaces all draw positions. Do not start a paced run for that request._
+A refused Start blocks every reveal and install. A lost reply stops writes for supported current-state inspection. If the original request did not include installing the resulting random order, show the revealed order for a later decision instead; do not silently add Install. For “randomize the order now,” use the separately reviewed `draft-order-draw`, not a paced run.
 
-## Change settings, then Start under a separate yes
+## Change settings and Start in the same request
 
-**Commissioner:** Give each turn 90 seconds.
+**Commissioner:** Give each turn 90 seconds and start the draft.
 
-_Read detail. In this illustration, the scheduled draft has a 60-second clock and pause-and-alert policy._
-
-**Assistant:** Change **Meadowbrook League, 10U** from 60 to 90 seconds per turn? Its existing grace time and pause-and-alert setting stay unchanged. This affects every team's turns and does not start the draft.
+Read fresh detail and readiness. In this illustration the scheduled draft has a 60-second clock with pause-and-alert, and no blockers. Review both changes together: clock 60 → 90 seconds with the other settings unchanged; then Start, freezing rules, building the board and possibly placing linked players or finishing immediately if no picks remain. Explain the actual grace period, clock effects, audience and Undo limits. Warn explicitly in the complete review: **Starting is final for every coach watching; there is no restart here.**
 
 **Commissioner:** Yes.
 
-_Get a new key and send `draft-settings-update` with only `settings: { clock: { seconds: 90 } }` plus revision/key. Read detail; in this illustration the clock is now 90 seconds._
-
-**Assistant:** Saved: 90 seconds per turn.
-
-**Commissioner:** Start it.
-
-_Read detail again; require no readiness blockers._
-
-**Assistant:** Start **Meadowbrook League, 10U** now? Starting is final for every coach watching: the rules freeze and the board is built. Usually the first team goes on the clock; if there is nothing to pick, the draft may go straight to Hat picks or finish and begin sending rosters. Linked players may fill squares automatically. This draft gives each turn 90 seconds, then its saved grace period, and pauses and alerts you when time runs out. Pause and Undo have limits; there is no restart here.
-
-**Commissioner:** Yes.
-
-_Get a new key, send `draft-start` once, then read room/pool. Report the returned state, not roster delivery._
+Call `draft-settings-update` with a fresh key and exact revision, read back the confirmed clock and readiness, then Start with its own new key and fresh valid revision. No second yes. If the settings change is refused, do not start with the old 60-second clock: Start depends on the approved change. A materially changed setting or readiness returns to the shared review. Report returned state, never roster delivery.
 
 ## A team's private list is not a pick
 
@@ -91,25 +59,17 @@ _Read room and pool; in this illustration Falcons have round 1, pick 1, Rowan is
 
 _Get a new key; send `draft-pick` once with the current turn, revision and returned player reference. A commissioner explicitly picking for the current team would use `draft-named-pick` instead; never substitute it after a coach's refusal._
 
-## Paced Hat: one marked group per approved draw
+## Multiple Hat draws, not an invented timer
 
-**Commissioner:** Run the Hat pick slowly.
+**Commissioner:** Start the Hat run and draw the next two marked groups, one after another.
 
-_Read room and `draft-hat-run-get`; in this illustration the draft is in Hat stage and this caller is commissioner._
-
-**Assistant:** Start the paced Hat run for **Meadowbrook League, 10U**? Only players marked Hat pick are drawn, not everyone who missed evaluations. The paced run draws one marked Hat group at the app's current pace, with linked players kept on the same team and roster limits respected. Placements are visible at once; Undo has limits. Here, each group draw needs a separate yes; for continuous timed presentation, do this in the app because its screen controls drive that pace. Starting this run does not approve drawing every group.
+Read room and `draft-hat-run-get`; confirm commissioner access, Hat stage and enough remaining groups where the returned state establishes it. Review Start and the next two group draws together. Explain random group selection, linked placements, roster limits, immediate visibility and Undo limits; do not claim to know hidden players or order. State that assistant calls do not drive an automatic timed presentation; continuous paced presentation stays in the app.
 
 **Commissioner:** Yes.
 
-_Get a new key and send `draft-hat-run-start` once. Read room/current run; do not draw from the Start approval._
+Call Start once with its new server key, read the confirmed run, then make the two reviewed draws sequentially with fresh exact run/ordinal reads and separate keys. No additional yes per group. Stop dependent draws after a refusal or changed stage; an unknown reply stops writes. Report only returned counts and allowed room labels. Overflow means players remain unplaced, not delivered rosters. Never draw more groups than reviewed.
 
-**Assistant:** The run is ready. Draw the next marked Hat group now? Hype chooses the group; I cannot see the hidden remaining order.
-
-**Commissioner:** Yes.
-
-_Get a new key; send `draft-hat-draw` with that current run and next ordinal, no revision. Report returned placed/unplaced counts and use room for any allowed labels. Stop before another draw. Overflow means players remain unplaced; do not claim a roster was delivered._
-
-_For an explicit request to place all marked Hat players at once, explain that those placements are visible and final, and separately confirm `draft-hat-pick`; never silently replace a paced run with it._
+For an explicit request to place all marked Hat players at once, include the visible final-placement effects of `draft-hat-pick` in the shared review instead; never silently substitute it for a paced run.
 
 ## A Save withdrawal may leave the player saved
 

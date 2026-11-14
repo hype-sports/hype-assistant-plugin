@@ -30,7 +30,7 @@ Sent-offer rows include `id`, `email`, `status`, `createdAt`, `expiresAt` and de
 
 Only current accepted Admins can read the protected Club/Tournament details, staff, sent offers and Club Teams. Personal-invitation lists need no existing Admin role. A Private setting, old access or knowing an ID grants nothing. A refusal never distinguishes missing from hidden data reliably.
 
-### Changes — preview and explicit yes every time
+### Changes — include all requested actions in the shared review
 
 | Operation | Inputs besides catalogVersion | Effect / confirmed output |
 | --- | --- | --- |
@@ -51,7 +51,7 @@ Accept grants real Admin authority. Decline consumes that offer without granting
 
 Admin offers need the person's directly supplied valid email (trimmed, at most 254 characters). Club delivery may be stopped by a per-recipient daily cap even when the offer saves; Tournament delivery is inactive. Never send another offer to repair delivery. Current offers last 14 days; use returned expiry. Sender limits return `RATE_LIMITED`.
 
-Cancellation needs the exact current pending, unexpired row; a hidden address needs explicit row/ID selection or an app handoff. Being sender or recipient alone gives no cancellation right. Removing another Tournament Admin is not available in the assistant or the app yet. For Club removal, use the returned staff `userId`, never yourself; follow the workflow's separate-yes and no-follow-up rules.
+Cancellation needs the exact current pending, unexpired row; a hidden address needs explicit row/ID selection or an app handoff. Being sender or recipient alone gives no cancellation right. Removing another Tournament Admin is not available in the assistant or the app yet. For Club removal, use the returned staff `userId`, never yourself; follow the shared list approval and result checks.
 
 ## Club Overview
 
@@ -63,7 +63,7 @@ Cancellation needs the exact current pending, unexpired row; a hidden address ne
 | `club-overview-block-archived-body-get` | Same path shape | One accessible archived section's long text, summary and revision; a remembered ID grants no access |
 | `club-overview-save` | `pathParams: { id: clubId }`, `body: { expectedRevision, confirmed: true, lifecycle, removes, changes, adds, order, keepChecklistNotice? }` | One atomic staged edit; returns only outcome/revision; no retry key |
 
-Read the page and editor before saving. Use the exact revision (null only when the read says so), returned IDs and capabilities, and live nested schemas; no whole-page replacement. `lifecycle` entries are `{ blockId, action: "archive" | "delete" | "restore" }`; `removes` use `{ blockId }`. `order` is the approved section IDs/new references or null. Omitted bodies stay unchanged; null clears them. No picture upload or new section kind. The person names any new audience; never infer it. Explain permanent deletion of a section and its long text before the separate yes; `confirmed: true` is not consent by itself. No automatic save follow-up; `CLUB_OVERVIEW_CHANGED` needs fresh reads and a new approved preview. An uncertain save, including `CLUB_OVERVIEW_SAVE_UNKNOWN`, stays unknown until separately requested page/editor reads inform a later decision.
+Read the page and editor before saving. Use the exact revision (null only when the read says so), returned IDs and capabilities, and live nested schemas; no whole-page replacement. `lifecycle` entries are `{ blockId, action: "archive" | "delete" | "restore" }`; `removes` use `{ blockId }`. `order` is the approved section IDs/new references or null. Omitted bodies stay unchanged; null clears them. No picture upload or new section kind. The person names any new audience; never infer it. Explain permanent deletion of a section and its long text in the complete shared review; `confirmed: true` is not consent by itself. No unreviewed save follow-up; `CLUB_OVERVIEW_CHANGED` needs fresh reads and a new approved preview. An uncertain save, including `CLUB_OVERVIEW_SAVE_UNKNOWN`, requires one supported authorized read of only the affected Overview/editor item to report current state before a recovery proposal, without treating current state as proof of the lost save.
 
 ## Prepare fields without inventing choices
 
@@ -77,7 +77,7 @@ Read the page and editor before saving. Use the exact revision (null only when t
 
 Read details immediately before editing. Copy the exact returned decimal-string `revision` into `expectedRevision`, never a number. Carry forward unchanged fields; show old/new values plus required unchanged ones before yes. `CLUB_DETAILS_CHANGED` or `TOURNAMENT_DETAILS_CHANGED` means another edit won: re-read, show a fresh comparison and obtain a new yes, not an automatic overwrite.
 
-Get each new Club `requestId`, Tournament `id` or offer `idempotencyKey` from `request-key-new`; retain it with the approved input. Never invent, replace or reuse it for another action. If that helper fails or is missing, save nothing and use the app. Same-key/same-input replay can recover Club creation, an offer or Tournament creation (`replayed: true`); changed input returns `IDEMPOTENCY_KEY_REUSED` or `TOURNAMENT_SETUP_CONFLICT`. Replay is not permission to resend: first follow the [recovery rule](../SKILL.md#unclear-outcome-re-check-never-resend), then obtain a fresh yes and reuse the original key and unchanged inputs. Other writes have no safe replay contract.
+Get each new Club `requestId`, Tournament `id` or offer `idempotencyKey` from `request-key-new`; retain it with the approved input. Never invent, replace or reuse it for another action. If that helper fails or is missing, save nothing and use the app. Same-key/same-input replay can recover Club creation, an offer or Tournament creation (`replayed: true`); changed input returns `IDEMPOTENCY_KEY_REUSED` or `TOURNAMENT_SETUP_CONFLICT`. Replay is not permission to resend: first follow the [recovery rule](../SKILL.md#unclear-outcome-re-check-never-resend), then obtain a yes in the person's next message to a fresh complete review and reuse the original key and unchanged inputs. Other writes have no safe replay contract.
 
 ## Refusals and data handling
 

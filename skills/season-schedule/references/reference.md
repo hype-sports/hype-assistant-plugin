@@ -12,7 +12,7 @@ Require each needed operation in the live list before using it.
 | Saved Places and Fields | `saved-places-list`, `saved-place-fields-list` read permitted directories and current version references. | Use the division's league directory and selectable records. Directory access grants no game-management rights; preserve redacted facts. |
 | Attach a saved Field to a shared game | Missing from `shared-game-create` and `shared-game-update`; these accept location/address text only. | Whole-season saving with saved Fields is not available yet. The app's Add game adds one game at a time with a typed location. Keep the plan unsaved; never send saved IDs to these tools. |
 
-Single-game updates, cancellations and cancellation undo work through `shared-game-update`, `shared-game-cancel` and `shared-game-restore`. Follow step 9 for one game and one explicit yes. This skill deliberately leaves archive/delete to the app. The live unarchive tool is outside this skill; shared-game unarchive is not available in the app yet.
+Single-game updates, cancellations and cancellation undo work through `shared-game-update`, `shared-game-cancel` and `shared-game-restore`. Follow step 9 and the shared complete-list approval; each game still uses its own guarded call. This skill deliberately leaves archive/delete to the app. The live unarchive tool is outside this skill; shared-game unarchive is not available in the app yet.
 
 Other reads: `league-search`, `league-get`, `league-divisions-list`, `division-get` resolve scope; `event-cards-list` reads schedule windows; `team-events-list` supplies an exact game's revision. `my-identity-read` can clarify the signed-in identity without testing access through a write.
 

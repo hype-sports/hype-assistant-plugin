@@ -29,7 +29,7 @@ The live connection's descriptions and schemas win. These are operation IDs; dis
 | `team-guardian-request-create` | `{id: teamId}` | `body: {entryIds, profiles?}`; 1–10 distinct live roster entry IDs. Optional `profiles: [{entryId, playerProfileId}]`, one managed profile per selected entry, each profile once. No private-link field. Returns `{askGroupId}`, not approval |
 | `owner-invitation-accept` | `{id: invitationId}` | No body/query; `{playerProfileId}`; profile management plus eligible linked rights, not team/league acceptance |
 | `owner-invitation-decline` | `{id: invitationId}` | No body/query; `{}`; refuses only this profile offer |
-| `guardian-invitation-accept` | `{id: invitationId}` | Required `body: {}` or `{playerProfileId}` for separately reviewed optional linking; no query. `{guardianId, linkedProfileId}`; linkedProfileId is null without a supplied profile |
+| `guardian-invitation-accept` | `{id: invitationId}` | Required `body: {}` or `{playerProfileId}` for optional linking explicitly included in the complete review; no query. `{guardianId, linkedProfileId}`; linkedProfileId is null without a supplied profile |
 | `guardian-invitation-decline` | `{id: invitationId}` | No body/query; `{}`; refuses team offer, removes no accepted access/link |
 | `league-guardian-invitation-accept` | `{id: invitationId}` | No body/query; `{guardianId}`; registration access/notifications, no profile creation/link |
 | `league-guardian-invitation-decline` | `{id: invitationId}` | No body/query; `{}`; refuses only this offer |
@@ -59,7 +59,7 @@ Use `askedByYou` to identify the caller's own pending ask. `isSelfAsk` means sel
 
 ### Whole request groups
 
-Never substitute an individual request ID for `askGroupId`, infer groups from names or derive staff authority from the asker's outgoing list. For a separately supplied trustworthy exact group, show the asker, team and **every waiting player exactly as the app shows them**, state when Hype cannot confirm those details here, explain effects, and get a later-turn yes. If anything is missing, use the list-first individual flow or the app, not a guessed group.
+Never substitute an individual request ID for `askGroupId`, infer groups from names or derive staff authority from the asker's outgoing list. For a separately supplied trustworthy exact group, show the asker, team and **every waiting player exactly as the app shows them**, state when Hype cannot confirm those details here, explain effects, and get a yes in the person's next message. If anything is missing, use the list-first individual flow or the app, not a guessed group.
 
 Group approval grants eligible waiting players' access, with possible profile-link/audience/notices. Preserve all `results` and order; one refusal does not stop other players. Outcomes include `approved`, `already`, `PLAYER_NOT_ON_ROSTER`, `INVITATION_EXPIRED`, `INVITATION_REVOKED`, `ALREADY_RESPONDED`. Empty/missing results are not whole-group success. Decline tells the asker once without naming the coach and allows a later ask. Neither action sends email. No automatic follow-up read or retry.
 
@@ -82,7 +82,7 @@ Group approval grants eligible waiting players' access, with possible profile-li
 
 Player lists return `{items, page, pageSize, total}` with registration IDs, first/last names, division labels and status only. No contacts, birth dates, photos or evaluation details. A search may match fields not returned; do not infer those fields. Empty/partial pages prove no census and grant no access; no automatic traversal or enrichment. League staff status does not substitute for the exact Division Admin appointment required by `division-registration-read`.
 
-Create league parent invitations through [league-setup](../../league-setup/SKILL.md#5-register-players-invite-parentsguardians) or [invite-families](../../invite-families/SKILL.md), not a duplicate send workflow here. Those skills cover supplied-address checks, required `request-key-new` keys, review/batch approval, replacement/replay and recipient ordering. Imports are separate from invitation approval and preserve both parents.
+Create league parent invitations through [league-setup](../../league-setup/SKILL.md#5-register-players-invite-parentsguardians) or [invite-families](../../invite-families/SKILL.md), not a duplicate send workflow here. Those skills cover supplied-address checks, required `request-key-new` keys, shared list approval, replacement/replay and recipient ordering. Imports preserve both parents; include requested invitations explicitly in the same review, never infer consent for omitted sends.
 
 ## Team acceptance with a profile
 
@@ -97,10 +97,10 @@ If the optional link refuses, the invitation stays waiting. Never infer identity
 
 ## Invitation keys and delivery
 
-For `owner-invitation-create`, `owner-invitation-resend` and `league-guardian-invitation-resend`, get a fresh key from `request-key-new` **only for a new approved action**. Keep the original key and exact inputs after an unclear result; never mint a replacement key to recover it. A deliberate unchanged retry still needs a separate request, review and later-turn yes. `IDEMPOTENCY_KEY_REUSED` is a stop, not permission to change the key. Team parent/guardian resend takes no key and has no replay protection.
+For `owner-invitation-create`, `owner-invitation-resend` and `league-guardian-invitation-resend`, get a fresh key from `request-key-new` **only for a new approved action**. Keep the original key and exact inputs after an unclear result; never mint a replacement key to recover it. A person-requested unchanged retry needs a fresh complete review of the original exact request and its email effects and a yes in the person's next message. `IDEMPOTENCY_KEY_REUSED` is a stop, not permission to change the key. Team parent/guardian resend takes no key and has no replay protection.
 
 - Profile create/resend replay returns `not_resent`, sends nothing new and proves no earlier delivery. Changed, foreign, expired or scrubbed keys refuse.
-- League resend replay returns the first email outcome with `replayed: true`, no new email. If this conversation records the first result, offer a new Resend for `not_sent` or `unknown`, not a known `sent`. The pending-invitation list and exact-invitation read return no email outcome. If it is not known from this conversation, treat delivery as unknown: say the first email may have gone out, a resend could arrive twice, and ask whether the person wants another attempt. Wait for their later-turn yes; never infer delivery from an invitation row.
+- League resend replay returns the first email outcome with `replayed: true`, no new email. If this conversation records the first result, offer a new Resend for `not_sent` or `unknown`, not a known `sent`. The pending-invitation list and exact-invitation read return no email outcome. If it is not known from this conversation, treat delivery as unknown: say the first email may have gone out, a resend could arrive twice, and ask whether the person wants another attempt. Wait for their yes in the person's next message; never infer delivery from an invitation row.
 - Resend renews the pending invitation and attempts email; a failed email does not undo that saved change. Team resend makes the caller its sender.
 - Team/league resend may require the original sender for untyped, non-draft invitations. On `INVITATION_SENDER_REQUIRED`, explain that the sender must resend or a current decider can request a new invitation; never substitute a new send automatically.
 - `sent` means service acceptance, not mailbox delivery, acceptance or access. `not_sent` leaves the offer saved. `unknown` may already have reached the recipient. Never retry or resend as an automatic repair.
@@ -124,12 +124,12 @@ Use only requested fields for the confirmed sport. Omit `details` on add when no
 | `other` | `position`: text; not a custom sport name |
 | `cheerleading` | No detail fields; omit add details and do not attempt a details update |
 
-Trim text positions to 1–30 UTF-16 units; limit lists to 10 entries. Confirm L as left, R as right, S as switch. Use the app when a newer code's details cannot be safely described. Duplicate adds or missing rows are refusals, not replay success. No revision protection: after an unclear sports change, inspect saved sports in the app before another action.
+Trim text positions to 1–30 UTF-16 units; limit lists to 10 entries. Confirm L as left, R as right, S as switch. Use the app when a newer code's details cannot be safely described. Duplicate adds or missing rows are refusals, not replay success. No revision protection: after an unclear sports change, say it may have happened, stop writes and inspect only the affected sports item once if a supported authorized read exists; otherwise keep it unknown and use the app, with no automatic retry.
 
 ## Boundaries and verification
 
 Erasing a player or their data stays in the **Hype app**, because it cannot be undone and the app walks through it. The assistant does not invoke those tools here; they are not “unavailable.” Do not substitute leaving, unlinking, registration deletion or another family's profile work. Withdraw a mistaken team request in the app: `guardian-request-withdraw` is deliberately outside this skill. Unrelated friend-card, removal, archive and direct team-spot linking workflows are not added by this guide.
 
-Ordinary empty 204 write success is strict `{}`; a lost/malformed reply is different and may follow a saved change. Stop without automatic retry/read/polling/chaining. Ask before an authorized fresh read; current state cannot settle the lost call's historical outcome. Reads can still write private activity/rate bookkeeping; never promise zero internal activity. Every admitted MCP POST shares the 60-per-rolling-minute account bucket; wait timing reserves no slot.
+Ordinary empty 204 write success is strict `{}`; a lost/malformed reply is different and may follow a saved change. Stop writes without automatic retry or polling. Read only the affected item once through a supported authorized item read and report its state; if unavailable, keep it unknown and use the app rather than scan broader lists; current state cannot settle the lost call's historical outcome. Reads can still write private activity/rate bookkeeping; never promise zero internal activity. Every admitted MCP POST shares the 60-per-rolling-minute account bucket; wait timing reserves no slot.
 
 Keep the [workflow's confirmation and recovery rules](../SKILL.md).
