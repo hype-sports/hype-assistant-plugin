@@ -92,6 +92,15 @@ Follow the workflow's [import and invitation review](../SKILL.md#import-a-sign-u
 - Each saved `inviteRecipients` entry has `rowIndex`, `parentSlot` (1 or 2), nullable `parentName`, `playerId`, `divisionId` and normalized `email`. Retain **every** recipient, including slot 2. This is a saved-import receipt, not approval to send or proof of an invitation. Keep its private details for the person's requested work and under the existing own-files limits; do not repeat addresses in summaries, logs, reports or messages.
 - There is **no import retry key**. An unclear commit may already have saved data; stop, do not repeat or start invitations, and inspect only the affected item once through a supported authorized read, without extra approval; if unavailable, keep it unknown and use the app rather than scan broader lists. Current state cannot prove that lost call's outcome.
 
+### Import into divisions created in the same plan
+
+This is the only case where the preview runs after the yes, because the league or divisions it needs do not exist yet.
+
+- In the one plan, show every row in a placement table (names, birth date and gender for this asker only) with the division it will land in. Work this out from each new division's gender, age calculation date and age range. Show as **not placed, needs your choice** any row with a missing or invalid birth date or gender, any row that fits no division, and any row that fits more than one. Say plainly that those rows are left out, never imported as exceptions under this yes. A division-level import into one new division places every row there regardless of birth date; say so instead of a worked-out placement.
+- Say in the plan that the import is conditional: it runs under this yes only if the server's preview confirms the plan exactly.
+- After creating the structure, run the preview. Import under the same yes only if every planned row comes back as a plain new addition in its planned division: no match, identity candidate, update, contact replacement, exception, warning, error, skip or in-file duplicate. Every choice must be `add_new`, and the counts must equal the plan. Anything else: stop, show exactly what differs, and wait for a new yes. If time passes or anything changes before that yes, preview again.
+- Invitations in the same plan depend on the import's receipts; a skipped or changed recipient needs a revised review (see the invitation section).
+
 ### Invitations to saved import parents
 
 `league-import-guardian-invitation-create` takes `pathParams: { id: leagueId, playerId: savedRegistrationId }`, no query, and `body: { email, idempotencyKey }`. Use the exact email from a confirmed saved `inviteRecipients` entry and a new key from `request-key-new` for each new send. Existing pending offers are **not replaced**: do not substitute generic `league-player-guardian-invitation-create` to work around a refusal. Current authority and saved-import contact checks still apply at the write.

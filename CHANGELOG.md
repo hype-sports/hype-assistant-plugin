@@ -4,7 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.70 - 2026-11-14
 
-- league-setup: when one plan creates a league or divisions and imports a sign-up sheet, the plan now shows each row's division before your yes. The server preview runs after the divisions exist, and the import goes ahead under that yes only if it matches the plan exactly; any difference is shown for a new yes.
+- league-setup: when one plan creates a league or divisions and imports a sign-up sheet, the plan now shows each row's division before your yes, and rows it cannot place are left out. After the divisions exist, the server preview runs; the import goes ahead under that yes only if every row is a plain new addition in its planned division. Any match, update, contact change, exception or skip is shown for a new yes.
 
 ## 0.1.69 - 2026-11-14
 
