@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.77 - 2026-11-14
+
+- my-account: when roles block account deletion, the assistant says archived leagues and teams count too, so a shorter roles list read earlier does not confuse the person.
+
 ## 0.1.76 - 2026-11-14
 
 - my-account: when account deletion is refused because roles remain, the assistant now receives and shows the list of roles to leave or hand over first.
