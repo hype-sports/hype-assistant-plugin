@@ -10,7 +10,7 @@ Use the [workflow](../SKILL.md); see the [worked conversation](../examples/leagu
 | Divisions | `league-divisions-list`, `division-get` | `league-division-create`, including initial teams |
 | Details | `league-get` or `division-get` | `league-update` or `division-update` |
 | Staff | Use `league-staff` | Follow that skill's role choices under the shared list approval |
-| Players | `division-players-lookup` | `division-player-create` |
+| Players | `division-players-lookup` | `division-player-create` (one typed player; two or more use Roster import) |
 | Parents/guardians | `league-player-guardian-invitations-list`, `league-invitation-allowance-get` | One approved `league-player-guardian-invitation-create`; use `invite-families` for many parents |
 | Roster import | `division-player-import-preview` or `league-player-import-preview` | Matching `division-player-import` or `league-player-import`, with complete reviewed rows and choices; no invitations |
 | Saved-import parents | Confirmed import's `inviteRecipients` | Reviewed `league-import-guardian-invitation-create` per recipient, fresh key from `request-key-new` |

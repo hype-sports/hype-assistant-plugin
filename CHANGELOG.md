@@ -4,7 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.74 - 2026-11-14
 
-- league-setup: any sheet, file, pasted table or list of several players now always goes through the import (one preview, both parents kept as contacts, then one import), never one-at-a-time registration, whatever its size.
+- league-setup: two or more players (typed, pasted or from a file), or one player with two parents' details, now always go through the import (one preview, both parents kept as contacts, then one import), never one-at-a-time registration.
 
 ## 0.1.73 - 2026-11-14
 
