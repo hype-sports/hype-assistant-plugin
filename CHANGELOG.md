@@ -2,9 +2,50 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## Unreleased
+## 0.1.76 - 2026-11-14
 
-- Delete one emergency contact after showing its name and relationship in the shared review and getting one yes, without replacing or wiping the contact list.
+- my-account: when account deletion is refused because roles remain, the assistant now receives and shows the list of roles to leave or hand over first.
+- players-families: delete one emergency contact after showing its name and relationship in the shared review and getting one yes, without replacing or wiping the contact list.
+
+## 0.1.75 - 2026-11-14
+
+- league-setup: every imported row now tells the server what the preview showed for it, so a player added or changed by someone else after the preview stops the import and is reported, instead of being quietly left as it was.
+
+## 0.1.74 - 2026-11-14
+
+- league-setup: two or more players (typed, pasted or from a file), or one player with two parents' details, now always go through the import (one preview, both parents kept as contacts, then one import), never one-at-a-time registration.
+
+## 0.1.73 - 2026-11-14
+
+- players-families: current league staff, or the adult themselves, can remove a parent/guardian from a league player. The review says who gets an in-app notice, that the link ends but its history is kept, and that an older invitation cannot bring them back.
+
+## 0.1.72 - 2026-11-14
+
+- league-setup: a phone number that needs correcting stops the plan; Claude asks for it and never offers leaving it out as a default.
+- league-setup and invite-families: invitation reviews show each address being invited, exactly as it will be sent, so you can catch a typo before your yes.
+- league-setup: the invitation allowance is read after the import is saved (it grows with the league's registered players), and the plan never reads another league for defaults.
+
+## 0.1.71 - 2026-11-14
+
+- league-setup: for a league in a US state, parent phone numbers written US-style (202-555-0123) are converted to the full international form (+12025550123) and shown as "was → becomes" before your yes; anything else is listed for you to correct, never dropped. Any preview refusal or difference stops for a new yes; no row value is changed to get past it.
+- league-setup: the plan lists the exact invitations, the allowance is read only for the league being acted on, and a changed count or recipient list stops for a new yes. Never more invitations than the plan listed.
+
+## 0.1.70 - 2026-11-14
+
+- league-setup: when one plan creates a league or divisions and imports a sign-up sheet, the plan now shows each row's division before your yes, and rows it cannot place are left out. After the divisions exist, the server preview runs; the import goes ahead under that yes only if every row is a plain new addition in its planned division. Any match, update, contact change, exception or skip is shown for a new yes.
+
+## 0.1.69 - 2026-11-14
+
+- manage-my-team: the review for a parent/guardian Roster-spot invitation or a coach invitation now shows the email address exactly as you typed it, so you can catch a typo before your yes. Addresses still come only from you, never from a roster or contact read.
+
+## 0.1.68 - 2026-11-14
+
+- manage-my-team settles the team before reading any Roster: the team you named, or the only team you run (named in the review); otherwise it asks which team. It no longer reads every team's Roster to find a player.
+- Inviting a parent/guardian for a Roster spot: when you have not given their email, Claude asks for it in one question (or points you to the Roster spot in Hype), then shows the full review before anything is sent. It never takes an address from a roster or contact list.
+
+## 0.1.67 - 2026-11-13
+
+- manage-my-team: plain roster requests such as "On <team>, add two players and change a jersey number" now start the team skill, so its one review and one yes apply.
 
 ## 0.1.66 - 2026-11-13
 
