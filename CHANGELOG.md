@@ -2,7 +2,7 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## Unreleased
+## 0.1.66 - 2026-11-13
 
 - Send announcements last, back to back when several are approved, with each original Undo window explained before yes and the full result report in the immediate final message.
 - After a lost write answer, inspect only the affected item once; report current state and keep unsupported or unresolved outcomes unknown rather than retry or scan wider lists.
