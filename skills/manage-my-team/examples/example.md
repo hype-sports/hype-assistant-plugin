@@ -52,9 +52,9 @@ Read `team-roster-start-sources-list` for Cedar Comets and `team-seasons-list` f
 
 **Person:** Invite Robin Example as Assistant Coach for Cedar Comets.
 
-Resolve the exact team; read its role from `my-home-entities-list` and proceed only for Admin or Staff. Inspect `team-staff-list`. Ask for the exact address directly, without account lookup. Check only that supplied address with `team-invitations-list`. For the example's false pending answer, prepare email-only `team-invitation-create`, `title: "assistant_coach"`, `makeOwner: false`. Stop a new create if true (offer resend); explain and ask if null, never assume no pending offer.
+Resolve the exact team; read its role from `my-home-entities-list` and proceed only for Admin or Staff. Inspect `team-staff-list`. Ask for the exact address directly, without account lookup; the person types robin@example.test. Check only that supplied address with `team-invitations-list`. For the example's false pending answer, prepare email-only `team-invitation-create`, `title: "assistant_coach"`, `makeOwner: false`. Stop a new create if true (offer resend); explain and ask if null, never assume no pending offer.
 
-**Assistant:** Invite Robin to Cedar Comets [team ID] as Assistant Coach, not Admin, at the address supplied? This sends a real invitation email attempt; Robin gains Staff access only after accepting. Staff can see players' emergency contacts in Hype while on the current roster of an active team. Repeating a send can replace an earlier pending offer and send another email. Shall I send this exact invitation?
+**Assistant:** Invite Robin to Cedar Comets [team ID] as Assistant Coach, not Admin, at robin@example.test (exactly as you typed it; check it for typos)? This sends a real invitation email attempt; Robin gains Staff access only after accepting. Staff can see players' emergency contacts in Hype while on the current roster of an active team. Repeating a send can replace an earlier pending offer and send another email. Shall I send this exact invitation?
 
 **Person:** Yes.
 
