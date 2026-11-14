@@ -24,9 +24,21 @@ Read `team-roster-list` (current season) and check no Quinn Example is already l
 
 Call `team-roster-entry-create` once with `role: "player"`, the names and `jerseyNumber: 0`. Report the returned [entry ID] as added. Never call again for the same player; another call can create a duplicate.
 
-**Person:** Make Quinn number 7, then take Rowan Sample off the Roster.
+**Person:** Add Avery Example with jersey 4, make Quinn number 7, then take Rowan Sample off the Roster.
 
-These are two changes. Review the jersey change for [Quinn's entry ID] and, after a later yes, call `team-roster-entry-update` once with only `jerseyNumber: 7`. Then review the removal separately: it ends Rowan's entry for this season, keeps history, deletes no profile and notifies Rowan's parents/guardians. Only after a separate yes, call `team-roster-entry-remove` once.
+Read the current Roster and resolve exact entries. Show all three changes once:
+
+| Target | Exact change | Effect / notifications |
+| --- | --- | --- |
+| Avery Example, current Cedar Comets season | Add player, jersey 4 | New Roster entry, no Staff or guardian grant; state notice behavior only if the live tool specifies it |
+| Quinn Example, selected entry | Jersey 0 → 7 | Other fields unchanged; state notice behavior only if the live tool specifies it |
+| Rowan Sample, selected entry | Take off this season's Roster | Keeps history and profile; notifies parents/guardians |
+
+**Assistant:** Shall I make all three listed changes?
+
+**Person:** Yes.
+
+Call create, update and remove once each, in that order, without another question. Bind Avery only to the confirmed create receipt. If Quinn's update is refused, report it and still attempt Rowan's independent approved removal; if a reply is lost, stop writes and inspect authorized current state before recovery. Report done, refused, unknown and not attempted separately.
 
 **Person:** Put Rowan back.
 
@@ -84,9 +96,9 @@ Read `team-memberships-list` for the exact team. Preserve its scope, archive dat
 
 ## 6. Refused tool or unclear send
 
-If a needed tool is absent/refused, explain the limit and stop that part; still answer any other independent reads asked for in the same message, each refusal reported beside them. No direct API, account change or guessed input, and nothing that depended on the refused part.
+If a needed tool is absent/refused, explain the limit and stop that part; still complete other requested independent reads and approved independent changes that remain allowed, each refusal reported beside them. No direct API, account change or guessed input, and nothing that depended on the refused part.
 
-If the approved coach invite has a lost reply instead of a confirmed result, say it may have happened. Do not resend, cancel, poll or automatically read. Ask the person to check Staff in Hype. A separately requested authorized read shows only current facts, not whether the earlier email was sent; never treat a missing pending row as permission to send again. Require fresh review and yes for any later supported action.
+If the approved coach invite has a lost reply instead of a confirmed result, say it may have happened. Do not resend, cancel or poll. Read authorized current Staff state and use the app if it cannot resolve the result; the read shows only current facts, not whether the earlier email was sent; never treat a missing pending row as permission to send again. Require fresh review and yes for any later supported action.
 
 ## 7. A follower asks for team management lists
 

@@ -38,11 +38,11 @@ Alternative lost-answer case: say it may have happened and stop writes. Ask befo
 
 **Pass boundary:** skill invocation and the initial request are not the later yes; no comment while off, nested reply or duplicate new-key send.
 
-## 4. One Hype, no Undo, no combined approval
+## 4. A comment and Hype in one review
 
 **Person:** Hype that post and add “Great work”.
 
-Review one action at a time. Explain one Hype as the person and no Undo; ask a separate question for it. After later yes, call `feed-post-hype` once with [operationId] and exact post. Translate only returned `total` and `mine` into plain counts, for example “Your post has N Hypes,” using the actual returned number; never show the raw field names or operation key. Do not post the requested comment until its own exact review and later yes. A missing post Hype field is not a zero count.
+Show both requested actions in one review: the exact post, full comment text, who can see it, and one Hype as the person with no Undo. After the single next-message yes, call `feed-post-comment-create` and `feed-post-hype` once each in the reviewed order, with their separate operation IDs and exact inputs. No extra question between calls. On confirmed comment refusal, the independent approved Hype may still proceed; on a lost answer stop writes and inspect supported current state. Translate only returned `total` and `mine` into plain counts, never raw field names or keys. A missing Hype field is not zero.
 
 If Hype's answer is lost, stop and preserve its original key/post. Never mint a replacement or use a comment as compensation. A person-requested exact replay returns an operation receipt, not current totals.
 
@@ -88,6 +88,6 @@ Explain that listing and acknowledging these announcements is not available thro
 
 **Person:** Read my notifications and mark them read; then turn off Push for drafts.
 
-Tell the person to run `/hype:catch-up` for notifications and `/hype:notification-settings` for the switch. Starting either is not approval; do not copy their actions into this Feed workflow, mark all notices read from opening a post or save default preferences without that skill's review.
+Use `catch-up` for notifications and `notification-settings` for the switch; plain requests select them without requiring typed commands. Starting either is not approval; do not copy their actions into this Feed workflow, mark all notices read from opening a post or save default preferences without that skill's review.
 
-**Pass boundary:** correct manual commands, no notification tool calls from this skill and no implied notification approval from a Feed write.
+**Pass boundary:** correct skill routing, no notification tool calls from this skill and no implied notification approval from a Feed write.

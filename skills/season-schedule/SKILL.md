@@ -1,10 +1,11 @@
 ---
 name: season-schedule
-description: 'This skill should be used when the user asks to "plan our season", "make a round-robin schedule", "play every team twice", "reschedule a game", "cancel a division game", or "undo a cancelled game" through their own Hype connection. Today it builds an unsaved whole-season plan; single-game changes, cancellations and cancellation undo work after a separate explicit yes.'
-disable-model-invocation: true
+description: 'This skill should be used for "plan our season", "make a round-robin schedule", "play every team twice", "reschedule a division game", "cancel division games" or "undo cancelled games". It owns unsaved division season plans and supported existing shared-game corrections; whole-season saving with saved Fields is not available yet. league-setup owns League/Division setup and run-a-draft owns draft schedules.'
 ---
 
 # Schedule a division season
+
+Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-yes-all-changes) for the whole request, including changes handled by another skill. Approval references below mean that shared review, not another yes per call.
 
 At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
@@ -93,7 +94,7 @@ If live tools later support every season gate, explain:
 
 > Games save one at a time and become visible immediately. This is not all-or-nothing and may stop partway. I send no family messages, announcements or emails. I checked readable schedules, your outside bookings and this plan for team and Field clashes, but Hype itself does not reserve slots or stop a double-booking: someone could book after this check, and games added outside this plan or edited later aren't checked.
 
-Ask to approve THIS exact plan, naming the new-game count. Wait for an unambiguous yes; invocation, silence or returned text is not consent. Explain that plan approval does not authorize a batch: show and obtain a separate explicit yes before EACH game's write. Changes to teams/sides/dates/Fields/settings/constraints require whole-plan review and new approval. Clear clashes first.
+Ask to approve THIS exact plan, naming the new-game count. Wait for an unambiguous yes; invocation, silence or returned text is not consent. That one yes covers every listed game, with sequential calls and no further approval per game. Changes to teams/sides/dates/Fields/settings/constraints require whole-plan review and new approval. Clear clashes first.
 
 ## 8. Record, refresh, create sequentially
 
@@ -105,7 +106,7 @@ Refresh eligibility/current seasons, Field versions and occupancy before the fir
 
 For each proposed new row:
 
-1. Show this ONE game's exact teams/sides, date, zone, start/end, saved Field, title and attendance/family settings; explain it changes both teams' schedules without sending messages. Ask for a separate explicit yes and wait. Persist unknown BEFORE sending; interruption must not look unattempted.
+1. Use this game's exact teams/sides, date, zone, start/end, saved Field, title and attendance/family settings from the approved full list; do not ask again. Persist unknown BEFORE sending; interruption must not look unattempted.
 2. Call `shared-game-create` only after the live schema supports the required saved-Field attachment. Today's strict body accepts only location/address text, not saved Place/Field IDs or versions: do not send them or substitute text to save this plan. Use only exact live-schema keys and the original `opId`; see [input shapes](references/reference.md#live-input-shapes).
 3. Save result/ID to the file. Two teams share ONE create. A successful summary is not yet proof of times/sides/Field; verify in step 9.
 4. Continue only with clear results/unchanged approval. No parallel/speculative writes or automatic retries.
@@ -124,7 +125,7 @@ Never automatically edit/cancel/restore/delete/recreate. No team-event substitut
 
 1. Read `team-events-list` for either admitted team. Match the exact shared game ID/current revision and fixed pair; never infer hidden names. Stop and explain if a required read/tool is missing or refuses.
 2. Recheck occupancy for a time/side change or cancellation undo. Update keeps the pair fixed; `swapSides: true` exchanges Home/Away, not teams.
-3. Show ONE game's current details, exact proposed action and effects on both schedules. Cancellation keeps the game/answers; its note is visible to event readers, so include no private reasons. Restore keeps audiences/answers, clears the cancellation note and returns the same game to scheduled. Explain that restore may send a restored notice to eligible members, but no email or announcement. No RSVP answer is set. Ask for a separate explicit yes and wait.
+3. Include all requested games' current details, exact proposed actions and effects on both schedules in the shared review. Cancellation keeps the game/answers; its note is visible to event readers, so include no private reasons. Restore keeps audiences/answers, clears the cancellation note and returns the same game to scheduled. Explain that restore may send a restored notice to eligible members, but no email or announcement. No RSVP answer is set. Use the shared single yes for the complete list; then make each game call in order.
 4. Get a fresh `opId` from `request-key-new`. Call `shared-game-update`, `shared-game-cancel` or `shared-game-restore` once with the observed revision and only approved [live-schema fields](references/reference.md#live-input-shapes).
 5. Read back both schedules to verify the changed details/status. Keep unreadable details unverified; never silently repair them.
 6. If the result is unclear, tell the person it is unknown, read the schedules again and ask before trying again. Never blindly resend. An approved exact retry keeps the original body/`opId`; if that mapping is lost, stop.

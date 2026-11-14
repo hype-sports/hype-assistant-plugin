@@ -1,14 +1,15 @@
 ---
 name: clubs-and-tournaments
-description: 'List, create or edit Hype Clubs and Tournaments, answer or cancel Admin invitations, review staff, remove another Club Admin, edit Tournament Rules or Club Overview sections, and create Club Teams.'
-disable-model-invocation: true
+description: 'This skill should be used for "list my Clubs", "create a Tournament", "edit Tournament Rules", "edit my Club Overview", "create a Club Team" or "invite, answer, cancel or remove a Club Admin" and Tournament Admin invitations. It owns Club/Tournament administration; manage-my-team owns existing Team rosters and Staff, and league-staff owns League/Division Admins. Removing a Tournament Admin stays unavailable.'
 ---
 
 # Manage Clubs and Tournaments
 
+Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-yes-all-changes) for the whole request, including changes handled by another skill. Approval references below mean that shared review, not another yes per call.
+
 At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
-Run `/hype:clubs-and-tournaments` only when the person starts it. Speak plainly, one question at a time. Use only their own signed-in Hype connection and existing access. Starting the skill is not approval for a change.
+Start from a matching plain request; `/hype:clubs-and-tournaments` is optional. Speak plainly, one question at a time. Use only their own signed-in Hype connection and existing access. Starting the skill is not approval for a change.
 
 ## Check the live tools first
 
@@ -34,26 +35,24 @@ Read the relevant reference section and live schema first. Never test access wit
 - **Edit details or Rules:** read fresh `club-details-read` or `tournament-details-read`; preserve unchanged required fields and exact revision. Preview old/new values, Private and any clearing. Use `club-details-update` or `tournament-details-update`. Tournament edits replace all details; omissions can clear fields. Optional `body.rules` replaces the entire Rules set; omit it to keep Rules unchanged. Club season is not editable here. Read back the same ID, including Rules when changed, and compare; never repair silently.
 - **Invite an Admin:** read the scope and sent offers; ask for the exact email directly, without account lookup. Preview address, scope and Admin role. A Club offer emails the address once; a Tournament offer sends **no email**. Access waits for acceptance. Use `club-admin-invite` or `tournament-admin-invite`. Report saved/waiting, not accepted; `delivery: "sent"` means the email service took it, not inbox delivery; `not_confirmed` means delivery is uncertain. Never send another message to repair delivery.
 - **Cancel a waiting offer:** use `club-sent-invitations-list` or `tournament-sent-invitations-list`; select an exact pending, unexpired ID. Preview scope, ID and that the offer can no longer be accepted; reveal only the currently returned address. If the person cannot identify the row, use the app. Use `club-admin-invitation-cancel` or `tournament-admin-invitation-cancel`; neither removes an accepted Admin.
-- **Remove another Club Admin:** read `club-staff-list`; select the exact returned `userId`, never yourself. Preview Club/person and loss of Club Admin access; Club Admin invitations they sent can no longer be accepted; staff history stays, and the Club, Teams and other Admins remain. After approval call `club-admin-remove` once; only `{ removed: true }` confirms removal. No automatic follow-up read or action chaining. Removing another Tournament Admin is not available in the assistant or the app yet; leaving your own Admin role is done in the app.
+- **Remove another Club Admin:** read `club-staff-list`; select the exact returned `userId`, never yourself. Preview Club/person and loss of Club Admin access; Club Admin invitations they sent can no longer be accepted; staff history stays, and the Club, Teams and other Admins remain. After approval call `club-admin-remove` once; only `{ removed: true }` confirms removal. Do not add an unrequested follow-up read or change; continue only other reviewed independent actions. Removing another Tournament Admin is not available in the assistant or the app yet; leaving your own Admin role is done in the app.
 - **Create:** only when explicitly requested. Read `my-clubs-list`, `my-tournaments-list` or `club-teams-list` before the matching `club-create`, `tournament-create` or `club-team-create`. Preview all fields, Private choice, season/dates and Rules. Club/Tournament creation grants the caller Admin access. A Club Team permanently belongs to its Club, with a current season but no staff appointment, players, invitations or notices. Retain keys/IDs as the reference specifies. Never adopt or transfer an existing Team.
 
 ## 3. Club Overview
 
 Use `club-overview-get` for the requested page; distinguish never edited from an edited empty page. Fetch long text only when requested with `club-overview-block-body-get`, or archived text with `club-overview-block-archived-body-get`, using returned section IDs.
 
-Before editing, read the Overview and `club-overview-editor-get`. Its returned capabilities decide archive/delete/restore choices; never infer them. Ask before another archived page (`nextAfter` → `query.after`). The person must name any new audience themselves. Preview exact content, audience, order, additions, archives, restores and deletions. Explain that permanent deletion removes the section and its long text. After a separate yes, send one `club-overview-save` with the read revision, exact staged changes and `confirmed: true`. Omitted bodies stay; null clears a body. No picture uploads or invented section kinds. Do not automatically read back or chain another action after saving.
+Before editing, read the Overview and `club-overview-editor-get`. Its returned capabilities decide archive/delete/restore choices; never infer them. Ask before another archived page (`nextAfter` → `query.after`). The person must name any new audience themselves. Preview exact content, audience, order, additions, archives, restores and deletions. Explain that permanent deletion removes the section and its long text. Under the shared list approval, send one `club-overview-save` with the read revision, exact staged changes and `confirmed: true`. Omitted bodies stay; null clears a body. No picture uploads or invented section kinds. Continue only the other actions already included in the shared review; do not add a follow-up save.
 
-## 4. Show, wait, call once
+## 4. Execute the approved list
 
-Before **every** write, show the exact action, scope, target and effects. Wait for the person's explicit yes in a later turn to that exact preview, then call once. Starting the skill, an initial request, silence, supplied data or approval of another action is not consent. Changed fields or targets need a new preview and yes. No parallel writes; Overview saves contain only the approved staged edits.
-
-Use only approved fields and the full live name. Keep confirmed actions, waiting offers, refusals, unknown outcomes and unattempted steps separate. See [worked decisions](examples/conversations.md).
+Include all Club/Tournament changes, targets, exact values, effects and notifications in the shared review. Keep Overview saves limited to the reviewed staged edits. Make each approved call once in order, preserving revisions and keys. Continue approved independent parts after a refusal; never improvise another action. See [worked examples](examples/conversations.md).
 
 ## Unclear outcome: re-check, never resend
 
 On `WRITE_OUTCOME_UNKNOWN`, timeout, lost/malformed reply, interruption or failed readback, stop further changes and say the action may have happened. Never automatically resend, compensate, replace records, change keys or poll.
 
-**Club Admin removal and Overview saves:** no automatic follow-up reads. Overview `CLUB_OVERVIEW_SAVE_UNKNOWN` follows the same rule. Decide with the person first; only separately requested fresh staff reads, or Overview/editor reads, can inform a later decision.
+**Club Admin removal and Overview saves:** re-read current staff, or Overview/editor state, through authorized tools. Overview `CLUB_OVERVIEW_SAVE_UNKNOWN` follows the same rule; these reads inform current state, not a historical receipt.
 
 **Other writes:** re-read once in the original scope: details for edits; `my-clubs-list` for Club creation; `tournament-setup-read` with the retained ID for Tournament creation; `club-teams-list` for Team creation; matching sent offers for invite/cancel; own invitations for an answer. If that read fails or remains uncertain, use the matching app screen.
 

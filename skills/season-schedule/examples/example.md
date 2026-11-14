@@ -1,6 +1,6 @@
 # Season-scheduling examples
 
-Apply the [season-schedule workflow](../SKILL.md); check actual rows before approval. Treat names as neither saved references nor permission to create anything. Team lists and saved Place/Field reads exist today, but shared-game saved-Field attachment is missing. Keep whole-season plans unsaved; these calculations do not prove live saving. Obtain a separate explicit yes for each one-game change.
+Apply the [season-schedule workflow](../SKILL.md); check actual rows before approval. Treat names as neither saved references nor permission to create anything. Team lists and saved Place/Field reads exist today, but shared-game saved-Field attachment is missing. Keep whole-season plans unsaved; these calculations do not prove live saving. Include every requested game correction in the shared complete review and one yes, then call each game tool in order.
 
 ## Twelve teams, once each
 
@@ -31,7 +31,7 @@ One meeting means **21 games**, **7 rounds**, **6 games and one bye per team**, 
 
 ## A stopped save, if saved-Field support is added
 
-Do not start this path with today's text-only tools. For a stopped 66-new-game run with **23 confirmed, one unknown and 42 not attempted**, report exactly those counts, not “24 saved” or “failed, starting over.” Preserve the progress file and original request IDs; reconcile and resume only through the skill's deliberate recovery steps. Twelve teams is an example, not a product cap. After reconciling the unknown through fresh reads, ask for a decision; do not automatically resend it or continue to the next game. A previous whole-plan yes is not approval for another write.
+Do not start this path with today's text-only tools. For a stopped 66-new-game run with **23 confirmed, one unknown and 42 not attempted**, report exactly those counts, not “24 saved” or “failed, starting over.” Preserve the progress file and original request IDs; reconcile and resume only through the skill's deliberate recovery steps. Twelve teams is an example, not a product cap. After reconciling the unknown through fresh reads, ask for a decision; do not automatically resend it or continue to the next game. A stopped job needs one newly reviewed remainder and one fresh yes before recovery or continuation, not one yes per remaining game.
 
 ## One correction, one new yes
 
@@ -47,4 +47,4 @@ For an unresolved draft opponent, show **TBD**, never blank. Stop shared-game sa
 
 ## Time changes need clarification
 
-A proposed 01:30 start on a daylight-saving fallback date can describe two instants. Ask which instant is intended and check the chosen zone before review; do not silently pick one. Show unplaced games when a closure leaves too few slots, and obtain new whole-plan review plus a separate per-game yes after constraints change.
+A proposed 01:30 start on a daylight-saving fallback date can describe two instants. Ask which instant is intended and check the chosen zone before review; do not silently pick one. Show unplaced games when a closure leaves too few slots, and show the changed complete plan and obtain one new yes after constraints change; never ask again per game.

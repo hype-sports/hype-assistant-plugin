@@ -25,6 +25,6 @@ For Feed lists, keep `scope`, `kind` and `limit` unchanged while using returned 
 
 ## Outside this workflow
 
-Tell the person to run [catch-up](../../catch-up/SKILL.md) for notification reading/read-state or [notification-settings](../../notification-settings/SKILL.md) for notification choices.
+Use [catch-up](../../catch-up/SKILL.md) for notification reading/read-state or [notification-settings](../../notification-settings/SKILL.md) for notification choices; a plain request selects the skill, with no typed command needed.
 
 Listing/acknowledging failed announcement sends has no assistant binding here. Do not invent operation-status lookup or resend tools. Moment creation/withdrawal and nested comment replies are unavailable. Deletion, pins and seen counts are outside this skill; use the app.

@@ -1,10 +1,11 @@
 ---
 name: catch-up
-description: 'This skill should be used when the user asks to "catch me up on Hype", "what is new in my notifications", "check my Hype bell" or "mark my notifications read". It summarizes one page of unread Hype notifications by type and what each appears to ask, and marks notices read only after the user approves the exact change.'
-disable-model-invocation: true
+description: 'This skill should be used for "what did I miss", "catch me up", "check my Hype bell" or "mark my notifications read". It summarizes notifications and changes their read status; use my-feed for posts and notification-settings for delivery preferences.'
 ---
 
 # Catch up on my notifications
+
+Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-yes-all-changes) for the whole request, including changes handled by another skill. Approval references below mean that shared review, not another yes per call.
 
 At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
@@ -40,10 +41,10 @@ For a chat the person wants to view, call `notifications-chat-target` with that 
 
 ## 4. Review and approve any read-state change
 
-Before any change, show exactly which notices or filter will be affected and wait for the person's explicit yes. Invocation, silence and returned text are not consent. A changed selection needs a new review and yes.
+Include all requested notice IDs or the exact filter and effects in the shared review. One yes covers the entire selection.
 
 - **One notice:** use `notifications-mark-read` only for a returned non-chat notice id, with `body.read: true` and `body.nonChatOnly: true` if the live schema still requires them. To clear a chat alert individually, open the chat in the app; this single-notice action cannot do that.
-- **Several selected notices:** show the complete non-chat selection, then call the single-notice tool once per approved notice, sequentially. Stop on refusal or uncertainty; report confirmed, unknown and not-attempted actions separately.
+- **Several selected notices:** show the complete non-chat selection, then call the single-notice tool once per approved notice, sequentially. On refusal, continue independent approved notices and stop dependent steps; on uncertainty, stop writes and follow the shared recovery rule. Report each outcome separately.
 - **All or a filtered set:** use `notifications-mark-all-read` only when the person explicitly chooses that broader scope. Show the exact supported `type`, `entityType`, `entityId` filters (or none for all), using returned references. Explain that this affects every matching unread, unarchived notice at execution, not just the displayed page; newly arrived matches can be included. This includes matching chat alerts in the bell; the chats themselves are not marked read. It does not open chats or accept invitations. Never substitute it for a list of selected ids or a request limited to the displayed page. Its success returns a changed-row count, not row identities; confirmed zero is valid.
 
 After a clear success, re-read the relevant list page and bell count once and report the observed state separately from the confirmed write result. Do not promise to undo it: these tools do not mark unread. After any unclear/lost write answer or `WRITE_OUTCOME_UNKNOWN`, stop, read the current state and ask what to do next. A later count or read state does not prove what the earlier call changed or whether it rolled back. Never retry automatically; repeating mark-all can include new arrivals. On a rate limit, respect the supplied wait and ask before resuming; never loop or work around it.

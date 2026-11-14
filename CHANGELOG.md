@@ -4,6 +4,11 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## Unreleased
 
+- Plain requests now select the matching Hype skill; commands remain optional shortcuts. Remove the command-only start-here guide and clarify skill ownership.
+- Use one complete review and one next-message yes for all requested changes, including mixed roster changes, child profiles with contacts and sports, and multi-part invitations. Keep the 10-minute approval window, server access checks, request keys, receipts and safe recovery.
+- Include requested same-row emergency contacts in the invitation review instead of asking again per team or page. Use the current live send limits without making the person manage parts; whole-list server-paced sending is not available yet.
+- Keep player erasure in the app and preserve the warning that saved child birth dates and contacts must be checked there.
+
 - players-families: after adding a child, say that the saved birth date and emergency contacts can't be read back here and should be checked in the app.
 
 ## 0.1.65 - 2026-11-13

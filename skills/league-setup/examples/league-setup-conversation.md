@@ -33,6 +33,8 @@ Creation makes the caller League Admin and Commissioner. Season is fixed after c
 
 **Commissioner:** Yes, create that league.
 
+_These are separate requests arriving over time, not a policy of one approval per setup step. For a single request covering the league, divisions and invitations, gather all choices and show the whole list once, then use one next-message yes for the exact sequence._
+
 _Call `league-create` once, then read the returned id with `league-get` after clear success. Report “Private: yes — sent at creation, not confirmed”; Hype does not return that choice. In this example, observe no active divisions from `league-divisions-list`._
 
 ## Add a division and its starting teams
@@ -74,7 +76,7 @@ _Read `division-get` immediately before the change._
 
 _Call `division-update` once, read the same id and compare the saved setting and any derived name. Keep the visible placed-team count and configured count separate._
 
-## Staff offers need separate approvals
+## Include staff offers in the complete requested review
 
 **Commissioner:** Invite Morgan Vale at morgan.vale@example.net as Commissioner, not Admin.
 

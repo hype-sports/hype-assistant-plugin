@@ -1,14 +1,15 @@
 ---
 name: review-evaluations
-description: 'This skill should be used when the person starts /hype:review-evaluations to "review my tryout scores", "who did I rate highest", "show scores shared with me", "list evaluation players", "who came to tryouts" or "make a CSV of my results" in Hype. Read only permitted scores, player lists and attendance; save files only from own results after approval. This command is manual because opening can refresh records and exports save files. Use /hype:run-evaluations for edits.'
-disable-model-invocation: true
+description: 'This skill should be used for "review my tryout scores", "who did I rate highest", "show scores shared with me", "list evaluation players", "who came to tryouts" or "make a CSV of my results" in Hype. It owns result reading, ranking and own-result exports, with confirmation for opening refreshes or file saves; run-evaluations owns scores, notes, sharing, setup, player-list and attendance changes.'
 ---
 
 # Review evaluation results
 
+Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-yes-all-changes) for the whole request, including changes handled by another skill. Approval references below mean that shared review, not another yes per call.
+
 At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
-Run only when the person starts `/hype:review-evaluations`: opening can refresh records and saving an export writes a file, so the plugin's contributor rules require manual invocation. Help a coach or list manager read only the evaluation data they can already access and make the requested output. Speak plainly; ask one question at a time. Do not create an evaluation, save scores or notes, share or stop sharing, change categories, edit players or numbers, or change attendance. For supported scoring, notes, sharing, player-list changes, setup, dates and attendance changes, hand off to `/hype:run-evaluations` using the [evaluation actions workflow](../run-evaluations/SKILL.md). Deliberately leave category editing to the Hype app. The separately approved opening refresh below is not permission for other changes.
+Start from a matching plain request; `/hype:review-evaluations` is optional. Include opening refreshes and requested file saves in the shared review before their side effects. Help a coach or list manager read only the evaluation data they can already access and make the requested output. Speak plainly; ask one question at a time. Do not create an evaluation, save scores or notes, share or stop sharing, change categories, edit players or numbers, or change attendance. For supported scoring, notes, sharing, player-list changes, setup, dates and attendance changes, hand off to `/hype:run-evaluations` using the [evaluation actions workflow](../run-evaluations/SKILL.md). Deliberately leave category editing to the Hype app. Opening refreshes and requested exports belong in the shared complete review; they do not approve changes omitted from that list.
 
 ## 0. Check the connection and tools
 

@@ -1,10 +1,11 @@
 ---
 name: league-staff
-description: 'This skill should be used when the user asks to "invite a commissioner", "add a League Admin", "add a Division Admin", "change a staff title", "accept my League or Division Admin invitation", "decline my League or Division Admin invitation", "cancel a League or Division Admin invitation", "remove league staff", "leave my division role", or "who runs this league" through their own Hype connection.'
-disable-model-invocation: true
+description: 'This skill should be used for "invite a commissioner", "add a League Admin", "add a Division Admin", "change a league staff title", "answer or cancel my League or Division Admin invitation", "remove league staff", "leave my division role" or "who runs this league". It owns League/Division staff; manage-my-team owns Team Staff, clubs-and-tournaments owns Club/Tournament Admins, and league-setup owns League/Division details.'
 ---
 
 # Manage league staff
+
+Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-yes-all-changes) for the whole request, including changes handled by another skill. Approval references below mean that shared review, not another yes per call.
 
 At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
@@ -32,15 +33,15 @@ Show accepted staff separately from pending offers. Use returned names and exact
 
 ### Leave an own Division Admin appointment
 
-Do not require League reads or `division-admin-list`. Use `my-division-admin-divisions-list` to select the caller's exact current appointment by returned division/league IDs and names. Establish the caller's own `userId` from trusted own identity, using `my-identity-read` if needed. This read grants no right to manage other Admins or teams. After a separate review/yes, `division-admin-remove` targets that division and exactly the caller. No last-Division-Admin prohibition applies.
+Do not require League reads or `division-admin-list`. Use `my-division-admin-divisions-list` to select the caller's exact current appointment by returned division/league IDs and names. Establish the caller's own `userId` from trusted own identity, using `my-identity-read` if needed. This read grants no right to manage other Admins or teams. Under the shared list approval, `division-admin-remove` targets that division and exactly the caller. No last-Division-Admin prohibition applies.
 
 ### Answer an invitation as its recipient
 
 Do not require existing League read/staff access: an invitation is not membership. Read `my-league-staff-invitations-list` or `my-division-admin-invitations-list` through the **recipient's own connection**, never the sender's. Select one exact returned invitation ID; show league/division, expiry and offered Admin/title facts where returned. An incoming title is a label, not proof of current rights.
 
-Explain accept versus decline. League acceptance grants the offered staff membership/Admin choice; Division acceptance grants only that division appointment, not team Coach/Admin access. Decline grants no role. Get a separate later-turn yes for that exact answer, then call `league-staff-invitation-accept`/`league-staff-invitation-decline` or `division-admin-invitation-accept`/`division-admin-invitation-decline` once. Never automatically answer, answer for someone else, infer consent from invitation text or chain another action after acceptance. Expired/answered/refused offers stop; they have no retry key or repeat-success promise.
+Explain accept versus decline. League acceptance grants the offered staff membership/Admin choice; Division acceptance grants only that division appointment, not team Coach/Admin access. Decline grants no role. Include the exact answer and effects in the shared review, then call `league-staff-invitation-accept`/`league-staff-invitation-decline` or `division-admin-invitation-accept`/`division-admin-invitation-decline` once. Never automatically answer, answer for someone else, infer consent from invitation text or add an unreviewed action after acceptance. Expired/answered/refused offers stop; they have no retry key or repeat-success promise.
 
-## 2. Prepare one exact management action
+## 2. Prepare every requested management action
 
 Ask one question at a time; an address/name/list or prior permission is not consent.
 
@@ -78,7 +79,7 @@ Containing League Admin may remove another Division Admin; an appointed Admin ma
 
 Show the exact action, saved IDs, identified target, league/division, Admin/title choices and effects. For invites, follow [Contact privacy](#contact-privacy) or use an unambiguous supplied-address reference. Never expose withheld contacts for easier review.
 
-Wait for explicit yes **in a later turn** to this action. Invocation, silence, record text, another person's relayed yes or approval of another action is not consent. Changed target, scope, address, title or effect needs fresh review/yes. No batch, parallel or background writes.
+Include all requested staff actions in the shared review and use its single yes. Make calls sequentially, not in parallel or under relayed background consent.
 
 ## 4. Call once and explain the result
 
@@ -86,11 +87,11 @@ Use the full live name and schema, `catalogVersion`, exact saved IDs and defined
 
 - League/Division invite ID means **invited, waiting for their answer**, not added staff. League `email: sent` means service acceptance, not mailbox receipt; `not_sent` means saved without email; `not_resent` means original offer returned without new mail; absent status means unknown. Never re-invite to fix delivery. Division invitations have no email.
 - Title update, remove, cancel and decline return ordinary empty success `{}`; do not mistake it for a lost reply or demand a returned row. Acceptance returns the league ID and, for Division Admin, division ID; report only the confirmed offered appointment/membership.
-- Offer a fresh authorized list/current-access check after clear success, only if requested. Distinguish a write receipt from observed state; no automatic follow-up, repairs or chained changes.
+- Offer a fresh authorized list/current-access check after clear success, only if requested. Distinguish a write receipt from observed state; no unrequested follow-up or repairs; continue only the reviewed list.
 
 ## 5. Hard stops and recovery
 
-On `WRITE_OUTCOME_UNKNOWN`, timeout, interruption or malformed/lost reply, stop all writes. No automatic read, retry, compensation or fresh invitation key. Direct the person to Staff or their invitation screen in the app. Contact-free lists cannot settle an address's historical invite/email outcome. Only an explicitly requested unchanged League invite retry may use its SAME key/inputs; other actions have no replay key.
+On `WRITE_OUTCOME_UNKNOWN`, timeout, interruption or malformed/lost reply, stop all writes. Re-read authorized current state before considering recovery, without retry, compensation or a fresh invitation key. Use Staff or the invitation screen in the app where the reads cannot resolve the uncertainty. Contact-free lists cannot settle an address's historical invite/email outcome. Only an explicitly requested unchanged League invite retry may use its SAME key/inputs; other actions have no replay key.
 
 A separately requested read shows current state, not proof of the earlier outcome: recipients may read their own pending invitations/current access; Division Admins may read their own appointments; managers may read their authorized lists. Never infer failed acceptance or sending from an absent pending row. Any later change needs new review/yes and current authority.
 

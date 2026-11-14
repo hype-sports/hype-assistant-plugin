@@ -30,7 +30,7 @@ For each new keyed action, call `request-key-new` with exactly `{}` (no catalogV
 
 ## Revision-bound writes
 
-Except where the next section says otherwise, send `pathParams: { id }`, no query, and `body: { idempotencyKey, expectedRevision, ... }`. Copy `expectedRevision` (whole number ≥0) from the fresh relevant detail/room read. Create has no path or revision. Each row is one separately confirmed action, not a sequence to run automatically.
+Except where the next section says otherwise, send `pathParams: { id }`, no query, and `body: { idempotencyKey, expectedRevision, ... }`. Copy `expectedRevision` (whole number ≥0) from the fresh relevant detail/room read. Create has no path or revision. Each row describes one tool call; the complete requested sequence shares the one review and yes, preserving fresh guards between calls.
 
 | Operation | Additional body fields and limits |
 | --- | --- |
@@ -66,12 +66,12 @@ Link definitions: `kind: "sibling"` or `"ride_share"` with `playerIds` (2–20 d
 
 ## Writes with different guards
 
-All still require the exact preview and a separate yes. Do not add draft revision fields to these bodies.
+Include all requested actions in the shared complete review and single yes. Do not add draft revision fields to these bodies.
 
 | Operation | Exact containers beyond catalogVersion |
 | --- | --- |
-| `draft-order-run-reveal` | `pathParams: { id, runId }`, `body: { idempotencyKey, expectedSlot }`. Copy `runId` and `nextSlot` from the current run (slot whole ≥1); reveals exactly that position. Stale slot refuses; never advance automatically. |
-| `draft-order-run-pause`, `draft-order-run-resume` | `pathParams: { id, runId }`, `body: { idempotencyKey }` only. Controls the order draw, not the draft clock. Resume approves no reveal. |
+| `draft-order-run-reveal` | `pathParams: { id, runId }`, `body: { idempotencyKey, expectedSlot }`. Copy `runId` and `nextSlot` from the current run (slot whole ≥1); reveals exactly that position. Stale slot refuses; never substitute an unreviewed position. |
+| `draft-order-run-pause`, `draft-order-run-resume` | `pathParams: { id, runId }`, `body: { idempotencyKey }` only. Controls the order draw, not the draft clock. Resume alone approves no reveal omitted from the list. |
 | `draft-hat-draw` | `pathParams: { id, runId }`, `body: { idempotencyKey, expectedOrdinal }`. Copy current `nextOrdinal` (whole ≥1) and run identity; draws exactly one linked group. Stale ordinal refuses. Result is counts only: allowed labels come from room, never a guessed hidden order. |
 | `draft-queue-reorder` | `pathParams: { id }`, `body: { idempotencyKey, expectedDraftTeamId, expectedQueueVersion, playerIds }`. Copy selected seat and queue version from its fresh queue read. Send the complete distinct ordered UUID array, at most 500; `[]` clears it only with explicit approval. Not a pick or auto-pick change. |
 | `draft-clock-expire` | `pathParams: { id }`, `body: { turnId }` only from fresh room; no key/revision. See clock rule below. |
@@ -102,7 +102,7 @@ Do this in the app to change the evaluation supplying numbers, or a setting not 
 
 Keep all timeout and retry instructions here; workflows and examples point to this section.
 
-- **Expired turn**: stop the late pick, explain and read the room, even if pick/end flags still appear allowed. Do not resend that refused pick. After a separate yes, `draft-clock-expire` applies the saved action only after deadline plus grace: it may pause, skip or choose a player. It gives no extra time. If the saved action is unknown, state the possible effects before approval. Stale/early/non-live/already-handled calls return `applied:false`, not proof a timeout was applied. Read room after either result; never run a timer or poll.
+- **Expired turn**: stop the late pick, explain and read the room, even if pick/end flags still appear allowed. Do not resend that refused pick. When included with its effects in the shared list approval, `draft-clock-expire` applies the saved action only after deadline plus grace: it may pause, skip or choose a player. It gives no extra time. If the saved action is unknown, state the possible effects before approval. Stale/early/non-live/already-handled calls return `applied:false`, not proof a timeout was applied. Read room after either result; never run a timer or poll.
 - **Resume**: after `pausedReason: "clock_expired"` or zero time, ask for `fresh_clock` (configured full clock), `short_grace` (30 seconds), or `name_pick` with an agreed eligible `playerId` from fresh pool. A required-choice refusal means ask, not choose silently. `playerId` is allowed and required exactly with `name_pick`. Omit both fields for ordinary remaining-time resume or Hat stage; Hat resume accepts neither. Unclocked live drafts allow only `name_pick` as an explicit mode. Resuming live creates a NEW `turnId`: read room before another turn action.
 - **Refusal or changed state**: explain the supplied fix hint, stop the refused action and read current relevant state before deciding again. A new action needs fresh reads, a new key where required and a new yes. Queue-changed means re-read the selected queue and review again. Stale slot, ordinal or revision never authorizes silently advancing or replacing guards. A queue name-read failure after saving does not undo that save.
 - **Unclear outcome**: lost/interrupted/malformed reply or unknown-outcome answer means the write may already have happened. Preserve the original request. For keyed draft actions, read the division-filtered list after Create; otherwise read relevant detail/room plus run or queue when applicable. If the action is established, report it without repeating. If still unclear, offer only an explicitly approved exact repeat: SAME account, operation, path, query, key and complete original body, including old revision/turn/slot/ordinal/version. Never get a replacement key or change inputs under the old one. A not-found detail after Delete proves neither success nor failure: after yes an exact repeat can return the stored deletion receipt. If the original request/key is lost, do not reconstruct it; use the app to review state.

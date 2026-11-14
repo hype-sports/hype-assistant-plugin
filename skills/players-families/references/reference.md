@@ -29,7 +29,7 @@ The live connection's descriptions and schemas win. These are operation IDs; dis
 | `team-guardian-request-create` | `{id: teamId}` | `body: {entryIds, profiles?}`; 1–10 distinct live roster entry IDs. Optional `profiles: [{entryId, playerProfileId}]`, one managed profile per selected entry, each profile once. No private-link field. Returns `{askGroupId}`, not approval |
 | `owner-invitation-accept` | `{id: invitationId}` | No body/query; `{playerProfileId}`; profile management plus eligible linked rights, not team/league acceptance |
 | `owner-invitation-decline` | `{id: invitationId}` | No body/query; `{}`; refuses only this profile offer |
-| `guardian-invitation-accept` | `{id: invitationId}` | Required `body: {}` or `{playerProfileId}` for separately reviewed optional linking; no query. `{guardianId, linkedProfileId}`; linkedProfileId is null without a supplied profile |
+| `guardian-invitation-accept` | `{id: invitationId}` | Required `body: {}` or `{playerProfileId}` for optional linking explicitly included in the complete review; no query. `{guardianId, linkedProfileId}`; linkedProfileId is null without a supplied profile |
 | `guardian-invitation-decline` | `{id: invitationId}` | No body/query; `{}`; refuses team offer, removes no accepted access/link |
 | `league-guardian-invitation-accept` | `{id: invitationId}` | No body/query; `{guardianId}`; registration access/notifications, no profile creation/link |
 | `league-guardian-invitation-decline` | `{id: invitationId}` | No body/query; `{}`; refuses only this offer |
@@ -82,7 +82,7 @@ Group approval grants eligible waiting players' access, with possible profile-li
 
 Player lists return `{items, page, pageSize, total}` with registration IDs, first/last names, division labels and status only. No contacts, birth dates, photos or evaluation details. A search may match fields not returned; do not infer those fields. Empty/partial pages prove no census and grant no access; no automatic traversal or enrichment. League staff status does not substitute for the exact Division Admin appointment required by `division-registration-read`.
 
-Create league parent invitations through [league-setup](../../league-setup/SKILL.md#5-register-players-invite-parentsguardians) or [invite-families](../../invite-families/SKILL.md), not a duplicate send workflow here. Those skills cover supplied-address checks, required `request-key-new` keys, review/batch approval, replacement/replay and recipient ordering. Imports are separate from invitation approval and preserve both parents.
+Create league parent invitations through [league-setup](../../league-setup/SKILL.md#5-register-players-invite-parentsguardians) or [invite-families](../../invite-families/SKILL.md), not a duplicate send workflow here. Those skills cover supplied-address checks, required `request-key-new` keys, shared list approval, replacement/replay and recipient ordering. Imports preserve both parents; include requested invitations explicitly in the same review, never infer consent for omitted sends.
 
 ## Team acceptance with a profile
 
@@ -130,6 +130,6 @@ Trim text positions to 1–30 UTF-16 units; limit lists to 10 entries. Confirm L
 
 Erasing a player or their data stays in the **Hype app**, because it cannot be undone and the app walks through it. The assistant does not invoke those tools here; they are not “unavailable.” Do not substitute leaving, unlinking, registration deletion or another family's profile work. Withdraw a mistaken team request in the app: `guardian-request-withdraw` is deliberately outside this skill. Unrelated friend-card, removal, archive and direct team-spot linking workflows are not added by this guide.
 
-Ordinary empty 204 write success is strict `{}`; a lost/malformed reply is different and may follow a saved change. Stop without automatic retry/read/polling/chaining. Ask before an authorized fresh read; current state cannot settle the lost call's historical outcome. Reads can still write private activity/rate bookkeeping; never promise zero internal activity. Every admitted MCP POST shares the 60-per-rolling-minute account bucket; wait timing reserves no slot.
+Ordinary empty 204 write success is strict `{}`; a lost/malformed reply is different and may follow a saved change. Stop writes without automatic retry or polling. Re-read authorized current state before proposing recovery; current state cannot settle the lost call's historical outcome. Reads can still write private activity/rate bookkeeping; never promise zero internal activity. Every admitted MCP POST shares the 60-per-rolling-minute account bucket; wait timing reserves no slot.
 
 Keep the [workflow's confirmation and recovery rules](../SKILL.md).

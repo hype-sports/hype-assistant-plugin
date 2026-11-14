@@ -20,9 +20,19 @@ After the tool-version check, inspect the live `player-profile-create` schema an
 
 Call `player-profile-create` once with `catalogVersion: 1` and `body: { firstName: "Rowan", lastName: "Example", dateOfBirth: "2017-03-14" }`. Supply no pathParams or query. Keep the returned `{id}` as this profile's authoritative ID.
 
-**Assistant:** Rowan's profile was created with you as a managing parent/guardian. I haven't registered Rowan, added a team spot or invited anyone.
+**Assistant:** Rowan's profile was created with you as a managing parent/guardian. Please confirm the saved birth date and emergency contacts in the app; I can't read those back here. I haven't registered Rowan, added a team spot or invited anyone.
 
 If the reply is lost, stop without creating again; it may already have saved. Ask before a separate managed-player read. Current state cannot prove what the lost call did, and another create may duplicate the profile.
+
+## Add a child, contacts and a sport together
+
+**Person:** Add my child Avery Example, born May 12, 2018, add the two emergency contacts I supplied, and add soccer with left as the dominant foot.
+
+Check the managed list and the live creation/contact/sport schemas. Resolve both exact supplied contacts and valid phones; clarify missing values before review, never invent or repeat them in summaries. Show one complete list: Avery's supplied name and birth date, both exact contacts or safe source-value references, soccer with `dominantFoot: L`, and the effects (a managed profile, no team spot, registration or invitation). Ask once whether to save that complete list.
+
+**Person:** Yes.
+
+If the live create schema accepts the reviewed optional contacts and sport, create them together. Otherwise create the profile, retain its confirmed ID, then make the already-reviewed contact and sport calls in order without another yes. A failed profile creation blocks its dependent contact/sport calls; a confirmed contact refusal does not block an independent approved sport addition. A lost answer stops writes for safe inspection. Report only confirmed outcomes, and tell the parent/guardian to confirm the saved birth date and contacts in the app.
 
 ## Link a player profile
 
