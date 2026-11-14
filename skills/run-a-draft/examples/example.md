@@ -26,7 +26,7 @@ A refused Start blocks every reveal and install. A lost reply stops writes for s
 
 **Commissioner:** Give each turn 90 seconds and start the draft.
 
-Read fresh detail and readiness. In this illustration the scheduled draft has a 60-second clock with pause-and-alert, and no blockers. Review both changes together: clock 60 → 90 seconds with the other settings unchanged; then Start, freezing rules, building the board and possibly placing linked players or finishing immediately if no picks remain. Explain the actual grace period, clock effects, audience and Undo limits.
+Read fresh detail and readiness. In this illustration the scheduled draft has a 60-second clock with pause-and-alert, and no blockers. Review both changes together: clock 60 → 90 seconds with the other settings unchanged; then Start, freezing rules, building the board and possibly placing linked players or finishing immediately if no picks remain. Explain the actual grace period, clock effects, audience and Undo limits. Warn explicitly in the complete review: **Starting is final for every coach watching; there is no restart here.**
 
 **Commissioner:** Yes.
 

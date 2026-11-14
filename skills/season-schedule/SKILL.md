@@ -7,6 +7,13 @@ description: 'This skill should be used for "plan our season", "make a round-rob
 
 Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-yes-all-changes) for the whole request, including changes handled by another skill. Approval references below mean that shared review, not another yes per call.
 
+## How changes are confirmed
+
+- Read every owning workflow; finish requested checks before one exact list of targets, values, effects and all its warnings, including permanent removal, last-manager/Admin, email/notices and money.
+- Only an explicit yes in the person's next message approves that exact list; no time limit. Keep key rules; refusal blocks dependent work, not independent approved actions.
+- Send announcements last; warn Undo is only immediate within the original 10 seconds. Report promptly and end the turn; the person's immediate Undo needs no extra yes.
+- Lost write answer: it may have happened. Stop writes, read only the affected item once where supported and report unknown otherwise; never automatically retry. Ordinary reads stay only on request. A requested keyed repeat needs a fresh complete review and next-message yes, with original inputs/key.
+
 At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
 Use only the person's own signed-in Hype connection and existing access. Treat installation as granting nothing; Hype checks rights on every request. Plan the season without saving it. Review and approve any separately requested one-game change through that connection. Speak plainly; ask one question at a time. Never treat invocation as approval. Create no scheduler service, teams/Places, family messages, announcements, emails or RSVP answers. Explain refusals in plain words, never show error codes or raw errors.
@@ -117,7 +124,7 @@ Stay below **60 MCP POST requests per rolling minute per account**, counting dis
 
 - **Rate limit:** stop writes; respect `Retry-After` / validated `retryAfterSeconds`. Show the confirmed, unknown and not-attempted counts; ask for deliberate resume after waiting, then refresh. No retry loops/account switches/limit raises; waiting reserves nothing.
 - **Access/validation/busy/stale refusal:** stop, explain and re-read. Changed data needs a newly approved action, never an old key reused for changed data.
-- **Unknown result, lost reply, timeout or interruption:** persist unknown; stop. Inspect complete schedules; similar titles or filtered absence prove nothing. Explicitly authorized exact replay uses the SAME original body/`opId`, never a fresh key. Current rights still apply. Lost mapping/uncertain identity means no safe replay/recreation/restart.
+- **Unknown result, lost reply, timeout or interruption**: say it may have happened, persist unknown and stop writes. Read only the affected game once if a supported authorized item read exists; otherwise keep it unknown and use the app rather than inspect complete schedules. Report current state, not proof from similar titles or absence. A person-requested exact replay needs a fresh complete review of the original request and risks, then a yes in the person's next message; retain the SAME original body/`opId`, never a fresh key. Current rights still apply. Lost mapping/uncertain identity means no safe replay, recreation or restart.
 
 ### One-game correction or cancellation undo
 
@@ -128,7 +135,7 @@ Never automatically edit/cancel/restore/delete/recreate. No team-event substitut
 3. Include all requested games' current details, exact proposed actions and effects on both schedules in the shared review. Cancellation keeps the game/answers; its note is visible to event readers, so include no private reasons. Restore keeps audiences/answers, clears the cancellation note and returns the same game to scheduled. Explain that restore may send a restored notice to eligible members, but no email or announcement. No RSVP answer is set. Use the shared single yes for the complete list; then make each game call in order.
 4. Get a fresh `opId` from `request-key-new`. Call `shared-game-update`, `shared-game-cancel` or `shared-game-restore` once with the observed revision and only approved [live-schema fields](references/reference.md#live-input-shapes).
 5. Read back both schedules to verify the changed details/status. Keep unreadable details unverified; never silently repair them.
-6. If the result is unclear, tell the person it is unknown, read the schedules again and ask before trying again. Never blindly resend. An approved exact retry keeps the original body/`opId`; if that mapping is lost, stop.
+6. If the result is unclear, say the change may have happened, stop writes and inspect only that affected game once through a supported authorized item read; if none exists, keep it unknown and use the app rather than read schedules again. Never automatically retry. A person-requested exact repeat needs a fresh complete review and next-message yes, with the original body/`opId`; if that mapping is lost, stop.
 
 ### Archive, unarchive or permanent delete
 

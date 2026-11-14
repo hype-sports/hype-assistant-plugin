@@ -1,11 +1,18 @@
 ---
 name: run-evaluations
-description: 'This skill should be used for "enter tryout scores", "score a typed-in player", "set a Hand-set score", "save a private note", "share my scores", "change notes on a share", "stop sharing", "change evaluation players", "start an evaluation", "add an evaluation date", "choose my evaluation for a draft" or "mark or clear who came to tryouts". It owns evaluation changes; review-evaluations owns result reading, rankings, attendance reports and exports, and run-a-draft owns draft picks and settings.'
+description: 'This skill should be used for "enter tryout scores", "score a typed-in player", "set a Hand-set score", "save a private note", "share my scores", "change notes on a share", "stop sharing", "change evaluation players", "start an evaluation", "add an evaluation date", "choose my evaluation for a draft" or "mark or clear attendance". It owns evaluation changes; review-evaluations owns result reading, rankings, attendance reports and exports, and run-a-draft owns draft picks and settings.'
 ---
 
 # Run evaluations
 
 Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-yes-all-changes) for the whole request, including changes handled by another skill. Approval references below mean that shared review, not another yes per call.
+
+## How changes are confirmed
+
+- Read every owning workflow; finish requested checks before one exact list of targets, values, effects and all its warnings, including permanent removal, last-manager/Admin, email/notices and money.
+- Only an explicit yes in the person's next message approves that exact list; no time limit. Keep key rules; refusal blocks dependent work, not independent approved actions.
+- Send announcements last; warn Undo is only immediate within the original 10 seconds. Report promptly and end the turn; the person's immediate Undo needs no extra yes.
+- Lost write answer: it may have happened. Stop writes, read only the affected item once where supported and report unknown otherwise; never automatically retry. Ordinary reads stay only on request. A requested keyed repeat needs a fresh complete review and next-message yes, with original inputs/key.
 
 At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
@@ -55,19 +62,19 @@ Preview the evaluation, exact date, player and current/requested attendance. Exp
 
 Under the shared list approval, get its new key from `request-key-new` as above and call `evaluation-attendance-set` once, with no path/query and `body: { participantId, eventId, came, operationId }`. There is no expected revision in this contract. A request covering several players lists them all once and uses one yes, then one keyed call per player/date in order. Report only the matching returned acknowledgement (`evaluationId`, `eventId`, `participantId`, `came`, `markedAt`, `replayed`), not a claimed scoring or draft change.
 
-After an unclear result, keep the exact original request/key and stop. The score receipt lookup does not cover attendance. Only if separately requested, read attendance for the same evaluation/date; current state does not prove which call caused it. Any deliberate identical repeat follows the unchanged-key and fresh-approval rule below.
+After an unclear result, keep the exact original request/key and stop. The score receipt lookup does not cover attendance. Read attendance for only the affected evaluation/date once and report the affected participant's current state; current state does not prove which call caused it. Any deliberate identical repeat follows the unchanged-key and fresh-approval rule below.
 
 ## 4. Unknown outcomes and refusals
 
-Never automatically retry a call, replace its key, poll, compensate or add an unreviewed change. On a timeout, interruption, missing/malformed reply or unknown-outcome answer, stop and say: **The outcome is unknown. The change may already have happened.** Re-read through the supported authorized checks below before proposing any recovery. Do not say nothing changed or assume failure means rollback.
+Never automatically retry a call, replace its key, poll, compensate or add an unreviewed change. On a timeout, interruption, missing/malformed reply or unknown-outcome answer, stop and say: **The outcome is unknown. The change may already have happened.** Read only the affected item or its exact operation receipt once through the appropriate supported authorized check below, then report current state or the validated receipt and remaining unknowns. No extra approval is needed for this narrow inspection; no wider lists or additional reads. If no such check exists, keep the result unknown and use the app. Do not say nothing changed or assume failure means rollback.
 
 Use only the appropriate supported check:
 
 - For category scores (including participant scores), hand overalls and notes, use `my-private-evaluation-write-receipt-read`, `pathParams: { operationId }`, no query/body, with the original operation ID. Match operation kind, dataset/player/category and resulting revision to the original request. A receipt has no score values or note text and is not current state; `receipt: null` is not proof of rollback. A typed-in score receipt may use its participant token internally; never guess a registration from it.
 - For a private draft choice only, use `my-draft-private-evaluation-write-receipt-read`, `pathParams: { id: draftId, operationId }`, original query, no body. Match draft, source and revisions. Null is not rollback; a receipt is not the current choice.
-- For sharing or a player list, offer the corresponding authorized recipients/list read. For setup/dates, offer supported event/context/candidate reads; missing rows or similar titles do not establish the earlier outcome. Any later opening/setup refresh must be included with its catch-up effects in the new complete review, not treated as an ordinary read. Current state alone does not prove which call caused it.
+- For sharing, player lists, setup or dates, inspect only the affected item once if a supported authorized item read exists; otherwise keep the result unknown and use the app rather than scan recipients, player lists, events or candidates. Missing rows or similar titles do not establish the earlier outcome. Any later requested opening/setup refresh must be included with its catch-up effects in a fresh complete review, not used as a recovery probe. Ordinary reads otherwise remain only on request.
 
-If the person deliberately asks to repeat a keyed operation, require review and a fresh yes and keep the original account, path, query, operation ID and exact body unchanged. Never reuse a key for changed input or invent a new key to resolve an unknown result. Do not promise a first-result receipt for sharing. Notes-set and stop have no key: check first, explain the remaining uncertainty and obtain a new exact approval before any further action.
+If the person deliberately asks to repeat a keyed operation, require a fresh complete review of the original exact request and its risks and a yes in the person's next message and keep the original account, path, query, operation ID and exact body unchanged. Never reuse a key for changed input or invent a new key to resolve an unknown result. Do not promise a first-result receipt for sharing. Notes-set and stop have no key: check first, explain the remaining uncertainty and obtain a new exact approval before any further action.
 
 On stale, closed, archived, busy, validation, access or not-found refusals, explain in plain words and stop; do not probe other IDs or infer hidden records. Respect a supplied wait time and ask before resuming, never poll. Stay below 60 MCP POSTs per rolling minute per account, shared with discovery and other sessions.
 

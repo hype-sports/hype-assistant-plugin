@@ -64,6 +64,6 @@ If an available public-page reader can retrieve the Privacy Policy, read the rel
 
 **Erase a player's details:** Do this in the Hype app, which walks the parent/guardian through the irreversible effects. Use [my-account](../my-account/references/workflows.md#11-check-a-players-erase-request) only for requested erase-status reads. No skill starts or confirms player erasure or treats a legal question as approval. Do not substitute removing a roster entry or deleting an account, promise complete erasure or claim it happened.
 
-**Delete my account:** Use `/hype:my-account` for the person's own account-deletion request; it is separate from player erasure and Terms acceptance. Starting that skill is not approval.
+**Delete my account:** Use `my-account` for the person's own account-deletion request; it is separate from player erasure and Terms acceptance. Starting that skill is not approval.
 
 End with verified facts, anything unavailable or not attempted, and the next safe step.

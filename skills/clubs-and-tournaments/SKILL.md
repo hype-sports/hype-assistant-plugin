@@ -7,9 +7,16 @@ description: 'This skill should be used for "list my Clubs", "create a Tournamen
 
 Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-yes-all-changes) for the whole request, including changes handled by another skill. Approval references below mean that shared review, not another yes per call.
 
+## How changes are confirmed
+
+- Read every owning workflow; finish requested checks before one exact list of targets, values, effects and all its warnings, including permanent removal, last-manager/Admin, email/notices and money.
+- Only an explicit yes in the person's next message approves that exact list; no time limit. Keep key rules; refusal blocks dependent work, not independent approved actions.
+- Send announcements last; warn Undo is only immediate within the original 10 seconds. Report promptly and end the turn; the person's immediate Undo needs no extra yes.
+- Lost write answer: it may have happened. Stop writes, read only the affected item once where supported and report unknown otherwise; never automatically retry. Ordinary reads stay only on request. A requested keyed repeat needs a fresh complete review and next-message yes, with original inputs/key.
+
 At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
-Start from a matching plain request; `/hype:clubs-and-tournaments` is optional. Speak plainly, one question at a time. Use only their own signed-in Hype connection and existing access. Starting the skill is not approval for a change.
+Start from a matching plain request; `clubs-and-tournaments` is optional. Speak plainly, one question at a time. Use only their own signed-in Hype connection and existing access. Starting the skill is not approval for a change.
 
 ## Check the live tools first
 
@@ -52,11 +59,11 @@ Include all Club/Tournament changes, targets, exact values, effects and notifica
 
 On `WRITE_OUTCOME_UNKNOWN`, timeout, lost/malformed reply, interruption or failed readback, stop further changes and say the action may have happened. Never automatically resend, compensate, replace records, change keys or poll.
 
-**Club Admin removal and Overview saves:** re-read current staff, or Overview/editor state, through authorized tools. Overview `CLUB_OVERVIEW_SAVE_UNKNOWN` follows the same rule; these reads inform current state, not a historical receipt.
+**Club Admin removal and Overview saves:** read only the affected Club membership or Overview/editor item once through an authorized supported read. Overview `CLUB_OVERVIEW_SAVE_UNKNOWN` follows the same rule. Report current state, not a historical receipt; do not inspect unrelated staff or records.
 
-**Other writes:** re-read once in the original scope: details for edits; `my-clubs-list` for Club creation; `tournament-setup-read` with the retained ID for Tournament creation; `club-teams-list` for Team creation; matching sent offers for invite/cancel; own invitations for an answer. If that read fails or remains uncertain, use the matching app screen.
+**Other writes:** read only the affected item once through its supported authorized detail/read tool, retaining its exact known ID. For Tournament creation, use `tournament-setup-read` with the retained ID. If only a broader Club/Team/invitation list is available, or the exact ID is unknown, keep the outcome unknown and use the matching app screen rather than scan lists. Never guess a creation from its name.
 
-Current state is not proof of the earlier action. Missing offers do not prove an answer/cancellation; hidden addresses do not prove recipients. Names alone cannot identify creations. Keep uncertain outcomes unknown. Any later change requires a fresh preview and yes; revision/key conflicts, `BUSY` and rate limits follow the [refusal guidance](references/tools.md), never automatic retries.
+Current state is not proof of the earlier action. Missing offers do not prove an answer/cancellation; hidden addresses do not prove recipients. Names alone cannot identify creations. Keep uncertain outcomes unknown. Any requested further change requires a fresh complete review and a yes in the person's next message; revision/key conflicts, `BUSY` and rate limits follow the [refusal guidance](references/tools.md), never automatic retries.
 
 ## App handoffs and scope limits
 

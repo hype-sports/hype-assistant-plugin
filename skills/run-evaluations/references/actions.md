@@ -41,7 +41,7 @@ Use `private-evaluation-players-change` with `pathParams: { id: evaluationId }`,
 - Typed-in name fix: `change: { kind: "edit", participantId, firstName, lastName }`. Use the same name checks, and explain that this keeps the player's identity and earlier scores. Do not use this to rename a registered player's profile.
 - Requested number changes: `change: { kind: "renumber", numbers: [{ participantId, number }] }`, using current participants, each once, with whole numbers 1–9999. Show the complete requested mapping and any conflicts before approval; never repair numbers as a side effect of scoring or reading.
 
-List changes can update invitee housekeeping but do not save/share scores. After an unclear result, the score receipt tool cannot resolve this operation. Offer a fresh authorized list read, not an automatic repeat.
+List changes can update invitee housekeeping but do not save/share scores. After an unclear result, the score receipt tool cannot resolve this operation. Read only the affected item once if a supported authorized item read exists; otherwise keep it unknown and use the app rather than scan wider lists. Never repeat automatically.
 
 ## 5. Start an evaluation or add a date
 

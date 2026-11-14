@@ -4,7 +4,7 @@ Read this example of the [workflow](../SKILL.md) as a worked conversation, not a
 
 ## Find or create a league
 
-**Commissioner:** `/hype:league-setup` — Help me set up Meadowbrook Youth League for Spring 2027 in Cedar Glen, TX.
+**Commissioner:** Help me set up Meadowbrook Youth League for Spring 2027 in Cedar Glen, TX.
 
 **Assistant:** I'll check the signed-in Hype tools first. Installing the plugin grants no access; starting it approves no changes. Look for an existing league?
 
@@ -80,7 +80,7 @@ _Call `division-update` once, read the same id and compare the saved setting and
 
 **Commissioner:** Invite Morgan Vale at morgan.vale@example.net as Commissioner, not Admin.
 
-_Use `/hype:league-staff` and its exact invitation policy; read `league-staff-list` as the League Admin in this example._
+_Use `league-staff` and its exact invitation policy; read `league-staff-list` as the League Admin in this example._
 
 **Assistant:** Invite **morgan.vale@example.net** to **Meadowbrook Youth League**? **Admin: no. Commissioner: yes.** This creates a pending offer and attempts email. Morgan must accept separately. A pending offer to the same address would be replaced.
 
@@ -146,7 +146,7 @@ _After the person requests readiness, read `division-onboarding-get` for 8U Boys
 | Staff | Caller is accepted league staff | No accepted Division Admin in the returned list; Avery/Morgan offers are pending |
 | Players | One visible active registration | Team assignment and accepted guardian access unknown |
 
-**Assistant:** This setup check does not prove whether games are scheduled. Use **`/hype:season-schedule`** next; it checks its own live tools, complete teams, saved Fields, dates and conflicts.
+**Assistant:** This setup check does not prove whether games are scheduled. Use **`season-schedule`** next; it checks its own live tools, complete teams, saved Fields, dates and conflicts.
 
 ## A later season-end request
 

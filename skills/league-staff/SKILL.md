@@ -7,9 +7,16 @@ description: 'This skill should be used for "invite a commissioner", "add a Leag
 
 Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-yes-all-changes) for the whole request, including changes handled by another skill. Approval references below mean that shared review, not another yes per call.
 
+## How changes are confirmed
+
+- Read every owning workflow; finish requested checks before one exact list of targets, values, effects and all its warnings, including permanent removal, last-manager/Admin, email/notices and money.
+- Only an explicit yes in the person's next message approves that exact list; no time limit. Keep key rules; refusal blocks dependent work, not independent approved actions.
+- Send announcements last; warn Undo is only immediate within the original 10 seconds. Report promptly and end the turn; the person's immediate Undo needs no extra yes.
+- Lost write answer: it may have happened. Stop writes, read only the affected item once where supported and report unknown otherwise; never automatically retry. Ordinary reads stay only on request. A requested keyed repeat needs a fresh complete review and next-message yes, with original inputs/key.
+
 At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
 
-Use only the person's own signed-in Hype connection and existing access. Speak plainly; ask one question at a time. Starting `/hype:league-staff` approves nothing. Limit this workflow to league/division staff and the recipient's own invitation answers, not team roles, rosters, account searches, messages or separate email sends. Use `/hype:league-setup` for league/division setup, `/hype:invite-families` for many parent invitations.
+Use only the person's own signed-in Hype connection and existing access. Speak plainly; ask one question at a time. Starting `league-staff` approves nothing. Limit this workflow to league/division staff and the recipient's own invitation answers, not team roles, rosters, account searches, messages or separate email sends. Use `league-setup` for league/division setup, `invite-families` for many parent invitations.
 
 ## 0. Check live tools first
 
@@ -51,7 +58,7 @@ Obtain the exact address directly from the caller; never infer it, search accoun
 
 For `league-staff-invite`, require current League Admin. Ask for **Admin: yes/no** and a separate **title**, such as Commissioner, or no title for an Admin-only offer. Use `makeOwner` for Admin and the live `title` schema for the label (1–30 trimmed characters, subject to its validation). Require Admin or a title, or both. Do not limit invitations to Commissioner or silently add Admin rights. A title does not add Admin rights; do not send Admin or Parent/guardian as a title. Existing members' Admin grants are a different action: do this in the app, never remove/re-invite to change them.
 
-Get a fresh key from `request-key-new` per new League invitation and supply `idempotencyKey`; missing/failed keys stop before sending. Only an explicitly requested unchanged retry after uncertainty may reuse that action's SAME key. Changed address/roles needs fresh review and a new action, never a key workaround.
+Get a fresh key from `request-key-new` per new League invitation and supply `idempotencyKey`; missing/failed keys stop before sending. Only an explicitly requested unchanged retry after uncertainty, following a fresh complete review of the original exact request and its email effects and a yes in the person's next message, may reuse that action's SAME key. Changed address/roles needs fresh review and a new action, never a key workaround.
 
 For `division-admin-invite`, require containing League Admin and the exact selected division; use the supplied email, with no key. Explain before approval:
 
@@ -73,7 +80,7 @@ League cancellation requires League Admin; division cancellation requires contai
 
 Select the exact returned member `userId` and league/division. For self-leave, establish own identity, never guess by name. League Admin may remove another league member; any staff member may leave themselves, except the **last League Admin**. A pending replacement never counts as accepted. Let Hype enforce this; no workaround.
 
-Containing League Admin may remove another Division Admin; an appointed Admin may leave themselves as above, including the last Division Admin. Review the exact loss: League removal ends that membership including its Admin/title facts; division removal ends only that appointment. Preserve independent roles, other divisions and history; do not promise instant loss of all access everywhere.
+Containing League Admin may remove another Division Admin; an appointed Admin may leave themselves as above, including the last Division Admin. If this removes the last Division Admin, explicitly warn in the complete review: **This division will have no Admin left.** Review the exact loss: League removal ends that membership including its Admin/title facts; division removal ends only that appointment. Preserve independent roles, other divisions and history; do not promise instant loss of all access everywhere.
 
 ## 3. Show, then wait for explicit yes
 
@@ -91,9 +98,9 @@ Use the full live name and schema, `catalogVersion`, exact saved IDs and defined
 
 ## 5. Hard stops and recovery
 
-On `WRITE_OUTCOME_UNKNOWN`, timeout, interruption or malformed/lost reply, stop all writes. Re-read authorized current state before considering recovery, without retry, compensation or a fresh invitation key. Use Staff or the invitation screen in the app where the reads cannot resolve the uncertainty. Contact-free lists cannot settle an address's historical invite/email outcome. Only an explicitly requested unchanged League invite retry may use its SAME key/inputs; other actions have no replay key.
+On `WRITE_OUTCOME_UNKNOWN`, timeout, interruption or malformed/lost reply, stop all writes and say the action may have happened. Read only the affected membership or invitation item once through a supported authorized item read. If no such read exists, use Staff or the invitation screen in the app rather than scan wider lists. Never automatically retry, compensate or get a fresh invitation key. Contact-free reads cannot settle an address's historical invite/email outcome. A person-requested unchanged League invite retry needs a fresh complete review of the original exact request and its email effects, then a yes in the person's next message, with the SAME key/inputs; other actions have no replay key.
 
-A separately requested read shows current state, not proof of the earlier outcome: recipients may read their own pending invitations/current access; Division Admins may read their own appointments; managers may read their authorized lists. Never infer failed acceptance or sending from an absent pending row. Any later change needs new review/yes and current authority.
+That one affected-item read needs no extra approval and shows current state, not proof of the earlier outcome. Recipients, Division Admins and managers retain only their existing read rights; no wider scan or new access is authorized. Never infer failed acceptance or sending from an absent pending row. Ordinary reads otherwise stay only on request. Any further change needs a fresh complete review, a yes in the person's next message and current authority.
 
 Access, validation, stale/archived target and other refusals stop the action; explain safe returned wording without account-existence claims. Respect rate waits and ask before resuming; no polling, account switching or automatic retry. Keep starts below 60 MCP requests per rolling minute per account, including reads/discovery/refusals and other sessions.
 

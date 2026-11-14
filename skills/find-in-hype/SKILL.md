@@ -1,6 +1,6 @@
 ---
 name: find-in-hype
-description: 'This skill should be used for "where is Settings", "give me a link to my team", "find my tournament", "find my player", "where do I change the theme" or "how do I report a problem" in Hype. It gives screen directions and readable-record links only; use the matching area skill to do the work, not navigation.'
+description: 'This skill should be used for "where is Settings", "give me a link to my team", "where is my tournament screen", "link to my player profile", "where do I change the theme" or "how do I report a problem" in Hype. It gives screen directions and readable-record links only; use the matching area skill to do the work, not navigation.'
 ---
 
 # Find a screen in Hype
@@ -15,13 +15,13 @@ Read the [tool inputs and real screen paths](references/reference.md) first. For
 
 For a request to do work beyond navigation, use the matching skill rather than duplicate its workflow; no typed command is needed:
 
-- `/hype:my-account` for account details, time zone, passwords, devices or deletion; `/hype:notification-settings` for notification choices and quiet hours.
-- `/hype:catch-up` for notification summaries and read-status changes; `/hype:my-feed` for Feed posts, comments, Hypes and announcements. For conversations, direct the person to Messages in the app; this navigation skill does not read or send chats.
-- `/hype:my-support` for supporter status/ring; `/hype:terms-and-privacy` for legal information.
-- `/hype:manage-my-team` for team management; `/hype:league-setup` for leagues and divisions; `/hype:league-staff` for a league's staff; `/hype:players-families` for players and parent/guardian workflows; `/hype:invite-families` for supplied enrollment sheets and reviewed invitation jobs.
-- `/hype:clubs-and-tournaments` for club/tournament management; `/hype:season-schedule` for season scheduling; `/hype:run-a-draft` for drafts; `/hype:review-evaluations` for reading evaluation results and `/hype:run-evaluations` for scoring or changes.
+- `my-account` for account details, time zone, passwords, devices or deletion; `notification-settings` for notification choices and quiet hours.
+- `catch-up` for notification summaries and read-status changes; `my-feed` for Feed posts, comments, Hypes and announcements. For conversations, direct the person to Messages in the app; this navigation skill does not read or send chats.
+- `my-support` for supporter status/ring; `terms-and-privacy` for legal information.
+- `manage-my-team` for team management; `league-setup` for leagues and divisions; `league-staff` for a league's staff; `players-families` for players and parent/guardian workflows; `invite-families` for supplied enrollment sheets and reviewed invitation jobs.
+- `clubs-and-tournaments` for club/tournament management; `season-schedule` for season scheduling; `run-a-draft` for drafts; `review-evaluations` for reading evaluation results and `run-evaluations` for scoring or changes.
 
-A navigation-only request stays read-only. A separate request to do the work selects its skill, whose changes still follow [the shared confirmation rule](../../agents/hype.md#one-review-one-yes-all-changes).
+A navigation-only request stays read-only. If the person also asks to do work, in the same or a later message, hand it to the owning skill and put its requested changes and full warnings in the same complete review under [the shared confirmation rule](../../agents/hype.md#one-review-one-yes-all-changes).
 
 ## 2. Find only the requested record
 

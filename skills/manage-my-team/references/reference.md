@@ -60,4 +60,4 @@ For a staff invitation, validate the directly supplied address using the live sc
 
 ## Outside this skill
 
-Team chat is covered by the Messaging skill once it is released. Answering follow requests, team creation, settings, archiving, Staff title changes or removal, season starts and unrelated family/profile workflows are outside this skill's requested scope; whole parent/guardian request groups are answered in `/hype:players-families`. Account-addressed staff offers exist in ordinary app contracts, but this skill creates email invitations only.
+Team chat is covered by the Messaging skill once it is released. Answering follow requests, team creation, settings, archiving, Staff title changes or removal, season starts and unrelated family/profile workflows are outside this skill's requested scope; whole parent/guardian request groups are answered in `players-families`. Account-addressed staff offers exist in ordinary app contracts, but this skill creates email invitations only.

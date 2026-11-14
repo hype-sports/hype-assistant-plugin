@@ -1,6 +1,6 @@
 # League-setup reference
 
-Run `/hype:league-setup` for the [workflow](../SKILL.md); see the [worked conversation](../examples/league-setup-conversation.md). Use live schemas and never create records to test access. For unclear results, follow only the workflow's [single recovery rule](../SKILL.md#if-a-result-is-unclear).
+Use the [workflow](../SKILL.md); see the [worked conversation](../examples/league-setup-conversation.md). Use live schemas and never create records to test access. For unclear results, follow only the workflow's [single recovery rule](../SKILL.md#if-a-result-is-unclear).
 
 ## Reads and saves
 
@@ -9,9 +9,9 @@ Run `/hype:league-setup` for the [workflow](../SKILL.md); see the [worked conver
 | League | `league-search`, `league-get` | `league-create` |
 | Divisions | `league-divisions-list`, `division-get` | `league-division-create`, including initial teams |
 | Details | `league-get` or `division-get` | `league-update` or `division-update` |
-| Staff | Use `/hype:league-staff` | Follow that skill's role choices under the shared list approval |
+| Staff | Use `league-staff` | Follow that skill's role choices under the shared list approval |
 | Players | `division-players-lookup` | `division-player-create` |
-| Parents/guardians | `league-player-guardian-invitations-list`, `league-invitation-allowance-get` | One approved `league-player-guardian-invitation-create`; use `/hype:invite-families` for many parents |
+| Parents/guardians | `league-player-guardian-invitations-list`, `league-invitation-allowance-get` | One approved `league-player-guardian-invitation-create`; use `invite-families` for many parents |
 | Roster import | `division-player-import-preview` or `league-player-import-preview` | Matching `division-player-import` or `league-player-import`, with complete reviewed rows and choices; no invitations |
 | Saved-import parents | Confirmed import's `inviteRecipients` | Reviewed `league-import-guardian-invitation-create` per recipient, fresh key from `request-key-new` |
 | Readiness | `division-onboarding-get`, supplemented by permitted requested reads | Nothing |
@@ -70,7 +70,7 @@ Use [League staff](../../league-staff/SKILL.md) and its [tool reference](../../l
 - `division-player-create`: division `pathParams.id`; required `body.firstName`, `lastName` (trimmed 1–50), `dateOfBirth` (real date, not future/before 1900), `gender` (`male`/`female`), explicit boolean `evaluationAttended`. Only league staff may create. Follow the workflow's immediate [birth-date confirmation](../SKILL.md#5-register-players-invite-parentsguardians); do not copy it into later summaries.
 - For that **single-registration create only**, optional `parentEmail`/`parentPhone` may be omitted/null, otherwise must validate. It has no second-parent or `emergencyContacts` field: never use it to import a two-parent sheet. Use the roster-import tools below instead, not repeated creates or contact writes to somebody else's profile. `evaluationNumber` is optional and not needed here. `exceptionConsent` is an approval value, not invented or replaced by a general yes; unavailable exception handling goes to the app.
 - Create output: registration `id`, names, `divisionId`, `divisionName`, `status`, `evaluationAttended`; no private-field readback. Use registration ids, not family profile or team roster-entry ids. A failed readback can follow a saved registration; apply the linked recovery rule.
-- Both parent/guardian tools: `pathParams: { id: leagueId, playerId: registrationId }`. Confirm actual registration scope; knowing an id is not authority. Create `body: { email, idempotencyKey }`; `idempotencyKey` is a fresh key from `request-key-new` per new invite, reused unchanged only for a retry the person explicitly asks for; trimmed/lowercased valid email ≤254 characters.
+- Both parent/guardian tools: `pathParams: { id: leagueId, playerId: registrationId }`. Confirm actual registration scope; knowing an id is not authority. Create `body: { email, idempotencyKey }`; `idempotencyKey` is a fresh key from `request-key-new` per new invite, reused unchanged only for a retry the person explicitly asks for after a fresh complete review and a yes in their next message; trimmed/lowercased valid email ≤254 characters.
 - Create returns `{ id, email, replayed, replaced, replacedInvitationId }`. A new invite attempts email, sends an in-app notice and replaces a pending offer to that address; `replacedInvitationId` is null when none. `email` is `sent` (service acceptance), `not_sent` (still created) or `unknown` (may already have gone out); never resend on email status alone. With `replayed: true`, it returns the first outcome and original replacement facts, with no new email, notice or replacement.
 - List contains pending references with `inviteeEmail: null`, not address-specific duplicate evidence or accepted guardians. Never accept or link a profile on the recipient's behalf.
 - Follow [Invitation allowance](reviewed-batch.md#invitation-allowance) for the appropriate allowance read/preview.
@@ -87,10 +87,10 @@ Follow the workflow's [import and invitation review](../SKILL.md#import-a-sign-u
 - Preview takes optional `choices`; commit **requires** `choices`, even an empty array. Each choice names `rowIndex` (one-based source row). The ordinary optional fields are `action` (`skip`, `update_candidate`, `add_new`), `registrationId`, `updateFields`, `clearFields`, `stored`, `updatedAt`, `acceptOutsideRules`, `exceptionConsent`, `previewedStatus`, `replaceEmergencyContacts`, and `contactsRevision`. Keep actual reviewed values from the preview. The live schema controls allowed field names and values; do not add a retry key, invent exception consent or silently turn on an exception/contact replacement.
 - Read only the person's chosen sheet under [own-files privacy](own-files.md), map its columns and retain source positions and both parents in their original slots. Never silently discard incomplete contacts or collapse them into the single sign-up email. Leave an affected row out for correction where required; never invent missing phones/names or swap slots.
 - Preview returns `rows` describing matches, differences, identity candidates, contact status/revision, warnings and errors; it saves no players, contacts or invitations. Review all intended additions, omissions, updates, separate same-name registrations, contact replacements and exact eligibility exceptions. Preserve actual reviewed stored values, update time, contact revision and exception consent. Show supplied birth dates only to this asker in the immediate approval, never summaries. A changed plan needs another preview/yes; a preview is not a permission lease.
-- Ask for explicit approval of the exact target, complete rows and choices, wait for yes in a later turn, then commit once. Continue only other requested actions included in the shared review; importing alone never approves omitted sends.
+- Ask for explicit approval of the exact target, complete rows and choices, wait for yes in the person's next message, then commit once. Continue only other requested actions included in the shared review; importing alone never approves omitted sends.
 - Commit returns `applied`, `batchId`, per-division `created`/`updated` counts, `skipped`, `alreadyHere`, `duplicatesInFile`, `errors`, `notes`, `stale`, optional `emergencyContacts` counts, and `inviteRecipients`. `applied: false` means no player changes were saved; review `stale` rows and get a new yes, never automatically resubmit. Contact counts distinguish saved/kept and family, incomplete, candidate, duplicate, coach or capacity skips where returned; an absent count or unassigned reason is unknown, not zero or a guessed row-level result.
 - Each saved `inviteRecipients` entry has `rowIndex`, `parentSlot` (1 or 2), nullable `parentName`, `playerId`, `divisionId` and normalized `email`. Retain **every** recipient, including slot 2. This is a saved-import receipt, not approval to send or proof of an invitation. Keep its private details for the person's requested work and under the existing own-files limits; do not repeat addresses in summaries, logs, reports or messages.
-- There is **no import retry key**. An unclear commit may already have saved data; stop, do not repeat or start invitations, and offer a separate authorized current read only if the person asks. Current state cannot prove that lost call's outcome.
+- There is **no import retry key**. An unclear commit may already have saved data; stop, do not repeat or start invitations, and inspect only the affected item once through a supported authorized read, without extra approval; if unavailable, keep it unknown and use the app rather than scan broader lists. Current state cannot prove that lost call's outcome.
 
 ### Invitations to saved import parents
 
@@ -102,7 +102,7 @@ Show each complete numbered page: exact league/division, every source row, paren
 
 Before page review, follow [Invitation allowance](reviewed-batch.md#invitation-allowance) for individual sends. Space MCP starts at least 1.1 seconds apart, including key requests, and respect shared-account and ordinary invitation limits. A rate refusal blocks sends covered by that limit and dependent steps; finish only other approved independent parts still allowed. On deliberate resumption require a current reviewed remainder and one new yes; never wait out a daily cap on old approval.
 
-Success returns `{ id, email, replayed, replaced, replacedInvitationId }`; `email` is a send outcome, not an address. `sent` means service acceptance, not mailbox delivery; `not_sent` means saved without email delivery to the service; `unknown` may already have reached the parent. No access until acceptance. A replay returns the first outcome without another send. Keep the same key and exact inputs only for a later deliberately requested retry after fresh review and yes; never retry automatically or send again to repair an email status. Unexpected replacement is a changed effect: stop and report it, never treat it as ordinary saved-import behavior.
+Success returns `{ id, email, replayed, replaced, replacedInvitationId }`; `email` is a send outcome, not an address. `sent` means service acceptance, not mailbox delivery; `not_sent` means saved without email delivery to the service; `unknown` may already have reached the parent. No access until acceptance. A replay returns the first outcome without another send. Keep the same key and exact inputs only for a later deliberately requested retry after a fresh complete review and a yes in the person's next message; never retry automatically or send again to repair an email status. Unexpected replacement is a changed effect: stop and report it, never treat it as ordinary saved-import behavior.
 
 Report confirmed `INVITATION_ALREADY_PENDING` as Already invited, skipped, and `ALREADY_A_GUARDIAN` as Already linked, skipped. Other confirmed refusals and authorization/rate limits block the affected sends and dependent steps, not approved independent work still allowed. Interruption or an unclear write stops all writes for inspection. Record each remaining source row/parent slot as Not sent with the reason; distinguish an unknown attempted write from an unattempted one. Never discard Parent 2 or claim a skipped/unknown parent was invited. A missing key or key tool stops before sending; a key-reuse refusal never permits a fresh-key workaround.
 
@@ -116,7 +116,7 @@ Archive includes registrations/eligible league-made teams; league archive also i
 
 ## Refusals
 
-Explain the actual stable code and safe hint, never raw errors quoting private inputs. Corrected writes need a new preview/yes.
+Explain the actual stable code and safe hint, never raw errors quoting private inputs. Corrected writes need a fresh complete review and next-message yes.
 
 | Answer | Meaning / next step |
 | --- | --- |

@@ -34,7 +34,7 @@ For cancellation, first read current Tournament sent offers and select an exact 
 
 ## “Remove Mira as a Club Admin”
 
-Read `club-staff-list` and select Mira Finch's returned `userId`. Preview the exact Club and person: Mira loses Club Admin access and Club Admin invitations she sent can no longer be accepted; staff history stays, and the Club, Teams and other Admins remain. Under the shared list approval, call `club-admin-remove` once. Only `{ removed: true }` confirms removal. Never use it to leave yourself; do that in the app. Removing another Tournament Admin is not available in the assistant or the app yet. A lost reply stays unknown: read authorized current staff before a recovery proposal and never remove again blindly.
+Read `club-staff-list` and select Mira Finch's returned `userId`. Preview the exact Club and person: Mira loses Club Admin access and Club Admin invitations she sent can no longer be accepted; staff history stays, and the Club, Teams and other Admins remain. Under the shared list approval, call `club-admin-remove` once. Only `{ removed: true }` confirms removal. Never use it to leave yourself; do that in the app. Removing another Tournament Admin is not available in the assistant or the app yet. A lost reply stays unknown: read only that affected membership once through a supported authorized item read, or keep it unknown and use the app if none exists, never scan staff lists and never remove again blindly.
 
 ## “Change the Club Overview welcome section”
 

@@ -2,9 +2,9 @@
 
 This illustrates the [main workflow](../SKILL.md) and [result rules](../references/results.md), not a live run or permission to fetch or save anything.
 
-**Person:** /hype:review-evaluations Who did I rate highest at tryouts?
+**Person:** Who did I rate highest at tryouts?
 
-Read the person's own saved headers after checking the connection, versions and live schemas. Resolve the selected set without guessing a title or treating a dataset ID as an evaluation ID. Ask whether to use saved history without refreshing players, or open a current sheet with its separate refresh warning and yes. Suppose the person chooses saved history and asks for Calculated average, highest first.
+Read the person's own saved headers after checking the connection, versions and live schemas. Resolve the selected set without guessing a title or treating a dataset ID as an evaluation ID. Ask whether to use saved history without refreshing players, or open a current sheet with its refresh warning in the shared complete review and its one next-message yes. If they also request a file, prepare its exact preview from permitted non-refreshing saved reads first and put its snapshot and the opening warning in that SAME review, not two approvals. Suppose the person chooses saved history and asks for Calculated average, highest first.
 
 For illustration, a permitted own-history read contains three categories and these observed points:
 
@@ -19,8 +19,8 @@ Calculate Robin and Avery as `(8 / 2 + 7 / 2) / 2`, not divided by all three cat
 
 **Person:** Save that as a CSV.
 
-Preview the chosen own saved set, exact columns, destination and unavailable fields, excluding written notes unless requested. Wait for a separate yes before saving. Quote fields and neutralize formula-leading text as the reference requires. Do not upload or send the file. If this were a received share, offer an on-screen ranking only, not a file or a re-share.
+Preview the chosen own saved set, exact columns, destination and unavailable fields, excluding written notes unless requested. Wait for the one yes in the person's next message to the complete review before saving. Quote fields and neutralize formula-leading text as the reference requires. Do not upload or send the file. If this were a received share, offer an on-screen ranking only, not a file or a re-share.
 
 ## Read who came without changing anything
 
-For “who came to tryouts,” use `evaluation-attendance-read` for the exact evaluation and event, joining participant IDs only to the same evaluation's permitted player list. Explain “not marked came” rather than asserting absence. If asked to mark or clear a player, hand off to `/hype:run-evaluations`; this review never calls `evaluation-attendance-set`.
+For “who came to tryouts,” use `evaluation-attendance-read` for the exact evaluation and event, joining participant IDs only to the same evaluation's permitted player list. Explain “not marked came” rather than asserting absence. If asked to mark or clear a player, hand off to `run-evaluations`; this review never calls `evaluation-attendance-set`.

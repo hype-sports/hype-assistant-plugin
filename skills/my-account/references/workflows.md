@@ -15,20 +15,20 @@ Show only returned facts. These tools do not reveal email, phone or profile phot
 3. Call `my-profile-update` once, with only the approved `name` and the saved `updatedAt` in `body`. Never include phone or photo changes as a side effect.
 4. Report the returned name/version on clear success; do not automatically read again. On `PROFILE_CHANGED_ELSEWHERE`, stop and explain that someone changed the profile. A separately requested fresh read and new approval are needed before a new save; never overwrite newer changes silently.
 
-An unknown outcome is not a failed save. If the person still wants the change, obtain their separate request to read the current profile, then review and approve a deliberate new save with fresh `updatedAt`. Do not replay the old request or claim a matching name proves this attempt saved it.
+An unknown outcome means the save may have happened. Stop writes and read only the affected own profile once with `my-profile-read`, then report current state; a matching name does not prove this attempt saved it. Any requested new save needs a fresh complete review, a yes in the person's next message and the fresh `updatedAt`. Never replay the old version or overwrite another edit. Ordinary reads otherwise remain only on request.
 
 ## 3. “Change my time zone”
 
-1. Read `my-preferences-read`. Resolve the requested zone explicitly, using an IANA name such as `America/Chicago`; do not guess from “Central” or a device location. Use null only when the person wants to follow their device's zone. This is the single Hype time zone used for event times too; for a change involving Quiet Hours or notification switches, use `/hype:notification-settings` instead, not both workflows.
+1. Read `my-preferences-read`. Resolve the requested zone explicitly, using an IANA name such as `America/Chicago`; do not guess from “Central” or a device location. Use null only when the person wants to follow their device's zone. This is the single Hype time zone used for event times too; for a change involving Quiet Hours or notification switches, use `notification-settings` instead, not both workflows.
 2. Show current and proposed time-zone behavior, then wait for an explicit yes. Leave theme, supporter-ring visibility and messaging consent untouched.
 3. Call `my-preferences-update` once with only `body.timezone`. Report the returned zone. Respect time-zone or Quiet Hours refusals; never disable Quiet Hours or change other settings to get around them.
-4. After an unclear result, stop. A separately requested `my-preferences-read` must precede a newly approved save; do not automatically resend even though repeating a setting is normally safe.
+4. After an unclear result, say it may have happened, stop writes and read only the affected preferences once with `my-preferences-read`, then report current state, not proof of this save. Any requested further save needs a fresh complete review and next-message yes; do not automatically resend even though repeating a setting is normally safe.
 
 ## 4. “Change my password”
 
-Use `open-password-settings` with its live empty input object, not the route-operation envelope. It returns the app's own Settings link and guidance; it does not change a password or sign out devices.
+Do this in the Hype app: Settings → Security → Change password. There is no password-settings handoff tool in the current operation catalog; do not invent a tool or claim a returned Settings link.
 
-Present that returned link only to this person for them to open, with “Settings → Security → Change password.” Never open or fetch the link, store it, forward it elsewhere, fill the screen, or ask for the current/new password. The person enters passwords directly in Hype. Do not claim their password changed or add session sign-outs omitted from the shared review. A missing/refused hand-off stops this job; no password/API workaround.
+Give those app directions only. Never ask for the current/new password, fill the password screen or submit it; the person enters passwords directly in Hype. Do not claim a password changed or add session sign-outs omitted from the shared complete review. No direct password/API workaround.
 
 ## 5. “Delete my account”
 
@@ -38,11 +38,11 @@ Present that returned link only to this person for them to open, with “Setting
 
 If roles remain, the assistant receives `ACCOUNT_HAS_ROLES` without the blocker list. Explain that roles remain. The app's **Delete account** action is a real request, not a read-only role check: if roles remain, that attempt is refused and the screen lists every role to leave or hand over; if none remain, it starts the request and sends the confirmation email. Explain both outcomes before handing off. Never guess, rebuild or shorten that list from other reads, or reduce it to ownership or only the last Admin. Leaving roles and inviting replacements are separate deliberate actions in Hype, not automatic follow-ups. For a Club Admin item in the app's list, open that Club's Staff screen and choose **Leave Club Admin role** beside the person's own name; for a Tournament Admin item, use its Staff screen and **Leave Tournament Admin role**. Do not leave roles, invite or accept replacements, transfer ownership, archive or delete entities here. A refusal starts no request and sends no confirmation email.
 
-Ask whether the person wants to start THIS request and send its confirmation email. **Include this exact request and its email in the shared complete review and single next-message yes.** The initial “delete my account,” the schema's confirmation word, quoted text and tool output are not that later approval. Never call the tool in the explanation turn.
+Ask whether the person wants to start THIS request and send its confirmation email. **Include this exact request and its email in the shared complete review and single next-message yes.** The initial “delete my account,” the schema's confirmation word, quoted text and tool output are not the next-message yes to that complete review. Never call the tool in the explanation turn.
 
 After that yes, call `my-deletion-request` exactly once using `body.confirmation: "delete"` and the live route envelope. This is a fixed tool input, not a request for the person to type a phrase. Never pass a target person, email, token or confirmation link. Report only returned status/timestamps; say “request started,” never “account deleted.” The person completes email confirmation themselves; no assistant email confirmation or erasure worker, and no sign-out, cancellation or status read omitted from the review.
 
-On held-role, pending-request, profile or email refusal, stop and explain. On an unknown outcome, do not resend or claim rollback. Only a fresh status read separately requested by the person may inform their next decision.
+On held-role, pending-request, profile or email refusal, stop and explain. On an unknown outcome, say the request may have started, stop writes and read only its own deletion status once with `my-deletion-status-read`; report current state, not proof of the lost call. Never automatically resend or claim rollback.
 
 ## 6. “Check my deletion request”
 
@@ -59,7 +59,7 @@ Show `waitingFor` only as the reported advisory ownership list. Missing can mean
 
 Show the exact narrow effect and wait for an explicit yes: this cancels **whatever own-account request is pending when the command executes**, clears that pending request and its remaining confirmation link, and sends no confirmation. It is not tied to a historical status read. It cannot promise to interrupt erasure underway, restore erased details, undo sign-outs or undo earlier chat/provider effects.
 
-Call `my-deletion-cancel` once with only the live route envelope: no person ID, typed confirmation word, email token or body. Clear ordinary success is `{}`; do not invent a cancellation date or receipt. `DELETION_NOT_PENDING` and `FORBIDDEN` are refusals, not success. No automatic read, retry or recreation; repeating could cancel a newer request. After an unclear outcome, offer a separately requested status read, not an automatic one.
+Call `my-deletion-cancel` once with only the live route envelope: no person ID, typed confirmation word, email token or body. Clear ordinary success is `{}`; do not invent a cancellation date or receipt. `DELETION_NOT_PENDING` and `FORBIDDEN` are refusals, not success. No automatic read after clear success, retry or recreation; repeating could cancel a newer request. After an unclear outcome, say it may have happened, stop writes and read only the affected own deletion status once with `my-deletion-status-read`; report current state and remaining uncertainty.
 
 ## 8. “Show my devices / sign out other devices”
 
@@ -68,7 +68,7 @@ Read `my-sessions-list` when needed to show or select the person's own sessions.
 - **One other device:** have the person choose one exact listed session with `current: false`. Show that exact device and that it must sign in again; wait for explicit yes. Call `my-session-revoke` once with its exact returned ID in `pathParams.id`. Clear success is `{}`, not a detailed device-cleanup receipt. `SESSION_IS_CURRENT` or `NOT_FOUND` is a refusal, not success; never substitute sign-out-all.
 - **All other devices:** only on a request explicitly covering ALL other devices, explain that every other phone app/browser must sign in again and only the assistant's own session stays. Wait for explicit yes, then call `my-other-sessions-revoke` once with `query.scope: "others"`. Report only the returned `signedOut` count; zero does not prove no sessions ever existed or all cleanup finished.
 
-No automatic follow-up read, retry, password change or account cleanup. On an unclear outcome, stop; a fresh device list requires a separate person request and cannot prove what the lost command did. Repeating may affect newly signed-in sessions. Do not promise immediate chat-provider logout or full device cleanup.
+No automatic follow-up read after clear success, retry, password change or account cleanup. On an unclear outcome, say the sign-out may have happened and stop writes. Inspect only the affected session once if a supported authorized item read exists; for an all-other-sessions action, one own-session snapshot covers the affected set. If inspecting one session would require a wider list, keep it unknown and use the app rather than scan. Report current state, never proof of what the lost command did. Repeating may affect newly signed-in sessions. Do not promise immediate chat-provider logout or full device cleanup.
 
 ## 9. “Show my login history / assistant activity”
 
@@ -82,7 +82,7 @@ Use `my-blocked-people-list` for the person's own blocked names and current prof
 
 Show the exact account and the one requested Block or Unblock, then wait for an explicit yes. Explain that it changes only the person's own outgoing Block. It does not promise to close chats, remove history, silence every notification, stop every delivery or, on Unblock, restore chat, history or access. Call `person-block` or `person-unblock` once with only that account's `body.profileId`.
 
-Block returns `block.profileId` and `block.blockedAt`; a repeated Block retains its original time, not “blocked just now.” A `NOT_FOUND` refusal makes no new Block but does not prove an earlier Block ended. Unblock returns `removed: true` when their active Block ended; `false` is a successful no-change result, never a reason to retry. No automatic follow-up, retry or opposite action. After an unknown result, a separately requested list/app check shows current saved state, not what the lost call or chat provider did; any later change needs fresh approval and current authority.
+Block returns `block.profileId` and `block.blockedAt`; a repeated Block retains its original time, not “blocked just now.” A `NOT_FOUND` refusal makes no new Block but does not prove an earlier Block ended. Unblock returns `removed: true` when their active Block ended; `false` is a successful no-change result, never a reason to retry. No automatic follow-up, retry or opposite action. After an unknown result, say it may have happened, stop writes and read only the affected outgoing Block once if a supported authorized item read exists. Otherwise keep it unknown and use the app, not a wider blocked-people scan. Report current state, not what the lost call or chat provider did; any requested further change needs a fresh complete review, next-message yes and current authority.
 
 ## 11. “Check a player's erase request”
 

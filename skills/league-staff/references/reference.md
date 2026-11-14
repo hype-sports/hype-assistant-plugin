@@ -1,6 +1,6 @@
 # League staff tool reference
 
-Resolve operation IDs to full live names. Read needed schemas before use; current access and the live schema always win. Use the [workflow](../SKILL.md) for review, later-turn approval, privacy and recovery.
+Resolve operation IDs to full live names. Read needed schemas before use; current access and the live schema always win. Use the [workflow](../SKILL.md) for review, approval in the person's next message, privacy and recovery.
 
 ## Inputs and read paths
 

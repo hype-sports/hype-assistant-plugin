@@ -21,15 +21,15 @@ For the public Hype app, use `https://hypesports.live` followed by one of these 
 | Destination | Path | Direction / limit |
 | --- | --- | --- |
 | Home | `/dashboard` | Main Home tab; find teams, leagues, divisions and other readable Home records |
-| Feed | `/feed` | Main Feed tab; Feed reading and actions belong to `/hype:my-feed` |
+| Feed | `/feed` | Main Feed tab; Feed reading and actions belong to `my-feed` |
 | Messages | `/messages` | Main Messages tab; open the conversation list in the app, without guessing a conversation ID |
 | Events | `/events` | Main Events tab; open the calendar, without guessing an event ID |
 | Settings | `/settings` | Tap the profile picture in the shared header, not a main Settings tab |
-| Notifications | `/notifications` | On phones, tap the header bell to open the full list. On a computer, tap the bell, then the arrow under the list. Notification summaries and read-status changes belong to `/hype:catch-up` |
+| Notifications | `/notifications` | On phones, tap the header bell to open the full list. On a computer, tap the bell, then the arrow under the list. Notification summaries and read-status changes belong to `catch-up` |
 | Players | `/players` | Open the player list; Home also has a Players section |
 | Appearance | `/settings?tab=preferences` | Settings → Preferences → Theme; change it in the app |
-| Notification settings | `/settings?tab=notifications` | Settings → Notifications; changes belong to `/hype:notification-settings` |
-| Security | `/settings?tab=security` | Settings → Security; account actions belong to `/hype:my-account` |
+| Notification settings | `/settings?tab=notifications` | Settings → Notifications; changes belong to `notification-settings` |
+| Security | `/settings?tab=security` | Settings → Security; account actions belong to `my-account` |
 | Report a problem | `/settings` | Settings → Report a problem, just above Sign out; review and send the prepared email in the app's reporting flow, never through this skill |
 
 The four main tabs are **Home, Feed, Messages, Events**, in that order. Wide screens show the same order in the left sidebar. Settings opens from the shared header's profile picture; Notifications opens from its bell. Neither is a main tab.
@@ -49,6 +49,6 @@ Encode the returned ID as one URL path segment. Do not use record names as paths
 
 ## App-only actions and workflow handoffs
 
-Leave theme and favorites changes to the app in this navigation workflow; do not call `my-preferences-read`, `my-preferences-update`, `my-favorites-list`, `favorite-add` or `favorite-remove`. Those tools existing does not make a screen request approval for them. Account/time-zone work belongs to `/hype:my-account`, notifications/quiet hours to `/hype:notification-settings`, supporter-ring work to `/hype:my-support`, and legal guidance to `/hype:terms-and-privacy`.
+Leave theme and favorites changes to the app in this navigation workflow; do not call `my-preferences-read`, `my-preferences-update`, `my-favorites-list`, `favorite-add` or `favorite-remove`. Those tools existing does not make a screen request approval for them. Account/time-zone work belongs to `my-account`, notifications/quiet hours to `notification-settings`, supporter-ring work to `my-support`, and legal guidance to `terms-and-privacy`.
 
-Direct conversations to Messages in the app here, rather than calling `my-chats-list`, `chat-messages-read` or `my-chat-unread-read`. Direct problem reporting to the app's prepared-email flow. Do not invent generic screen-opening or report-submission tools, or call ordinary app/API routes as tools. The existing `open-password-settings` handoff belongs to `/hype:my-account`, not a generic screen opener. Connected-assistant changes remain in Settings, outside this navigation workflow.
+Direct conversations to Messages in the app here, rather than calling `my-chats-list`, `chat-messages-read` or `my-chat-unread-read`. Direct problem reporting to the app's prepared-email flow. Do not invent generic screen-opening or report-submission tools, or call ordinary app/API routes as tools. For passwords, give Settings → Security → Change password directions through `my-account`; there is no assistant password-settings handoff or generic screen-opening tool. Connected-assistant changes remain in Settings, outside this navigation workflow.
