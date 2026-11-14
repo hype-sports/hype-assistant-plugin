@@ -64,7 +64,7 @@ Review exact text, posting group, every target, roles and comments setting. Incl
 
 **Person:** Yes.
 
-Call `feed-announcement-intent-create` once with the retained new [opId] and approved fields. For `state: pending`, `execution: queued`, say it is lined up to go out after its Undo window unless held or refused. Translate the returned deadline into a readable time in the person's known time zone: “Lined up to go out; you can Undo until [actual local deadline].” For `execution: unavailable`, say “Saved, but not lined up to go out.” For `state: cancelled`, say it was cancelled instead of promising a send. Keep raw field names, keys and timestamps internal. Neither queued nor unavailable proves phone delivery. Immediately offer Undo while its original window remains and END THE TURN, with no further calls. Never poll or recreate it after a lost reply.
+Call `feed-announcement-intent-create` once with the retained new [opId] and approved fields. For `state: pending`, `execution: queued`, say it is lined up to go out after its Undo window unless held or refused. Translate the returned deadline into a readable time in the person's known time zone: “Lined up to go out; you can Undo until [actual local deadline].” For `execution: unavailable`, say “Saved, but not lined up to go out.” For `state: cancelled`, say it was cancelled instead of promising a send. Keep raw field names, keys and timestamps internal. Neither queued nor unavailable proves phone delivery. Immediately offer Undo while its original window remains, give the full done/refused/not-attempted report in that SAME message, and END THE TURN with no further calls. Never poll or recreate it after a lost reply.
 
 **Pass boundary:** no audience expansion, send chained from reach, invented reach count or delivered claim from a receipt. A rate limit stops the check, not an automatic wait-and-retry loop.
 
@@ -116,4 +116,14 @@ Load `invite-families` and `my-feed`, resolve the exact invitation rows, audienc
 
 **Person:** Yes.
 
-Run the approved invitation parts and their required checks without another yes per part, then send the announcement once if its prerequisites remain satisfied. On a lost answer stop all writes and inspect only the affected item once, never proceed to the announcement. On its confirmed send result, immediately report the actual state and original Undo deadline, tell the person to say Undo right away while that window remains, and END THE TURN. No further tool calls or long invitation summary may consume the Undo window.
+Run the approved invitation parts and their required checks without another yes per part, then send the announcement once if its prerequisites remain satisfied. On a lost answer stop all writes and inspect only the affected item once, never proceed to the announcement. Before the final send, save earlier outcomes and the announcement attempting entry if a progress record was requested. On its confirmed send result, immediately show the actual state and original Undo deadline, tell the person to say Undo right away while that window remains, then give the full invitation-and-announcement done/refused/not-attempted/unknown/unverified report in that SAME message and END THE TURN. No post-send tool/file call; keep the receipt for a later requested record update, never invent a result before sending.
+
+## 11. Two announcements under one yes
+
+**Person:** Send the two announcements with the texts, audiences and comments settings we selected.
+
+Show both exact announcements and every owning workflow's warnings in one complete review. Explain before yes: Undo works only right after EACH send within that send's original 10 seconds; sending the second uses up the first window, so the first may no longer be undoable by the final reply. Explain that other approved calls, key preparation and any required progress saves will finish before the two final sends.
+
+**Person:** Yes.
+
+After that yes, prepare both inputs and separate keys and finish the other approved calls. If a progress record was requested, save earlier known outcomes and both announcement entries as attempting BEFORE either send; never record future success. Send the first and second back to back as the final tool calls, preserving each original key/input and required pacing. A confirmed refusal stops its dependent work, not the independent approved announcement; an unknown answer stops all further writes. After the last attempted send, immediately give the actual states and original Undo deadlines, then the full done/refused/not-attempted/unknown/unverified report in that SAME final message and end the turn. Make no post-send file call; retain actual receipts for the next requested progress-record update, without resending or inventing a result. No extra yes per announcement, restarted window or promise that either window is still open.

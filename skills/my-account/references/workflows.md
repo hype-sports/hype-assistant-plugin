@@ -13,7 +13,7 @@ Show only returned facts. These tools do not reveal email, phone or profile phot
 1. Read `my-profile-read` and keep its exact `updatedAt`. Ask for the desired name if unclear. If it already matches, explain that no save is needed.
 2. Show the old and requested name, for example “Change my display name from Jordan Vale to Jordan Reed.” Explain that people sharing a Team, League or chat can see it; chat may show the old name for a while. Wait for an explicit yes to this exact change.
 3. Call `my-profile-update` once, with only the approved `name` and the saved `updatedAt` in `body`. Never include phone or photo changes as a side effect.
-4. Report the returned name/version on clear success; do not automatically read again. On `PROFILE_CHANGED_ELSEWHERE`, stop and explain that someone changed the profile. A separately requested fresh read and new approval are needed before a new save; never overwrite newer changes silently.
+4. Report the returned name/version on clear success; do not automatically read again. On `PROFILE_CHANGED_ELSEWHERE`, stop and explain that someone changed the profile. Re-read only the person's own profile once without another approval, then show a fresh complete review and wait for a yes in their next message before a new save; never overwrite newer changes silently.
 
 An unknown outcome means the save may have happened. Stop writes and read only the affected own profile once with `my-profile-read`, then report current state; a matching name does not prove this attempt saved it. Any requested new save needs a fresh complete review, a yes in the person's next message and the fresh `updatedAt`. Never replay the old version or overwrite another edit. Ordinary reads otherwise remain only on request.
 
@@ -26,9 +26,9 @@ An unknown outcome means the save may have happened. Stop writes and read only t
 
 ## 4. “Change my password”
 
-Do this in the Hype app: Settings → Security → Change password. There is no password-settings handoff tool in the current operation catalog; do not invent a tool or claim a returned Settings link.
+Use `open-password-settings` with its live empty input object, not the route-operation envelope. It returns the app's own Settings link and guidance; it does not change a password or sign out devices.
 
-Give those app directions only. Never ask for the current/new password, fill the password screen or submit it; the person enters passwords directly in Hype. Do not claim a password changed or add session sign-outs omitted from the shared complete review. No direct password/API workaround.
+Present that returned link only to this person for them to open, with “Settings → Security → Change password.” Never open or fetch the link, store it, forward it elsewhere, fill the screen, or ask for the current/new password. The person enters passwords directly in Hype. Do not claim their password changed or add session sign-outs omitted from the shared review. A missing/refused hand-off stops this job; no password/API workaround.
 
 ## 5. “Delete my account”
 

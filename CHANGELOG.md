@@ -4,6 +4,9 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## Unreleased
 
+- Send announcements last, back to back when several are approved, with each original Undo window explained before yes and the full result report in the immediate final message.
+- After a lost write answer, inspect only the affected item once; report current state and keep unsupported or unresolved outcomes unknown rather than retry or scan wider lists.
+
 - Delete requested announcements and comments under the shared complete-list review and one next-message yes, with no Undo and removal confirmed only by a validated answer.
 - Keep notification bell counts separate from group-chat and direct-message unread snapshots, and explain where to act in the app.
 - Read notification settings without a separate approval prompt, retaining one review and yes for changes. Use the app's labels, distinguish saved Email choices from actual sends, and do not offer daily summary controls: neither the assistant nor the app has them today.

@@ -5,6 +5,7 @@
 - Use made-up names only in examples, never real people's data.
 - Let plain requests select every skill; do not disable model invocation. Give descriptions concrete everyday trigger phrases and state which neighboring skill owns overlapping requests.
 - Follow [One review, one yes, all changes](agents/hype.md#one-review-one-yes-all-changes) for all changes and side effects; link to it from the skill instead of adding per-item approval rules. Keep tool limits, access checks, request keys, receipts and safe recovery.
+- Every skill that changes things must carry the identical four-bullet **How changes are confirmed** block used by the existing changing skills, as well as the link to the full shared rule.
 - Add a new skill to the area list in `agents/hype.md`; its `/hype:` command is an optional shortcut.
 - Add a README Skills row with the command, what it helps with, and **Available** or **Preview**. Use Available only after the main journey has run end to end on a test account; otherwise use Preview.
 - Raise `version` in `.claude-plugin/plugin.json` and add an entry for that version in `CHANGELOG.md`. Also update the `Plugin release:` line in `agents/hype.md` and `skills/my-account/references/tool-versions.md` to match; `check.sh` enforces both pins.

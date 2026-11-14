@@ -11,6 +11,7 @@ Check the live tool list before use.
 | `my-identity-read`, `my-profile-read` | Read own identity/name; identity also returns `operationCatalogVersion` and `minimumPluginVersion` and alone accepts any positive whole-number `catalogVersion` (see [version check](tool-versions.md)); profile returns save version `updatedAt` |
 | `my-preferences-read`, `my-preferences-update` | Read preferences or change the requested time zone |
 | `my-profile-update` | Save the requested name with the current profile version |
+| `open-password-settings` | Separately registered read-only screen hand-off, not a password-change operation |
 | `my-deletion-request` | Start an email-confirmed request, not erasure or confirmation |
 | `my-deletion-status-read`, `my-deletion-cancel` | Read status or cancel the pending request |
 | `my-sessions-list`, `my-session-revoke`, `my-other-sessions-revoke` | List own devices, sign out one other session or all other sessions |
@@ -23,15 +24,16 @@ Check the live tool list before use.
 
 ## Current tool inputs
 
-Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-read` alone accepts any positive whole number; see [version check](tool-versions.md)), plus only the `pathParams`, `query` or `body` the live schema declares. No target account, extra fields or operation replay IDs. A route read with no parameters still needs `catalogVersion`. Check the live schemas before every job.
+Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-read` alone accepts any positive whole number; see [version check](tool-versions.md)), plus only the `pathParams`, `query` or `body` the live schema declares. No target account, extra fields or operation replay IDs. A route read with no parameters still needs `catalogVersion`; the password-screen hand-off instead takes `{}`. Check the live schemas before every job.
 
-| Operation ID | Read or change | Inputs for this skill |
+| Operation ID / registered hand-off name | Read or change | Inputs for this skill |
 | --- | --- | --- |
 | `my-identity-read` | Read own ID/name and `operationCatalogVersion`/`minimumPluginVersion`; no profile repair | Only `catalogVersion`, any positive whole number for this tool alone (see [version check](tool-versions.md)) |
 | `my-profile-read` | Read own ID/name/save version; no profile repair | No parameters beyond the envelope above |
 | `my-profile-update` | Change own name | `body.name`, current `body.updatedAt`; name 1–100 characters after trimming. Other schema fields are outside this skill |
 | `my-preferences-read` | Read appearance/time zone | No parameters beyond the envelope above |
 | `my-preferences-update` | Change own saved time zone | Only `body.timezone` here, an IANA name or null for device behavior |
+| `open-password-settings` | Read-only screen hand-off; never changes a password | Strict empty object, no `catalogVersion`; registered separately, not a catalog operation |
 | `my-deletion-request` | Start own pending request and send confirmation email; not confirmation/erasure | `body.confirmation: "delete"` only after explicit approval in the person's next message |
 | `my-deletion-status-read` | Read own status/timestamps/advisory waiting list | No parameters beyond the envelope above |
 | `my-deletion-cancel` | Cancel whatever own request is pending at execution | No parameters beyond the envelope above, no body or confirmation word |
@@ -52,7 +54,7 @@ Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-re
 ## Availability and exclusions
 
 - Account tools remain subject to the live connection's admission and access checks.
-- Password changes are app-only: give Settings → Security → Change password directions, with no assistant tool call or claimed returned link.
+- The password hand-off returns the app's own Settings link alongside permitted route tools. Only the person opens it.
 - Device-bound account cleanup and password submission are app-only, not missing assistant tools to invent or direct routes to call. Passwords never enter the assistant. Own-account deletion confirmation likewise stays with the person's separate email-linked confirmation button; this skill never handles its link/token or executes erasure.
 - Own-account deletion is caller-only. Starting a request requires leaving or handing over every Team staff, League staff, Division Admin, Club Admin and Tournament Admin role. The assistant's held-role refusal returns `ACCOUNT_HAS_ROLES` without blocker details. Explain before an app handoff: its **Delete account** action is a real request; if roles remain, the attempt is refused and lists every role, but if none remain it starts the request and sends the confirmation email. Never reconstruct the list. The status tool's advisory `waitingFor` list covers Team, League, Club and Tournament ownership only, not all held-role blockers. Missing or unreadable is unknown; empty is not erasure clearance.
 - Managed-player erasure is separate from own-account deletion. Only a current managing parent/guardian may use it; viewer, follower, friend, coach or staff access alone is not enough. Unscheduled requests remain tied to the original requester, their same open management stint and unchanged captured links. Confirmation requires that original requester/stint. Scheduled requests can be read or, before due and subject to server checks, canceled by another current manager. `canCancel` is display information, not approval or authority.

@@ -11,7 +11,7 @@ Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-ye
 
 - Read every owning workflow; finish requested checks before one exact list of targets, values, effects and all its warnings, including permanent removal, last-manager/Admin, email/notices and money.
 - Only an explicit yes in the person's next message approves that exact list; no time limit. Keep key rules; refusal blocks dependent work, not independent approved actions.
-- Send announcements last; warn Undo is only immediate within the original 10 seconds. Report promptly and end the turn; the person's immediate Undo needs no extra yes.
+- Send announcements back to back at the end; warn Undo is only right after each send within its original 10 seconds. After the last send, give the Undo notice and full done/refused/not-attempted report in the same message, then end the turn. Immediate Undo needs no extra yes.
 - Lost write answer: it may have happened. Stop writes, read only the affected item once where supported and report unknown otherwise; never automatically retry. Ordinary reads stay only on request. A requested keyed repeat needs a fresh complete review and next-message yes, with original inputs/key.
 
 The main journey has not yet been checked end to end in a live run; this workflow sends real invitation emails.
@@ -46,7 +46,7 @@ For a league-wide sheet, prefer a requested page of `league-players-list` (`path
 
 ## 3. Preview, review and send the job
 
-Read and follow [Invitation jobs and safe progress](references/reviewed-job.md) before review or sending. The live tools currently preview up to 200 rows and send at most 25 rows per call. Under the one yes, handle every required part in order without asking the person to approve or manage parts. Retain each part's own server-issued key, attempting entry, fixed ordered rows and exact receipts for safe recovery. Never invent a whole-list tool. Once Hype has a server-side send job, Hype will take the whole list in one go and pace sending itself; that tool is not available here yet.
+Read and follow [Invitation jobs and safe progress](references/reviewed-job.md) before review or sending. The live tools currently preview up to 200 rows and send at most 25 rows per call. Under the one yes, handle every required part in order without asking the person to approve or manage parts. Retain each part's own server-issued key, attempting entry, fixed ordered rows and exact receipts for safe recovery. Never invent a whole-list tool. No whole-list send tool exists today; the assistant sends every approved part under the one next-message yes, without asking again per part.
 
 Deduplicate identical normalized registration/address pairs, retaining all source references and the reason. Keep the same supplied address on different registrations as separate invitations; never collapse siblings into one family invitation. Show a “Families getting more than one email” warning for addresses covering multiple registrations across the whole supplied league source: source references, covered player rows and counts, distinguishing earlier confirmed sends from planned rows. If only part of the source was supplied, say the count covers only those rows. Never search other divisions merely to count. A returned `possibleSamePerson: true` means **“may be the same parent”**: show the hint, never infer identity or automatically skip because of it. Only explicit pending/guardian/self/roster/validation outcomes justify those skips.
 

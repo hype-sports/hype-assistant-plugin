@@ -11,7 +11,7 @@ Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-ye
 
 - Read every owning workflow; finish requested checks before one exact list of targets, values, effects and all its warnings, including permanent removal, last-manager/Admin, email/notices and money.
 - Only an explicit yes in the person's next message approves that exact list; no time limit. Keep key rules; refusal blocks dependent work, not independent approved actions.
-- Send announcements last; warn Undo is only immediate within the original 10 seconds. Report promptly and end the turn; the person's immediate Undo needs no extra yes.
+- Send announcements back to back at the end; warn Undo is only right after each send within its original 10 seconds. After the last send, give the Undo notice and full done/refused/not-attempted report in the same message, then end the turn. Immediate Undo needs no extra yes.
 - Lost write answer: it may have happened. Stop writes, read only the affected item once where supported and report unknown otherwise; never automatically retry. Ordinary reads stay only on request. A requested keyed repeat needs a fresh complete review and next-message yes, with original inputs/key.
 
 At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](references/tool-versions.md) before further Hype work.
@@ -41,7 +41,7 @@ Read [exact tool inputs and source limits](references/reference.md) and the matc
 | Show my account | [Read own name or requested time zone](references/workflows.md#1-show-my-account) |
 | Change my name | [Review and save only the name with its current version](references/workflows.md#2-change-my-name) |
 | Change my time zone | [Resolve the exact zone and leave other settings untouched](references/workflows.md#3-change-my-time-zone) |
-| Change my password | [Give app-only Settings → Security directions](references/workflows.md#4-change-my-password) |
+| Change my password | [Hand off to the app’s own password screen](references/workflows.md#4-change-my-password) |
 | Delete my account | [Explain first, then require a yes in the person's next message to start the request](references/workflows.md#5-delete-my-account) |
 | Check my deletion request | [Report status and advisory ownership limits only](references/workflows.md#6-check-my-deletion-request) |
 | Cancel my deletion request | [Review and cancel only the request pending at execution](references/workflows.md#7-cancel-my-deletion-request) |
