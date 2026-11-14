@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+- players-families: after adding a child, say that the saved birth date and emergency contacts can't be read back here and should be checked in the app.
+
 ## 0.1.65 - 2026-11-13
 
 ### Changed
