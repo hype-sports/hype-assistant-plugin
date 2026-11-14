@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.69 - 2026-11-14
+
+- manage-my-team: the review for a parent/guardian Roster-spot invitation or a coach invitation now shows the email address exactly as you typed it, so you can catch a typo before your yes. Addresses still come only from you, never from a roster or contact read.
+
 ## 0.1.68 - 2026-11-14
 
 - manage-my-team settles the team before reading any Roster: the team you named, or the only team you run (named in the review); otherwise it asks which team. It no longer reads every team's Roster to find a player.
