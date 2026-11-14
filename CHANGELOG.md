@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.71 - 2026-11-14
+
+- league-setup: parent phone numbers written US-style (202-555-0123) are converted to the full international form (+12025550123) and shown in the review, never dropped. Any preview refusal or difference stops for a new yes; no row value is changed to get past it.
+- league-setup: the plan lists the exact invitations, the allowance is read only for the league being acted on, and a changed count or recipient list stops for a new yes. Never more invitations than the plan listed.
+
 ## 0.1.70 - 2026-11-14
 
 - league-setup: when one plan creates a league or divisions and imports a sign-up sheet, the plan now shows each row's division before your yes, and rows it cannot place are left out. After the divisions exist, the server preview runs; the import goes ahead under that yes only if every row is a plain new addition in its planned division. Any match, update, contact change, exception or skip is shown for a new yes.
