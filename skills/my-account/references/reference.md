@@ -15,6 +15,7 @@ Check the live tool list before use.
 | `my-deletion-request` | Start an email-confirmed request, not erasure or confirmation |
 | `my-deletion-status-read`, `my-deletion-cancel` | Read status or cancel the pending request |
 | `my-sessions-list`, `my-session-revoke`, `my-other-sessions-revoke` | List own devices, sign out one other session or all other sessions |
+| `my-assistant-connections-list`, `my-assistant-disconnect` | List own connected assistants, or disconnect exactly one of them (including this assistant). A read-only connection has no disconnect tool |
 | `my-login-history-list`, `my-assistant-activity-list` | Read own recorded login events or assistant activity |
 | `my-blocked-people-list`, `my-person-blocks-list` | Read own blocked people's current names/IDs or blocked account IDs and Block times |
 | `person-block`, `person-unblock` | Change only the signed-in person's own Block of one exact account |
@@ -42,6 +43,8 @@ Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-re
 | `my-other-sessions-revoke` | Sign out all own sessions except the assistant's | `query.scope: "others"` |
 | `my-login-history-list` | Read up to 50 own login events | No parameters beyond the envelope above |
 | `my-assistant-activity-list` | Read own assistant activity from the last 90 days | `query: {}` for the first page; optional `query.limit` from 1–100. Further pages use both exact `beforeAt` and `beforeId` from returned `nextCursor` |
+| `my-assistant-connections-list` | Read own connected assistants: `clientId`, `clientName`, `mode`, connection and last-used times; `clientName` may be null | Only the envelope plus an empty `query: {}` |
+| `my-assistant-disconnect` | Disconnect exactly one own assistant | `body.clientId`, an exact `clientId` returned by the connections list |
 | `my-blocked-people-list` | Read own blocked people's names/IDs, nullable for unavailable accounts | No parameters beyond the envelope above |
 | `my-person-blocks-list` | Read own blocked account `profileId` values and `blockedAt` times | No parameters beyond the envelope above |
 | `person-block`, `person-unblock` | Block or Unblock one exact identified account as the signed-in person | Only `body.profileId`, the exact account UUID; no target caller ID |
@@ -62,4 +65,4 @@ Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-re
 
 ## Data handling
 
-The plugin adds no service or credential store. Keep only the requested own-account, history, block-list or managed-player request details in the private conversation. Do not publish them or write them into this repository; do not retain credentials or confirmation links. The assistant client's handling applies to the conversation.
+The plugin adds no service or credential store. Keep only the requested own-account, history, connected-assistant names, block-list or managed-player request details in the private conversation. Do not publish them or write them into this repository; do not retain credentials or confirmation links. The assistant client's handling applies to the conversation.

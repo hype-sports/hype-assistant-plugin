@@ -1,6 +1,6 @@
 ---
 name: my-account
-description: 'This skill should be used for "show my account", "change my name", "change my time zone", "change my password", "sign out my devices", "delete my account", "show login history", "show assistant activity", "block someone" or "check a player erase request" or "erase a player" (app handoff only). It owns personal account settings and erase-status reads; notification-settings owns quiet hours and notification switches, my-support owns the supporter ring, players-families owns child profiles, and player erasure stays in the app.'
+description: 'This skill should be used for "show my account", "change my name", "change my time zone", "change my password", "sign out my devices", "show my connected assistants", "disconnect an assistant", "delete my account", "show login history", "show assistant activity", "block someone" or "check a player erase request" or "erase a player" (app handoff only). It owns personal account settings and erase-status reads; notification-settings owns quiet hours and notification switches, my-support owns the supporter ring, players-families owns child profiles, and player erasure stays in the app.'
 ---
 
 # Manage my Hype account
@@ -50,6 +50,7 @@ Read [exact tool inputs and source limits](references/reference.md) and the matc
 | Show blocked people / Block or Unblock someone | [Resolve the exact account and approve one change to the person's own Block](references/workflows.md#10-show-my-blocked-people--block-or-unblock-someone) |
 | Check a player's erase request | [Read latest status or one exact request for a managed player](references/workflows.md#11-check-a-players-erase-request) |
 | Erase a player's details / cancel that request | [Hand off erasure and cancellation to the app](references/workflows.md#12-erase-a-players-details--cancel-that-erase-request) |
+| Show or disconnect my connected assistants | [Choose one exact own assistant, explain the loss of access and wait for a yes in the next message](references/workflows.md#13-show-my-connected-assistants--disconnect-an-assistant) |
 
 Use `notification-settings` for Quiet Hours or notification switches and `terms-and-privacy` for Terms or Privacy Policy questions. Include their requested changes in the same shared review, following the matching skill for each call.
 
