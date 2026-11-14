@@ -5,7 +5,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 ## 0.1.72 - 2026-11-14
 
 - league-setup: a phone number that needs correcting stops the plan; Claude asks for it and never offers leaving it out as a default.
-- league-setup and invite-families: invitation reviews show each address being invited, exactly as saved, so you can catch a typo before your yes.
+- league-setup and invite-families: invitation reviews show each address being invited, exactly as it will be sent, so you can catch a typo before your yes.
 - league-setup: the invitation allowance is read after the import is saved (it grows with the league's registered players), and the plan never reads another league for defaults.
 
 ## 0.1.71 - 2026-11-14
