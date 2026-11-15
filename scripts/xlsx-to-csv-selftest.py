@@ -66,6 +66,11 @@ def self_test():
     import subprocess, sys
     missing = subprocess.run([sys.executable, '-I', str(Path(__file__).with_name('xlsx-to-csv.py')), str(Path(__file__).with_name('no-such-workbook.xlsx'))], capture_output=True, text=True)
     assert missing.returncode == 1 and 'Cannot find workbook' in missing.stderr and missing.stdout == ''
+    import tempfile
+    with tempfile.TemporaryDirectory() as folder:
+        Path(folder, 'family.xlsx').write_bytes(b'')
+        nearby = subprocess.run([sys.executable, '-I', str(Path(__file__).with_name('xlsx-to-csv.py')), str(Path(folder, 'famly.xlsx'))], capture_output=True, text=True)
+    assert nearby.returncode == 1 and 'Spreadsheets in ' in nearby.stderr and 'family.xlsx' in nearby.stderr and nearby.stdout == ''
     print('PASS: a missing workbook is named as missing, not as invalid')
 
     globals_ = convert.__globals__

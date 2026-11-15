@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.87 - 2026-11-15
+
+- Spreadsheets: when the named file is not there, the converter lists the spreadsheets in that folder, so the assistant runs the converter straight away instead of listing or searching folders itself. League setup also triggers on "set up the league from this registration spreadsheet".
+
 ## 0.1.86 - 2026-11-15
 
 - Spreadsheet skills: the attached-file rule (current folder, straight to the converter, never list or search) now opens each skill, so it is read before the first step.

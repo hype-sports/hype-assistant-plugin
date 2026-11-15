@@ -9,6 +9,7 @@ import csv
 import io
 from pathlib import PurePosixPath
 import re
+import os
 import sys
 import xml.etree.ElementTree as ET
 import zipfile
@@ -157,7 +158,14 @@ def main():
         with open(args.path, 'rb') as source:
             text, notices = convert(source, args.sheet)
     except FileNotFoundError:
-        print('Cannot find workbook: no file at ' + args.path + '. Ask the person for the exact path.', file=sys.stderr)
+        # Names only, one folder, so the assistant never needs ls or find to locate an attached file.
+        folder = os.path.dirname(os.path.abspath(args.path))
+        try:
+            found = sorted(n for n in os.listdir(folder) if n.lower().endswith(('.xlsx', '.csv')))[:20]
+        except OSError:
+            found = []
+        listing = ('Spreadsheets in ' + folder + ': ' + ', '.join(found) + '. Run again with the matching name.') if found else ('No .xlsx or .csv files in ' + folder + '.')
+        print('Cannot find workbook: no file at ' + args.path + '. ' + listing + ' If none matches, ask the person for the exact path.', file=sys.stderr)
         return 1
     except WorkbookError as exc:
         print('Cannot read workbook: ' + str(exc), file=sys.stderr)
