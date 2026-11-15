@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.81 - 2026-11-14
+
+- clubs-and-tournaments: explain which Club actions are refused while archived and that declines, expiry and account erasure still finish. Restore also removes every Admin's archived lifecycle note for that Club.
+
 ## 0.1.80 - 2026-11-14
 
 - run-evaluations: adding another date to an evaluation says when to send `ownerType: 'team'` (only when the event card shows a team as the owner) and to leave it out for a division evaluation, matching what Hype accepts. If it is unclear, the assistant asks.
