@@ -38,7 +38,7 @@ Use these input shapes as a reference. Supply the current wrapper's required `ca
 
 | Field | Meaning / limits |
 | --- | --- |
-| `name` | Trimmed, 3–50 characters; age group plus Boys/Girls/Coed or an approved custom name |
+| `name` | Trimmed, 3–50 characters; age group plus Boys/Girls/Coed, or a name the person wrote and confirms in the review |
 | `gender` | `male`, `female`, `coed`; display Boys, Girls, Coed |
 | `ageGroup` | Contract-optional `5U`–`18U`; ask explicitly in this workflow |
 | `minAge` | Whole number, 4–18 |
