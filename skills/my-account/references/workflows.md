@@ -21,9 +21,13 @@ An unknown outcome means the save may have happened. Stop writes and read only t
 
 Through the assistant, a profile photo can only be one of Hype's approved drawn pictures (today `profile-picture-blue`, a plain silhouette). A personal photo is added in the app, never through the assistant.
 
-1. Read `my-profile-read` and keep its exact `updatedAt`. Show the change in one review: "Set your profile photo to Hype's drawn picture (a plain silhouette in a blue circle). People who share a Team, League or chat with you will see it; chat may show the old photo for a while." Wait for an explicit yes in the person's next message.
-2. After the yes, call `demo-logo-upload` once with `assetId` `profile-picture-blue` and `kind` `profile-picture`. Then call `my-profile-update` once with only `avatarUrl` set to that upload's returned `publicUrl` and the saved `updatedAt`. Never send any other address.
-3. Report success from the save answer's `hasPhoto`. If the upload fails, nothing was set: explain and stop. If the save's outcome is unknown, follow the unknown-outcome rule in workflow 2: read the own profile once and report `hasPhoto`; never upload or save again automatically.
+1. Read `my-profile-read` and keep its exact `updatedAt` and `hasPhoto`. Show the change in one review: "Set your profile photo to Hype's drawn picture (a plain silhouette in a blue circle). People who share a Team, League or chat with you will see it; chat may show the old photo for a while." When `hasPhoto` is true, add: "This replaces your current photo." Wait for an explicit yes in the person's next message.
+2. After the yes, call `demo-logo-upload` once with `body: { assetId: "profile-picture-blue", kind: "profile-picture" }`. Then call `my-profile-update` once with `body: { avatarUrl: <that upload's publicUrl>, updatedAt: <the saved updatedAt> }`. Never send any other address. If the same request also changes the name, put `name` in that one save rather than saving twice on the same `updatedAt`.
+3. Report success from the save answer's `hasPhoto`.
+   - If the upload fails, nothing was set: explain and stop, with no automatic retry; an unused picture may remain in storage.
+   - On `PROFILE_CHANGED_ELSEWHERE`, follow workflow 2 step 4.
+   - On `AVATAR_URL_NOT_ALLOWED`, stop and explain; never try another address.
+   - If the save's outcome is unknown, follow the unknown-outcome rule in workflow 2: read the own profile once and report `hasPhoto`. A true `hasPhoto` does not prove this attempt saved, since a photo may already have been set. Never upload or save again automatically.
 
 ## 3. “Change my time zone”
 

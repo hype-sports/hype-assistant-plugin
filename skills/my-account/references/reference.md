@@ -8,9 +8,10 @@ Check the live tool list before use.
 
 | Tools | Status / use |
 | --- | --- |
-| `my-identity-read`, `my-profile-read` | Read own identity/name; identity also returns `operationCatalogVersion` and `minimumPluginVersion` and alone accepts any positive whole-number `catalogVersion` (see [version check](tool-versions.md)); profile returns save version `updatedAt` |
+| `my-identity-read`, `my-profile-read` | Read own identity/name; identity also returns `operationCatalogVersion` and `minimumPluginVersion` and alone accepts any positive whole-number `catalogVersion` (see [version check](tool-versions.md)); profile returns save version `updatedAt` and `hasPhoto` |
 | `my-preferences-read`, `my-preferences-update` | Read preferences or change the requested time zone |
-| `my-profile-update` | Save the requested name with the current profile version |
+| `my-profile-update` | Save the requested name, or set the photo to an approved drawn picture, with the current profile version |
+| `demo-logo-upload` | Upload Hype's approved drawn profile picture before setting it as your photo (workflow 2b) |
 | `open-password-settings` | Separately registered read-only screen hand-off, not a password-change operation |
 | `my-deletion-request` | Start an email-confirmed request, not erasure or confirmation |
 | `my-deletion-status-read`, `my-deletion-cancel` | Read status or cancel the pending request |
@@ -30,8 +31,9 @@ Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-re
 | Operation ID / registered hand-off name | Read or change | Inputs for this skill |
 | --- | --- | --- |
 | `my-identity-read` | Read own ID/name and `operationCatalogVersion`/`minimumPluginVersion`; no profile repair | Only `catalogVersion`, any positive whole number for this tool alone (see [version check](tool-versions.md)) |
-| `my-profile-read` | Read own ID/name/save version; no profile repair | No parameters beyond the envelope above |
-| `my-profile-update` | Change own name | `body.name`, current `body.updatedAt`; name 1–100 characters after trimming. Other schema fields are outside this skill |
+| `my-profile-read` | Read own ID/name/save version and whether a photo is set (`hasPhoto`); no profile repair | No parameters beyond the envelope above |
+| `my-profile-update` | Change own name, or set own photo | Name: `body.name`, current `body.updatedAt`; name 1–100 characters after trimming. Photo (workflow 2b): only `body.avatarUrl` set to the `publicUrl` just returned by `demo-logo-upload`, plus current `body.updatedAt`. Phone changes are outside this skill |
+| `demo-logo-upload` | Upload the approved drawn profile picture | Only `body.assetId` `profile-picture-blue` and `body.kind` `profile-picture`; returns `path` and `publicUrl` |
 | `my-preferences-read` | Read appearance/time zone | No parameters beyond the envelope above |
 | `my-preferences-update` | Change own saved time zone | Only `body.timezone` here, an IANA name or null for device behavior |
 | `open-password-settings` | Read-only screen hand-off; never changes a password | Strict empty object, no `catalogVersion`; registered separately, not a catalog operation |

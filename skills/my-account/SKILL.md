@@ -40,6 +40,7 @@ Read [exact tool inputs and source limits](references/reference.md) and the matc
 | --- | --- |
 | Show my account | [Read own name or requested time zone](references/workflows.md#1-show-my-account) |
 | Change my name | [Review and save only the name with its current version](references/workflows.md#2-change-my-name) |
+| Set my profile photo | [Review, then upload Hype's approved drawn picture and save it as your photo](references/workflows.md#2b-set-my-profile-photo) |
 | Change my time zone | [Resolve the exact zone and leave other settings untouched](references/workflows.md#3-change-my-time-zone) |
 | Change my password | [Hand off to the app’s own password screen](references/workflows.md#4-change-my-password) |
 | Delete my account | [Explain first, then require a yes in the person's next message to start the request](references/workflows.md#5-delete-my-account) |
