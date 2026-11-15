@@ -4,7 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.85 - 2026-11-15
 
-- Spreadsheets: a file attached or named without a folder is taken from the current working folder and converted directly, with no listing or searching; the plugin reads its own reference files with the file-reading tool, never through the shell.
+- Spreadsheets: a file attached or named without a folder is taken from the current working folder and converted directly, with no listing or searching; if it is not there, the converter now says it cannot find the file and the assistant asks for the exact path. The spreadsheet skills also read the plugin's own reference files with the file-reading tool, never through the shell.
 
 ## 0.1.84 - 2026-11-15
 
