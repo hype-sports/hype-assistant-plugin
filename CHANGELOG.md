@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.84 - 2026-11-15
+
+- run-evaluations: starting a division evaluation or a personal sheet sends no player IDs; Hype includes the current players itself and reports how many. The assistant no longer offers to pick players at creation (the player list can be changed afterwards).
+
 ## 0.1.83 - 2026-11-15
 
 - Workbooks: the assistant runs only the bundled converter command, never listing, searching or opening other folders or files.

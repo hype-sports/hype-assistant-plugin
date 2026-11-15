@@ -28,8 +28,8 @@ Resolve all three exact participant IDs and the same started evaluation date thr
 
 **Person:** Start a Saturday evaluation for the division I administer.
 
-Resolve the exact active division and selected players through permitted reads. Agree the title, date, time zone, players and categories; do not infer scoring admission from the appointment.
+Resolve the exact active division through permitted reads. Agree the title, date, time zone and categories; Hype includes the division's current players itself, so there is no player choice at creation. Do not infer scoring admission from the appointment.
 
-**Assistant:** This will create Spring Skills, its all-day Saturday date and player list/numbers in the selected division. Through your Division Admin authority, Hype returns a management receipt, not a private scoring sheet or categories, and it does not give you scoring access. It saves no scores, shares nothing and sends no notice. Create exactly this evaluation?
+**Assistant:** This will create Spring Skills, its all-day Saturday date and player list/numbers from the division's current players. Through your Division Admin authority, Hype returns a management receipt, not a private scoring sheet or categories, and it does not give you scoring access. It saves no scores, shares nothing and sends no notice. Create exactly this evaluation?
 
 Use the shared next-message yes to the complete review. Then get a key and call `division-evaluation-create` once with the agreed inputs. Report only the returned management result; do not invent a dataset ID or open a private sheet.
