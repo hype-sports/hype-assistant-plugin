@@ -2,6 +2,12 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.82 - 2026-11-15
+
+- Read a chosen Excel workbook with a bundled read-only converter when a shell is available; otherwise ask once for a CSV export with Excel, Google Sheets and Numbers steps. Never guess workbook contents or substitute another file.
+- players-families: route “add my kids” and family sheets to managed Hype profiles, check existing profiles first, and review every new child and requested emergency contact together before one yes. Keep existing profiles instead of creating duplicates, and point to Players in the app afterward.
+- players-families and invite-families: receipts after yes never repeat email addresses or phone numbers.
+
 ## 0.1.81 - 2026-11-14
 
 - clubs-and-tournaments: explain which Club actions are refused while archived and that declines, expiry and account erasure still finish. Restore also removes every Admin's archived lifecycle note for that Club.
