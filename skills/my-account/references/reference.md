@@ -32,7 +32,7 @@ Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-re
 | --- | --- | --- |
 | `my-identity-read` | Read own ID/name and `operationCatalogVersion`/`minimumPluginVersion`; no profile repair | Only `catalogVersion`, any positive whole number for this tool alone (see [version check](tool-versions.md)) |
 | `my-profile-read` | Read own ID/name/save version and whether a photo is set (`hasPhoto`); no profile repair | No parameters beyond the envelope above |
-| `my-profile-update` | Change own name, or set own photo | Name: `body.name`, current `body.updatedAt`; name 1–100 characters after trimming. Photo (workflow 2b): only `body.avatarUrl` set to the `publicUrl` just returned by `demo-logo-upload`, plus current `body.updatedAt`. Phone changes are outside this skill |
+| `my-profile-update` | Change own name, or set own photo | Name: `body.name`, current `body.updatedAt`; name 1–100 characters after trimming. Photo (workflow 2b): `body.avatarUrl` set to the `publicUrl` just returned by `demo-logo-upload`, plus current `body.updatedAt` (and `body.name` only when the same request also renames). Phone changes are outside this skill |
 | `demo-logo-upload` | Upload the approved drawn profile picture | Only `body.assetId` `profile-picture-blue` and `body.kind` `profile-picture`; returns `path` and `publicUrl` |
 | `my-preferences-read` | Read appearance/time zone | No parameters beyond the envelope above |
 | `my-preferences-update` | Change own saved time zone | Only `body.timezone` here, an IANA name or null for device behavior |
