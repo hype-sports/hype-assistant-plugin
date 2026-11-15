@@ -5,6 +5,8 @@ description: 'This skill should be used for "set up my league", "add divisions",
 
 # Get a league ready for its season
 
+**Attached files first:** a file the person attached or named without a folder is in the current working folder. For an `.xlsx` spreadsheet, go straight to the converter command in this skill with that name; never run `ls`, `find` or any other command to look for it, list folders or check what is around it.
+
 Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-yes-all-changes) for the whole request, including changes handled by another skill. Approval references below mean that shared review, not another yes per call.
 
 ## How changes are confirmed
