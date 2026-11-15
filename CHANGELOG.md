@@ -4,7 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.80 - 2026-11-14
 
-- run-evaluations: adding another date to an evaluation says when to send `ownerType: 'team'` (only for an evaluation the reads show is team-owned) and to leave it out for a division evaluation, matching what Hype accepts.
+- run-evaluations: adding another date to an evaluation says when to send `ownerType: 'team'` (only when the event card shows a team as the owner) and to leave it out for a division evaluation, matching what Hype accepts. If it is unclear, the assistant asks.
 
 ## 0.1.79 - 2026-11-14
 
