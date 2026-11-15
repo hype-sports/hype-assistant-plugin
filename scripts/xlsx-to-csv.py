@@ -141,6 +141,8 @@ def convert(source, sheet_name=None):
             element.clear()
         if column_limit:
             notices.append('Stopped at 100 columns per row; CSV is incomplete. Additional columns were not read.')
+        names = ', '.join(s.get('name', '') for s in sheets)
+        notices.append(f"Read sheet '{sheet.get('name', '')}' ({sheets.index(sheet) + 1} of {len(sheets)}: {names}).")
         return output.getvalue(), notices
 
 
@@ -149,6 +151,8 @@ def main():
     parser.add_argument('path', help='the exact .xlsx file chosen by the person')
     parser.add_argument('sheet', nargs='?', help='sheet name (default: first worksheet)')
     args = parser.parse_args()
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stderr.reconfigure(encoding='utf-8')
     try:
         with open(args.path, 'rb') as source:
             text, notices = convert(source, args.sheet)

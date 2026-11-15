@@ -50,7 +50,9 @@ For a requested player's emergency contacts, a contact change or a whole-team co
 
 ## 3. Change the Roster
 
-For `.xlsx`, if a shell is available, run the [bundled converter using `${CLAUDE_PLUGIN_ROOT}`](../league-setup/references/own-files.md#read-the-chosen-sheet) on the person's exact file and read its CSV output; without a shell, ask once for CSV using the Excel, Google Sheets or Numbers steps there and continue from it. Never guess workbook contents or read a neighboring file.
+This is for a coach or team admin changing a team's Roster. A parent/guardian adding their own children as family profiles goes to players-families instead.
+
+For `.xlsx`, if a shell is available, run exactly `python3 -I "${CLAUDE_PLUGIN_ROOT}/scripts/xlsx-to-csv.py" "<exact chosen .xlsx path>"` (append the quoted sheet name when the person picked one) and read its CSV output, following [Read the chosen sheet](../league-setup/references/own-files.md#read-the-chosen-sheet); without a shell, ask once for CSV using the Excel, Google Sheets or Numbers steps there and continue from it. Never guess workbook contents or read a neighboring file.
 
 Read the current Roster and any needed removed entries first. Show all requested additions, edits, removals and restores together with exact targets, values, effects and parent/guardian notices. One shared review and one next-message yes cover the entire list; then make the calls in order without asking again. Bind any newly created entry only to its confirmed returned ID.
 

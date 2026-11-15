@@ -37,6 +37,7 @@ def self_test():
         [], ['', '7'],
     ]
     assert 'Dates remain stored numbers' in notices[0]
+    assert notices[-1] == "Read sheet 'Family' (1 of 2: Family, Other)."
     assert convert(workbook(SAMPLE_ROWS), 'Other')[0] == 'Other sheet\n'
     assert convert(workbook('<row><c t="inlineStr"><is><t>Sam</t></is></c></row>', shared=False))[0] == 'Sam\n'
     print('PASS: workbook strings, numbers, empty positions, cached formulas and sheet selection')
@@ -76,12 +77,13 @@ def self_test():
                 raise AssertionError('Workbook reading limit ignored')
         finally:
             globals_[limit] = previous
-    try:
-        convert(workbook('<!DOCTYPE row>'))
-    except converter['WorkbookError']:
-        pass
-    else:
-        raise AssertionError('XML declaration accepted')
+    for unsafe in ('<!DOCTYPE row>', '<!entity x "y">'):
+        try:
+            convert(workbook(unsafe))
+        except converter['WorkbookError']:
+            pass
+        else:
+            raise AssertionError('XML declaration accepted')
     print('PASS: XML, workbook and CSV output limits and unsafe XML declarations are enforced')
 
 

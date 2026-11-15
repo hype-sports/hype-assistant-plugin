@@ -4,7 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.82 - 2026-11-15
 
-- Read a chosen Excel workbook with a bundled read-only converter when a shell is available; otherwise ask once for a CSV export with Excel, Google Sheets and Numbers steps. Never guess workbook contents or substitute another file.
+- Read a chosen Excel workbook with a bundled read-only converter when a shell is available; otherwise ask once for a CSV export with Excel, Google Sheets and Numbers steps. Never guess workbook contents or substitute another file. The converter names the sheet it read, and the assistant uses only the rows and columns the request needs.
 - players-families: route “add my kids” and family sheets to managed Hype profiles, check existing profiles first, and review every new child and requested emergency contact together before one yes. Keep existing profiles instead of creating duplicates, and point to Players in the app afterward.
 - players-families and invite-families: receipts after yes never repeat email addresses or phone numbers.
 
