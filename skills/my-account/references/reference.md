@@ -52,7 +52,7 @@ Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-re
 | `player-profile-erasure-status-read` | Read the latest erase request visible to this manager | `pathParams.id`, the exact managed-player profile UUID |
 | `player-profile-erasure-request-read` | Read one known exact request, never fall back to latest | `pathParams.id` and `pathParams.requestId`, the exact known profile/request UUID pair |
 
-`my-profile-update` can also accept an own phone change/clear or explicit photo removal, but this skill deliberately covers name only. Do not include those fields in a name save. Its answer and `my-profile-read` expose only ID, name and version; no email, phone or photo. Other appearance settings and role handovers are done in the app; use `notification-settings` for Quiet Hours and notification switches. Supporter-ring changes use `my-support`.
+`my-profile-update` can also accept an own phone change/clear, explicit photo removal, or a photo set to an approved drawn picture just uploaded with `demo-logo-upload` (see workflow 2b). Never include those fields in a name save. Its answer and `my-profile-read` expose only ID, name, version and `hasPhoto` (true or false); never email, phone or the photo address. Other appearance settings and role handovers are done in the app; use `notification-settings` for Quiet Hours and notification switches. Supporter-ring changes use `my-support`.
 
 ## Availability and exclusions
 
