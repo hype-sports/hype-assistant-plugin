@@ -2,7 +2,7 @@
 """Read one .xlsx sheet as CSV on stdout; never extract or write files.
 
 Dates stay as stored numbers. Formulas are not run: only cached values are read.
-Limits: 5,000 rows, 100 columns, 16 MiB per XML part, 50 MiB per workbook.
+Limits: 5,000 rows, 100 columns, 16 MiB per XML part/CSV output, 50 MiB per workbook.
 """
 import argparse
 import csv
@@ -18,6 +18,7 @@ MAX_ROWS = 5000
 MAX_COLUMNS = 100
 MAX_XML_BYTES = 16 * 1024 * 1024
 MAX_WORKBOOK_BYTES = 50 * 1024 * 1024
+MAX_CSV_BYTES = 16 * 1024 * 1024
 
 
 class WorkbookError(ValueError):
@@ -80,6 +81,7 @@ def convert(source, sheet_name=None):
         writer = csv.writer(output, lineterminator='\n')
         notices = ['Dates remain stored numbers; formulas are not run (cached values only).']
         previous_row = 0
+        output_bytes = 0
         column_limit = False
         root = None
         for event, element in ET.iterparse(io.BytesIO(xml_bytes(book, path)), events=('start', 'end')):
@@ -97,6 +99,7 @@ def convert(source, sheet_name=None):
                 break
             while previous_row + 1 < row_number:
                 writer.writerow([])
+                output_bytes += 1
                 previous_row += 1
             values = []
             previous_column = 0
@@ -127,6 +130,12 @@ def convert(source, sheet_name=None):
                     inline = cell.find('{*}is')
                     value = '' if inline is None else string_text(inline)
                 values[column - 1] = value
+            # Bound expansion when many cells reuse the same large shared string.
+            output_bytes += 1
+            for value in values:
+                output_bytes += len(value.encode('utf-8')) + value.count('"') + 3
+                if output_bytes > MAX_CSV_BYTES:
+                    raise WorkbookError('CSV exceeds the 16 MiB output budget; use a smaller CSV export.')
             writer.writerow(values)
             previous_row = row_number
             element.clear()

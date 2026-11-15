@@ -64,12 +64,12 @@ def self_test():
     print('PASS: unsafe ZIP paths, missing sheets and invalid workbooks are rejected')
 
     globals_ = convert.__globals__
-    for limit in ('MAX_XML_BYTES', 'MAX_WORKBOOK_BYTES'):
+    for limit in ('MAX_XML_BYTES', 'MAX_WORKBOOK_BYTES', 'MAX_CSV_BYTES'):
         previous = globals_[limit]
         try:
-            globals_[limit] = 64
+            globals_[limit] = 8
             try:
-                convert(workbook(''))
+                convert(workbook(SAMPLE_ROWS))
             except converter['WorkbookError']:
                 pass
             else:
@@ -82,7 +82,7 @@ def self_test():
         pass
     else:
         raise AssertionError('XML declaration accepted')
-    print('PASS: XML and workbook byte limits and unsafe XML declarations are enforced')
+    print('PASS: XML, workbook and CSV output limits and unsafe XML declarations are enforced')
 
 
 if __name__ == '__main__':

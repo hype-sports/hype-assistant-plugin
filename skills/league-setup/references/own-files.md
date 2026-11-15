@@ -10,7 +10,7 @@ For `.xlsx`, when a shell is available, run the bundled read-only converter and 
 python3 -I "${CLAUDE_PLUGIN_ROOT}/scripts/xlsx-to-csv.py" "<exact chosen .xlsx path>"
 ```
 
-Append the quoted sheet name when the person selected one; otherwise it reads the first worksheet. It prints CSV to stdout and notices to stderr, without writing or moving files. Dates remain stored numbers, and formulas supply only cached values, possibly empty: never guess birth dates or missing results. Ask for clear dates or a CSV export when needed. It reads at most 5,000 rows and 100 columns, with 16 MiB per XML part and 50 MiB per workbook; if it reports incomplete output, do not treat that as the whole sheet. Ask for the remaining relevant rows as CSV.
+Append the quoted sheet name when the person selected one; otherwise it reads the first worksheet. It prints CSV to stdout and notices to stderr, without writing or moving files. Dates remain stored numbers, and formulas supply only cached values, possibly empty: never guess birth dates or missing results. Ask for clear dates or a CSV export when needed. It reads at most 5,000 rows and 100 columns, with 16 MiB per XML part, a 16 MiB CSV output budget and 50 MiB per workbook; if it reports incomplete output, do not treat that as the whole sheet. Ask for the remaining relevant rows as CSV.
 
 If no shell is available, do not try a shell command or the binary file reader. Ask once to save the chosen sheet as CSV, with these steps, and continue from that CSV:
 
