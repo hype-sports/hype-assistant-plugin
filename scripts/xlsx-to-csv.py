@@ -156,6 +156,9 @@ def main():
     try:
         with open(args.path, 'rb') as source:
             text, notices = convert(source, args.sheet)
+    except FileNotFoundError:
+        print('Cannot find workbook: no file at ' + args.path + '. Ask the person for the exact path.', file=sys.stderr)
+        return 1
     except WorkbookError as exc:
         print('Cannot read workbook: ' + str(exc), file=sys.stderr)
         return 1
