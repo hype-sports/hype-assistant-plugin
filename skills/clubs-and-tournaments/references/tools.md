@@ -10,7 +10,7 @@ These tools require `catalogVersion: 1` (the shared `request-key-new` helper tak
 
 | Operation | Inputs besides catalogVersion | What it returns / changes |
 | --- | --- | --- |
-| `my-clubs-list` | `query: { after? }` | Read: current accepted Admin's Clubs, with `id`, `name`, `sports`, `city`, `state`, `season_name`; `nextCursor` |
+| `my-clubs-list` | `query: { after? }` | Read: current accepted Admin's Clubs, excluding archived Clubs, with `id`, `name`, `sports`, `city`, `state`, `season_name`; `nextCursor` |
 | `my-tournaments-list` | `query: { after? }` | Read: current accepted Admin Tournaments, including private and ended; `tournaments: [{ id, name, sport, city, state }]`, `nextCursor`, `hasTeams` (not Team-entry details) |
 | `club-summary-read` | `pathParams: { id: clubId }` | Read: `id`, `name` only; no season |
 | `club-details-read` | `pathParams: { id: clubId }` | Read: name, sports, city/state, `hiddenFromPublic`, `revision`, `viewer`; no season |
@@ -52,6 +52,25 @@ Accept grants real Admin authority. Decline consumes that offer without granting
 Admin offers need the person's directly supplied valid email (trimmed, at most 254 characters). Club delivery may be stopped by a per-recipient daily cap even when the offer saves; Tournament delivery is inactive. Never send another offer to repair delivery. Current offers last 14 days; use returned expiry. Sender limits return `RATE_LIMITED`.
 
 Cancellation needs the exact current pending, unexpired row; a hidden address needs explicit row/ID selection or an app handoff. Being sender or recipient alone gives no cancellation right. Removing another Tournament Admin is not available in the assistant or the app yet. For Club removal, use the returned staff `userId`, never yourself; follow the shared list approval and result checks.
+
+## Whole-Club lifecycle and former-Admin notes
+
+Follow [One review, one yes, all changes](../../../agents/hype.md#one-review-one-yes-all-changes).
+
+| Operation | Inputs besides catalogVersion | Result / effect |
+| --- | --- | --- |
+| `club-lifecycle-read` | `pathParams: { id: clubId }`; no query or body | Current Admin only; `{ archivedAt, canDelete, teams, admins, seasons, invitations }`. Archive time is a timestamp or null; counts are nonnegative integers without names or contacts. `teams` includes archived Teams; `invitations` counts pending invitations. The server owns `canDelete`; do not calculate eligibility from counts or age, and never propose or call Delete when it is false |
+| `club-archive` | `pathParams: { id: clubId }`, required `body: {}`; no query | Current Admin only; `{ changed: true }`. Removes the Club from active lists and public results, preserves history and leaves Teams unchanged, not archived |
+| `club-restore` | Same Club path and required empty body; no query | Current Admin only, archived Club required; `{ changed: true }`. Returns the Club to active lists and allows Club changes again; does not restore a deleted Club |
+| `club-delete` | Same Club path and required empty body; no query | Current Admin only; `{ changed: true }`. Permanently removes only a Club made by mistake within its first 30 days and before anything uses it, including its setup and finished invitation history; writes the shared deletion record |
+| `club-lifecycle-notes-list` | Required `query: { after? }`; no path or body | Caller-addressed notes only; `{ notes: [{ id, clubId, clubName, kind, actorName, occurredAt }], nextCursor }`. `kind` is `archived` or `deleted`. Deleted Club names come from the shared deletion record; actor names are resolved live, null for erased/deleting accounts. No actor or recipient IDs. At most 50 per page; cursor is a UUID or null |
+| `club-lifecycle-note-dismiss` | `pathParams: { id: noteId }`, required `body: {}`; no query | `{ changed: true }`, even for a missing or hidden note. Hides only the caller's copy, never another Admin's. The last dismissal removes the note, not the Club or its shared deletion record; does not restore the Club |
+
+Read `club-lifecycle-read` before archive, restore or delete. Name the exact Club and action, show all returned counts, and explain what stays or is permanently removed. Use Archive for a Club that is no longer needed; Delete is only for a new, unused mistake. Even `canDelete: true` grants no consent and does not guarantee a later write will still be allowed. Never remove Teams, Admins, seasons or invitations to make Delete pass. Whole-Club lifecycle is separate from Overview section lifecycle.
+
+A refused Club Delete returns only the code and fixed message, never a list of what uses it. Name a use only when `club-lifecycle-read` shows `teams > 0` (including archived Teams) or `invitations > 0` (pending invitations). Admin/season counts are normal setup, not evidence of use; Overview, Feed and history have no count here, so do not claim other uses or assume zero Teams/invitations means unused. Offer Archive as a refused-Delete alternative only for `DELETE_WINDOW_PASSED` (the 30-day window has closed) or `IN_USE_ARCHIVE_INSTEAD` (the Club is in use). For `CLUB_ARCHIVED`, say the Club is already archived and Restore is the option. Access refusals, a non-archived restore target and `BUSY` stop that action without an Archive alternative. Any changed action follows the shared review rule, never automatic fallback or retry.
+
+For archived-Club IDs and note access, follow [scope and reads](../SKILL.md#1-find-the-exact-scope-and-read); for dismissal, follow [change preparation](../SKILL.md#2-prepare-just-the-requested-change); for lost write replies, follow the [unknown-outcome workflow](../SKILL.md#unclear-outcome-re-check-never-resend).
 
 ## Club Overview
 
