@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.80 - 2026-11-14
+
+- run-evaluations: adding another date to an evaluation says when to send `ownerType: 'team'` (only when the event card shows a team as the owner) and to leave it out for a division evaluation, matching what Hype accepts. If it is unclear, the assistant asks.
+
 ## 0.1.79 - 2026-11-14
 
 - clubs-and-tournaments: archive or restore a Club, or permanently delete a new, unused mistake only when the server says it is eligible. Show its lifecycle counts and use the shared review and your yes in the next message. Offer Archive after a Delete refusal only for the 30-day limit or an in-use Club; an already archived Club points to Restore, and other refusals stop.
