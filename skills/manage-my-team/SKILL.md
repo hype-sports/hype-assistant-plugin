@@ -1,6 +1,6 @@
 ---
 name: manage-my-team
-description: 'This skill should be used for any request to change or read a team''s roster or Staff, including "show my roster", "who coaches my team", "add a player to my team", "On <team name>, add/edit/remove players or Staff", "add these players", "here is my team sheet", "update my roster", "fix jersey numbers", "take a player off", "put a player back", "roll over my roster", "invite a coach", "resend or cancel a Staff invitation", "invite a parent for a roster spot", "show my team seasons", "answer my team Staff invitation", "answer a team parent request", "join or leave a league" or "check team emergency contacts". An unqualified "add a player" or team sheet needs team (or their only team), child-profile or league-registration context first. It owns team rosters, Staff, guardian requests and roster invitations; players-families owns child profiles, incoming guardian invitations and guardian-request groups, league-setup owns registrations, and invite-families owns enrollment-list invitations and same-row contacts.'
+description: 'This skill should be used for any request to change or read a team''s roster or Staff, including "show my roster", "who coaches my team", "add a player to my team", "On <team name>, add/edit/remove players or Staff", "add these players", "here is my team sheet", "update my roster", "fix jersey numbers", "take a player off", "put a player back", "roll over my roster", "invite a coach", "resend or cancel a Staff invitation", "invite a parent for a roster spot", "show my team seasons", "answer my team Staff invitation", "answer a team parent request", "join or leave a league" or "check team emergency contacts". An unqualified "add a player" or team sheet needs team (or their only team), child-profile or league-registration context first. It owns team rosters, Staff, guardian requests and roster invitations; players-families owns "add my kids", "add my children" and "add these players to my family" with or without a sheet, child profiles, incoming guardian invitations and guardian-request groups, league-setup owns registrations, and invite-families owns enrollment-list invitations and same-row contacts.'
 ---
 
 # Manage my team
@@ -49,6 +49,10 @@ Use `team-staff-list` for “who coaches or runs this team” and before a coach
 For a requested player's emergency contacts, a contact change or a whole-team contact check, follow [Team emergency contacts](references/emergency-contacts.md).
 
 ## 3. Change the Roster
+
+This is for a coach or team admin changing a team's Roster. A parent/guardian adding their own children as family profiles goes to players-families instead.
+
+For `.xlsx`, if a shell is available, run exactly `python3 -I "${CLAUDE_PLUGIN_ROOT}/scripts/xlsx-to-csv.py" "<exact chosen .xlsx path>"` (append the quoted sheet name when the person picked one) and read its CSV output, following [Read the chosen sheet](../league-setup/references/own-files.md#read-the-chosen-sheet); without a shell, ask once for CSV using the Excel, Google Sheets or Numbers steps there and continue from it. Never guess workbook contents or read a neighboring file.
 
 Read the current Roster and any needed removed entries first. Show all requested additions, edits, removals and restores together with exact targets, values, effects and parent/guardian notices. One shared review and one next-message yes cover the entire list; then make the calls in order without asking again. Bind any newly created entry only to its confirmed returned ID.
 
