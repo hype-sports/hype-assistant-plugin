@@ -161,11 +161,16 @@ def main():
         # Names only, one folder, so the assistant never needs ls or find to locate an attached file.
         folder = os.path.dirname(os.path.abspath(args.path))
         try:
-            found = sorted(n for n in os.listdir(folder) if n.lower().endswith(('.xlsx', '.csv')))[:20]
+            found = sorted(n for n in os.listdir(folder) if n.lower().endswith('.xlsx') and not n.startswith('~$'))
         except OSError:
             found = []
-        listing = ('Spreadsheets in ' + folder + ': ' + ', '.join(found) + '. Run again with the matching name.') if found else ('No .xlsx or .csv files in ' + folder + '.')
-        print('Cannot find workbook: no file at ' + args.path + '. ' + listing + ' If none matches, ask the person for the exact path.', file=sys.stderr)
+        if found:
+            shown = [os.path.join(folder, n) for n in found[:20]]
+            more = f' (and {len(found) - 20} more)' if len(found) > 20 else ''
+            listing = 'Spreadsheets in that folder: ' + ', '.join(shown) + more + '. If exactly one is clearly the same file, run once more with that full path; if more than one could be, ask the person which.'
+        else:
+            listing = 'None found in ' + folder + '.'
+        print('Cannot find workbook: no file at ' + args.path + '. ' + listing + ' Otherwise ask the person for the exact path.', file=sys.stderr)
         return 1
     except WorkbookError as exc:
         print('Cannot read workbook: ' + str(exc), file=sys.stderr)

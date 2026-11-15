@@ -67,10 +67,17 @@ def self_test():
     missing = subprocess.run([sys.executable, '-I', str(Path(__file__).with_name('xlsx-to-csv.py')), str(Path(__file__).with_name('no-such-workbook.xlsx'))], capture_output=True, text=True)
     assert missing.returncode == 1 and 'Cannot find workbook' in missing.stderr and missing.stdout == ''
     import tempfile
+    script = str(Path(__file__).with_name('xlsx-to-csv.py'))
     with tempfile.TemporaryDirectory() as folder:
-        Path(folder, 'family.xlsx').write_bytes(b'')
-        nearby = subprocess.run([sys.executable, '-I', str(Path(__file__).with_name('xlsx-to-csv.py')), str(Path(folder, 'famly.xlsx'))], capture_output=True, text=True)
-    assert nearby.returncode == 1 and 'Spreadsheets in ' in nearby.stderr and 'family.xlsx' in nearby.stderr and nearby.stdout == ''
+        for name in ('family.xlsx', 'notes.txt', 'roster.csv', '~$family.xlsx'):
+            Path(folder, name).write_bytes(b'')
+        nearby = subprocess.run([sys.executable, '-I', script, 'famly.xlsx'], capture_output=True, text=True, cwd=folder)
+        empty = tempfile.mkdtemp(dir=folder)
+        none = subprocess.run([sys.executable, '-I', script, 'family.xlsx'], capture_output=True, text=True, cwd=empty)
+    listed = nearby.stderr
+    assert nearby.returncode == 1 and nearby.stdout == '' and 'family.xlsx' in listed and 'run once more with that full path' in listed
+    assert 'notes.txt' not in listed and 'roster.csv' not in listed and '~$' not in listed
+    assert none.returncode == 1 and 'None found in ' in none.stderr
     print('PASS: a missing workbook is named as missing, not as invalid')
 
     globals_ = convert.__globals__
