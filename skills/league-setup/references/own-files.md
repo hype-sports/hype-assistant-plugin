@@ -14,7 +14,7 @@ If no shell is available, or `python3` is missing, do not try a shell command or
 - **Google Sheets:** File → Download → Comma-separated values (.csv, current sheet).
 - **Numbers:** File → Export To → CSV; export the selected table.
 
-A denied shell command is not permission to work around the restriction; use the same CSV fallback. If conversion fails, explain and use the fallback, never a neighboring file. Keep all existing privacy and chosen-file limits below.
+A denied shell command is not permission to work around the restriction; use the same CSV fallback. If conversion fails for any other reason, explain and use the fallback, never a neighboring file. Keep all existing privacy and chosen-file limits below.
 
 ## Keep files and progress private
 

@@ -63,6 +63,10 @@ def self_test():
         else:
             raise AssertionError('Invalid workbook accepted')
     print('PASS: unsafe ZIP paths, missing sheets and invalid workbooks are rejected')
+    import subprocess, sys
+    missing = subprocess.run([sys.executable, '-I', str(Path(__file__).with_name('xlsx-to-csv.py')), str(Path(__file__).with_name('no-such-workbook.xlsx'))], capture_output=True, text=True)
+    assert missing.returncode == 1 and 'Cannot find workbook' in missing.stderr and missing.stdout == ''
+    print('PASS: a missing workbook is named as missing, not as invalid')
 
     globals_ = convert.__globals__
     for limit in ('MAX_XML_BYTES', 'MAX_WORKBOOK_BYTES', 'MAX_CSV_BYTES'):
