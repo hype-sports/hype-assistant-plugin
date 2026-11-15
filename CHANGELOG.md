@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.83 - 2026-11-15
+
+- Workbooks: the assistant runs only the bundled converter command, never listing, searching or opening other folders or files.
+- league-setup: division names the person wrote (for example U10, U12) are used as their names; the usual 8U Boys form is proposed only when none was given.
+
 ## 0.1.82 - 2026-11-15
 
 - Read a chosen Excel workbook with a bundled read-only converter when a shell is available; otherwise ask once for a CSV export with Excel, Google Sheets and Numbers steps. Never guess workbook contents or substitute another file. The converter names the sheet it read, and the assistant uses only the rows and columns the request needs.
