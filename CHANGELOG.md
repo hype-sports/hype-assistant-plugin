@@ -4,7 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.87 - 2026-11-15
 
-- Spreadsheets: when the named file is not there, the converter lists the `.xlsx` files in that folder (full paths, at most 20), so the assistant runs the converter straight away instead of listing or searching folders itself, and retries once only with a name that is clearly the same file. League setup now says a league's Private choice was sent, not confirmed, since the league read does not return it. League setup also triggers on "set up the league from this registration spreadsheet".
+- Spreadsheets: when the named file is not there, the converter lists the `.xlsx` files in that folder (full paths, at most 20), so the assistant runs the converter straight away instead of listing or searching folders itself, and retries once only with a name that is clearly the same file. League setup now says plainly never to claim Hype confirmed a league's Private choice, since the league read does not return it. League setup also triggers on "set up the league from this registration spreadsheet".
 
 ## 0.1.86 - 2026-11-15
 

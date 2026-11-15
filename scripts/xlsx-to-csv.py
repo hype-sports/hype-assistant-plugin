@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read one .xlsx sheet as CSV on stdout; never extract or write files.
+"""Read one .xlsx sheet as CSV on stdout; never extract or write files. A missing file lists up to 20 .xlsx names in its folder.
 
 Dates stay as stored numbers. Formulas are not run: only cached values are read.
 Limits: 5,000 rows, 100 columns, 16 MiB per XML part/CSV output, 50 MiB per workbook.
@@ -170,7 +170,7 @@ def main():
             listing = 'Spreadsheets in that folder: ' + ', '.join(shown) + more + '. If exactly one is clearly the same file, run once more with that full path; if more than one could be, ask the person which.'
         else:
             listing = 'None found in ' + folder + '.'
-        print('Cannot find workbook: no file at ' + args.path + '. ' + listing + ' Otherwise ask the person for the exact path.', file=sys.stderr)
+        print('Cannot find workbook: no file at ' + args.path + '. ' + listing + ' If none is, ask the person for the exact path.', file=sys.stderr)
         return 1
     except WorkbookError as exc:
         print('Cannot read workbook: ' + str(exc), file=sys.stderr)
