@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.94 - 2026-11-16
+
+- Messaging: ask who reacted to a message and get the names and reaction types, as in the app; a removed message now says it was removed, and photos show their name and size.
+
 ## 0.1.93 - 2026-11-16
 
 - Invite families: clarified which progress details can be empty; only the person who started a job can check or stop it; the question about keeping a progress record is asked before the review, never after your yes; the whole reviewed list always starts as one background job.
