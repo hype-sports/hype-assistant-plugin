@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.93 - 2026-11-16
+
+- Clarify family invitation progress fields, starter-only progress and cancellation, progress-record choices before the review and one yes, and one background job for the whole reviewed list.
+
 ## 0.1.92 - 2026-11-16
 
 - Invite families: after one complete review and one yes, start the whole ordered parent list as one background job instead of sending small parts or checking every parent separately. Saved-import invitations use the same job.

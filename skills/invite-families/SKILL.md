@@ -54,7 +54,7 @@ Deduplicate identical normalized registration/address pairs, retaining all sourc
 
 ## 4. Report progress, offer stopping and handle reviewed contacts
 
-Report the start snapshot, then call `league-guardian-invitations-progress` once only when the person asks about the known job. Never automatically poll, fetch more pages or read each invitation. Follow the reference's job/row state meanings: queued/deferred/claimed work is not failed, `sent` is email-service acceptance rather than mailbox delivery or family linking, and `unknown` stays uncertain. Counts cover the whole job even when row details are partial. End each progress check with that snapshot; completed/cancelled jobs need no further checks unless later requested.
+Only the person who started a job can read its progress or cancel it. Report the start snapshot, then call `league-guardian-invitations-progress` once only when that person asks about the known job. Never automatically poll, fetch more pages or read each invitation. Follow the reference's job/row state meanings: queued/deferred/claimed work is not failed, `sent` is email-service acceptance rather than mailbox delivery or family linking, and `unknown` stays uncertain. Counts cover the whole job even when row details are partial. End each progress check with that snapshot; completed/cancelled jobs need no further checks unless later requested.
 
 Offer `league-guardian-invitations-cancel` for remaining work. Show the known job and effects, obtain one next-message yes for that requested cancellation, then call once and report its returned counts. Cancellation stops future work only: it cannot recall in-flight/accepted mail, undo invitations or remove parent/guardian access. Never claim stopping assistant calls stops the server job.
 

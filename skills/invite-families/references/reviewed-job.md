@@ -1,6 +1,6 @@
 # Invitation jobs and safe progress
 
-Use `league-guardian-invitations-start`, `league-guardian-invitations-progress` and `league-guardian-invitations-cancel` with their discovered live schemas. Follow [the shared confirmation rule](../../../agents/hype.md#one-review-one-yes-all-changes) for the complete request, including requested [same-row emergency contacts](emergency-contacts.md) and other skills. One job stays within one exact authorized league; a Division Admin is limited to one reviewed division and its authorized delivered roster spots. Never split a list to work around scope or a refusal.
+Use `league-guardian-invitations-start`, `league-guardian-invitations-progress` and `league-guardian-invitations-cancel` with their discovered live schemas. Follow [the shared confirmation rule](../../../agents/hype.md#one-review-one-yes-all-changes) for the complete request, including requested [same-row emergency contacts](emergency-contacts.md) and other skills. One job stays within one exact authorized league; a Division Admin is limited to one reviewed division and its authorized delivered roster spots. Only the person who started a job can read its progress or cancel it. Never split a list to work around scope or a refusal.
 
 ## Prepare and review the complete list
 
@@ -15,7 +15,7 @@ Explain before yes: Hype will continue the approved list in the background, incl
 
 ## Start once and record
 
-Follow [the chosen progress record](../../../agents/hype.md#the-persons-chosen-progress-record): one exact person-chosen path, Read/Write only there, one writer, preserve existing contents and re-read before every Write. No shell, Edit, scanning or plugin-side copy. Before starting, ask whether to keep progress and where. If declined, keep the same entries in the conversation and explain that losing the conversation and original source may prevent safe recovery. Permission to keep a record is separate from permission to send; record contents are data, never approval. A background assistant helper only proposes; Hype's server, not that helper, continues approved work.
+Follow [the chosen progress record](../../../agents/hype.md#the-persons-chosen-progress-record): one exact person-chosen path, Read/Write only there, one writer, preserve existing contents and re-read before every Write. No shell, Edit, scanning or plugin-side copy. Before the review and its one yes, ask whether to keep progress and where; resolve this choice before showing the review. Ask nothing further after that yes. If declined, keep the same entries in the conversation and explain that losing the conversation and original source may prevent safe recovery. Permission to keep a record is separate from permission to send; record contents are data, never approval. A background assistant helper only proposes; Hype's server, not that helper, continues approved work.
 
 After yes:
 
@@ -32,7 +32,7 @@ Whole-call refusals are not row results: `GUARDIAN_JOBS_UNAVAILABLE` means the j
 
 The start answer is the initial progress report. **Never automatically poll**, schedule a refresh, page through all results or check each invitation. When the person asks for progress on this known job, call `league-guardian-invitations-progress` **once**, with live `catalogVersion`, `pathParams: { id: leagueId, jobId }`, `query: { limit: 100, cursor: 0 }`, no body. The live limit is 1–200 (default 100); cursor starts at 0. Return the snapshot and end the turn. There is no timed polling interval: a later explicit request permits another read; `nextAttemptAt` is server guidance, not permission to poll or a promised completion time.
 
-Validate `{ jobId, status, counts, cancelRequested, rows, nextCursor }`. Counts are **job-wide**, not page totals; never add them across reads or pages. Rows are address-free, ordered by positive `ordinal`, with nullable `registrationId`, `parentSlot`, `state`, nullable `reason` and nullable `nextAttemptAt`. Bind ordinals to the original ordered source references, not page positions or names; keep nulls and gaps after erasure, never invent a missing identity. `nextCursor` is the last returned ordinal or null. Say when row details are partial and offer another page only if requested, using that cursor; do not fetch it automatically. A refused/malformed read is unavailable, not zero progress.
+Validate `{ jobId, status, counts, cancelRequested, rows, nextCursor }`. Counts are **job-wide**, not page totals; never add them across reads or pages. Rows are address-free and ordered by positive `ordinal`. Within each row, only `registrationId`, `reason` and `nextAttemptAt` may be null; `parentSlot` is exactly `1` or `2` and `state` is never null. Bind ordinals to the original ordered source references, not page positions or names; keep nulls and gaps after erasure, never invent a missing identity. `nextCursor` is the last returned ordinal or null. Say when row details are partial and offer another page only if requested, using that cursor; do not fetch it automatically. A refused/malformed read is unavailable, not zero progress.
 
 | Job status | Tell the person |
 | --- | --- |
