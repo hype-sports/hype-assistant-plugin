@@ -4,7 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.93 - 2026-11-16
 
-- Clarify family invitation progress fields, starter-only progress and cancellation, progress-record choices before the review and one yes, and one background job for the whole reviewed list.
+- Invite families: clarified which progress details can be empty; only the person who started a job can check or stop it; the question about keeping a progress record is asked before the review, never after your yes; the whole reviewed list always starts as one background job.
 
 ## 0.1.92 - 2026-11-16
 
