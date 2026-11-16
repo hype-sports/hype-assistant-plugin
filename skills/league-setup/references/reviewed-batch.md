@@ -2,7 +2,7 @@
 
 Use [One review, one yes, all changes](../../../agents/hype.md#one-review-one-yes-all-changes) for consent across the whole requested list. This reference adds tool-specific checks, not a separate approval boundary, page ceiling or team/division limit on that list. Several teams or divisions can be reviewed together only when each exact target is independently identified and authorized. One yes never combines server calls into an invented bulk endpoint.
 
-For invitation lists, including saved-import recipients, follow [Invitation jobs and safe progress](../../invite-families/references/reviewed-job.md): one whole-list start, requested known-job progress and optional reviewed cancellation, never preview/send parts or per-parent checks. Its job-specific rules replace the individual-invitation checks below. For contacts from those same source rows, also follow [Same-row emergency contacts](../../invite-families/references/emergency-contacts.md): add-only, with no whole-list update fallback.
+For invitation lists, including saved-import recipients, follow [Invitation jobs and safe progress](../../invite-families/references/reviewed-job.md): one whole-list start, requested known-job progress and optional reviewed cancellation, never legacy preview/send calls or per-parent checks. Its job-specific rules replace the individual-invitation checks below. For contacts from those same source rows, also follow [Same-row emergency contacts](../../invite-families/references/emergency-contacts.md): add-only, with no whole-list update fallback.
 
 ## Choose the contact tool before review
 
@@ -27,7 +27,7 @@ Show returned `remaining`, `limitedBy` and `availableAt`. At zero capacity name 
 
 ## Server limits and pacing
 
-- Individual guardian invitations remain limited to **3 per player per rolling 24 hours**, across senders and addresses, plus current sender/shared capacity. Review size is not sending capacity. Follow a rate refusal's wait guidance without automatically resubmitting it; a requested resumed remainder needs the shared review and one new yes.
+- Individual guardian invitations remain limited to **3 per player per rolling 24 hours**, across senders and addresses, plus current sender/shared capacity. Review size is not sending capacity. Follow a rate refusal's wait guidance without automatically resubmitting it; a requested resumed remainder for individual invitations needs the shared review and one new yes.
 - Emergency-contact calls accept at most **20 contacts**; add also refuses when the resulting staff list would exceed **20 total**, with no partial save. These are contacts, not players or calls per minute. Add uses `pathParams: { id: teamId, entryId: rosterEntryId }`, no query, and `body: { contacts: [...] }` with required `firstName`, `lastName`, `phone` and optional/null `email`, plus other fields only as allowed by the calling skill and live schema.
 - Add skips matching phone digits or normalized email, including matches earlier in the same call. A repeat against unchanged state skips rather than updates; `{ added, skipped }` gives counts, not identities or a replay receipt. There is no retry key: matching never permits retrying an unknown outcome.
 - Keep MCP request starts at least **1.1 seconds apart**, including reads, discovery, key requests and writes, and stay below **60 MCP POSTs per rolling 60 seconds per account**, shared across tokens, devices and sessions. A list with one read per write costs at least twice its write count. Pacing and approval reserve no quota.

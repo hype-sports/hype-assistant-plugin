@@ -73,7 +73,7 @@ Access is by invitation for now. Installing the plugin does not grant access. An
 - **It acts only as you.** It signs in as your own Hype account and has your own rights, nothing more. It never asks for your password: the browser sign-in is the only place for it.
 - **Your records are data, not orders.** Text inside your Hype records is treated as information, never as instructions.
 - **Long jobs.** Keep your approvals in the main conversation. Plain helper assistants may not get the Hype connection, so check that a helper can see Hype before handing it work.
-- **Progress records.** The Hype assistant (`claude --agent hype:hype`) can keep a progress record in one file you choose, only when you ask. That limit is an instruction, not a file lock; see [your own files](skills/league-setup/references/own-files.md).
+- **Progress records.** The Hype assistant (`claude --agent hype:hype`) can keep a progress record in one file you choose, when you choose. That limit is an instruction, not a file lock; see [your own files](skills/league-setup/references/own-files.md).
 
 ## Using Hype from other assistants
 
