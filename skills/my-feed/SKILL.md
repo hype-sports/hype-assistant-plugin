@@ -1,6 +1,6 @@
 ---
 name: my-feed
-description: 'This skill should be used for "show my Feed", "show my team Feed", "read the comments", "comment on this post", "Hype this post", "write an announcement", "check announcement reach", "Undo my announcement", "delete my announcement" or "delete this comment". It owns Feed posts, comments, Hypes and announcements; catch-up owns notifications, notification-settings owns delivery preferences, and chats stay in Messages in the app.'
+description: 'This skill should be used for "show my Feed", "show my team Feed", "read the comments", "comment on this post", "Hype this post", "write an announcement", "check announcement reach", "Undo my announcement", "delete my announcement" or "delete this comment". It owns Feed posts, comments, Hypes and announcements; catch-up owns notifications, notification-settings owns delivery preferences, messaging owns chat reads and text sends, and chat photos stay in the app.'
 ---
 
 # My Feed
@@ -18,7 +18,7 @@ At session start and after a whole-call refusal suggesting stale tools (not an o
 
 Use only the person's own signed-in Hype connection and existing access. Installing the plugin grants nothing; Hype checks rights on every request. Speak plainly and ask one question at a time. Keep tool field names, operation keys and raw timestamps internal; show human-readable results and times instead. Starting `my-feed` is not approval to change anything.
 
-For “message my team,” clarify whether the person means a Feed announcement or a team chat; never substitute an announcement for a chat message. To send a chat message or photo, do this in the app.
+For “message my team,” clarify whether the person means a Feed announcement or a team chat; never substitute an announcement for a chat message. For chat reads or text sends, use [messaging](../messaging/SKILL.md) under the shared review for any send. Sending chat photos stays in the app.
 
 For notification reading or marking notices read, use [catch-up](../catch-up/SKILL.md). For notification switches or quiet hours, use [notification-settings](../notification-settings/SKILL.md). Do not duplicate those workflows or treat reading a Feed post as marking a notification read.
 

@@ -6,7 +6,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 - Add Messaging: find your chats, including current-season Team and Staff chats by team, check unread snapshots and read recent messages with paging, attachment details and reaction counts. Keep personal details out of summaries and reports.
 - Send exact approved text as yourself under the shared one-review, one-yes rule, preserving Hype's access, consent and rate checks and the original message identifier. Unknown sends stop without automatic retries or replacement keys.
-- Route conversation reads and text sends from catch-up, find-in-hype and manage-my-team to Messaging instead of saying they must happen in the app.
+- Route conversation reads and text sends from catch-up, find-in-hype, manage-my-team and my-feed to Messaging instead of saying they must happen in the app; chat photos stay in the app. Explain first-message restrictions, the 30-send hourly limit, older-page cursor expiry and omitted closed direct chats.
 
 ## 0.1.90 - 2026-11-16
 
