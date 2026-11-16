@@ -88,7 +88,7 @@ Map the person's exact chosen sheet; retain both supplied parents as separate em
 
 ### Invite the saved import parents
 
-Follow [Invitations to saved import parents](references/tools-and-rules.md#invitations-to-saved-import-parents), not the generic invitation or batch workflow. Include every requested parent invitation in the complete review, all first parents before second parents in source order. Distinguish importing from sending email: a yes covers sends only when those exact recipients and effects were included. Use confirmed import receipts to bind new registration IDs; changed or unresolved recipients require a revised review. Do not ask again per division, page or recipient. Preserve existing offers; never substitute another send tool. Continue only independent approved parts after refusal; stop writes on uncertainty and list the remainder honestly.
+Follow [Invitations to saved import parents](references/tools-and-rules.md#invitations-to-saved-import-parents) and the shared [whole-list job](../invite-families/references/reviewed-job.md), never individual import-invite loops. Include every requested parent invitation in the complete review, all first parents before second parents in source order. A yes covers import and one job start only when those exact recipients and effects were included. Bind new registration IDs only from confirmed import receipts and addresses only from their matching original source slots; changed/unresolved recipients require a revised review. Start once for the complete approved list, preserve its original key/inputs and report admission rather than delivery. No extra yes per division/recipient, automatic polling, replacement job or resend after uncertainty.
 
 ## 6. Read-only readiness and handoff
 
