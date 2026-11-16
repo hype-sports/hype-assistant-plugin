@@ -35,7 +35,7 @@ Creation makes the caller League Admin and Commissioner. Season is fixed after c
 
 _These are separate requests arriving over time, not a policy of one approval per setup step. For a single request covering the league, divisions and invitations, gather all choices and show the whole list once, then use one next-message yes for the exact sequence._
 
-_Call `league-create` once, then read the returned id with `league-get` after clear success. Report “Private: yes — sent at creation, not confirmed”; Hype does not return that choice. In this example, observe no active divisions from `league-divisions-list`._
+_Call `league-create` once, then read the returned id with `league-get` after clear success. Report the saved choice from its `hiddenFromPublic` (“Private: yes”); only when that field is absent, say “Private: yes — sent at creation, not confirmed”. In this example, observe no active divisions from `league-divisions-list`._
 
 ## Add a division and its starting teams
 
