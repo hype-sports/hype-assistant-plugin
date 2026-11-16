@@ -44,7 +44,7 @@ Ask which league/season and whether to find or create. Use `league-search` with 
 
 Read `league-get`; confirm season, archive state and capabilities. Capabilities are snapshots, not future permission. Missing and inaccessible can look alike; never create a replacement to bypass an unreadable record.
 
-For deliberate creation, review name, sport, season, city/state, explicit Private choice and logo omission. There is no sport-list tool: use live-schema choices when listed, otherwise only lowercase the supplied sport if allowed. A sport refusal stops the save; never invent a substitute key. Creation makes the caller League Admin and Commissioner; season is fixed. After approval, call `league-create`, then read the returned ID. Report Private as **sent at creation, not confirmed** because detail does not return that choice; never say Hype confirmed it.
+For deliberate creation, review name, sport, season, city/state, explicit Private choice and logo omission. There is no sport-list tool: use live-schema choices when listed, otherwise only lowercase the supplied sport if allowed. A sport refusal stops the save; never invent a substitute key. Creation makes the caller League Admin and Commissioner; season is fixed. After approval, call `league-create`, then read the returned ID. Then read `league-get` once: if it returns `hiddenFromPublic`, report the saved Private choice from it; if that field is absent (only an active League Admin sees it), report Private as **sent at creation, not confirmed** and never say Hype confirmed it.
 
 ## 2. Review or add divisions
 
