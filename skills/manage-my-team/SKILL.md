@@ -95,7 +95,7 @@ Clarify whether “waiting to join” means Staff invitations, follow requests, 
 
 ## 7. Team chat
 
-Team chat is covered by the Messaging skill once it is released; reading or sending chat messages is not part of this skill. Do not use chat tools here or offer to post in a team chat.
+Hand off requested chat reads and text sends to [messaging](../messaging/SKILL.md), carrying the selected team's exact ID from Home or the roster so it can find that team's current-season chats without matching names. Reading or sending chat messages is not part of this team-management skill; include requested sends in the same complete shared review, never as an automatic follow-up.
 
 ## 8. Execute once; recover without guessing
 
