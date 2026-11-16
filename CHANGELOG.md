@@ -2,10 +2,237 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.91 - 2026-11-16
+
+- Add Messaging: find your chats, including current-season Team and Staff chats by team, check unread snapshots and read recent messages with paging, attachment details and reaction counts. Keep personal details out of summaries and reports.
+- Send exact approved text as yourself under the shared one-review, one-yes rule, preserving Hype's access, consent and rate checks and the original message identifier. Unknown sends stop without automatic retries or replacement keys.
+- Route conversation reads and text sends from catch-up, find-in-hype and manage-my-team to Messaging instead of saying they must happen in the app.
+
+## 0.1.90 - 2026-11-16
+
+- Season scheduling: save a complete reviewed season to saved league Fields through the existing shared-game tools, with one next-message yes for the whole plan. Use the league directory's current references and verify each saved link; preserve sequential calls, original request keys and honest partial results. Keep progress only at the person's chosen path. Plan-only requests remain unsaved.
+
+## 0.1.89 - 2026-11-15
+
+- My account: set your own profile photo to Hype's approved drawn picture (one review, one yes); profile reads now say whether a photo is set. Personal photos stay in the app. League setup reads the saved Private choice back from `league-get` when it is returned (League Admins), instead of always saying it was sent but not confirmed.
+
+## 0.1.88 - 2026-11-15
+
+- The four spreadsheet skills' descriptions now open with the attached-file rule, so it is in view before a skill is chosen.
+
+## 0.1.87 - 2026-11-15
+
+- Spreadsheets: when the named file is not there, the converter lists the `.xlsx` files in that folder (full paths, at most 20), so the assistant runs the converter straight away instead of listing or searching folders itself, and retries once only with a name that is clearly the same file. League setup now says plainly never to claim Hype confirmed a league's Private choice, since the league read does not return it. League setup also triggers on "set up the league from this registration spreadsheet".
+
+## 0.1.86 - 2026-11-15
+
+- Spreadsheet skills: the attached-file rule (current folder, straight to the converter, never list or search) now opens each skill, so it is read before the first step.
+
+## 0.1.85 - 2026-11-15
+
+- Spreadsheets: a file attached or named without a folder is taken from the current working folder and converted directly, with no listing or searching; if it is not there, the converter now says it cannot find the file and the assistant asks for the exact path. The spreadsheet skills also read the plugin's own reference files with the file-reading tool, never through the shell.
+
+## 0.1.84 - 2026-11-15
+
+- run-evaluations: starting a division evaluation or a personal sheet sends no player IDs; Hype includes the current players itself and reports how many. The assistant no longer offers to pick players at creation (the player list can be changed afterwards).
+
+## 0.1.83 - 2026-11-15
+
+- Workbooks: the assistant runs only the bundled converter command, never listing, searching or opening other folders or files.
+- league-setup: division names the person wrote (for example U10, U12) are used as their names; the usual 8U Boys form is proposed only when none was given.
+
+## 0.1.82 - 2026-11-15
+
+- Read a chosen Excel workbook with a bundled read-only converter when a shell is available; otherwise ask once for a CSV export with Excel, Google Sheets and Numbers steps. Never guess workbook contents or substitute another file. The converter names the sheet it read, and the assistant uses only the rows and columns the request needs.
+- players-families: route “add my kids” and family sheets to managed Hype profiles, check existing profiles first, and review every new child and requested emergency contact together before one yes. Keep existing profiles instead of creating duplicates, and point to Players in the app afterward.
+- players-families and invite-families: receipts after yes never repeat email addresses or phone numbers.
+
+## 0.1.81 - 2026-11-14
+
+- clubs-and-tournaments: explain which Club actions are refused while archived and that declines, expiry and account erasure still finish. Restore also removes every Admin's archived lifecycle note for that Club.
+
+## 0.1.80 - 2026-11-14
+
+- run-evaluations: adding another date to an evaluation says when to send `ownerType: 'team'` (only when the event card shows a team as the owner) and to leave it out for a division evaluation, matching what Hype accepts. If it is unclear, the assistant asks.
+
+## 0.1.79 - 2026-11-14
+
+- clubs-and-tournaments: archive or restore a Club, or permanently delete a new, unused mistake only when the server says it is eligible. Show its lifecycle counts and use the shared review and your yes in the next message. Offer Archive after a Delete refusal only for the 30-day limit or an in-use Club; an already archived Club points to Restore, and other refusals stop.
+- Read your Club archive/deletion notes, including deleted-Club notes for former Admins, and dismiss only your own copy after the shared review and yes; dismissal never restores or deletes the Club.
+
+## 0.1.78 - 2026-11-14
+
+- my-account: list your connected assistants and disconnect one of them, including this one, after naming it back and getting your yes in your next message. A read-only connection is pointed to the app instead.
+
+## 0.1.77 - 2026-11-14
+
+- my-account: when roles block account deletion, the assistant says archived or paused leagues and teams count too, so a shorter list seen elsewhere does not confuse the person.
+
+## 0.1.76 - 2026-11-14
+
+- my-account: when account deletion is refused because roles remain, the assistant now receives and shows the list of roles to leave or hand over first.
+- players-families: delete one emergency contact after showing its name and relationship in the shared review and getting one yes, without replacing or wiping the contact list.
+
+## 0.1.75 - 2026-11-14
+
+- league-setup: every imported row now tells the server what the preview showed for it, so a player added or changed by someone else after the preview stops the import and is reported, instead of being quietly left as it was.
+
+## 0.1.74 - 2026-11-14
+
+- league-setup: two or more players (typed, pasted or from a file), or one player with two parents' details, now always go through the import (one preview, both parents kept as contacts, then one import), never one-at-a-time registration.
+
+## 0.1.73 - 2026-11-14
+
+- players-families: current league staff, or the adult themselves, can remove a parent/guardian from a league player. The review says who gets an in-app notice, that the link ends but its history is kept, and that an older invitation cannot bring them back.
+
+## 0.1.72 - 2026-11-14
+
+- league-setup: a phone number that needs correcting stops the plan; Claude asks for it and never offers leaving it out as a default.
+- league-setup and invite-families: invitation reviews show each address being invited, exactly as it will be sent, so you can catch a typo before your yes.
+- league-setup: the invitation allowance is read after the import is saved (it grows with the league's registered players), and the plan never reads another league for defaults.
+
+## 0.1.71 - 2026-11-14
+
+- league-setup: for a league in a US state, parent phone numbers written US-style (202-555-0123) are converted to the full international form (+12025550123) and shown as "was → becomes" before your yes; anything else is listed for you to correct, never dropped. Any preview refusal or difference stops for a new yes; no row value is changed to get past it.
+- league-setup: the plan lists the exact invitations, the allowance is read only for the league being acted on, and a changed count or recipient list stops for a new yes. Never more invitations than the plan listed.
+
+## 0.1.70 - 2026-11-14
+
+- league-setup: when one plan creates a league or divisions and imports a sign-up sheet, the plan now shows each row's division before your yes, and rows it cannot place are left out. After the divisions exist, the server preview runs; the import goes ahead under that yes only if every row is a plain new addition in its planned division. Any match, update, contact change, exception or skip is shown for a new yes.
+
+## 0.1.69 - 2026-11-14
+
+- manage-my-team: the review for a parent/guardian Roster-spot invitation or a coach invitation now shows the email address exactly as you typed it, so you can catch a typo before your yes. Addresses still come only from you, never from a roster or contact read.
+
+## 0.1.68 - 2026-11-14
+
+- manage-my-team settles the team before reading any Roster: the team you named, or the only team you run (named in the review); otherwise it asks which team. It no longer reads every team's Roster to find a player.
+- Inviting a parent/guardian for a Roster spot: when you have not given their email, Claude asks for it in one question (or points you to the Roster spot in Hype), then shows the full review before anything is sent. It never takes an address from a roster or contact list.
+
+## 0.1.67 - 2026-11-13
+
+- manage-my-team: plain roster requests such as "On <team>, add two players and change a jersey number" now start the team skill, so its one review and one yes apply.
+
+## 0.1.66 - 2026-11-13
+
+- Send announcements last, back to back when several are approved, with each original Undo window explained before yes and the full result report in the immediate final message.
+- After a lost write answer, inspect only the affected item once; report current state and keep unsupported or unresolved outcomes unknown rather than retry or scan wider lists.
+
+- Delete requested announcements and comments under the shared complete-list review and one next-message yes, with no Undo and removal confirmed only by a validated answer.
+- Keep notification bell counts separate from group-chat and direct-message unread snapshots, and explain where to act in the app.
+- Read notification settings without a separate approval prompt, retaining one review and yes for changes. Use the app's labels, distinguish saved Email choices from actual sends, and do not offer daily summary controls: neither the assistant nor the app has them today.
+
+- Plain requests now select the matching Hype skill; commands remain optional shortcuts. Remove the command-only start-here guide and clarify skill ownership.
+- Use one complete review and one next-message yes for all requested changes, including mixed roster changes, child profiles with contacts and sports, and multi-part invitations. Preserve server access checks, request keys, receipts and safe recovery; change confirmation has no separate time limit.
+- Include requested same-row emergency contacts in the invitation review instead of asking again per team or page. Use the current live send limits without making the person manage parts; whole-list server-paced sending is not available yet.
+- Keep player erasure in the app and preserve the warning that saved child birth dates and contacts must be checked there.
+
+- players-families: after adding a child, say that the saved birth date and emergency contacts can't be read back here and should be checked in the app.
+
+## 0.1.65 - 2026-11-13
+
+### Changed
+- Clubs and Tournaments: list your administered Tournaments, cancel waiting Club Admin offers, remove another Club Admin and edit saved Tournament Rules after your separate yes. Removing another Tournament Admin is not available yet.
+- Read and edit Club Overview sections with current permissions, exact previews and separate approval, including clear permanent-deletion effects and no automatic retries or follow-up reads after saving.
+- Align the tool reference and examples with current tools, remove stale tool counts and shorten repeated guidance.
+
+## 0.1.64 - 2026-11-13
+
+### Added
+- `start-here`: ask in plain words and get the right `/hype:` command to run, with one line on what it does. It never runs a command and changes nothing.
+- `check.sh` also checks the commit messages since `origin/main` for internal tracker references.
+
+### Changed
+- The README now reads as a product page: what it is, what you can ask, install and update, sign in (including Read only connections and what to do if you are signed out), who can use it today, how it keeps you safe, other assistants, privacy links and where to get help.
+- Removed maintainer-only material from the README and testing-status notes from skill text; the Skills table's Preview label covers it.
+- Removed the repository's `.claude/settings.json`, which turned on authoring plugins for anyone who opened the repository.
+
+## 0.1.63 - 2026-11-13
+
+### Changed
+- Shorten league setup, route staff work and larger family invitations to their dedicated skills, use the division readiness checklist and explain which registration actions stay in the app.
+- Offer approved demo artwork only when requested, never as an upload of a person's own picture; custom logos stay in the app.
+- Align league staff with separate Admin/title choices, title-only edits, own Division Admin self-leave and recipient accept/decline.
+- Show a parent contact back only to the person who typed it, in that person's immediate approval.
+- Show the current family-invitation allowance, check one supplied sign-up contact when asked, and keep same-sheet contact imports add-only without a replacement fallback.
+
+## 0.1.62 - 2026-11-13
+
+### Added
+- Add or edit a child's profile and emergency contacts, see who manages the profile, leave it, or ask to join a team as a parent/guardian, with confirmation before every change.
+- Answer, resend or cancel supported parent/guardian invitations, review team requests, and read league or division players within the person's own access.
+- Add parent, coach and league-admin examples, including what to say when an earlier invitation email's result is unknown.
+
+### Changed
+- Organize Players & Families by who is asking and link to the existing league invitation skills instead of repeating their sends.
+- Show names instead of record numbers, find the team before a join request, and explain that one coach approval answers one player's request.
+- Keep irreversible player erasure and withdrawing mistaken team requests in the app; explain possible duplicate emails before asking to resend.
+
+## 0.1.61 - 2026-11-13
+
+### Changed
+- Match account-deletion guidance to every staff and Admin role that must be left first, and keep the status waiting list separate from those blockers.
+- Cover login history, assistant activity, personal Blocks and managed-player erase requests, with separate approval before each change and later-turn confirmation before scheduling player erasure.
+- Read Terms state from its returned fields without assuming publication history, and point account/player erasure requests to `my-account`.
+
+## 0.1.60 - 2026-11-13
+
+### Changed
+- Align evaluation creation with Division Admin management rights without promising a private scoring sheet or scoring access.
+- Find manageable evaluations without a saved sheet, read who came to each tryout date, and mark or clear one player's attendance after a separate preview and yes.
+- State attendance's current player-list editor and date-start requirements without claiming a draft effect; clarify accepted page-size forms and include attendance in command summaries.
+- Clarify manual evaluation-review invocation, tryout request phrases and distinct paging inputs; keep archiving and restoring deliberately in the app.
+- Move detailed evaluation actions and ranking/file rules into linked references with worked examples, preserving approval, privacy and uncertain-outcome safeguards.
+
+## 0.1.59 - 2026-11-13
+
+### Changed
+- Run a draft with today's tools: draw and reveal pick order, assign who picks for a team, refresh teams, manage Saves and player links, change settings, and manage a private pick list or the team's own turn, one yes per change.
+- Explain paced Hat draws for marked players at the app's current pace and separately approved assistant draws, with limited Undo rather than calling each group final; never start an automatic timer or substitute all-at-once placement.
+- Add clear Cancel, Delete and Archive warnings, private cutoff-age reading and the person's own Division Skip preference; read current settings and keep clock recovery and unchanged-request retries in one reference.
+- Stop if the request-key tool is missing or fails instead of generating a replacement key; use one shared missing-tool rule.
+- Match Cancel and Delete explanations to the app's confirmation wording, and distinguish the draft's scheduled time and clock expiry settings from calendar entries and a team's own auto-pick switch.
+
+## 0.1.58 - 2026-11-13
+
+### Added
+- Add tournament and managed player-profile links with read-only record selection, explicit page requests and no guessed IDs.
+
+### Fixed
+- Correct `find-in-hype` directions: Home, Feed, Messages and Events are the main tabs; Settings and Notifications open from the header.
+- Keep followed players out of profile-link lookups, direct team player requests to Members (Players filter), and describe the notification arrow under the list.
+- Name the existing workflow commands, keep app-only actions in the app, and describe Report a problem as a permanent prepared-email handoff rather than a pre-launch option. Suggest updating the app if the control is missing, and keep the signed-in Preview warning.
+
+## 0.1.57 - 2026-11-13
+
+### Changed
+- Season scheduling now names the live team lists and saved Place/Field readers. Keep whole-season plans unsaved because shared games accept location text, not saved Fields; never send saved IDs to those tools.
+- Add plain request phrases and cancellation undo for one shared game after a fresh read and explicit yes. Explain its restored notice to eligible members, with no email or announcement. Leave archive and permanent delete to the app; shared-game unarchive has a live tool but no app action yet.
+- Clarify that the app's Add game also accepts only a typed location, not saved Fields. Restore write-access and data-collection safeguards, distinguish saved directories from team lists, and give short numbered steps for one-game changes and unclear results.
+- Remove repeated season guidance, clarify optional schedule-card filters and keep technical error codes out of replies. Update the examples to match.
+
+## 0.1.56 - 2026-11-13
+
+### Changed
+- `my-support`: a shorter, plainer description, and no hard-coded "paying is not open yet" line, so the skill stays right once support payments open. It now names the four checkout and portal tools the connection may list and says they are left to the Hype app on purpose, and explains an Apple or Google subscription in the status: managed in the phone's settings, and a date that is still being retried is never called paid up.
+- `my-account` points supporter questions to `/hype:my-support`.
+
+## 0.1.55 - 2026-11-13
+
+### Changed
+- Manage my team: add, change, take off and put back Roster entries, invite a parent/guardian for a roster spot and roll a Roster over to the next season, each after your yes in a later turn. A lost answer is treated as unknown: the lists are read again, never retried blindly.
+- Staff invitations now get a request key from `request-key-new`, so a repeated send cannot cancel the first offer and email again; resend and cancel a waiting staff invitation.
+- Answer parent/guardian requests one at a time (approve, decline or block) and request, answer, leave, place or remove league memberships within each tool's own limits.
+- Emergency-contact guidance moved to its own reference page; the skill description now covers emergency contacts and "who coaches my team". Team chat is left to the Messaging skill once it is released.
+- The assistant's command list now includes Manage my team, Clubs and Tournaments, My support and Terms and privacy.
+- The plugin listing now links Hype's existing Privacy Policy and Terms of Service, and its support page.
+
 ## 0.1.53 - 2026-11-13
 
 ### Added
-- Messaging preview: find your chats, check unread counts, read one recent page and send exact approved text as yourself through the current app rules. Unknown sends stop without a replacement key or automatic retry.
+- `my-feed` Preview skill: read your Feed and comments, write comments and give Hypes (each after your yes), and send announcements with a 10-second Undo. Say Undo right after saving to cancel at once, without another confirmation.
+- Choose announcement groups and roles and check reach before sending. A queued announcement is lined up to go out after its Undo window unless held or refused; an unavailable one is saved but not lined up to go out. Neither proves it reached anyone's phone; failed-send history is not available yet.
+- Feed tool reference and worked evaluation scenarios; tell the person to run the existing skills for notification reading and settings.
 
 ## 0.1.52 - 2026-11-13
 

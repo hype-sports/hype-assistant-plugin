@@ -26,6 +26,14 @@ for path in sorted(files):
         if private_reference.search(line):
             errors.append(f'{path}:{number}')
 print(f'Public references: checked {text_count} text files')
+try:
+    commits = subprocess.check_output(['git', 'rev-list', 'origin/main..HEAD'], text=True, stderr=subprocess.DEVNULL).split()
+    for commit in commits:
+        if private_reference.search(subprocess.check_output(['git', 'log', '-1', '--format=%B', commit], text=True)):
+            errors.append(f'commit {commit[:12]} message')
+    print(f'Commit messages: checked {len(commits)} commits since origin/main')
+except subprocess.CalledProcessError:
+    errors.append('commit messages: cannot list origin/main..HEAD')
 
 json_files = sorted(p for p in files if p.suffix == '.json')
 for path in json_files:

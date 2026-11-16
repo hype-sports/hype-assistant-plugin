@@ -4,7 +4,7 @@ Read this example of the [workflow](../SKILL.md) as a worked conversation, not a
 
 ## Find or create a league
 
-**Commissioner:** `/hype:league-setup` — Help me set up Meadowbrook Youth League for Spring 2027 in Cedar Glen, TX.
+**Commissioner:** Help me set up Meadowbrook Youth League for Spring 2027 in Cedar Glen, TX.
 
 **Assistant:** I'll check the signed-in Hype tools first. Installing the plugin grants no access; starting it approves no changes. Look for an existing league?
 
@@ -33,7 +33,9 @@ Creation makes the caller League Admin and Commissioner. Season is fixed after c
 
 **Commissioner:** Yes, create that league.
 
-_Call `league-create` once, then read the returned id with `league-get` after clear success. Report “Private: yes — sent at creation, not confirmed”; Hype does not return that choice. In this example, observe no active divisions from `league-divisions-list`._
+_These are separate requests arriving over time, not a policy of one approval per setup step. For a single request covering the league, divisions and invitations, gather all choices and show the whole list once, then use one next-message yes for the exact sequence._
+
+_Call `league-create` once, then read the returned id with `league-get` after clear success. Report the saved choice from its `hiddenFromPublic` (“Private: yes”); only when that field is absent, say “Private: yes — sent at creation, not confirmed”. In this example, observe no active divisions from `league-divisions-list`._
 
 ## Add a division and its starting teams
 
@@ -74,11 +76,11 @@ _Read `division-get` immediately before the change._
 
 _Call `division-update` once, read the same id and compare the saved setting and any derived name. Keep the visible placed-team count and configured count separate._
 
-## Staff offers need separate approvals
+## Include staff offers in the complete requested review
 
 **Commissioner:** Invite Morgan Vale at morgan.vale@example.net as Commissioner, not Admin.
 
-_Read `league-staff-list` as the League Admin in this example._
+_Use `league-staff` and its exact invitation policy; read `league-staff-list` as the League Admin in this example._
 
 **Assistant:** Invite **morgan.vale@example.net** to **Meadowbrook Youth League**? **Admin: no. Commissioner: yes.** This creates a pending offer and attempts email. Morgan must accept separately. A pending offer to the same address would be replaced.
 
@@ -135,7 +137,7 @@ _Get a fresh key from `request-key-new`, then call `league-player-guardian-invit
 
 ## Read-only readiness
 
-_After the person requests a readiness check, refresh permitted reads and support only this summary._
+_After the person requests readiness, read `division-onboarding-get` for 8U Boys and supplement only with permitted requested reads. Report returned checklist items/details as in place, missing or unknown. A done flag is a snapshot, not scheduling proof or authority to fill gaps. Support only this additional summary._
 
 | 8U Boys | In place | Missing or unknown |
 | --- | --- | --- |
@@ -144,7 +146,7 @@ _After the person requests a readiness check, refresh permitted reads and suppor
 | Staff | Caller is accepted league staff | No accepted Division Admin in the returned list; Avery/Morgan offers are pending |
 | Players | One visible active registration | Team assignment and accepted guardian access unknown |
 
-**Assistant:** No games scheduled. Use **`/hype:season-schedule`** next; it checks its own live tools, complete teams, saved Fields, dates and conflicts.
+**Assistant:** This setup check does not prove whether games are scheduled. Use **`season-schedule`** next; it checks its own live tools, complete teams, saved Fields, dates and conflicts.
 
 ## A later season-end request
 
