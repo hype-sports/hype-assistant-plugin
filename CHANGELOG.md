@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.89 - 2026-11-15
+
+- My account: set your own profile photo to Hype's approved drawn picture (one review, one yes); profile reads now say whether a photo is set. Personal photos stay in the app. League setup reads the saved Private choice back from `league-get` when it is returned (League Admins), instead of always saying it was sent but not confirmed.
+
 ## 0.1.88 - 2026-11-15
 
 - The four spreadsheet skills' descriptions now open with the attached-file rule, so it is in view before a skill is chosen.

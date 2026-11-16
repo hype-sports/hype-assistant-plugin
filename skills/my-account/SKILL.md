@@ -1,6 +1,6 @@
 ---
 name: my-account
-description: 'This skill should be used for "show my account", "change my name", "change my time zone", "change my password", "sign out my devices", "show my connected assistants", "disconnect an assistant", "delete my account", "show login history", "show assistant activity", "block someone" or "check a player erase request" or "erase a player" (app handoff only). It owns personal account settings and erase-status reads; notification-settings owns quiet hours and notification switches, my-support owns the supporter ring, players-families owns child profiles, and player erasure stays in the app.'
+description: 'This skill should be used for "show my account", "change my name", "set my profile photo", "change my time zone", "change my password", "sign out my devices", "show my connected assistants", "disconnect an assistant", "delete my account", "show login history", "show assistant activity", "block someone" or "check a player erase request" or "erase a player" (app handoff only). It owns personal account settings and erase-status reads; notification-settings owns quiet hours and notification switches, my-support owns the supporter ring, players-families owns child profiles, and player erasure stays in the app.'
 ---
 
 # Manage my Hype account
@@ -40,6 +40,7 @@ Read [exact tool inputs and source limits](references/reference.md) and the matc
 | --- | --- |
 | Show my account | [Read own name or requested time zone](references/workflows.md#1-show-my-account) |
 | Change my name | [Review and save only the name with its current version](references/workflows.md#2-change-my-name) |
+| Set my profile photo | [Review, then upload Hype's approved drawn picture and save it as your photo](references/workflows.md#2b-set-my-profile-photo) |
 | Change my time zone | [Resolve the exact zone and leave other settings untouched](references/workflows.md#3-change-my-time-zone) |
 | Change my password | [Hand off to the app’s own password screen](references/workflows.md#4-change-my-password) |
 | Delete my account | [Explain first, then require a yes in the person's next message to start the request](references/workflows.md#5-delete-my-account) |
