@@ -103,7 +103,7 @@ Visit the [Hype support page](https://hypesports.live/support.html).
 | `/hype:run-a-draft` | Prepare and run a division draft, with clock guidance and supported pause, resume, skip and undo actions | Preview |
 | `/hype:manage-my-team` | See your Roster, Staff and seasons; add, change, take off, put back and roll over players; invite coaches and parents/guardians, resend or cancel staff invitations; answer parent/guardian requests and league memberships; check emergency contacts | Preview |
 | `/hype:players-families` | Add or edit your child's profile and emergency contacts, manage parent/guardian invitations and team requests, and read league/division players | Preview |
-| `/hype:invite-families` | Map supplied enrollment columns, review one invitation job across divisions in one league, and resume from your chosen progress record; include requested same-row emergency contacts in the same review, grouped by team | Preview |
+| `/hype:invite-families` | Review a whole parent-invitation list once, start one background job, check progress or stop future work when asked, and recover with the original key; include requested same-row emergency contacts in the same review | Preview |
 | `/hype:league-staff` | See and manage a league's staff | Preview |
 | `/hype:clubs-and-tournaments` | Set up clubs and tournaments, invite Admins and answer invitations | Preview |
 | `/hype:my-feed` | Read your Feed and comments, write comments and give Hypes, send announcements with a 10-second Undo, and delete eligible announcements or comments; one review and yes cover the complete requested list | Preview |

@@ -2,6 +2,12 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.92 - 2026-11-16
+
+- Invite families: after one complete review and one yes, start the whole ordered parent list as one background job instead of sending small parts or checking every parent separately. Saved-import invitations use the same job.
+- Report address-free progress only when asked, explain waiting, sent, refused and uncertain results, and offer to stop future work without promising to recall mail or remove access.
+- Keep the chosen progress record and original request key/full input for deliberate lost-answer recovery; never automatically poll, retry, resend or start a replacement job. Align the mixed announcement example and shared invitation guidance.
+
 ## 0.1.91 - 2026-11-16
 
 - Add Messaging: find your chats, including current-season Team and Staff chats by team, check unread snapshots and read recent messages with paging, attachment details and reaction counts. Keep personal details out of summaries and reports.
@@ -123,8 +129,8 @@ All notable changes to this plugin are documented here, following [Keep a Change
 - Read notification settings without a separate approval prompt, retaining one review and yes for changes. Use the app's labels, distinguish saved Email choices from actual sends, and do not offer daily summary controls: neither the assistant nor the app has them today.
 
 - Plain requests now select the matching Hype skill; commands remain optional shortcuts. Remove the command-only start-here guide and clarify skill ownership.
-- Use one complete review and one next-message yes for all requested changes, including mixed roster changes, child profiles with contacts and sports, and multi-part invitations. Preserve server access checks, request keys, receipts and safe recovery; change confirmation has no separate time limit.
-- Include requested same-row emergency contacts in the invitation review instead of asking again per team or page. Use the current live send limits without making the person manage parts; whole-list server-paced sending is not available yet.
+- Use one complete review and one next-message yes for all requested changes, including mixed roster changes, child profiles with contacts and sports, and invitation lists. Preserve server access checks, request keys, receipts and safe recovery; change confirmation has no separate time limit.
+- Include requested same-row emergency contacts in the invitation review instead of asking again per team or page. The historical sending implementation was replaced by the whole-list background job in 0.1.92.
 - Keep player erasure in the app and preserve the warning that saved child birth dates and contacts must be checked there.
 
 - players-families: after adding a child, say that the saved birth date and emergency contacts can't be read back here and should be checked in the app.
@@ -256,11 +262,11 @@ All notable changes to this plugin are documented here, following [Keep a Change
 Combined feedback release for progress records, version checks, reconnect guidance, two-parent imports and reviewed invitation/contact jobs.
 
 ### Changed
-- Show the invitation preview's remaining allowance, limiting budget, availability time and proposed usage as a snapshot, and read back unfinished attempts before any approved resume without sending twice.
+- Add invitation allowance snapshots and safe recovery of unfinished attempts; this initial invitation implementation was replaced by whole-list jobs in 0.1.92.
 - Add missing Parent 1 and Parent 2 emergency contacts from the same invitation-sheet rows to exactly paired team roster entries, with separate per-team table approval, existing contacts preserved, skipped and missing-phone rows explained, and a readback after each add-only save.
 - Pair a league registration with its team roster entry only through `team-roster-contact-status` (`registrationId` to `entryId`), never by player name; an unpaired row is left out and explained.
-- Map parent columns from any readable spreadsheet layout and review one complete invitation job across divisions in one league, previewing batches of up to 200 rows and sending first parents before second parents in ordered parts of at most 25 rows under one yes.
-- Resume requested invitation jobs from the chosen progress record, reconciling unfinished batches with the same key and exact ordered rows without another email attempt; show possible-parent hints without automatically skipping them.
+- Map parent columns from any readable spreadsheet layout and review one complete invitation list across divisions in one league, with first parents before second parents under one yes. The historical sending implementation was replaced by the whole-list job in 0.1.92.
+- Add requested invitation recovery from the chosen progress record with retained keys and exact inputs; follow 0.1.92's whole-job recovery rules for the current flow.
 - Check the server's catalog and minimum plugin versions at session start and after a whole-call refusal suggesting stale tools, not an ordinary business refusal; say how to reconnect when tools changed and how to update first when the plugin is too old, without retrying writes or clearing sign-in. Pin the instruction versions to this release and exercise older/current comparisons offline.
 - Guide league roster imports through a read-only preview and separately approved save, retaining both supplied parents and explaining skipped contacts instead of falling back to one-parent registration.
 - Review saved-import invitations separately, send first parents before second parents, preserve pending offers, and report skipped, refused, unknown and not-attempted parents without automatic retries or claims of mailbox delivery.
