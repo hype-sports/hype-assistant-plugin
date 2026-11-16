@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.90 - 2026-11-16
+
+- Season scheduling: save a complete reviewed season to saved league Fields through the existing shared-game tools, with one next-message yes for the whole plan. Use the league directory's current references and verify each saved link; preserve sequential calls, original request keys and honest partial results. Keep progress only at the person's chosen path. Plan-only requests remain unsaved.
+
 ## 0.1.89 - 2026-11-15
 
 - My account: set your own profile photo to Hype's approved drawn picture (one review, one yes); profile reads now say whether a photo is set. Personal photos stay in the app. League setup reads the saved Private choice back from `league-get` when it is returned (League Admins), instead of always saying it was sent but not confirmed.

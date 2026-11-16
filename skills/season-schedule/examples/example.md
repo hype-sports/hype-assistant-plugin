@@ -1,6 +1,6 @@
 # Season-scheduling examples
 
-Apply the [season-schedule workflow](../SKILL.md); check actual rows before approval. Treat names as neither saved references nor permission to create anything. Team lists and saved Place/Field reads exist today, but shared-game saved-Field attachment is missing. Keep whole-season plans unsaved; these calculations do not prove live saving. Include every requested game correction in the shared complete review and one yes, then call each game tool in order.
+Apply the [season-schedule workflow](../SKILL.md); check actual rows before approval. Treat names as neither saved references nor permission to create anything. For requested saving, require the live league directory, shared-game saved-Field create and verification tools, current access and exact returned references. Keep plan-only requests unsaved; these calculations do not prove live saving. Show every proposed game or requested correction in one complete review, wait for one next-message yes, then call each game tool sequentially.
 
 ## Twelve teams, once each
 
@@ -29,9 +29,13 @@ Twelve teams meeting twice means **132 games**, **22 per team**, **11 Home and 1
 
 One meeting means **21 games**, **7 rounds**, **6 games and one bye per team**, with **3 Home and 3 Away**. Twice means **42 games**, **12 per team**, **6 Home and 6 Away**, and **two byes per team**. Byes never create events.
 
-## A stopped save, if saved-Field support is added
+## A saved Field is a reference, not a name
 
-Do not start this path with today's text-only tools. For a stopped 66-new-game run with **23 confirmed, one unknown and 42 not attempted**, report exactly those counts, not “24 saved” or “failed, starting over.” Preserve the progress file and original request IDs; reconcile and resume only through the skill's deliberate recovery steps. Twelve teams is an example, not a product cap. After reconciling the unknown through fresh reads, ask for a decision; do not automatically resend it or continue to the next game. A stopped job needs one newly reviewed remainder and one fresh yes before recovery or continuation, not one yes per remaining game.
+Read `league-places-list` for the division's own league, paging with `after`. Given returned Place P and its nested Field F, put `savedPlace: { placeId: P.id, placeVersionId: P.versionId, fieldId: F.id, fieldVersionId: F.versionId }` in the approved row's create body; never invent IDs or send typed location/address alongside it. After a confirmed create, read both schedules and that exact event's `saved-place-event-read`. Matching names or `linked: true` alone do not verify the saved selection; if source references/owner are withheld, keep it unverified.
+
+## A stopped save
+
+For a stopped 66-new-game run with **23 confirmed, one unknown and 42 not attempted**, report exactly those counts, not “24 saved” or “failed, starting over.” Preserve the person's chosen progress file and original request IDs; reconcile and resume only through the skill's deliberate recovery steps. Twelve teams is an example, not a product cap. Inspect only the affected item once through a supported authorized read; with no returned event ID, keep the create unknown rather than scan schedules. Current state is not a historical receipt. Ask for a decision; do not automatically resend or continue. A stopped job needs one newly reviewed remainder and one fresh next-message yes before recovery or continuation, not one yes per remaining game.
 
 ## One correction, one new yes
 
