@@ -4,7 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.96 - 2026-11-17
 
-- Run evaluations: save a Hand-set score or private note for a typed-in player using the existing tools and the player's participant ID; keep registered-player inputs and separate score/note revision checks.
+- Run evaluations: the assistant no longer says a typed-in player can't get a Hand-set score or private note; it saves them with that player's own ID, and registered players work as before.
 
 ## 0.1.95 - 2026-11-17
 
