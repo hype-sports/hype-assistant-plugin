@@ -8,7 +8,7 @@ Check the live tool list before use.
 
 | Tools | Status / use |
 | --- | --- |
-| `my-identity-read`, `my-profile-read` | Read own identity/name; identity also returns `operationCatalogVersion` and `minimumPluginVersion` and alone accepts any positive whole-number `catalogVersion` (see [version check](tool-versions.md)); profile returns save version `updatedAt` and `hasPhoto` |
+| `my-identity-read`, `my-profile-read` | Read own identity/name; identity also returns `operationCatalogVersion` and `minimumPluginVersion` and alone accepts any positive whole-number `catalogVersion` (see [version check](../../../shared/tool-versions.md)); profile returns save version `updatedAt` and `hasPhoto` |
 | `my-preferences-read`, `my-preferences-update` | Read preferences or change the requested time zone |
 | `my-profile-update` | Save the requested name, or set the photo to an approved drawn picture, with the current profile version |
 | `demo-logo-upload` | Upload Hype's approved drawn profile picture before setting it as your photo (workflow 2b) |
@@ -26,11 +26,11 @@ Check the live tool list before use.
 
 ## Current tool inputs
 
-Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-read` alone accepts any positive whole number; see [version check](tool-versions.md)), plus only the `pathParams`, `query` or `body` the live schema declares. No target account, extra fields or operation replay IDs. A route read with no parameters still needs `catalogVersion`; the password-screen hand-off instead takes `{}`. Check the live schemas before every job.
+Route-backed tools use the strict envelope: `catalogVersion: 1` (`my-identity-read` alone accepts any positive whole number; see [version check](../../../shared/tool-versions.md)), plus only the `pathParams`, `query` or `body` the live schema declares. No target account, extra fields or operation replay IDs. A route read with no parameters still needs `catalogVersion`; the password-screen hand-off instead takes `{}`. Check the live schemas before every job.
 
 | Operation ID / registered hand-off name | Read or change | Inputs for this skill |
 | --- | --- | --- |
-| `my-identity-read` | Read own ID/name and `operationCatalogVersion`/`minimumPluginVersion`; no profile repair | Only `catalogVersion`, any positive whole number for this tool alone (see [version check](tool-versions.md)) |
+| `my-identity-read` | Read own ID/name and `operationCatalogVersion`/`minimumPluginVersion`; no profile repair | Only `catalogVersion`, any positive whole number for this tool alone (see [version check](../../../shared/tool-versions.md)) |
 | `my-profile-read` | Read own ID/name/save version and whether a photo is set (`hasPhoto`); no profile repair | No parameters beyond the envelope above |
 | `my-profile-update` | Change own name, or set own photo | Name: `body.name`, current `body.updatedAt`; name 1–100 characters after trimming. Photo (workflow 2b): `body.avatarUrl` set to the `publicUrl` just returned by `demo-logo-upload`, plus current `body.updatedAt` (and `body.name` only when the same request also renames). Phone changes are outside this skill |
 | `demo-logo-upload` | Upload the approved drawn profile picture | Only `body.assetId` `profile-picture-blue` and `body.kind` `profile-picture`; returns `path` and `publicUrl` |

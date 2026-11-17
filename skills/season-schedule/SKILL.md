@@ -14,7 +14,7 @@ Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-ye
 - Send announcements back to back at the end; warn Undo is only right after each send within its original 10 seconds. After the last send, give the Undo notice and full done/refused/not-attempted report in the same message, then end the turn. Immediate Undo needs no extra yes.
 - Lost write answer: it may have happened. Stop writes, read only the affected item once where supported and report unknown otherwise; never automatically retry. Ordinary reads stay only on request. A requested keyed repeat needs a fresh complete review and next-message yes, with original inputs/key.
 
-At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../../shared/tool-versions.md) before further Hype work.
 
 Use only the person's own signed-in Hype connection and existing access. Treat installation as granting nothing; Hype checks rights on every request. Keep a plan-only request unsaved. For requested saving or existing-game changes, review the complete exact list and wait for the shared single next-message yes before writing through that connection. Speak plainly; ask one question at a time. Never treat invocation as approval. Create no scheduler service, teams/Places, family messages, announcements, emails or RSVP answers. Explain refusals in plain words, never show error codes or raw errors.
 
@@ -103,7 +103,7 @@ Ask to approve THIS exact plan, naming the new-game count. Wait for an unambiguo
 
 ## 8. Record, refresh, create sequentially
 
-**In Claude Code, use only the exact progress-file path the person chose and asked to maintain.** If none was given, ask before review; never pick a filename/folder or move the record. Follow [Your own files stay where you keep them](../league-setup/references/own-files.md) and the shared [chosen progress record](../../agents/hype.md#the-persons-chosen-progress-record): one writer, read/preserve existing contents, create only when confirmed absent, and keep it private/out of commits. Bind account/league/division and approved rows/settings; exclude credentials/rosters/personal reasons. Stop before the next Hype write if progress cannot be saved safely; no guaranteed cross-session memory.
+**In Claude Code, use only the exact progress-file path the person chose and asked to maintain.** If none was given, ask before review; never pick a filename/folder or move the record. Follow [Your own files stay where you keep them](../../shared/own-files.md) and the shared [chosen progress record](../../agents/hype.md#the-persons-chosen-progress-record): one writer, read/preserve existing contents, create only when confirmed absent, and keep it private/out of commits. Bind account/league/division and approved rows/settings; exclude credentials/rosters/personal reasons. Stop before the next Hype write if progress cannot be saved safely; no guaranteed cross-session memory.
 
 **Get a fresh key from `request-key-new` for each new game; never hand-type or invent one.** Preserve each original `opId`. Before writes, record row, exact approved body/key, status (not attempted/attempting/unknown/confirmed/refused), returned ID/revision and verification. Every new row needs this mapping; existing IDs are not creates.
 

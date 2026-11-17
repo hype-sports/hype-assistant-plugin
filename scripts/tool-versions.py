@@ -17,6 +17,6 @@ def reconnect_notice(server_catalog, minimum_plugin, plugin_version):
         raise ValueError('Version check unavailable')
     minimum = release(minimum_plugin)
     installed = release(plugin_version)
-    if minimum > installed:
+    if minimum > installed or server_catalog > EXPECTED_CATALOG_VERSION:
         return NOTICE + '\n' + UPDATE_NOTICE
     return NOTICE if server_catalog != EXPECTED_CATALOG_VERSION else ''

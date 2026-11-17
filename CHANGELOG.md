@@ -2,6 +2,14 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.95 - 2026-11-17
+
+- Explain expired sign-in, read-only access, account access and purchase requirements without asking for sign-in links or repeated attempts. Add privacy guidance and private security-report links.
+- Update an older plugin when Hype's tool catalog is newer, even if the minimum plugin version did not change.
+- Shorten the Hype assistant's instructions, use only the plugin's own connection, and update chosen progress entries without rewriting the whole file. Keep one complete review, one yes and safe handling of uncertain results.
+- Check skill routing, heading links and plain-request selection; parse skill and agent files explicitly; add directory validation and an optional offline comparison with server tool names.
+- Keep common file, invitation and version rules in shared references; move detailed team Staff workflows out of the main skill without changing their safeguards.
+
 ## 0.1.94 - 2026-11-16
 
 - Messaging: ask who reacted to a message and get the names and reaction types, as in the app; a removed message now says it was removed, and photos show their name and size.

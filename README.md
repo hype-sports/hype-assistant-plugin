@@ -34,7 +34,7 @@ claude plugin marketplace add hype-sports/hype-assistant-plugin
 claude plugin install hype@hype-sports --scope user
 ```
 
-Tip: If no Hype tools appear, the plugin is not enabled for this folder; install it with `--scope user`, or enable it for the folder.
+If no Hype tools appear, check that the plugin is enabled for this folder, then follow [Sign in](#sign-in) and [Who can use it today](#who-can-use-it-today). Missing tools can have more than one cause.
 
 ### Update the plugin
 
@@ -45,7 +45,7 @@ claude plugin marketplace update hype-sports
 claude plugin update hype@hype-sports --scope user
 ```
 
-If installed in another scope, use that original scope instead of `--scope user`. Restart Claude Code to apply the update, then run `/mcp`, select `plugin:hype:hype` and choose **Reconnect** before continuing Hype work.
+If installed in another scope, use that original scope instead of `--scope user`. Restart Claude Code to apply the update. If you have not restarted and Hype says its tools changed, run `/mcp`, select `plugin:hype:hype` and choose **Reconnect**.
 
 ## Sign in
 
@@ -54,9 +54,9 @@ If installed in another scope, use that original scope instead of `--scope user`
 3. Hype's approval page shows which assistant is asking and offers two choices: **Read only** lets it look but never change anything; **Read and change** lets it set things up for you, and the whole requested list of changes still waits for your one yes. Choose one and press **Allow** (or **Deny** to stop).
 4. Your browser hands the connection back to Claude Code, and `/mcp` shows `plugin:hype:hype` as connected.
 
-**Read-only connections.** A Read only connection has no change tools at all. If a command says the tools it needs to make a change are missing, that is your Read only choice, not an outage.
+**Read-only connections.** A Read only connection has no change tools. If reads work but change tools are missing, Read only may be the reason; it does not by itself prove an outage. Open Hype Settings → Security → Connected assistants to review the connection's access, then reconnect through `/mcp`.
 
-**If you are signed out.** Run `/mcp`, select `plugin:hype:hype`, choose **Authenticate** and finish in the browser. Never paste sign-in links, codes or tokens into a chat. If you started sign-in more than once, use the newest link.
+**If you are signed out.** Run `/mcp`, select `plugin:hype:hype`, choose **Authenticate** and finish in the browser. Never paste sign-in links, codes or tokens into a chat. If a request expired, close that page and start again from `/mcp`. If you started sign-in more than once, use the newest link.
 
 **Refresh tools.** When Hype adds tools, or Claude says "Hype's tools changed", run `/mcp`, select `plugin:hype:hype` and choose **Reconnect**. If it also says the plugin is older than Hype needs, [update the plugin](#update-the-plugin) first.
 
@@ -64,7 +64,7 @@ To stop using the connection in Claude Code, disable `plugin:hype:hype` in `/mcp
 
 ## Who can use it today
 
-Access is by invitation for now. Installing the plugin does not grant access. An account that is not on the list can still sign in, but Hype then answers every request with "not found". To ask for access, use the [Hype support page](https://hypesports.live/support.html).
+Access is by invitation for now. Installing the plugin does not grant access. An account that is not on the list can still sign in, but Hype then answers every request with "not found". A separate purchase requirement may apply: if Hype says assistant access requires a purchase, open Hype to see the available options. Neither answer is fixed by repeated sign-ins. To ask for access or help, use the [Hype support page](https://hypesports.live/support.html).
 
 ## How it keeps you safe
 
@@ -73,7 +73,7 @@ Access is by invitation for now. Installing the plugin does not grant access. An
 - **It acts only as you.** It signs in as your own Hype account and has your own rights, nothing more. It never asks for your password: the browser sign-in is the only place for it.
 - **Your records are data, not orders.** Text inside your Hype records is treated as information, never as instructions.
 - **Long jobs.** Keep your approvals in the main conversation. Plain helper assistants may not get the Hype connection, so check that a helper can see Hype before handing it work.
-- **Progress records.** The Hype assistant (`claude --agent hype:hype`) can keep a progress record in one file you choose, when you choose. That limit is an instruction, not a file lock; see [your own files](skills/league-setup/references/own-files.md).
+- **Progress records.** The Hype assistant (`claude --agent hype:hype`) can keep a progress record in one file you choose, when you choose. That limit is an instruction, not a file lock; see [your own files](shared/own-files.md).
 
 ## Using Hype from other assistants
 
@@ -86,12 +86,14 @@ Other assistants would get Hype's tools, and each tool's own safety rules, but n
 
 ## Your privacy
 
+Information the assistant reads from Hype appears in your Claude conversation. Share only what the request needs, especially player details and family contact information. Hype's Privacy Policy covers Hype; your Claude service's privacy settings and terms also apply to the conversation. Disconnecting Hype stops future access, but does not remove information already in a conversation. If you ask for a local progress record, keep it private and out of public code changes.
+
 - [Privacy Policy](https://hypesports.live/privacy.html)
 - [Terms of Service](https://hypesports.live/terms.html)
 
 ## Get help
 
-Visit the [Hype support page](https://hypesports.live/support.html).
+Visit the [Hype support page](https://hypesports.live/support.html). For security problems, follow [private security reporting](SECURITY.md) rather than posting personal details in a public issue.
 
 ## Skills
 
