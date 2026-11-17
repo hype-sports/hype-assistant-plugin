@@ -56,7 +56,7 @@ If installed in another scope, use that original scope instead of `--scope user`
 
 **Read-only connections.** A Read only connection has no change tools. If reads work but change tools are missing, Read only may be the reason; it does not by itself prove an outage. Open Hype Settings → Security → Connected assistants to review the connection's access, then reconnect through `/mcp`.
 
-**If you are signed out.** Run `/mcp`, select `plugin:hype:hype`, choose **Authenticate** and finish in the browser. Never paste sign-in links, codes or tokens into a chat. If a request expired, close that page and start again from `/mcp`. If you started sign-in more than once, use the newest link.
+**If you are signed out.** Run `/mcp`, select `plugin:hype:hype`, choose **Authenticate** and finish in the browser. Never paste sign-in links, codes or tokens into a chat. If a request expired, close that page and start again from `/mcp`. If you started sign-in more than once, use the newest browser page.
 
 **Refresh tools.** When Hype adds tools, or Claude says "Hype's tools changed", run `/mcp`, select `plugin:hype:hype` and choose **Reconnect**. If it also says the plugin is older than Hype needs, [update the plugin](#update-the-plugin) first.
 
