@@ -7,6 +7,8 @@
   "plugins": [
     {
       "name": "hype",
+      "description": "Ask about your Hype leagues and teams, then review and approve the complete list before changes.",
+      "category": "productivity",
       "source": "./"
     }
   ]

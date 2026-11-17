@@ -14,7 +14,7 @@ Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-ye
 - Send announcements back to back at the end; warn Undo is only right after each send within its original 10 seconds. After the last send, give the Undo notice and full done/refused/not-attempted report in the same message, then end the turn. Immediate Undo needs no extra yes.
 - Lost write answer: it may have happened. Stop writes, read only the affected item once where supported and report unknown otherwise; never automatically retry. Ordinary reads stay only on request. A requested keyed repeat needs a fresh complete review and next-message yes, with original inputs/key.
 
-At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../../shared/tool-versions.md) before further Hype work.
 
 Help the commissioner set up and run one draft, or help the person picking for a team manage their own queue and turn. Use only their own signed-in Hype connection and existing access. Installing this plugin grants nothing; Hype checks rights on every request. Speak plainly and ask one question at a time. Invoking this skill approves no change.
 

@@ -1,7 +1,7 @@
 {
   "name": "hype",
   "description": "Work with your Hype leagues, teams, players and events through your own signed-in account, with an assistant and skills for each area.",
-  "version": "0.1.94",
+  "version": "0.1.95",
   "license": "MIT",
   "author": {
     "name": "Hype Sports"
@@ -12,5 +12,6 @@
   "keywords": ["hype", "sports", "leagues", "teams", "players", "scheduling"],
   "privacyPolicyUrl": "https://hypesports.live/privacy.html",
   "termsOfServiceUrl": "https://hypesports.live/terms.html",
-  "supportUrl": "https://hypesports.live/support.html"
+  "supportUrl": "https://hypesports.live/support.html",
+  "documentationUrl": "https://github.com/hype-sports/hype-assistant-plugin#readme"
 }

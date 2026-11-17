@@ -3,7 +3,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-python3 -I - <<'PY'
+python3 -I - "$@" <<'PY'
+import argparse
 import json
 import re
 import runpy
@@ -59,8 +60,74 @@ for path in skills:
     if len(descriptions) != 1 or not re.fullmatch(r'"(?:[^"\\]|\\.)+"|\'(?:[^\']|\'\')+\'', descriptions[0].strip()):
         errors.append(f'{path}: description must be a nonempty quoted single-line value')
 print(f'Skill headers: checked {len(skills)} files')
+agent = Path('agents/hype.md').read_text()
+agent_header = re.match(r'\A---\n(.*?)\n---(?:\n|\Z)', agent, re.S)
+if not agent_header:
+    errors.append('agents/hype.md: missing agent front matter')
+else:
+    header = agent_header[1]
+    keys = re.findall(r'^([a-z-]+):', header, re.M)
+    expected = ['name', 'description', 'model', 'color', 'tools']
+    description = re.findall(r'^description:\s*(.+)$', header, re.M)
+    tools = re.findall(r'^  - (.+)$', header, re.M)
+    if (sorted(keys) != sorted(expected)
+        or not all(line in header.splitlines() for line in ('name: hype', 'model: inherit', 'color: cyan', 'tools:'))
+        or len(description) != 1
+        or not re.fullmatch(r'\'(?:[^\']|\'\')+\'|"(?:[^"\\\\]|\\\\.)+"', description[0])
+        or tools != ['Read', 'Write', 'Edit', 'mcp__plugin_hype_hype__*']):
+        errors.append('agents/hype.md: agent header must keep the reviewed name, model, color, quoted description and scoped tools')
+print('Agent header: checked reviewed fields and tool namespace (not a general YAML parser)')
+readme = Path('README.md').read_text()
+for path in skills:
+    command = f'/hype:{path.parent.name}'
+    if command not in agent or command not in readme:
+        errors.append(f'{path}: command missing from agent or README')
+    if re.search(r'^disable-model-invocation:\s*true\s*$', path.read_text(), re.M):
+        errors.append(f'{path}: plain requests must be able to select this skill')
+print('Skill routing: agent, README and plain-request selection checked')
 
-# shortcut: check file targets, not heading fragments; add heading checks if docs start linking to local headings.
+parser = argparse.ArgumentParser(description='Offline plugin checks; optionally compare documented tool names to a supplied server catalog.')
+parser.add_argument('--tool-catalog', type=Path)
+args = parser.parse_args()
+catalog_version = None
+if args.tool_catalog:
+    try:
+        catalog = json.loads(args.tool_catalog.read_text())
+        required = catalog['required']
+        if (not isinstance(required, dict) or not required
+            or not all(isinstance(name, str) and isinstance(inputs, list) for name, inputs in required.items())
+            or type(catalog['catalogVersion']) is not int or catalog['catalogVersion'] < 1):
+            raise ValueError('invalid tool catalog')
+        catalog_version = catalog['catalogVersion']
+        names = set(required) | {'request-key-new'}
+        roots = {name.split('-')[0] for name in names}
+        endings = {name.split('-')[-1] for name in names}
+        skill_names = {path.parent.name for path in skills}
+        checked = set()
+        for path in [Path('agents/hype.md'), *Path('skills').rglob('*.md'), *Path('shared').rglob('*.md')]:
+            for match in re.finditer(r'`(?:mcp__plugin_hype_hype__)?([a-z][a-z0-9]*(?:-[a-z0-9]+)+)`', path.read_text()):
+                name = match[1]
+                if name in skill_names or name.split('-')[0] not in roots or name.split('-')[-1] not in endings:
+                    continue
+                checked.add(name)
+                if name not in names:
+                    errors.append(f'{path}: unknown documented tool {name}')
+        print(f'Tool drift: checked {len(checked)} explicit tool names against supplied catalog (not workflow completeness or live behavior)')
+    except (OSError, ValueError, KeyError, TypeError):
+        errors.append('tool catalog: cannot read a valid server required-input catalog')
+else:
+    print('SKIPPED: tool drift (supply --tool-catalog with the current server required-input catalog)')
+
+def heading_ids(path):
+    counts = {}
+    ids = set()
+    for title in re.findall(r'^#{1,6}\s+(.+?)\s*#*\s*$', path.read_text(), re.M):
+        slug = re.sub(r'[^\w\- ]', '', title.lower()).replace(' ', '-')
+        count = counts.get(slug, 0)
+        counts[slug] = count + 1
+        ids.add(f'{slug}-{count}' if count else slug)
+    return ids
+
 markdown = sorted(p for p in files if p.suffix == '.md')
 link_count = 0
 for path in markdown:
@@ -75,11 +142,14 @@ for path in markdown:
     for target in targets:
         target = target.strip('<>')
         url = urlsplit(target)
-        if url.scheme or url.netloc or not url.path:
+        if url.scheme or url.netloc:
             continue
+        destination = path.parent / unquote(url.path) if url.path else path
         link_count += 1
-        if not (path.parent / unquote(url.path)).exists():
+        if not destination.exists():
             errors.append(f'{path}: missing relative link target {target}')
+        elif url.fragment and destination.suffix == '.md' and unquote(url.fragment) not in heading_ids(destination):
+            errors.append(f'{path}: missing Markdown heading {target}')
 print(f'Markdown links: checked {link_count} relative file targets in {len(markdown)} files')
 
 try:
@@ -104,11 +174,13 @@ try:
     else:
         print(f'Version: {current} > origin/main {base}')
     compatibility = runpy.run_path('scripts/tool-versions.py')
+    if catalog_version is not None and catalog_version != compatibility['EXPECTED_CATALOG_VERSION']:
+        errors.append('tool catalog: version differs from the plugin expected catalog')
     pin = f'Plugin release: {current}. Expected operation catalog version: {compatibility["EXPECTED_CATALOG_VERSION"]}.'
-    for path in (Path('agents/hype.md'), Path('skills/my-account/references/tool-versions.md')):
+    for path in (Path('agents/hype.md'), Path('shared/tool-versions.md')):
         text = path.read_text()
-        if pin not in text or compatibility['NOTICE'] not in text:
-            errors.append(f"{path}: tool-version release/catalog pin or reconnect notice differs; write '{pin}' to match plugin.json in agents/hype.md and skills/my-account/references/tool-versions.md, and keep the reconnect notice")
+        if pin not in text or compatibility['NOTICE'] not in text or compatibility['UPDATE_NOTICE'] not in text:
+            errors.append(f"{path}: tool-version release/catalog pin or reconnect notice differs; write '{pin}' to match plugin.json in agents/hype.md and shared/tool-versions.md, and keep the reconnect notice")
     for path in skills:
         if '[tool-version check](' not in path.read_text():
             errors.append(f'{path}: missing tool-version check')
@@ -132,6 +204,10 @@ if command -v claude >/dev/null 2>&1; then
   # A folder containing both manifests can select the marketplace, so check each explicitly too.
   claude plugin validate --strict .claude-plugin/plugin.json
   claude plugin validate --strict .claude-plugin/marketplace.json
+  claude plugin validate --profile directory --strict .claude-plugin/plugin.json
+  # Skills need explicit component parsing; our Python check above guards the agent fields.
+  claude plugin validate --strict skills
+  claude plugin validate --strict agents
 else
   printf '%s\n' 'SKIPPED: Claude strict validation (claude is not on PATH)'
 fi

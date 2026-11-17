@@ -1,8 +1,8 @@
 # Invitation and emergency-contact safeguards
 
-Use [One review, one yes, all changes](../../../agents/hype.md#one-review-one-yes-all-changes) for consent across the whole requested list. This reference adds tool-specific checks, not a separate approval boundary, page ceiling or team/division limit on that list. Several teams or divisions can be reviewed together only when each exact target is independently identified and authorized. One yes never combines server calls into an invented bulk endpoint.
+Use [One review, one yes, all changes](../agents/hype.md#one-review-one-yes-all-changes) for consent across the whole requested list. This reference adds tool-specific checks, not a separate approval boundary, page ceiling or team/division limit on that list. Several teams or divisions can be reviewed together only when each exact target is independently identified and authorized. One yes never combines server calls into an invented bulk endpoint.
 
-For invitation lists, including saved-import recipients, follow [Invitation jobs and safe progress](../../invite-families/references/reviewed-job.md): one whole-list start, requested known-job progress and optional reviewed cancellation, never legacy preview/send calls or per-parent checks. Its job-specific rules replace the individual-invitation checks below. For contacts from those same source rows, also follow [Same-row emergency contacts](../../invite-families/references/emergency-contacts.md): add-only, with no whole-list update fallback.
+For invitation lists, including saved-import recipients, follow [Invitation jobs and safe progress](../skills/invite-families/references/reviewed-job.md): one whole-list start, requested known-job progress and optional reviewed cancellation, never legacy preview/send calls or per-parent checks. Its job-specific rules replace the individual-invitation checks below. For contacts from those same source rows, also follow [Same-row emergency contacts](../skills/invite-families/references/emergency-contacts.md): add-only, with no whole-list update fallback.
 
 ## Choose the contact tool before review
 
