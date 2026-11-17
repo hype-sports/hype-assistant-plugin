@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.96 - 2026-11-17
+
+- Run evaluations: save a Hand-set score or private note for a typed-in player using the existing tools and the player's participant ID; keep registered-player inputs and separate score/note revision checks.
+
 ## 0.1.95 - 2026-11-17
 
 - Explain expired sign-in, read-only access, account access and purchase requirements without asking for sign-in links or repeated attempts. Add privacy guidance and private security-report links.
