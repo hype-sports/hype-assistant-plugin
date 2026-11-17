@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.97 - 2026-11-17
+
+- Clubs and Tournaments: correct the skill to say Tournament Admin invitations attempt email through the shared staff invitation sender. Explain confirmed sends, unconfirmed results and the per-recipient daily cap without promising inbox delivery or retrying automatically.
+
 ## 0.1.96 - 2026-11-17
 
 - Run evaluations: the assistant no longer says a typed-in player can't get a Hand-set score or private note; it saves them with that player's own ID, and registered players work as before.
@@ -410,7 +414,7 @@ Combined feedback release for progress records, version checks, reconnect guidan
 ## 0.1.28 - 2026-11-06
 
 ### Fixed
-- Clubs and Tournaments: your own invitation lists are plain reads that leave expired offers out (no cleanup step or extra yes), and a Club Admin offer now emails the address once while a Tournament offer still sends no email.
+- Clubs and Tournaments: your own invitation lists are plain reads that leave expired offers out (no cleanup step or extra yes), and a Club Admin offer now emails the address once. At this release, Tournament offers did not send email; see 0.1.97 for the current guidance.
 
 ## 0.1.27 - 2026-11-05
 
