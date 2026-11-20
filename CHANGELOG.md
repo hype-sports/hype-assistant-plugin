@@ -4,7 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.98 - 2026-11-20
 
-- Every skill now describes the request limit as the shared per-account allowance Hype sets, instead of a fixed 60 requests a minute, because that allowance is becoming a setting that can change. Pacing (at least 1.1 seconds between request starts) and the stop-on-rate-limit rules are unchanged.
+- The skills and shared invitation rules now describe the request limit as the shared per-account allowance Hype sets, instead of a fixed 60 requests a minute, because that allowance is becoming a setting that can change. Pacing (at least 1.1 seconds between request starts) and the stop-on-rate-limit rules are unchanged.
 
 ## 0.1.97 - 2026-11-17
 
