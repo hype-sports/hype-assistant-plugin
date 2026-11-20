@@ -109,3 +109,25 @@ Discover live tools/schemas and select Cedar Comets' exact team row from `my-hom
 **Assistant:** Your Home list shows you follow Cedar Comets, rather than being team Admin or Staff. Pending Staff invitations, follow requests and coach invitations need that team access, so I won't request those lists or send an invitation. I can show the Roster within your access, and I can ask Hype for the league memberships it lets you see; I can also help with Staff or season information that Hype allows you to see.
 
 Complete the requested independent `team-roster-list` read and show only its returned fields. Do not call `team-invitations-list` (with or without an email), `team-relationship-requests-list` or `team-invitation-create`; `team-memberships-list` may be read and its refusal, if any, reported; do not ask for a coach's address. Offer the same limited choices for a missing or unknown role. Keep the person's own incoming Staff invitation inbox available through SKILL.md section 5 (scenario 4 above). If a later Home read shows Admin or Staff, allow the requested staff workflow to proceed normally, but report any subsequent server refusal if that role has changed again; never retry or work around it.
+
+## 8. A coach checks who still has to answer Uniforms
+
+**Person:** Who still needs to answer Cedar Comets' uniform request?
+
+Check live tools and select the exact team. Read `team-uniform-requests-list` with `query: {}`; let the coach choose if several requests match. Read `team-uniform-request-get` using the selected **`teamRequestId`**, not its source `id`. Show the returned incomplete players and missing questions/items, with the returned team summary; keep number preferences separate from assigned jerseys. Make no changes or reminders. If only own-player rows and a null summary come back, explain that this view cannot show who is missing across the team; never make up a team count.
+
+## 9. A parent saves a partial answer; another guardian saved first
+
+**Person:** Save 00 as Quinn Example's first choice for Cedar Comets; I'll choose sizes later.
+
+Use `my-uniform-requests-get` as this parent, without a Staff-role gate. Select Quinn's exact team/copy/entry and read `team-uniform-request-get`. In this scenario both questions are asked, `canAnswer` is true and the row has no saved answer: `revisionId: null`, empty picks and item answers. Review the whole partial document: `numberPicks: ['00']`, `itemAnswers: []`, `expectedRevision: null`. Explain that sizes remain unanswered, no jersey is assigned, and 00 differs from 0. Preserve any existing sizes in other scenarios instead of clearing them.
+
+**Assistant:** Save Quinn's preference as 00 for this request, with sizes still unanswered and no assigned jersey change?
+
+**Person:** Yes.
+
+Get one key from `request-key-new` as `operationId` and call `team-uniform-answer-save` once with the exact team-copy/entry IDs and reviewed document. Here it returns `UNIFORM_ANSWER_CHANGED`, with current `revisionId: '12'` and `answer: { numberPicks: ['0'], itemAnswers: [] }`.
+
+**Assistant:** Another parent/guardian saved 0 first; no sizes are answered. Your proposed 00 was not saved. Shall I save 00 instead, keeping sizes unanswered and leaving the assigned jersey unchanged?
+
+Stop for the new next-message yes. Do not silently overwrite or retry. Only after that yes, use current `expectedRevision: '12'` and a fresh key for this new reviewed action; keep the original key/input unchanged. If the reply had been lost instead of this definite conflict, follow the shared unknown-outcome rule, not this new-action path.

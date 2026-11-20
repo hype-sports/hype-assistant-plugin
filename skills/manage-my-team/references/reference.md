@@ -47,6 +47,26 @@ Use `catalogVersion: 1` with these current schemas. Omit absent sections; never 
 
 For a staff invitation, validate the directly supplied address using the live schema (currently trimmed valid email, at most 255 characters). Use the requested supported coaching title; use `head_coach` for Head Coach or `assistant_coach` for Assistant Coach only when confirmed by the live title schema. Treat custom titles as labels, never permissions. Keep `makeOwner: false` for this skill's coach invitations. Never offer an Admin grant as a way around a refusal.
 
+## Uniforms
+
+Use the live `catalogVersion` and schemas. All four reads require `query` (use `{}` when unfiltered) and no body. All five writes require `body.operationId` from `request-key-new` and no query. Team paths use `id: teamId`; detail/answer/lock use `requestId: teamRequestId` (the team copy, never the source ID). Keep answer `entryId` separate.
+
+| Catalog operation ID | Read / write | Needs / result |
+| --- | --- | --- |
+| `team-uniform-requests-list` | Read | Team path; `query: {}` or `{ seasonId }`. Returns visible requests with source `id` and separate `teamRequestId`; empty means none visible for this call |
+| `team-uniform-request-get` | Read | Team path plus team-copy `requestId`; `query: {}` or `{ operationId }` for an answer receipt. Returns request, copy ID, permitted rows, viewer flags, nullable summary and operation; accepted operation has `revisionId` and `isCurrent`, not an answer body or create/lock status |
+| `my-uniform-requests-get` | Read | No path/body; `query: {}` or `{ requestIds }`, one comma-separated string of 1–100 source UUIDs, not an array. Returns only the caller's own players, their copy/entry/team IDs, states and own-player counts, no sizes or number picks; Staff gives no wider view |
+| `team-uniform-list-get` | Read | Team path; `query: {}`. Editor-only current `{ list, offers }`; list may be null; offers carry their source list and owner |
+| `team-uniform-request-create` | Write | Team path; body `{ operationId, seasonId, title, items, askNumberPreferences, askSizes, dueOn, sourceListId, sourceRevision }`. Current-season team editor; at least one question, items required for sizes; dueOn is a calendar date or null and both source fields are set or both null. Receipt `{ requestId, teamRequestIds, publicationState }`; unpublished does not prove Feed delivery |
+| `team-uniform-answer-save` | Write | Team path, team-copy `requestId`, own player's `entryId`; body `{ operationId, expectedRevision, numberPicks, itemAnswers }`. Use current row's `revisionId`; complete partial answer, never a patch or jersey assignment. Receipt `{ operationId, revisionId, acceptedAt }` acknowledges an accepted version, not that it remains current |
+| `team-uniform-request-lock` | Write | Team path, team-copy `requestId`; body `{ operationId }`. Actual source-maker authority after team-detail access; locks the source's copies and applicable assigned numbers with no undo. Receipt `{ requestId, lockedAt, maker }` uses the source ID |
+| `team-uniform-list-save` | Write | Team path; body `{ operationId, expectedRevision, items }`. Team editor, current own list revision or null for no prior list; replaces the whole default list, not sent snapshots or family answers; returns `{ list }` |
+| `team-uniform-list-offer-answer` | Write | Team path; body `{ operationId, expectedRevision, sourceListId, sourceRevision, choice }`. Team editor, current own revision and exact returned offered list/revision; `choice` is `use-list` or `keep-ours`. Returns `{ list }`; neither choice rewrites sent snapshots or family answers |
+
+Keep revisions as positive decimal strings, never numbers; null `expectedRevision` means no previous answer/list, not skip the check. `items` is the complete ordered `[{ id, label, sizes: [{ id, label }] }]` list: 0–20 items, each with 1–32 sizes. `numberPicks` is 0–3 distinct strings (`'00'`, `'0'`, `'1'`–`'99'`); `itemAnswers` is `[{ itemId, sizeId }]`, using exact sent IDs. Preserve unchanged answers and review clearing. Display assigned numbers with `assignedDoubleZero`, separately from preferences.
+
+Respect a null family `summary`, own-player counts and omitted staff-only claims/clashes; never invent rival names. Uniforms projections omit photos/logos, profile IDs, contacts and adult identities. On `UNIFORM_ANSWER_CHANGED` or `UNIFORM_LIST_CHANGED`, show only the returned current document and use the shared revised-review/next-message-yes rule, never overwrite. Current can be null, and a list conflict can contain the source list rather than the team's list. `UNIFORM_REQUEST_LOCKED` means edits/numbers are read-only; `UNIFORM_REQUEST_EXISTS` does not return an existing request ID. Viewer flags do not supply missing tools: spreadsheet download, batch numbering and starting league-made requests are not available yet.
+
 ## Interpret only returned facts
 
 - Keep the Roster's `role: player` and `role: staff` rows separate. The MCP projection retains id, role, jerseyNumber, jerseyDoubleZero, position, staffRole, lastName and viewerTier; firstName/displayName appear only where allowed. Never fill withheld names from another source. `jerseyDoubleZero` distinguishes 00 from 0; a null jersey is not 0.
