@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.98 - 2026-11-20
+
+- The skills and shared invitation rules now describe the request limit as the shared per-account allowance Hype sets, instead of a fixed 60 requests a minute, because that allowance is becoming a setting that can change. Pacing (at least 1.1 seconds between request starts) and the stop-on-rate-limit rules are unchanged.
+
 ## 0.1.97 - 2026-11-17
 
 - Clubs and Tournaments: correct the skill to say Tournament Admin invitations attempt email through the shared staff invitation sender. Explain confirmed sends, unconfirmed results and the per-recipient daily cap without promising inbox delivery or retrying automatically.

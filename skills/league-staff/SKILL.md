@@ -102,6 +102,6 @@ On `WRITE_OUTCOME_UNKNOWN`, timeout, interruption or malformed/lost reply, stop 
 
 That one affected-item read needs no extra approval and shows current state, not proof of the earlier outcome. Recipients, Division Admins and managers retain only their existing read rights; no wider scan or new access is authorized. Never infer failed acceptance or sending from an absent pending row. Ordinary reads otherwise stay only on request. Any further change needs a fresh complete review, a yes in the person's next message and current authority.
 
-Access, validation, stale/archived target and other refusals stop the action; explain safe returned wording without account-existence claims. Respect rate waits and ask before resuming; no polling, account switching or automatic retry. Keep starts below 60 MCP requests per rolling minute per account, including reads/discovery/refusals and other sessions.
+Access, validation, stale/archived target and other refusals stop the action; explain safe returned wording without account-existence claims. Respect rate waits and ask before resuming; no polling, account switching or automatic retry. Keep starts within the shared per-account MCP request allowance (Hype sets it and can change it), including reads/discovery/refusals and other sessions.
 
 End with confirmed actions, pending offers, unknown/refused/not-attempted actions and the safe next step, without contacts. See [worked examples](examples/example.md).
