@@ -116,7 +116,7 @@ For each proposed new row:
 3. Save result/ID to the file. Two teams share ONE create. A successful summary is not yet proof of times/sides/Field; verify in step 9.
 4. Continue only with clear results/unchanged approval. No parallel/speculative writes or automatic retries.
 
-Stay below **60 MCP POST requests per rolling minute per account**, counting discovery, reads, refusals and other devices/assistants. Pace all calls.
+Stay within **the shared per-account MCP request allowance (Hype sets it and can change it)**, counting discovery, reads, refusals and other devices/assistants. Pace all calls.
 
 ## 9. Pause, resume, verify
 
