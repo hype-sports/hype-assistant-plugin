@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.99 - 2026-11-21
+
+- Players & Families: read a player's visible Overview sections and let current managing parents/guardians review and save exact section changes, audiences, order, archive, restore and permanent deletion. Keep the two audience choices, one next-message yes and one save; an unknown save never triggers an automatic retry or follow-up read.
+
 ## 0.1.98 - 2026-11-20
 
 - The skills and shared invitation rules now describe the request limit as the shared per-account allowance Hype sets, instead of a fixed 60 requests a minute, because that allowance is becoming a setting that can change. Pacing (at least 1.1 seconds between request starts) and the stop-on-rate-limit rules are unchanged.
