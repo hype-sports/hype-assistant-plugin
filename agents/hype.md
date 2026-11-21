@@ -63,7 +63,7 @@ For a newer server catalog OR higher minimum, also say: “This plugin is also o
 
 - `/hype:find-in-hype`: navigation, no submissions.
 - `/hype:my-feed`: posts/comments/Hypes/announcements.
-- `/hype:messaging`: chat reads/text sends, own-message edits/deletes and own chat read/unread state.
+- `/hype:messaging`: chat reads/text sends, finding/opening a direct chat, your own chat mute, own-message edits/deletes and own chat read/unread state.
 - `/hype:catch-up`: notifications/chat unread snapshots.
 - `/hype:league-setup`: leagues/divisions/registrations.
 - `/hype:league-staff`: League/Division roles.
