@@ -6,6 +6,10 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 - Messaging: read current chat author role labels, a current member's chat name and decorative supporter rings only when requested and offered by the live connection. Keep app access checks, hidden identities and unavailable roles; omit guardian names and profile-picture URLs, never infer support status from a missing ring, and never poll or retry automatically. These reads do not mark chats read or change unread counts, presence or typing.
 
+## 0.1.103 - 2026-11-21
+
+- Messaging: start a custom group from permitted league choices and bounded name searches, or leave only your own custom-group membership, when those live tools are available. Keep exact shared confirmation, the original creation key, pending-only acceptance receipts and no automatic retries; adding people to existing groups remains unavailable.
+
 ## 0.1.102 - 2026-11-21
 
 - Messaging: find related adults by name, check current direct-message eligibility, open the exact approved person's chat, and read or change your own chat mute when those live tools are available. Keep bounded discovery, one shared review and next-message yes, server permission checks and no automatic retries after uncertain changes.
