@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.100 - 2026-11-21
+
+- Messaging: edit or delete your own chat message within the app's 15-minute window, or mark your own chat read or unread, when the live connection offers those tools. Keep the shared exact review and next-message yes, caller-owned unread state checks, plain refusals and no automatic retry after an uncertain result.
+
 ## 0.1.99 - 2026-11-21
 
 - My support: stop naming four old payment tools (start a payment, recover a payment, read a payment step, open the manage-support page) that Hype's server no longer offers. The skill still sends paying and managing support to the Hype app, and the plugin's tool-catalog check passes again.
