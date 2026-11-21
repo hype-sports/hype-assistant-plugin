@@ -2,9 +2,13 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.100 - 2026-11-21
+
+- Players & Families: read a player's visible Overview sections and let current managing parents/guardians review and save exact section changes, audiences, order, archive, restore and permanent deletion. Keep the two audience choices, one next-message yes and one save; an unknown save never triggers an automatic retry or follow-up read, even when the server suggests loading the Overview. Clarify first-save limits, missing long text and the editor's archive/delete choices; shared recovery rules honor workflow-specific read-back exceptions.
+
 ## 0.1.99 - 2026-11-21
 
-- Players & Families: read a player's visible Overview sections and let current managing parents/guardians review and save exact section changes, audiences, order, archive, restore and permanent deletion. Keep the two audience choices, one next-message yes and one save; an unknown save never triggers an automatic retry or follow-up read.
+- My support: stop naming four old payment tools (start a payment, recover a payment, read a payment step, open the manage-support page) that Hype's server no longer offers. The skill still sends paying and managing support to the Hype app, and the plugin's tool-catalog check passes again.
 
 ## 0.1.98 - 2026-11-20
 
