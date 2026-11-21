@@ -20,7 +20,7 @@ Read and explain the person's own support, and change only whether their support
 
 ## 0. Check live capabilities and safety
 
-Use only the person's own supported, signed-in Hype connection and existing access. Installing this plugin grants nothing; Hype checks rights on every request. Never read or change another person's support, even if asked; accept no target person, account or email.
+Use only the person's own supported, signed-in Hype connection and existing access. Installing this plugin grants nothing; Hype checks rights on every request. Never read or change another person's support, even if asked; accept no target person, account or email. Decorative rings visible in a readable chat belong to [messaging](../messaging/SKILL.md), not support status; a missing ring never proves someone is not a supporter.
 
 Read the live tool list, descriptions and input schemas first. Find each full installed tool name, `mcp__plugin_hype_hype__<operation-id>`, for the operation ids below; the live tool list wins. Check only the tools the requested job needs.
 
