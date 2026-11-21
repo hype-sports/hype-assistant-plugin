@@ -109,7 +109,7 @@ Visit the [Hype support page](https://hypesports.live/support.html). For securit
 | `/hype:league-staff` | See and manage a league's staff | Preview |
 | `/hype:clubs-and-tournaments` | Set up clubs and tournaments, invite Admins and answer invitations | Preview |
 | `/hype:my-feed` | Read your Feed and comments, write comments and give Hypes, send announcements with a 10-second Undo, and delete eligible announcements or comments; one review and yes cover the complete requested list | Preview |
-| `/hype:messaging` | Find your chats, check unread counts, read recent messages and send exact approved text as yourself | Preview |
+| `/hype:messaging` | Find your chats, read recent messages, send exact approved text, edit or delete your own messages, and mark chats read or unread | Preview |
 | `/hype:catch-up` | Catch up on notifications, with separate group-chat and direct-message unread snapshots | Preview |
 | `/hype:notification-settings` | Change which notifications you get and when | Preview |
 | `/hype:my-account` | Look after your own account details and settings | Preview |
