@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.102 - 2026-11-21
+
+- Messaging: find related adults by name, check current direct-message eligibility, open the exact approved person's chat, and read or change your own chat mute when those live tools are available. Keep bounded discovery, one shared review and next-message yes, server permission checks and no automatic retries after uncertain changes.
+
 ## 0.1.101 - 2026-11-21
 
 - Messaging: edit or delete your own chat message within the app's 15-minute window, or mark your own chat read or unread, when the live connection offers those tools. Keep the shared exact review and next-message yes, caller-owned unread state checks, plain refusals and no automatic retry after an uncertain result.
