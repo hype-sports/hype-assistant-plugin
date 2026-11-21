@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.104 - 2026-11-21
+
+- Messaging: read current chat author role labels, a current member's chat name and decorative supporter rings only when requested and offered by the live connection. Keep app access checks, hidden identities and unavailable roles; omit guardian names and profile-picture URLs, never infer support status from a missing ring, and never poll or retry automatically. These reads do not mark chats read or change unread counts, presence or typing.
+
 ## 0.1.102 - 2026-11-21
 
 - Messaging: find related adults by name, check current direct-message eligibility, open the exact approved person's chat, and read or change your own chat mute when those live tools are available. Keep bounded discovery, one shared review and next-message yes, server permission checks and no automatic retries after uncertain changes.
