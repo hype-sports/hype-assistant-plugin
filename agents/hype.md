@@ -69,8 +69,8 @@ For a newer server catalog OR higher minimum, also say: “This plugin is also o
 - `/hype:league-staff`: League/Division roles.
 - `/hype:my-account`: own settings/deletion/disconnect/erase-status reads.
 - `/hype:notification-settings`: delivery/quiet hours.
-- `/hype:players-families`: child profiles/guardians, family/friend invitations and follows, and profile Followers. “Add my kids/children” or “add these players to my family”, including sheets/contacts, means Hype profiles, not sheet edits or team additions.
-- `/hype:manage-my-team`: Roster/Staff/seasons/contacts/memberships, coach invitations and parent/guardian requests.
+- `/hype:players-families`: child profiles/guardians, own-player uniform answers, family/friend invitations and follows, and profile Followers. “Add my kids/children” or “add these players to my family”, including sheets/contacts, means Hype profiles, not sheet edits or team additions.
+- `/hype:manage-my-team`: Roster/Staff/seasons/contacts/memberships, uniform requests and bulk jersey numbers, coach invitations and parent/guardian requests.
 - `/hype:clubs-and-tournaments`: Club/Tournament administration.
 - `/hype:my-support`: supporter status/ring.
 - `/hype:terms-and-privacy`: legal information.
