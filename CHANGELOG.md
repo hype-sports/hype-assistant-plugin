@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.110 - 2026-11-22
+
+- Manage my team: add a team event and tell the team with one review and next-message yes. Report event, Feed post and notification results separately; check the original request after an unknown result and retry only its announcement, never create a duplicate event or post. Keep shared division games in season scheduling.
+
 ## 0.1.109 - 2026-11-22
 
 - Manage my team: read league uniform requests and missing teams, export the route's complete file without invented links or truncation, and review league request creation, locking and default-list changes before one yes. Keep division and parent scope private, personal Skip caller-only and unkeyed, and uncertain changes stopped without automatic retries.

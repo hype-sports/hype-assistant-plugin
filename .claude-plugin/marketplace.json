@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "hype",
-      "version": "0.1.109",
+      "version": "0.1.110",
       "description": "Ask about your Hype leagues and teams, then review and approve the complete list before changes.",
       "category": "productivity",
       "source": "./"

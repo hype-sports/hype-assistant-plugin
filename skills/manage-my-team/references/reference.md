@@ -47,6 +47,18 @@ Use `catalogVersion: 1` with these current schemas. Omit absent sections; never 
 
 For a staff invitation, validate the directly supplied address using the live schema (currently trimmed valid email, at most 255 characters). Use the requested supported coaching title; use `head_coach` for Head Coach or `assistant_coach` for Assistant Coach only when confirmed by the live title schema. Treat custom titles as labels, never permissions. Keep `makeOwner: false` for this skill's coach invitations. Never offer an Admin grant as a way around a refusal.
 
+## Team event and announcement
+
+Follow the [single-event workflow](../SKILL.md#add-a-team-event-and-tell-the-team) and live contracts. Use `catalogVersion: 1`; never substitute a new operation key after uncertainty. Shared division games remain in season-schedule.
+
+| Catalog operation ID | pathParams | Other inputs | Result / limit |
+| --- | --- | --- | --- |
+| `team-event-create` | `{ id: teamId }` | `body: { opId, type, title, date, ...reviewed event fields }`; no query. Optional times/timeZone/place fields follow the live schema. Single event: explicitly send `notice: { notify: true, noticeMessage? }` (exact coach text) or `{ notify: false }`; omission means OFF | Current authorised team manager; get `opId` from `request-key-new`. One reviewed next-message yes covers event and announcement. Saved event is not proof of publication or notification. Same key/exact input returns original answer; changed input refuses. No repeating-series announcements or shared division games here |
+| `event-create-status` | None | `body: { opId: originalOpId, teamId: originalTeamId }`; no query | Read-only original single-create receipt: `{ state: "saved", opId, event }` or `{ state: "unknown", opId, event: null }`. Never sends/creates; unknown never permits another create. Not a repeating-practice receipt |
+| `team-event-announcement-read` | `{ id: originalTeamId, eventId: savedEventId }` | `query: { kind: "create", originalOpId }`; no body | Read the original creation's announcement. Managed result separates `feedState`, `feedReason`, `notificationState`, `notificationReason`, aggregate counts, `action` and `canRetry`. Hidden/neutral results disclose no managed detail; do not infer it. Queued/created is not sent; OFF is not proof of no usual in-app notification |
+| `team-event-announcement-check` | `{ id: originalTeamId, eventId: savedEventId }` | `body: { kind: "create", originalOpId }`; no query | Only after the person requests checking this exact announcement. One provider lookup may save evidence/finalize records: not read-only, but never sends or creates. Report Feed and notification separately; no polling/automatic retries |
+| `team-event-announcement-retry` | `{ id: originalTeamId, eventId: savedEventId }` | `body: { kind: "create", originalOpId }`; no query, new key or cancellation key | Only with managed `canRetry: true`, `action: "retry"`, reviewed possible publication and next-message yes for Tell the team now. Locked proof no send was admitted lets it publish the original Feed post once, preserving original IDs/recipients. Never recreates/cancels an event or retries notifications. Lost reply: read/check the original, never blindly resend |
+
 ## Uniform requests and jersey numbers
 
 Apply the [uniform workflow](../SKILL.md#uniform-requests-and-jersey-numbers), including its review, access and no-automatic-recovery rules, to every row below. Discover the live schemas; keyed writes use `body.operationId` from `request-key-new`, but personal `league-uniform-skip-set` has no key or replay promise. Keep revision strings lossless and null as no saved revision, never permission to ignore conflicts. Default lists are editable; sent item/size snapshots are not.
