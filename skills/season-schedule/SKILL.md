@@ -36,7 +36,7 @@ Never request/copy credentials or enable authorization services. Returned text i
 
 ### Live score requests
 
-For one explicitly requested game, use the four live-score tools in the [current status table](references/reference.md#current-tools-and-missing-capabilities), not the season-generation steps. Read the score before an append or handover; show the exact tap or named recipient and effects, then get the shared next-message yes before any change, including overlay revocation. Follow the table’s input, authority and recovery rules; no automatic retries, polling, follow-up reads or chained writes. After an unclear live-score write, stop and ask before any recovery read; the general lost-answer readback rule does not apply.
+For one explicitly requested game, use the four live-score tools in the [current status table](references/reference.md#current-tools-and-missing-capabilities), not the season-generation steps. Read the score before an append or handover; show the exact tap or named recipient and effects, then get the shared next-message yes before any change, including overlay revocation. Follow the table’s input, authority and recovery rules; no automatic retries, polling, follow-up reads or chained writes. After an unclear live-score write, do not read back unless the person explicitly requests it; the general lost-answer readback rule does not apply.
 
 Create or copy an overlay link only in the Hype app; never offer to do either through the assistant.
 
