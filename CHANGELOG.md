@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.108 - 2026-11-21
+
+- Manage my team: preview everyone's jersey changes with clashes and league warnings, then save the exact reviewed table once after one yes. Start and read uniform requests, manage default size lists and lock the whole order; parents can review and save only their own player's answer until locked. Keep sent lists unchanged, respect read-only history and stop without automatic retries or follow-up reads after uncertain writes. The league file comes in a later release.
+
 ## 0.1.107 - 2026-11-21
 
 - Season scheduling: read a game's live score, record one requested scoring tap, hand scoring to a selected eligible scorer, or turn off the streaming overlay link. Review and confirm changes, keep the original scoring keys after uncertain answers, and leave overlay-link creation and copying in the app.
