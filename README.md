@@ -101,7 +101,7 @@ Visit the [Hype support page](https://hypesports.live/support.html). For securit
 | --- | --- | --- |
 | `/hype:league-setup` | Create a league and its divisions, rename it, register players and archive it | Available |
 | `/hype:my-support` | See your supporter status and change your supporter ring setting | Available |
-| `/hype:season-schedule` | Plan a round-robin division season and save its reviewed games to saved league Fields; change, cancel or undo cancellation of shared games, with one complete review and one yes | Preview |
+| `/hype:season-schedule` | Plan a round-robin division season and save its reviewed games to saved league Fields; change, cancel or undo cancellation of shared games; read live scores, record a scoring tap, hand over scoring or turn off an overlay link, with one complete review and one yes | Preview |
 | `/hype:run-a-draft` | Prepare and run a division draft, with clock guidance and supported pause, resume, skip and undo actions | Preview |
 | `/hype:manage-my-team` | See your Roster, Staff and seasons; add, change, take off, put back and roll over players; invite coaches and parents/guardians, resend or cancel staff invitations; answer parent/guardian requests and league memberships; check emergency contacts | Preview |
 | `/hype:players-families` | Add or edit your child's profile and emergency contacts, manage parent/guardian invitations and team requests, invite family and friends to follow, answer invitations to follow, read Followers and remove family/friend follows, and read league/division players | Preview |
