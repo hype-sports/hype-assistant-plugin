@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.107 - 2026-11-21
+
+- Season scheduling: read a game's live score, record one requested scoring tap, hand scoring to a selected eligible scorer, or turn off the streaming overlay link. Review and confirm changes, keep the original scoring keys after uncertain answers, and leave overlay-link creation and copying in the app.
+
 ## 0.1.106 - 2026-11-21
 
 - Players & Families: invite family or friends to follow a player, read and answer your invitations, withdraw or remind a known offer, and read Followers to remove an exact family/friend follow. Keep parent/guardian and staff powers separate, review every change before one yes, keep contacts private, and stop without retries or follow-up reads after uncertain changes.
