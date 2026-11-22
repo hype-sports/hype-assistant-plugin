@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.105 - 2026-11-21
+
+- Messaging: use a returned message author's Hype person ID for requested current role and member-name reads. Missing or null author IDs stay unavailable, never inferred from names or provider identifiers. Navigation-only requests hand off these chat reads and decorative supporter rings to Messaging.
+
 ## 0.1.104 - 2026-11-21
 
 - Messaging: read current chat author role labels, a current member's chat name and decorative supporter rings only when requested and offered by the live connection. Keep app access checks, hidden identities and unavailable roles; omit guardian names and profile-picture URLs, never infer support status from a missing ring, and never poll or retry automatically. These reads do not mark chats read or change unread counts, presence or typing.
