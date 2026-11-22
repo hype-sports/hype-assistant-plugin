@@ -104,7 +104,7 @@ Visit the [Hype support page](https://hypesports.live/support.html). For securit
 | `/hype:season-schedule` | Plan a round-robin division season and save its reviewed games to saved league Fields; change, cancel or undo cancellation of shared games, with one complete review and one yes | Preview |
 | `/hype:run-a-draft` | Prepare and run a division draft, with clock guidance and supported pause, resume, skip and undo actions | Preview |
 | `/hype:manage-my-team` | See your Roster, Staff and seasons; add, change, take off, put back and roll over players; invite coaches and parents/guardians, resend or cancel staff invitations; answer parent/guardian requests and league memberships; check emergency contacts | Preview |
-| `/hype:players-families` | Add or edit your child's profile and emergency contacts, manage parent/guardian invitations and team requests, and read league/division players | Preview |
+| `/hype:players-families` | Add or edit your child's profile and emergency contacts, manage parent/guardian invitations and team requests, invite family and friends to follow, answer invitations to follow, read Followers and remove family/friend follows, and read league/division players | Preview |
 | `/hype:invite-families` | Review a whole parent-invitation list once, start one background job, check progress or stop future work when asked, and recover with the original key; include requested same-row emergency contacts in the same review | Preview |
 | `/hype:league-staff` | See and manage a league's staff | Preview |
 | `/hype:clubs-and-tournaments` | Set up clubs and tournaments, invite Admins and answer invitations | Preview |

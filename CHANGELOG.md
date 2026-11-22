@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.106 - 2026-11-21
+
+- Players & Families: invite family or friends to follow a player, read and answer your invitations, withdraw or remind a known offer, and read Followers to remove an exact family/friend follow. Keep parent/guardian and staff powers separate, review every change before one yes, keep contacts private, and stop without retries or follow-up reads after uncertain changes.
+
 ## 0.1.105 - 2026-11-21
 
 - Messaging: use a returned message author's Hype person ID for requested current role and member-name reads. Missing or null author IDs stay unavailable, never inferred from names or provider identifiers. Navigation-only requests hand off these chat reads and decorative supporter rings to Messaging.
