@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.111 - 2026-11-22
+
+- Personal team and league creation: prepare the original request key before the first confirmed send, keep the exact body and key for a person-confirmed repeat, and recognize replayed answers as the same saved record. Explain key reuse refusals and read current state after an unknown result without automatic resends or replacement keys.
+
 ## 0.1.110 - 2026-11-22
 
 - Manage my team: add a team event and tell the team with one review and next-message yes. Report event, Feed post and notification results separately; check the original request after an unknown result and retry only its announcement, never create a duplicate event or post. Keep shared division games in season scheduling.
