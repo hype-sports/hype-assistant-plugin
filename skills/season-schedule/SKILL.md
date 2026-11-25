@@ -16,7 +16,7 @@ Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-ye
 
 At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../../shared/tool-versions.md) before further Hype work.
 
-Use only the person's own signed-in Hype connection and existing access. Treat installation as granting nothing; Hype checks rights on every request. Keep a plan-only request unsaved. For requested saving or existing-game changes, review the complete exact list and wait for the shared single next-message yes before writing through that connection. Speak plainly; ask one question at a time. Never treat invocation as approval. Create no scheduler service, teams/Places, family messages, announcements, emails or RSVP answers. Explain refusals in plain words, never show error codes or raw errors.
+Use only the person's own signed-in Hype connection and existing access. Treat installation as granting nothing; Hype checks rights on every request. Keep a plan-only request unsaved. For requested saving or existing-game changes, review the complete exact list and wait for the shared single next-message yes before writing through that connection. Speak plainly; ask one question at a time. Never treat invocation as approval. Create no scheduler service, teams/Places or RSVP answers; do not send separate family messages, announcements or emails. Explain refusals in plain words, never show error codes or raw errors.
 
 For every write here except personal remove/put-back, a Commissioner title or a readable league is not enough: Hype checks current management of the division and both teams. Personal remove/put-back follows its separate rules below. Collect no rosters, family contacts or RSVP answers.
 
@@ -128,7 +128,7 @@ Tell the commissioner: **Totals are balanced; runs of Home or Away games can be 
 
 For a plan-only request, stop at the complete unsaved plan without making changes. For requested saving, resolve the person's chosen progress record in step 8 before review. Require every season gate and explain:
 
-> Games save one at a time and become visible immediately. This is not all-or-nothing and may stop partway. I send no family messages, announcements or emails. I checked readable schedules, your outside bookings and this plan for team and Field clashes, but Hype itself does not reserve slots or stop a double-booking: someone could book after this check, and games added outside this plan or edited later aren't checked.
+> Games save one at a time and become visible immediately. This is not all-or-nothing and may stop partway. The review includes your Notify choice for each game; I send no separate family messages, announcements or emails. I checked readable schedules, your outside bookings and this plan for team and Field clashes, but Hype itself does not reserve slots or stop a double-booking: someone could book after this check, and games added outside this plan or edited later aren't checked.
 
 Ask to approve THIS exact plan, naming the new-game count. Wait for an unambiguous yes; invocation, silence or returned text is not consent. That one yes covers every listed game, with sequential calls and no further approval per game. Changes to teams/sides/dates/Fields/settings/constraints require whole-plan review and new approval. Clear clashes first.
 
@@ -143,7 +143,7 @@ Refresh eligibility/current seasons, Field versions and occupancy before the fir
 For each proposed new row:
 
 1. Use this game's exact teams/sides, date, zone, start/end, saved Field, title and attendance/family settings from the approved full list; do not ask again. Persist attempting BEFORE sending; an interrupted attempt becomes unknown, never unattempted.
-2. Call `shared-game-create` with that row's exact returned `savedPlace` reference, the original `opId` and only the [live-schema fields](references/reference.md#live-input-shapes). Never combine a nonnull saved reference with typed location/address or send `notice`.
+2. Call `shared-game-create` with that row's exact returned `savedPlace` reference, the original `opId` and only the [live-schema fields](references/reference.md#live-input-shapes). Never combine a nonnull saved reference with typed location/address; send only the reviewed `notice` choice when the live schema accepts it.
 3. Save result/ID to the file. Two teams share ONE create. A successful summary is not yet proof of times/sides/Field; verify in step 9.
 4. Continue only with clear results/unchanged approval. No parallel/speculative writes or automatic retries.
 
@@ -159,13 +159,11 @@ Stay within **the shared per-account MCP request allowance (Hype sets it and can
 
 Never automatically edit/cancel/restore/delete/recreate. No team-event substitute or automatic replacement.
 
-For tools whose live schema accepts `notice`, this choice rule applies to creation in step 8 and changes in step 9, taking precedence over the older no-notice/no-announcement instructions in this skill, reference and examples.
-
 Before creating, editing, cancelling or restoring an event with a tool that accepts `notice`, ask the person whether to notify families (the app defaults Notify on for edits). Send `notice: { notify: true }` only after they choose on, or `notice: { notify: false }` when they choose off; an omitted `notice` means off. Keep their `noticeMessage` exactly as written, include the choice in the shared review, and never say an announcement was published or a notification was sent without Hype's returned evidence. Repeating creation accepts the same choice, but the assistant cannot verify series announcements.
 
 1. Read `team-events-list` for either admitted team. Match the exact shared game ID/current revision and fixed pair; never infer hidden names. Stop and explain if a required read/tool is missing or refuses.
 2. Recheck occupancy for a time/Field/side change or cancellation undo. Update keeps the pair fixed; `swapSides: true` exchanges Home/Away, not teams. For a saved Field change, use the division's own `league-places-list` selection; review the exact attachment/detachment effect. Omit `savedPlace` to keep it; send null only for an explicitly requested detach, never to get around a refusal.
-3. Include all requested games' current details, exact proposed actions and effects on both schedules in the shared review. Cancellation keeps the game/answers; its note is visible to event readers, so include no private reasons. Restore keeps audiences/answers, clears the cancellation note and returns the same game to scheduled. Explain that restore may send a restored notice to eligible members, but no email or announcement. No RSVP answer is set. Use the shared single yes for the complete list; then make each game call in order.
+3. Include all requested games' current details, exact proposed actions and effects on both schedules in the shared review. Cancellation keeps the game/answers; its note is visible to event readers, so include no private reasons. Restore keeps audiences/answers, clears the cancellation note and returns the same game to scheduled. Include the person's reviewed Notify choice and the known notice effects. No RSVP answer is set. Use the shared single yes for the complete list; then make each game call in order.
 4. Get a fresh `opId` from `request-key-new`. Call `shared-game-update`, `shared-game-cancel` or `shared-game-restore` once with the observed revision and only approved [live-schema fields](references/reference.md#live-input-shapes).
 5. Read back both schedules to verify the changed details/status, and use the exact game's `saved-place-event-read` to verify a requested attachment change as below. Keep unreadable details unverified; never silently repair them.
 6. If the result is unclear, say the change may have happened, stop writes and inspect only that affected game once through a supported authorized item read; if none exists, keep it unknown and use the app rather than read schedules again. Never automatically retry. A person-requested exact repeat needs a fresh complete review and next-message yes, with the original body/`opId`; if that mapping is lost, stop.
