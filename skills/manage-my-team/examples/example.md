@@ -66,7 +66,7 @@ Read `team-invitations-list` and choose Robin's exact [invitation ID] by title, 
 
 **Person:** Actually, cancel Robin's invitation.
 
-Review the same exact invitation: it withdraws the offer and removes nobody already on Staff. After a yes in the person's next message, call `team-invitation-cancel` once. For verification, cancel any test invitation this way so none is left behind.
+Review the same exact invitation: it withdraws the offer and removes nobody already on Staff. After a yes in the person's next message, call `team-invitation-cancel` once.
 
 ## 4. Answer my Staff invitation
 
@@ -78,7 +78,7 @@ Use `my-team-invitations-list` as the recipient. Show only returned team, title,
 
 Select its exact returned invitation ID; clarify if there are multiple offers. Explain Staff and emergency-contact access, including Admin rights only if this exact offer grants them. Review [invitation ID], team, title and effects. Wait for a later explicit yes, then call `team-invitation-accept` once and report only the returned team joined. Do not add a player or accept another invitation.
 
-For a decline request instead, review the exact offer and explain no joining or existing staff removal; after explicit yes call `team-invitation-decline` once. Treat `{}` as success, not a missing reply. These are alternative decisions, not a sequence on one invitation. For verification, accept/decline only when the target and cleanup are safe; otherwise stop and report unverified.
+For a decline request instead, review the exact offer and explain no joining or existing staff removal; after explicit yes call `team-invitation-decline` once. Treat `{}` as success, not a missing reply. These are alternative decisions, not a sequence on one invitation.
 
 ## 5. Who is waiting; league history and division placement
 

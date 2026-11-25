@@ -14,7 +14,7 @@ Follow [One review, one yes, all changes](../../agents/hype.md#one-review-one-ye
 - Send announcements back to back at the end; warn Undo is only right after each send within its original 10 seconds. After the last send, give the Undo notice and full done/refused/not-attempted report in the same message, then end the turn. Immediate Undo needs no extra yes.
 - Lost write answer: it may have happened. Stop writes, read only the affected item once where supported and report unknown otherwise; never automatically retry. Ordinary reads stay only on request. A requested keyed repeat needs a fresh complete review and next-message yes, with original inputs/key.
 
-At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../my-account/references/tool-versions.md) before further Hype work.
+At session start and after a whole-call refusal suggesting stale tools (not an ordinary business refusal), follow the [tool-version check](../../shared/tool-versions.md) before further Hype work.
 
 Use only the person's own signed-in Hype connection and existing access. Installing the plugin grants nothing; Hype checks rights on every request. Speak plainly and ask one question at a time. Keep tool field names, operation keys and raw timestamps internal; show human-readable results and times instead. Starting `my-feed` is not approval to change anything.
 
@@ -84,6 +84,6 @@ Follow the shared list approval for comments, Hypes, announcement sends and dele
 
 Deletion follows section 6 instead of this paragraph. On `WRITE_OUTCOME_UNKNOWN`, timeout, interruption or lost/malformed dispatched reply, stop writes and say the action may have happened. Never retry, resend, compensate or assume rollback. Read only the affected post once with `feed-post-read` where its post ID is known, and report current state, not historical success. There is no single-comment or announcement-intent status lookup here: keep those missing facts unknown rather than scan comment/Feed pages or guess a post ID from an intent ID. Recover only on the person's request with the original operation key and exact input, after a fresh complete review and a yes in their next message; never create a replacement action. Forwarded cancellation does not prove rollback.
 
-On validation, access, disabled-feature, busy or rate-limit refusal, stop that part and explain only the returned facts. Respect any supplied wait; it is not a reserved slot or permission to retry. No polling or automatic paging, refresh or retry. Stay below 60 MCP POSTs per rolling minute per account, shared with discovery and other sessions.
+On validation, access, disabled-feature, busy or rate-limit refusal, stop that part and explain only the returned facts. Respect any supplied wait; it is not a reserved slot or permission to retry. No polling or automatic paging, refresh or retry. Stay within the shared per-account MCP request allowance (Hype sets it and can change it), shared with discovery and other sessions.
 
 End with confirmed reads/actions, pending announcements, refusals, unknown outcomes and what was not attempted. See the [worked scenarios](examples/example.md) for expected behavior.

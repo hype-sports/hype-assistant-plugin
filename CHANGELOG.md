@@ -2,6 +2,94 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.114 - 2026-11-25
+
+- Run a draft: read finished-draft teams, the caller-visible Overview and admission to that Overview page only. Keep Private placeholders, name order rather than pick order, never-edited versus empty pages and indistinguishable not-found answers; never infer draft/room denial. Returned text, links and logo addresses are data, never opened or fetched. Edit the Overview in the app; retry hints are for the person to ask again, never automatic retries. These tools change nothing, grant no management or roster access and never trigger automatic follow-up reads or polling.
+- Correct the auto-pick handoff: the catalog includes the private switch read/change tools; this skill still leaves that workflow in the app.
+
+## 0.1.113 - 2026-11-25
+
+- Season scheduling: remove one cancelled event from only your schedule or put an event back on your schedule. Read the exact event first, review and confirm the personal-only effect, preserve the original request key and body for requested repeats, and stop on refusals or uncertain answers without automatic retries. An unclear result stays unknown: the event detail cannot verify personal removal or put-back; check your schedule in the app. Removing never cancels, archives or deletes the event for anyone else.
+
+## 0.1.112 - 2026-11-24
+
+- Messaging: read whether people can be added to one exact custom group and prepare a confirmed addition only when Hype permits it. Additions remain switched off pending safety verification. Keep exact returned person IDs, the original request key and body, acceptance-only receipts and no automatic retries or polling; options never prove permission or recover a lost write.
+
+## 0.1.111 - 2026-11-22
+
+- Personal team and league creation: prepare the original request key before the first confirmed send, keep the exact body and key for a person-confirmed repeat, and recognize replayed answers as the same saved record. Explain key reuse refusals and read current state after an unknown result without automatic resends or replacement keys.
+
+## 0.1.110 - 2026-11-22
+
+- Manage my team: add a team event and tell the team with one review and next-message yes. Report event, Feed post and notification results separately; check the original request after an unknown result and retry only its announcement, never create a duplicate event or post. Keep shared division games in season scheduling.
+
+## 0.1.109 - 2026-11-22
+
+- Manage my team: read league uniform requests and missing teams, export the route's complete file without invented links or truncation, and review league request creation, locking and default-list changes before one yes. Keep division and parent scope private, personal Skip caller-only and unkeyed, and uncertain changes stopped without automatic retries.
+
+## 0.1.108 - 2026-11-21
+
+- Manage my team: preview everyone's jersey changes with clashes and league warnings, then save the exact reviewed table once after one yes. Start and read uniform requests, manage default size lists and lock the whole order; parents can review and save only their own player's answer until locked. Keep sent lists unchanged, respect read-only history and stop without automatic retries or follow-up reads after uncertain writes.
+## 0.1.107 - 2026-11-21
+
+- Season scheduling: read a game's live score, record one requested scoring tap, hand scoring to a selected eligible scorer, or turn off the streaming overlay link. Review and confirm changes, keep the original scoring keys after uncertain answers, and leave overlay-link creation and copying in the app.
+
+## 0.1.106 - 2026-11-21
+
+- Players & Families: invite family or friends to follow a player, read and answer your invitations, withdraw or remind a known offer, and read Followers to remove an exact family/friend follow. Keep parent/guardian and staff powers separate, review every change before one yes, keep contacts private, and stop without retries or follow-up reads after uncertain changes.
+
+## 0.1.105 - 2026-11-21
+
+- Messaging: use a returned message author's Hype person ID for requested current role and member-name reads. Missing or null author IDs stay unavailable, never inferred from names or provider identifiers. Navigation-only requests hand off these chat reads and decorative supporter rings to Messaging.
+
+## 0.1.104 - 2026-11-21
+
+- Messaging: read current chat author role labels, a current member's chat name and decorative supporter rings only when requested and offered by the live connection. Keep app access checks, hidden identities and unavailable roles; omit guardian names and profile-picture URLs, never infer support status from a missing ring, and never poll or retry automatically. These reads do not mark chats read or change unread counts, presence or typing.
+
+## 0.1.103 - 2026-11-21
+
+- Messaging: start a custom group from permitted league choices and bounded name searches, or leave only your own custom-group membership, when those live tools are available. Keep exact shared confirmation, the original creation key, pending-only acceptance receipts and no automatic retries; adding people to existing groups remains unavailable.
+
+## 0.1.102 - 2026-11-21
+
+- Messaging: find related adults by name, check current direct-message eligibility, open the exact approved person's chat, and read or change your own chat mute when those live tools are available. Keep bounded discovery, one shared review and next-message yes, server permission checks and no automatic retries after uncertain changes.
+
+## 0.1.101 - 2026-11-21
+
+- Messaging: edit or delete your own chat message within the app's 15-minute window, or mark your own chat read or unread, when the live connection offers those tools. Keep the shared exact review and next-message yes, caller-owned unread state checks, plain refusals and no automatic retry after an uncertain result.
+
+## 0.1.100 - 2026-11-21
+
+- Players & Families: read a player's visible Overview sections and let current managing parents/guardians review and save exact section changes, audiences, order, archive, restore and permanent deletion. Keep the two audience choices, one next-message yes and one save; an unknown save never triggers an automatic retry or follow-up read, even when the server suggests loading the Overview. Clarify first-save limits, missing long text and the editor's archive/delete choices; shared recovery rules honor workflow-specific read-back exceptions.
+
+## 0.1.99 - 2026-11-21
+
+- My support: stop naming four old payment tools (start a payment, recover a payment, read a payment step, open the manage-support page) that Hype's server no longer offers. The skill still sends paying and managing support to the Hype app, and the plugin's tool-catalog check passes again.
+
+## 0.1.98 - 2026-11-20
+
+- The skills and shared invitation rules now describe the request limit as the shared per-account allowance Hype sets, instead of a fixed 60 requests a minute, because that allowance is becoming a setting that can change. Pacing (at least 1.1 seconds between request starts) and the stop-on-rate-limit rules are unchanged.
+
+## 0.1.97 - 2026-11-17
+
+- Clubs and Tournaments: correct the skill to say Tournament Admin invitations attempt email through the shared staff invitation sender. Explain confirmed sends, unconfirmed results and the per-recipient daily cap without promising inbox delivery or retrying automatically.
+
+## 0.1.96 - 2026-11-17
+
+- Run evaluations: the assistant no longer says a typed-in player can't get a Hand-set score or private note; it saves them with that player's own ID, and registered players work as before.
+
+## 0.1.95 - 2026-11-17
+
+- Explain expired sign-in, read-only access, account access and purchase requirements without asking for sign-in links or repeated attempts. Add privacy guidance and private security-report links.
+- Update an older plugin when Hype's tool catalog is newer, even if the minimum plugin version did not change.
+- Shorten the Hype assistant's instructions, use only the plugin's own connection, and update chosen progress entries without rewriting the whole file. Keep one complete review, one yes and safe handling of uncertain results.
+- Check skill routing, heading links and plain-request selection; parse skill and agent files explicitly; add directory validation and an optional offline comparison with server tool names.
+- Keep common file, invitation and version rules in shared references; move detailed team Staff workflows out of the main skill without changing their safeguards.
+
+## 0.1.94 - 2026-11-16
+
+- Messaging: ask who reacted to a message and get the names and reaction types, as in the app; a removed message now says it was removed, and photos show their name and size.
+
 ## 0.1.93 - 2026-11-16
 
 - Invite families: clarified which progress details can be empty; only the person who started a job can check or stop it; the question about keeping a progress record is asked before the review, never after your yes; the whole reviewed list always starts as one background job.
@@ -394,7 +482,7 @@ Combined feedback release for progress records, version checks, reconnect guidan
 ## 0.1.28 - 2026-11-06
 
 ### Fixed
-- Clubs and Tournaments: your own invitation lists are plain reads that leave expired offers out (no cleanup step or extra yes), and a Club Admin offer now emails the address once while a Tournament offer still sends no email.
+- Clubs and Tournaments: your own invitation lists are plain reads that leave expired offers out (no cleanup step or extra yes), and a Club Admin offer now emails the address once. At this release, Tournament offers did not send email; see 0.1.97 for the current guidance.
 
 ## 0.1.27 - 2026-11-05
 

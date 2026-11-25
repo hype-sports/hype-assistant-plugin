@@ -28,7 +28,7 @@ For a Tournament, preserve all details, including dates and explicit nulls: omit
 
 ## “Invite an Admin, then cancel a waiting Tournament offer”
 
-Read the chosen scope and sent offers. Ask the person for the exact email. Preview that address, scope and Admin role. For a Tournament offer explain that no email is sent (a Club offer emails the address once) and that access waits for acceptance. Wait for yes and save one offer. A receipt with `delivery: "inactive"` means saved and waiting, not email sent or accepted staff. Do not invite again to repair delivery.
+Read the chosen scope and sent offers. Ask the person for the exact email. Preview that address, scope and Admin role. Explain that a Tournament offer attempts email through the shared staff invitation sender and that access waits for acceptance. Wait for yes and save one offer. A receipt with `delivery: "sent"` confirms sending, not inbox delivery or accepted staff; `failed` means sending was not confirmed. Do not invite again to repair delivery.
 
 For cancellation, first read current Tournament sent offers and select an exact pending, unexpired ID. A masked address is not a reliable email match; ask for the person's exact row selection or use the app. Preview that ID and Tournament, explain the offer will no longer be usable, then wait for a new yes before one `tournament-admin-invitation-cancel`. Club cancellation uses `club-sent-invitations-list` and `club-admin-invitation-cancel` under the same complete-list approval. Neither removes an accepted appointment.
 
