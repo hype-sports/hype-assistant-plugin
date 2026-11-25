@@ -91,6 +91,10 @@ Read [Incoming Staff invitations](references/staff-and-memberships.md#5-answer-a
 
 Read [Requests and league memberships](references/staff-and-memberships.md#6-who-is-waiting-to-join-league-memberships) in full before selecting the queue, reading or preparing changes. Keep Staff offers, followers, guardian requests and memberships distinct; carry all access and notice effects into the shared review.
 
+## Personal schedule visibility
+
+For “remove this cancelled game from my schedule” or “put this event back on my schedule”, follow [season-schedule's personal hide/unhide workflow](../season-schedule/SKILL.md#hide-or-unhide-one-event-on-my-schedule), including for a team event. This changes only the person's own schedule, not cancellation or anyone else's schedule. Never substitute a team event edit, archive or delete.
+
 ## Add a team event and tell the team
 
 For one team event, read the [event tool rows](references/reference.md#team-event-and-announcement) and live contracts, resolve the exact team, date, times/time zone and place, and review the whole plan in plain words: “Create [event, date, time and place] and tell [team] families and staff: [exact coach message]? Nothing happens until you say yes.” Show no recipient count or invented audience names. If no message was supplied, review no added message; never turn event notes into announcement text. One explicit next-message yes covers event and announcement; Edit only changes the unsaved plan. Default to `notice: { notify: true }` for a single event, preserving the coach's exact text as `notice.noticeMessage`; if the coach says not to announce, use `notice: { notify: false }` and confirm “No Feed post; families still get the usual notification in the app” before yes. Omission means OFF, not the default. Shared division games belong to [season-schedule](../season-schedule/SKILL.md), never this create tool. Repeating practices are outside this single-event workflow: use the app to announce a series, never send `repeat` with `notice.notify: true`.

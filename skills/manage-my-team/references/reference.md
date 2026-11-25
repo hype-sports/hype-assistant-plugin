@@ -50,7 +50,7 @@ For a staff invitation, validate the directly supplied address using the live sc
 
 ## Team event and announcement
 
-Follow the [single-event workflow](../SKILL.md#add-a-team-event-and-tell-the-team) and live contracts. Use `catalogVersion: 1`; never substitute a new operation key after uncertainty. Shared division games remain in season-schedule.
+Follow the [single-event workflow](../SKILL.md#add-a-team-event-and-tell-the-team) and live contracts. Use `catalogVersion: 1`; never substitute a new operation key after uncertainty. Shared division games remain in season-schedule. Personal `event-hide` and `event-unhide`, with `event-get` first, also belong to [season-schedule's personal visibility workflow](../../season-schedule/SKILL.md#hide-or-unhide-one-event-on-my-schedule), never the team event create or lifecycle tools.
 
 | Catalog operation ID | pathParams | Other inputs | Result / limit |
 | --- | --- | --- | --- |

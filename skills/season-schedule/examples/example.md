@@ -45,6 +45,12 @@ For a later cancellation, read the current revision again, explain that the even
 
 If the commissioner asks to undo that cancellation, read the same game's current revision and check occupancy again. Show the exact game and explain that restore keeps its audiences/answers, clears the cancellation note and returns it to scheduled. Hype may send a restored notice to eligible members, but no email or announcement. Ask for one yes in the person's next message to the new complete review, then call `shared-game-restore` once with `pathParams: { id: eventId }` and `body: { opId: freshToolKey, expectedRevision: observedRevision }`. Read back both schedules. After any unclear change, follow step 9's recovery rules; never blindly resend.
 
+## Remove a cancelled game only from my schedule
+
+A parent asks, “Remove Saturday's cancelled Aster game from my schedule.” Resolve the exact event, read `event-get`, and review: “Hide Saturday's Aster game from only your schedule. It stays cancelled; nothing changes for anyone else, and no notice is sent.” Wait for the next-message yes before `event-hide` with a fresh tool key and the observed revision. If an editor is refused, explain the route's message and hint without its code; never substitute archive or delete.
+
+For “put it back on my schedule”, read the same exact event first and review clearing only the person's hide before `event-unhide`, still sending the observed revision. It does not undo cancellation or unarchive the event. An old hide repeat after this unhide returns its original `{ id, hidden: true }` receipt, not proof the event is hidden now; never silently repeat it to hide again. After a lost answer, stop, read only that event once and decide with the person; no automatic retry or replacement key.
+
 ## Missing information stays visible
 
 For an unresolved draft opponent, show **TBD**, never blank. Stop shared-game saving until both exact eligible teams are known. If a family's read withholds the other team's identity, preserve that boundary; do not fill it from the commissioner's view or promise a hidden game will appear for the family. Explain missing access and tool failures in plain words, without error codes.
