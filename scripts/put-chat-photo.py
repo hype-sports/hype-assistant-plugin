@@ -2,7 +2,7 @@
 """PUT one local photo once; never print or accept a signed address in argv.
 
 Usage: python3 -I put-chat-photo.py PHOTO [PRIVATE_START_RESPONSE_JSON_FILE]
-Remove a regular response file after reading it, before any network step.
+Remove a regular response file only after recognizing its JSON shape, before network.
 Without a response file, read the chat-upload-start response JSON from stdin.
 Print exactly uploaded (exit 0), refused: <fixed reason> (exit 1), or unknown (exit 2).
 This validates type/size/header dimensions, not full decoding or EXIF orientation;
@@ -56,7 +56,7 @@ def check_address(url):
     return UPLOAD_PATH.fullmatch(parts.path)[1]
 
 
-def read_address(source):
+def read_address(source, response_path=None):
     try:
         raw = source.read(32769)
         if len(raw) > 32768:
@@ -68,6 +68,15 @@ def read_address(source):
                 or not isinstance(response['uploadUrl'], str) or len(response['uploadUrl']) > 8192
                 or not isinstance(response['expiresAt'], str)):
             raise ValueError()
+        if response_path is not None:
+            try:
+                current = os.lstat(response_path)
+                if (not stat.S_ISREG(current.st_mode)
+                        or not os.path.samestat(current, os.fstat(source.fileno()))):
+                    raise Refused('response file changed while being read')
+                os.unlink(response_path)
+            except OSError:
+                raise Refused('response file could not be removed') from None
         expiry = datetime.datetime.fromisoformat(response['expiresAt'].replace('Z', '+00:00'))
         if expiry.tzinfo is None:
             raise ValueError()
@@ -171,14 +180,10 @@ def main(argv):
         if len(argv) == 2:
             if not stat.S_ISREG(os.lstat(argv[1]).st_mode):
                 raise Refused('response path must be a regular file')
-            with open(argv[1], encoding='utf-8') as source:
-                try:
-                    url = read_address(source)
-                finally:
-                    current = os.lstat(argv[1])
-                    if (stat.S_ISREG(current.st_mode)
-                            and os.path.samestat(current, os.fstat(source.fileno()))):
-                        os.unlink(argv[1])
+            with os.fdopen(os.open(argv[1], os.O_RDONLY | os.O_NOFOLLOW), encoding='utf-8') as source:
+                if not stat.S_ISREG(os.fstat(source.fileno()).st_mode):
+                    raise Refused('response path must be a regular file')
+                url = read_address(source, argv[1])
         else:
             url = read_address(sys.stdin)
         upload(argv[0], url)

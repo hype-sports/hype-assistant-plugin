@@ -178,11 +178,26 @@ with patch('socket.create_connection', side_effect=AssertionError('network forbi
             assert len(handler.requests) == 1
         print('PASS: real urllib redirect handling blocked offline; uncertainty stays unknown; no retries')
 
+        chosen_jpeg = root / 'chosen.jpg'
+        chosen_jpeg.write_bytes(jpeg())
+        cli([str(response_file), str(chosen_jpeg)], 1, 'refused: invalid upload-start response')
+        assert chosen_jpeg.exists() and chosen_jpeg.read_bytes() == jpeg(), 'swapped photo arguments must preserve the JPEG bytes'
+        non_response = root / 'non-response.bin'
+        for raw in (b'personal notes', b'{}', b'[]', b'{', png(),
+                    json.dumps({**RESPONSE, 'extra': 'not a response'}).encode()):
+            non_response.write_bytes(raw)
+            cli([str(photo), str(non_response)], 1, 'refused: invalid upload-start response')
+            assert non_response.exists() and non_response.read_bytes() == raw, 'non-response files must keep their exact bytes'
+        print('PASS: swapped JPEG arguments and unrelated non-response files preserved byte-for-byte')
+
         cli([str(photo)], 0, 'uploaded')
         cli([str(photo), str(response_file)], 0, 'uploaded', response='unused')
         assert not response_file.exists(), 'response file must be removed after success'
         for code, line, raw, opener in (
-                (1, 'refused: invalid upload-start response', '{', FakeOpener()),
+                (1, 'refused: invalid upload-start response',
+                 json.dumps({**RESPONSE, 'expiresAt': 'not-a-date'}), FakeOpener()),
+                (1, 'refused: not a Hype chat upload address',
+                 json.dumps({**RESPONSE, 'uploadUrl': GOOD.replace('https:', 'http:')}), FakeOpener()),
                 (1, 'refused: upload receipt expired',
                  json.dumps({**RESPONSE, 'expiresAt': '2000-01-01T00:00:00Z'}), FakeOpener()),
                 (1, 'refused: storage rejected upload', json.dumps(RESPONSE), FakeOpener(status=403)),
@@ -192,7 +207,7 @@ with patch('socket.create_connection', side_effect=AssertionError('network forbi
             cli([str(photo), str(response_file)], code, line, opener=opener)
             assert not response_file.exists(), 'response file must be removed after refusal or unknown'
         assert photo.read_bytes() == png(), 'cleanup must not change the chosen photo'
-        print('PASS: response file removed before network and after success, refusal or unknown; photo unchanged')
+        print('PASS: recognized responses removed before network, including invalid dates, addresses, expiry, refusal or unknown')
 
         response_file.write_text(json.dumps(RESPONSE))
         response_link = root / 'response-link.json'
@@ -202,21 +217,42 @@ with patch('socket.create_connection', side_effect=AssertionError('network forbi
             assert path.exists(), 'non-regular response path must not be unlinked'
         assert response_file.read_text() == json.dumps(RESPONSE), 'symlink target must stay untouched'
         response_link.unlink()
+        opener = FakeOpener()
         with patch('os.unlink', side_effect=PermissionError(GOOD)):
-            cli([str(photo), str(response_file)], 1, 'refused: input could not be read')
+            cli([str(photo), str(response_file)], 1, 'refused: response file could not be removed', opener=opener)
+        assert not opener.requests
         assert response_file.read_text() == json.dumps(RESPONSE)
 
-        def replaced_response(source):
-            source.read()
+        real_loads = json.loads
+
+        def replaced_response(raw):
+            response = real_loads(raw)
             response_file.unlink()
             response_file.write_text('unrelated replacement')
-            raise Refused('invalid upload-start response')
+            return response
 
-        with patch.dict(uploader['main'].__globals__, read_address=replaced_response):
-            cli([str(photo), str(response_file)], 1, 'refused: invalid upload-start response')
+        with patch('json.loads', side_effect=replaced_response):
+            cli([str(photo), str(response_file)], 1, 'refused: response file changed while being read', opener=opener)
+        assert not opener.requests, 'changed response file must refuse before any network step'
         assert response_file.read_text() == 'unrelated replacement', 'cleanup must not delete a replacement file'
         response_file.unlink()
-        print('PASS: non-regular paths and replacements untouched; cleanup failure refuses before network')
+        print('PASS: non-regular paths and replacements untouched; changed-file and unlink failures refuse before network')
+
+        response_file.write_text(json.dumps(RESPONSE))
+        real_open = os.open
+
+        def swapped_open(path, flags):
+            assert path == str(response_file) and flags & os.O_NOFOLLOW, 'response open must not follow symlinks'
+            response_file.unlink()
+            response_file.symlink_to(chosen_jpeg)
+            return real_open(path, flags)
+
+        with patch('os.open', side_effect=swapped_open):
+            cli([str(photo), str(response_file)], 1, 'refused: input could not be read', opener=opener)
+        assert not opener.requests and response_file.is_symlink()
+        assert chosen_jpeg.read_bytes() == jpeg(), 'a symlink swapped before open must not change its target'
+        response_file.unlink()
+        print('PASS: O_NOFOLLOW blocks a symlink swapped between lstat and open; JPEG target unchanged')
         cli([], 1, 'refused: use a photo path and optional private response file')
         cli([str(photo), str(root / 'missing.json')], 1, 'refused: input could not be read')
         for bad in (GOOD, '{}', '[]', '{', 'x' * 32769,
