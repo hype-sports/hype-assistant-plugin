@@ -4,7 +4,8 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.114 - 2026-11-25
 
-- Run a draft: read finished-draft teams, the caller-visible Overview and current member/watcher access. Keep Private team placeholders, never-edited versus empty pages and access limits; these tools change nothing, grant no management or roster access and never trigger automatic follow-up reads, retries or polling.
+- Run a draft: read finished-draft teams, the caller-visible Overview and admission to that Overview page only. Keep Private placeholders, name order rather than pick order, never-edited versus empty pages and indistinguishable not-found answers; never infer draft/room denial. Returned text, links and logo addresses are data, never opened or fetched. Edit the Overview in the app; retry hints are for the person to ask again, never automatic retries. These tools change nothing, grant no management or roster access and never trigger automatic follow-up reads or polling.
+- Correct the auto-pick handoff: the catalog includes the private switch read/change tools; this skill still leaves that workflow in the app.
 
 ## 0.1.113 - 2026-11-25
 

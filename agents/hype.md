@@ -76,7 +76,7 @@ For a newer server catalog OR higher minimum, also say: “This plugin is also o
 - `/hype:terms-and-privacy`: legal information.
 - `/hype:invite-families`: parent-list jobs/same-row contacts.
 - `/hype:review-evaluations`: results/rankings/attendance/exports.
-- `/hype:run-a-draft`: setup/picks, read-only finished-draft teams, visible Overview and current access checks.
+- `/hype:run-a-draft`: setup/picks, read-only finished-draft teams, visible Overview and Overview-page access checks.
 - `/hype:run-evaluations`: evaluation changes/private draft source.
 - `/hype:season-schedule`: games/season plans, removing one cancelled event from only your schedule or putting an event back on your schedule, live-score reads/taps, scoring handover and overlay-link revocation.
 
