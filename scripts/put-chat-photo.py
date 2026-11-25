@@ -2,6 +2,7 @@
 """PUT one local photo once; never print or accept a signed address in argv.
 
 Usage: python3 -I put-chat-photo.py PHOTO [PRIVATE_START_RESPONSE_JSON_FILE]
+Remove a regular response file after reading it, before any network step.
 Without a response file, read the chat-upload-start response JSON from stdin.
 Print exactly uploaded (exit 0), refused: <fixed reason> (exit 1), or unknown (exit 2).
 This validates type/size/header dimensions, not full decoding or EXIF orientation;
@@ -11,6 +12,7 @@ import datetime
 import json
 import os
 import re
+import stat
 import sys
 import urllib.error
 import urllib.parse
@@ -167,8 +169,16 @@ def main(argv):
         return 1
     try:
         if len(argv) == 2:
+            if not stat.S_ISREG(os.lstat(argv[1]).st_mode):
+                raise Refused('response path must be a regular file')
             with open(argv[1], encoding='utf-8') as source:
-                url = read_address(source)
+                try:
+                    url = read_address(source)
+                finally:
+                    current = os.lstat(argv[1])
+                    if (stat.S_ISREG(current.st_mode)
+                            and os.path.samestat(current, os.fstat(source.fileno()))):
+                        os.unlink(argv[1])
         else:
             url = read_address(sys.stdin)
         upload(argv[0], url)

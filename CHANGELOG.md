@@ -7,6 +7,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 - Supporter status, ring and chat supporter-ring reads are no longer offered. Remove the retired supporter skill, ring settings and payment-management offers from current workflows, routing and examples; shared live-video and page sign-up tools are unchanged.
 - Messaging: send one local JPEG or PNG with exact approved words to a current Team or Staff chat where you are team staff. One review and yes cover the chat, season, words and photo; direct and custom-group photos stay in the app.
 - Add a private-input uploader with 5 MiB, 2048 px and reservation/type checks, one exact-byte no-overwrite PUT and no redirects or retries. Never repeat signed addresses in replies, notes or retained files, or put them in command arguments or logs; use a private temporary response file and delete it right after the script returns. Send only after confirmed staging and within the five-minute receipt. Unknown results stop without automatic restart or resend; a supported send repeat needs the same message and upload IDs after a fresh review and yes. Offline stub checks do not prove a live photo send.
+- The photo uploader now removes its regular temporary response file immediately after reading it, before any network step, even on refusal. If it remains after the script returns, delete it before any further Hype call.
 
 ## 0.1.114 - 2026-11-25
 

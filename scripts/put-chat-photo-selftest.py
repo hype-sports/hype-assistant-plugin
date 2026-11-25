@@ -6,6 +6,7 @@ import email.message
 import http.client
 import io
 import json
+import os
 from pathlib import Path
 import runpy
 import struct
@@ -73,11 +74,15 @@ def cli(args, code, line, opener=None, response=None):
 
     def build(*handlers):
         assert len(handlers) == 2, 'default opener must keep both safety handlers'
-        assert isinstance(handlers[0], urllib.request.ProxyHandler) and handlers[0].proxies == {}
+        assert isinstance(handlers[0], urllib.request.ProxyHandler) and handlers[0].proxies == {}, 'default opener must disable environment proxies'
         assert handlers[1] is uploader['NoRedirect']
+        if len(args) == 2:
+            assert not Path(args[1]).exists(), 'response file must be removed before building opener'
         return opener or FakeOpener()
 
-    with (patch.object(sys, 'stdin', io.StringIO(response)),
+    with (patch.dict(os.environ, {'https_proxy': 'http://proxy.invalid:8080',
+                                 'HTTPS_PROXY': 'http://proxy.invalid:8080'}),
+          patch.object(sys, 'stdin', io.StringIO(response)),
           patch('urllib.request.build_opener', side_effect=build),
           contextlib.redirect_stdout(output), contextlib.redirect_stderr(errors)):
         assert uploader['main'](args) == code
@@ -175,6 +180,43 @@ with patch('socket.create_connection', side_effect=AssertionError('network forbi
 
         cli([str(photo)], 0, 'uploaded')
         cli([str(photo), str(response_file)], 0, 'uploaded', response='unused')
+        assert not response_file.exists(), 'response file must be removed after success'
+        for code, line, raw, opener in (
+                (1, 'refused: invalid upload-start response', '{', FakeOpener()),
+                (1, 'refused: upload receipt expired',
+                 json.dumps({**RESPONSE, 'expiresAt': '2000-01-01T00:00:00Z'}), FakeOpener()),
+                (1, 'refused: storage rejected upload', json.dumps(RESPONSE), FakeOpener(status=403)),
+                (2, 'unknown', json.dumps(RESPONSE), FakeOpener(status=500)),
+                (2, 'unknown', json.dumps(RESPONSE), FakeOpener(error=KeyboardInterrupt()))):
+            response_file.write_text(raw)
+            cli([str(photo), str(response_file)], code, line, opener=opener)
+            assert not response_file.exists(), 'response file must be removed after refusal or unknown'
+        assert photo.read_bytes() == png(), 'cleanup must not change the chosen photo'
+        print('PASS: response file removed before network and after success, refusal or unknown; photo unchanged')
+
+        response_file.write_text(json.dumps(RESPONSE))
+        response_link = root / 'response-link.json'
+        response_link.symlink_to(response_file)
+        for path in (root, response_link):
+            cli([str(photo), str(path)], 1, 'refused: response path must be a regular file')
+            assert path.exists(), 'non-regular response path must not be unlinked'
+        assert response_file.read_text() == json.dumps(RESPONSE), 'symlink target must stay untouched'
+        response_link.unlink()
+        with patch('os.unlink', side_effect=PermissionError(GOOD)):
+            cli([str(photo), str(response_file)], 1, 'refused: input could not be read')
+        assert response_file.read_text() == json.dumps(RESPONSE)
+
+        def replaced_response(source):
+            source.read()
+            response_file.unlink()
+            response_file.write_text('unrelated replacement')
+            raise Refused('invalid upload-start response')
+
+        with patch.dict(uploader['main'].__globals__, read_address=replaced_response):
+            cli([str(photo), str(response_file)], 1, 'refused: invalid upload-start response')
+        assert response_file.read_text() == 'unrelated replacement', 'cleanup must not delete a replacement file'
+        response_file.unlink()
+        print('PASS: non-regular paths and replacements untouched; cleanup failure refuses before network')
         cli([], 1, 'refused: use a photo path and optional private response file')
         cli([str(photo), str(root / 'missing.json')], 1, 'refused: input could not be read')
         for bad in (GOOD, '{}', '[]', '{', 'x' * 32769,
