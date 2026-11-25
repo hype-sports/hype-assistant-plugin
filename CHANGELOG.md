@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.112 - 2026-11-24
+
+- Messaging: read whether people can be added to one exact custom group and prepare a confirmed addition only when Hype permits it. Additions remain switched off pending safety verification. Keep exact returned person IDs, the original request key and body, acceptance-only receipts and no automatic retries or polling; options never prove permission or recover a lost write.
+
 ## 0.1.111 - 2026-11-22
 
 - Personal team and league creation: prepare the original request key before the first confirmed send, keep the exact body and key for a person-confirmed repeat, and recognize replayed answers as the same saved record. Explain key reuse refusals and read current state after an unknown result without automatic resends or replacement keys.
