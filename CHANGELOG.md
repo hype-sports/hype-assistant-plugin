@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.114 - 2026-11-25
+
+- Run a draft: read finished-draft teams, the caller-visible Overview and current member/watcher access. Keep Private team placeholders, never-edited versus empty pages and access limits; these tools change nothing, grant no management or roster access and never trigger automatic follow-up reads, retries or polling.
+
 ## 0.1.113 - 2026-11-25
 
 - Season scheduling: remove one cancelled event from only your schedule or put an event back on your schedule. Read the exact event first, review and confirm the personal-only effect, preserve the original request key and body for requested repeats, and stop on refusals or uncertain answers without automatic retries. An unclear result stays unknown: the event detail cannot verify personal removal or put-back; check your schedule in the app. Removing never cancels, archives or deletes the event for anyone else.

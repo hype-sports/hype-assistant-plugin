@@ -1,6 +1,6 @@
 ---
 name: run-a-draft
-description: 'This skill should be used for "run our draft", "start a draft", "set or draw the pick order", "assign a coach to pick", "choose a draft seat", "keep a player as a Save", "link draft players", "change draft settings", "who is on the clock", "set my pick list", "pick a player", "pause or resume the draft", "skip a turn", "undo the last pick", "run the Hat pick" or "cancel, delete, archive or end a draft". It owns draft setup and picks; run-evaluations owns the private evaluation source choice and season-schedule owns games.'
+description: 'This skill should be used for "run our draft", "start a draft", "set or draw the pick order", "assign a coach to pick", "choose a draft seat", "keep a player as a Save", "link draft players", "change draft settings", "who is on the clock", "set my pick list", "pick a player", "pause or resume the draft", "skip a turn", "undo the last pick", "run the Hat pick", "show draft results", "read the draft Overview", "can I access this draft" or "cancel, delete, archive or end a draft". It owns draft setup, picks and page reads; run-evaluations owns the private evaluation source choice and season-schedule owns games.'
 ---
 
 # Run a player draft
@@ -28,11 +28,19 @@ Read one requested page at a time; ask before another page. Never poll, run a ba
 
 ## 1. Find the draft and allowed actions
 
-Use `drafts-list`, filtered by the named league, division or status. Show league, division, status and scheduled time; ask which draft if several fit. Commissioners then read `draft-get` for settings, teams, candidates, Saves, links and readiness. Management access is required for detail; a person with only room access uses `draft-room-get` and `draft-pool-get`, not another ID or account.
+Use `drafts-list`, filtered by the named league, division or status. Show league, division, status and scheduled time; ask which draft if several fit. For setup, commissioners read `draft-get` for settings, teams, candidates, Saves, links and readiness. Management access is required for detail; for room questions, a person with only room access uses `draft-room-get` and `draft-pool-get`, not another ID or account.
 
 Explain status plainly: scheduled = not started; live = picks running; paused; hat_pick = marked Hat players still to place; completed; cancelled. Archived drafts are read-only. Offer only actions supported by fresh `viewer.can` flags, the team's `canSetLead`, or the operation's stated role/stage where there is no flag. These are snapshots, not permission for a later write.
 
 For an explicit private-age question, use `my-draft-player-ages-read`: it returns cutoff ages, sometimes unknown, not birth dates or names. Keep the answer private and do not infer a player identity from a different kind of ID. For the person's own Division Skip preference, use `division-draft-skip-get`, then `division-draft-skip-set` only when included in the shared list approval. That preference does not cancel a draft, skip a pick, change readiness or notify anyone.
+
+### Requested draft page reads
+
+These three tools read only; they change nothing. Hype checks the signed-in person's current access to that exact draft for each read; `draft-get` remains management-only. Read only the requested page or access check; never automatically fetch another page, room or roster, retry or poll.
+
+- **After a draft** (`draft-results-get`): show the finished draft's teams in returned order, not players or rosters. Keep Private team placeholders and their null identities, names and logos; never look them up or reconstruct them. Team/season references grant no roster access.
+- **Overview** (`draft-overview-get`): show only the caller-visible sections, in saved order, including any returned FAQ questions and answers. Keep a never-edited page distinct from an edited empty page; preserve revision text, time and `membersOnly`. `canEditOverview` is only a snapshot, not permission to edit. Do not fetch section bodies or editor content, invent defaults or make changes.
+- **Can I access this draft?** (`draft-overview-access-get`): report current member or watcher admission. Members get no summary; watchers get only draft ID, division name and status. Neither grants management rights or permission for later actions. Missing drafts and denied Overview/access reads share “not found”; explain an Overview-unavailable answer using its supplied fix hint.
 
 ## 2. Set up before Start
 
