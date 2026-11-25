@@ -1,0 +1,288 @@
+#!/usr/bin/env python3
+"""Offline upload checks with synthetic image headers and a stub connection; no network."""
+import contextlib
+import datetime
+import email.message
+import http.client
+import io
+import json
+import os
+from pathlib import Path
+import runpy
+import struct
+import sys
+import tempfile
+from unittest.mock import patch
+import urllib.error
+import urllib.request
+import urllib.response
+
+uploader = runpy.run_path(str(Path(__file__).with_name('put-chat-photo.py')))
+Refused, Unknown = uploader['Refused'], uploader['Unknown']
+GOOD = ('https://acllesvdddrhjnhtfeix.supabase.co/storage/v1/object/upload/sign/'
+        'chat-upload-staging/00000000-0000-4000-8000-000000000001/'
+        '00000000-0000-4000-8000-000000000002.png?token=offline-placeholder')
+EXPIRES = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(minutes=5)).isoformat()
+RESPONSE = {'uploadId': '00000000-0000-4000-8000-000000000003',
+            'uploadUrl': GOOD, 'expiresAt': EXPIRES}
+
+
+def png(width=1, height=1):
+    return b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR' + struct.pack('>II', width, height) + b'\x08\x02\x00\x00\x00' + b'\x00' * 4
+
+
+def jpeg(width=1, height=1, marker=0xc0):
+    return (b'\xff\xd8\xff\xe0\x00\x04xx\xff' + bytes([marker])
+            + b'\x00\x0b\x08' + struct.pack('>HH', height, width) + b'\x01\x01\x11\x00\xff\xd9')
+
+
+class Answer:
+    def __init__(self, status):
+        self.status = status
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+
+class FakeOpener:
+    def __init__(self, status=200, error=None):
+        self.status, self.error, self.requests = status, error, []
+
+    def open(self, request, timeout):
+        self.requests.append((request, timeout))
+        if self.error:
+            raise self.error
+        return Answer(self.status)
+
+
+def fails(call, exception, words=''):
+    try:
+        call()
+    except exception as reason:
+        assert words in str(reason), 'wrong closed refusal'
+        return
+    raise AssertionError('expected refusal or unknown')
+
+
+def cli(args, code, line, opener=None, response=None):
+    output, errors = io.StringIO(), io.StringIO()
+    if response is None:
+        response = json.dumps(RESPONSE)
+
+    def build(*handlers):
+        assert len(handlers) == 2, 'default opener must keep both safety handlers'
+        assert isinstance(handlers[0], urllib.request.ProxyHandler) and handlers[0].proxies == {}, 'default opener must disable environment proxies'
+        assert handlers[1] is uploader['NoRedirect']
+        if len(args) == 2:
+            assert not Path(args[1]).exists(), 'response file must be removed before building opener'
+        return opener or FakeOpener()
+
+    with (patch.dict(os.environ, {'https_proxy': 'http://proxy.invalid:8080',
+                                 'HTTPS_PROXY': 'http://proxy.invalid:8080'}),
+          patch.object(sys, 'stdin', io.StringIO(response)),
+          patch('urllib.request.build_opener', side_effect=build),
+          contextlib.redirect_stdout(output), contextlib.redirect_stderr(errors)):
+        assert uploader['main'](args) == code
+    assert output.getvalue() == line + '\n', 'unexpected or unsafe output'
+    assert errors.getvalue() == '', 'stderr must stay empty'
+
+
+# Any accidental connection in a self-test is a failure, never a real upload.
+with patch('socket.create_connection', side_effect=AssertionError('network forbidden')):
+    with tempfile.TemporaryDirectory() as folder:
+        root = Path(folder)
+        photo = root / 'chosen.png'
+        response_file = root / 'private-response.json'
+        response_file.write_text(json.dumps(RESPONSE))
+        photo.write_bytes(png())
+
+        for bad in (GOOD.replace('https:', 'http:'), GOOD.replace('supabase.co', 'supabase.co.example.test'),
+                    GOOD.replace('https://', 'https://user:pw@'), GOOD.replace('.co/', '.co:8443/'),
+                    GOOD.replace('.co/', '.co:bad/'), GOOD.replace('chat-upload-staging/', 'another-bucket/'),
+                    GOOD.replace('/upload/sign/', '/public/'), GOOD.split('?')[0], GOOD + '#fragment',
+                    GOOD + '\n', GOOD + '&other=value', GOOD.replace('?token=', '?other=')):
+            opener = FakeOpener()
+            fails(lambda: uploader['upload'](str(photo), bad, opener), Refused, 'not a Hype chat upload address')
+            assert not opener.requests
+        print('PASS: only exact Hype staging addresses; invalid addresses make no request')
+
+        for data, words in ((b'', 'empty'), (b'not an image', 'only JPEG or PNG'),
+                            (png() + b'0' * uploader['MAX_BYTES'], 'larger than 5 MiB'),
+                            (png(2049, 1), 'larger than 2048'), (png(1, 2049), 'larger than 2048'),
+                            (jpeg(2049, 1), 'larger than 2048'), (jpeg(1, 2049), 'larger than 2048'),
+                            (png(0, 1), 'unreadable'), (jpeg(1, 0), 'unreadable'),
+                            (png()[:24], 'unreadable'), (b'\xff\xd8\xff\xe0\x00\xff', 'unreadable'),
+                            (b'\xff\xd8\xff\xda\x00\x02', 'unreadable'), (b'\xff\xd8\xff\xff', 'unreadable')):
+            photo.write_bytes(data)
+            opener = FakeOpener()
+            fails(lambda: uploader['upload'](str(photo), GOOD, opener), Refused, words)
+            assert not opener.requests
+        for path in (root, root / 'missing.png'):
+            fails(lambda: uploader['upload'](str(path), GOOD, FakeOpener()), Refused, 'no photo file')
+        print('PASS: size, type, both dimension axes and malformed headers refused before PUT')
+
+        for data, kind in ((png(2048, 2048), 'image/png'), (jpeg(2048, 2048), 'image/jpeg'),
+                           (jpeg(marker=0xc2), 'image/jpeg'),
+                           (png() + b'0' * (uploader['MAX_BYTES'] - len(png())), 'image/png')):
+            photo.write_bytes(data)
+            opener = FakeOpener(status=201)
+            address = GOOD.replace('.png?', '.jpg?') if kind == 'image/jpeg' else GOOD
+            assert uploader['upload'](str(photo), address, opener) is None
+            (request, timeout), = opener.requests
+            assert request.full_url == address and request.get_method() == 'PUT'
+            assert request.data == data and timeout == 60
+            assert request.get_header('Content-type') == kind
+            assert request.get_header('X-upsert') == 'false'
+        print('PASS: JPEG/PNG, progressive JPEG, exact 5 MiB/2048 px limits; one byte-identical no-overwrite PUT')
+
+        for data, address in ((jpeg(), GOOD), (png(), GOOD.replace('.png?', '.jpg?'))):
+            photo.write_bytes(data)
+            opener = FakeOpener()
+            fails(lambda: uploader['upload'](str(photo), address, opener), Refused,
+                  'photo type does not match the reservation')
+            assert not opener.requests
+        print('PASS: JPEG/PNG reservation mismatches refused before PUT')
+
+        photo.write_bytes(png())
+        for code in (301, 302, 303, 307, 308, 400, 403, 409, 415, 500, 503, 408, 429):
+            for error in (None, urllib.error.HTTPError(GOOD, code, GOOD, email.message.Message(), io.BytesIO(GOOD.encode()))):
+                opener = FakeOpener(status=code, error=error)
+                exception = Unknown if code in (500, 503, 408, 429) else Refused
+                fails(lambda: uploader['upload'](str(photo), GOOD, opener), exception)
+                assert len(opener.requests) == 1
+        for error in (urllib.error.URLError(GOOD), TimeoutError(GOOD), OSError(GOOD),
+                      http.client.RemoteDisconnected(GOOD)):
+            opener = FakeOpener(error=error)
+            fails(lambda: uploader['upload'](str(photo), GOOD, opener), Unknown)
+            assert len(opener.requests) == 1
+        class StubHTTPS(urllib.request.HTTPSHandler):
+            def __init__(self, code):
+                super().__init__()
+                self.code, self.requests = code, []
+
+            def https_open(self, request):
+                self.requests.append(request)
+                headers = email.message.Message()
+                headers['Location'] = 'https://example.test/do-not-upload'
+                answer = urllib.response.addinfourl(io.BytesIO(), headers, request.full_url, self.code)
+                answer.msg = 'offline redirect'
+                return answer
+
+        for code in (301, 302, 303, 307, 308):
+            handler = StubHTTPS(code)
+            opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), uploader['NoRedirect'], handler)
+            fails(lambda: uploader['upload'](str(photo), GOOD, opener), Refused, 'redirect blocked')
+            assert len(handler.requests) == 1
+        print('PASS: real urllib redirect handling blocked offline; uncertainty stays unknown; no retries')
+
+        chosen_jpeg = root / 'chosen.jpg'
+        chosen_jpeg.write_bytes(jpeg())
+        cli([str(response_file), str(chosen_jpeg)], 1, 'refused: invalid upload-start response')
+        assert chosen_jpeg.exists() and chosen_jpeg.read_bytes() == jpeg(), 'swapped photo arguments must preserve the JPEG bytes'
+        non_response = root / 'non-response.bin'
+        for raw in (b'personal notes', b'{}', b'[]', b'{', png(),
+                    json.dumps({**RESPONSE, 'extra': 'not a response'}).encode()):
+            non_response.write_bytes(raw)
+            cli([str(photo), str(non_response)], 1, 'refused: invalid upload-start response')
+            assert non_response.exists() and non_response.read_bytes() == raw, 'non-response files must keep their exact bytes'
+        print('PASS: swapped JPEG arguments and unrelated non-response files preserved byte-for-byte')
+
+        cli([str(photo)], 0, 'uploaded')
+        cli([str(photo), str(response_file)], 0, 'uploaded', response='unused')
+        assert not response_file.exists(), 'response file must be removed after success'
+        for code, line, raw, opener in (
+                (1, 'refused: invalid upload-start response',
+                 json.dumps({**RESPONSE, 'expiresAt': 'not-a-date'}), FakeOpener()),
+                (1, 'refused: not a Hype chat upload address',
+                 json.dumps({**RESPONSE, 'uploadUrl': GOOD.replace('https:', 'http:')}), FakeOpener()),
+                (1, 'refused: upload receipt expired',
+                 json.dumps({**RESPONSE, 'expiresAt': '2000-01-01T00:00:00Z'}), FakeOpener()),
+                (1, 'refused: storage rejected upload', json.dumps(RESPONSE), FakeOpener(status=403)),
+                (2, 'unknown', json.dumps(RESPONSE), FakeOpener(status=500)),
+                (2, 'unknown', json.dumps(RESPONSE), FakeOpener(error=KeyboardInterrupt()))):
+            response_file.write_text(raw)
+            cli([str(photo), str(response_file)], code, line, opener=opener)
+            assert not response_file.exists(), 'response file must be removed after refusal or unknown'
+        assert photo.read_bytes() == png(), 'cleanup must not change the chosen photo'
+        print('PASS: recognized responses removed before network, including invalid dates, addresses, expiry, refusal or unknown')
+
+        response_file.write_text(json.dumps(RESPONSE))
+        response_link = root / 'response-link.json'
+        response_link.symlink_to(response_file)
+        for path in (root, response_link):
+            cli([str(photo), str(path)], 1, 'refused: response path must be a regular file')
+            assert path.exists(), 'non-regular response path must not be unlinked'
+        assert response_file.read_text() == json.dumps(RESPONSE), 'symlink target must stay untouched'
+        response_link.unlink()
+        opener = FakeOpener()
+        with patch('os.unlink', side_effect=PermissionError(GOOD)):
+            cli([str(photo), str(response_file)], 1, 'refused: response file could not be removed', opener=opener)
+        assert not opener.requests
+        assert response_file.read_text() == json.dumps(RESPONSE)
+
+        real_loads = json.loads
+
+        def replaced_response(raw):
+            response = real_loads(raw)
+            response_file.unlink()
+            response_file.write_text('unrelated replacement')
+            return response
+
+        with patch('json.loads', side_effect=replaced_response):
+            cli([str(photo), str(response_file)], 1, 'refused: response file changed while being read', opener=opener)
+        assert not opener.requests, 'changed response file must refuse before any network step'
+        assert response_file.read_text() == 'unrelated replacement', 'cleanup must not delete a replacement file'
+        response_file.unlink()
+        print('PASS: non-regular paths and replacements untouched; changed-file and unlink failures refuse before network')
+
+        response_file.write_text(json.dumps(RESPONSE))
+        real_open = os.open
+
+        def swapped_open(path, flags):
+            assert path == str(response_file) and flags & os.O_NOFOLLOW, 'response open must not follow symlinks'
+            response_file.unlink()
+            response_file.symlink_to(chosen_jpeg)
+            return real_open(path, flags)
+
+        with patch('os.open', side_effect=swapped_open):
+            cli([str(photo), str(response_file)], 1, 'refused: input could not be read', opener=opener)
+        assert not opener.requests and response_file.is_symlink()
+        assert chosen_jpeg.read_bytes() == jpeg(), 'a symlink swapped before open must not change its target'
+        response_file.unlink()
+        print('PASS: O_NOFOLLOW blocks a symlink swapped between lstat and open; JPEG target unchanged')
+        cli([], 1, 'refused: use a photo path and optional private response file')
+        cli([str(photo), str(root / 'missing.json')], 1, 'refused: input could not be read')
+        for bad in (GOOD, '{}', '[]', '{', 'x' * 32769,
+                    json.dumps({**RESPONSE, 'uploadUrl': None}),
+                    json.dumps({**RESPONSE, 'expiresAt': 'not-a-date'}),
+                    json.dumps({**RESPONSE, 'expiresAt': '2099-01-01T00:00:00'}),
+                    json.dumps({**RESPONSE, 'signedUrl': GOOD})):
+            cli([str(photo)], 1, 'refused: invalid upload-start response', response=bad)
+        cli([str(photo)], 1, 'refused: upload receipt expired',
+            response=json.dumps({**RESPONSE, 'expiresAt': '2000-01-01T00:00:00Z'}))
+        cli([str(photo)], 1, 'refused: storage rejected upload', opener=FakeOpener(error=
+            urllib.error.HTTPError(GOOD, 400, GOOD, email.message.Message(), io.BytesIO(GOOD.encode()))))
+        cli([str(photo)], 2, 'unknown', opener=FakeOpener(error=urllib.error.URLError(GOOD)))
+        cli([str(photo)], 2, 'unknown', opener=FakeOpener(status=500))
+        cli([str(photo)], 2, 'unknown', opener=FakeOpener(error=KeyboardInterrupt()))
+        for error in (ValueError(GOOD), RuntimeError(GOOD)):
+            opener = FakeOpener(error=error)
+            cli([str(photo)], 2, 'unknown', opener=opener)
+            assert len(opener.requests) == 1
+        for method in ('__enter__', '__exit__'):
+            opener = FakeOpener()
+            with patch.object(Answer, method, side_effect=ValueError(GOOD)):
+                cli([str(photo)], 2, 'unknown', opener=opener)
+            assert len(opener.requests) == 1
+        cli([str(photo)], 2, 'unknown', opener=FakeOpener(status=None))
+        error = urllib.error.HTTPError(GOOD, 400, GOOD, email.message.Message(), io.BytesIO())
+        with patch.object(error, 'close', side_effect=ValueError(GOOD)):
+            cli([str(photo)], 2, 'unknown', opener=FakeOpener(error=error))
+        cli([str(photo)], 1, 'refused: invalid upload-start response', response='[' * 2000 + ']' * 2000)
+        print('PASS: default opener pins empty proxies and NoRedirect; post-open exceptions stay unknown')
+        print('PASS: stdin/file response fields and expiry; closed stdout, empty stderr, no signed-address disclosure')
+
+print('PASS put-chat-photo selftest (offline stub; no image decoder or live service)')

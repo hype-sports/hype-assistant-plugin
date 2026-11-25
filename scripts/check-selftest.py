@@ -10,6 +10,7 @@ import tempfile
 
 source = Path(__file__).with_name('check.sh')
 runpy.run_path(str(source.with_name('xlsx-to-csv-selftest.py')), run_name='__main__')
+runpy.run_path(str(source.with_name('put-chat-photo-selftest.py')), run_name='__main__')
 compatibility = runpy.run_path(str(source.with_name('tool-versions.py')))
 for label, catalog, minimum, installed, expected in (
     ('older plugin needs update and reconnect notice', 1, '0.1.48', '0.1.47', compatibility['NOTICE'] + '\n' + compatibility['UPDATE_NOTICE']),

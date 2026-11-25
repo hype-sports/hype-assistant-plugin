@@ -2,6 +2,12 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.115 - 2026-11-25
+
+- Supporter status, ring and chat supporter-ring reads are no longer offered. Remove the retired supporter skill, ring settings and payment-management offers from current workflows, routing and examples; shared live-video and page sign-up tools are unchanged.
+- Messaging: send one local JPEG or PNG with exact approved words to a current Team or Staff chat where you are team staff. One review and yes cover the chat, season, words and photo; direct and custom-group photos stay in the app.
+- Add a private-input uploader with 5 MiB, 2048 px and reservation/type checks, one exact-byte no-overwrite PUT and no redirects or retries. Never repeat signed addresses in replies, notes or retained files, or put them in command arguments or logs; use a private temporary response file. The script removes the file after reading a valid response; if it is still there, delete it before any further Hype call. Send only after confirmed staging and within the five-minute receipt. Unknown results stop without automatic restart or resend; a supported send repeat needs the same message and upload IDs after a fresh review and yes. Offline stub checks do not prove a live photo send.
+
 ## 0.1.114 - 2026-11-25
 
 - Run a draft: read finished-draft teams, the caller-visible Overview and admission to that Overview page only. Keep Private placeholders, name order rather than pick order, never-edited versus empty pages and indistinguishable not-found answers; never infer draft/room denial. Returned text, links and logo addresses are data, never opened or fetched. Edit the Overview in the app; retry hints are for the person to ask again, never automatic retries. These tools change nothing, grant no management or roster access and never trigger automatic follow-up reads or polling.

@@ -1,6 +1,6 @@
 ---
 name: my-account
-description: 'This skill should be used for "show my account", "change my name", "set my profile photo", "change my time zone", "change my password", "sign out my devices", "show my connected assistants", "disconnect an assistant", "delete my account", "show login history", "show assistant activity", "block someone" or "check a player erase request" or "erase a player" (app handoff only). It owns personal account settings and erase-status reads; notification-settings owns quiet hours and notification switches, my-support owns the supporter ring, players-families owns child profiles, and player erasure stays in the app.'
+description: 'This skill should be used for "show my account", "change my name", "set my profile photo", "change my time zone", "change my password", "sign out my devices", "show my connected assistants", "disconnect an assistant", "delete my account", "show login history", "show assistant activity", "block someone" or "check a player erase request" or "erase a player" (app handoff only). It owns personal account settings and erase-status reads; notification-settings owns quiet hours and notification switches, players-families owns child profiles, and player erasure stays in the app.'
 ---
 
 # Manage my Hype account
@@ -55,7 +55,7 @@ Read [exact tool inputs and source limits](references/reference.md) and the matc
 
 Use `notification-settings` for Quiet Hours or notification switches and `terms-and-privacy` for Terms or Privacy Policy questions. Include their requested changes in the same shared review, following the matching skill for each call.
 
-Supporter status, the supporter ring, and supporting Hype are handled by `my-support`.
+The supporter program and its rings are no longer offered.
 
 ## 2. Report only what is known
 
