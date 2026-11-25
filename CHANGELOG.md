@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.113 - 2026-11-25
+
+- Season scheduling: remove one cancelled event from only your schedule or put an event back on your schedule. Read the exact event first, review and confirm the personal-only effect, preserve the original request key and body for requested repeats, and stop on refusals or uncertain answers without automatic retries. An unclear result stays unknown: the event detail cannot verify personal removal or put-back; check your schedule in the app. Removing never cancels, archives or deletes the event for anyone else.
+
 ## 0.1.112 - 2026-11-24
 
 - Messaging: read whether people can be added to one exact custom group and prepare a confirmed addition only when Hype permits it. Additions remain switched off pending safety verification. Keep exact returned person IDs, the original request key and body, acceptance-only receipts and no automatic retries or polling; options never prove permission or recover a lost write.
