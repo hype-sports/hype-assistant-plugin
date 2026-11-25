@@ -47,9 +47,9 @@ If the commissioner asks to undo that cancellation, read the same game's current
 
 ## Remove a cancelled game only from my schedule
 
-A parent asks, “Remove Saturday's cancelled Aster game from my schedule.” Resolve the exact event, read `event-get`, and review: “Hide Saturday's Aster game from only your schedule. It stays cancelled; nothing changes for anyone else, and no notice is sent.” Wait for the next-message yes before `event-hide` with a fresh tool key and the observed revision. If an editor is refused, explain the route's message and hint without its code; never substitute archive or delete.
+A parent asks, “Remove Saturday's cancelled Aster game from my schedule.” Resolve the exact event, read `event-get`, and review: “Remove Saturday's Aster game from only your schedule. It stays cancelled; nothing changes for anyone else, and no notice is sent.” Wait for the next-message yes before `event-hide` with a fresh tool key and the observed revision. If an editor is refused, explain the route's message and hint without its code; never substitute archive or delete.
 
-For “put it back on my schedule”, read the same exact event first and review clearing only the person's hide before `event-unhide`, still sending the observed revision. It does not undo cancellation or unarchive the event. An old hide repeat after this unhide returns its original `{ id, hidden: true }` receipt, not proof the event is hidden now; never silently repeat it to hide again. After a lost answer, stop, read only that event once and decide with the person; no automatic retry or replacement key.
+For “put it back on my schedule”, read the same exact event first and review: “Put Saturday's Aster game back on your schedule.” Use `event-unhide`, still sending the observed revision. It does not undo cancellation or unarchive the event. An old hide repeat after this unhide returns its original `{ id, hidden: true }` receipt, not proof the event is hidden now; never silently repeat it to hide again. After a lost or unclear answer, stop and keep the outcome unknown. `event-get` always returns `card.hidden: false`; it cannot verify either action. Tell the person they can check their schedule in the app; no automatic recovery read, retry or replacement key.
 
 ## Missing information stays visible
 

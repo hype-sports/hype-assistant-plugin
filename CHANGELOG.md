@@ -4,7 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.113 - 2026-11-25
 
-- Season scheduling: hide one cancelled event from only your own schedule or return an event by clearing your personal hide. Read the exact event first, review and confirm the personal-only effect, preserve the original request key and receipt for requested repeats, and stop on refusals or uncertain answers without automatic retries. Hiding never cancels, archives or deletes the event for anyone else.
+- Season scheduling: remove one cancelled event from only your schedule or put an event back on your schedule. Read the exact event first, review and confirm the personal-only effect, preserve the original request key and body for requested repeats, and stop on refusals or uncertain answers without automatic retries. An unclear result stays unknown: the event detail cannot verify personal removal or put-back; check your schedule in the app. Removing never cancels, archives or deletes the event for anyone else.
 
 ## 0.1.112 - 2026-11-24
 

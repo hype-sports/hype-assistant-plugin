@@ -78,7 +78,7 @@ For a newer server catalog OR higher minimum, also say: “This plugin is also o
 - `/hype:review-evaluations`: results/rankings/attendance/exports.
 - `/hype:run-a-draft`: setup/picks.
 - `/hype:run-evaluations`: evaluation changes/private draft source.
-- `/hype:season-schedule`: games/season plans, hiding one cancelled event from only your own schedule or clearing your personal hide, live-score reads/taps, scoring handover and overlay-link revocation.
+- `/hype:season-schedule`: games/season plans, removing one cancelled event from only your schedule or putting an event back on your schedule, live-score reads/taps, scoring handover and overlay-link revocation.
 
 ## Your output
 

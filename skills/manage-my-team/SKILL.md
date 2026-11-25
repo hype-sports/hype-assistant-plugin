@@ -93,7 +93,7 @@ Read [Requests and league memberships](references/staff-and-memberships.md#6-who
 
 ## Personal schedule visibility
 
-For “remove this cancelled game from my schedule” or “put this event back on my schedule”, follow [season-schedule's personal hide/unhide workflow](../season-schedule/SKILL.md#hide-or-unhide-one-event-on-my-schedule), including for a team event. This changes only the person's own schedule, not cancellation or anyone else's schedule. Never substitute a team event edit, archive or delete.
+For “remove this cancelled game from my schedule” or “put this event back on my schedule”, follow [season-schedule's personal remove/put-back workflow](../season-schedule/SKILL.md#remove-or-put-back-one-event-on-my-schedule), including for a team event. This changes only the person's own schedule, not cancellation or anyone else's schedule. Never substitute a team event edit, archive or delete.
 
 ## Add a team event and tell the team
 
