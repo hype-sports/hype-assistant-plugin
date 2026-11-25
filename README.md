@@ -12,7 +12,6 @@ Just say what you need in plain words. Claude uses the matching Hype skill witho
 | --- | --- | --- |
 | "Set up Lakeside Youth Soccer for the fall with 8U, 10U and 12U divisions." | `/hype:league-setup` | Available |
 | "Register Jordan Vale in the 10U division." | `/hype:league-setup` | Available |
-| "Am I a supporter, and is my supporter ring showing?" | `/hype:my-support` | Available |
 | "Plan a round-robin season for 10U and show it to me before anything is saved." | `/hype:season-schedule` | Preview |
 | "Get the 10U draft ready and set the pick order." | `/hype:run-a-draft` | Preview |
 | "Invite the parents from this sign-up sheet." | `/hype:invite-families` | Preview |
@@ -100,7 +99,6 @@ Visit the [Hype support page](https://hypesports.live/support.html). For securit
 | Optional shortcut | What it helps with | Status |
 | --- | --- | --- |
 | `/hype:league-setup` | Create a league and its divisions, rename it, register players and archive it | Available |
-| `/hype:my-support` | See your supporter status and change your supporter ring setting | Available |
 | `/hype:season-schedule` | Plan a round-robin division season and save its reviewed games to saved league Fields; change, cancel or undo cancellation of shared games; remove a cancelled event from only your schedule or put an event back on your schedule; read live scores, record a scoring tap, hand over scoring or turn off an overlay link, with one complete review and one yes | Preview |
 | `/hype:run-a-draft` | Prepare and run a division draft, with clock guidance and supported pause, resume, skip and undo actions; read finished-draft teams, your visible Overview and whether you can see that Overview, without changes | Preview |
 | `/hype:manage-my-team` | Add a team event and tell the team with one confirmation; see your Roster, Staff and seasons; add, change, take off, put back and roll over players; invite coaches and parents/guardians, resend or cancel staff invitations; answer parent/guardian requests and league memberships; check emergency contacts; team and league uniform requests, missing teams, league export, defaults and personal Skip; bulk jersey numbers | Preview |
@@ -109,7 +107,7 @@ Visit the [Hype support page](https://hypesports.live/support.html). For securit
 | `/hype:league-staff` | See and manage a league's staff | Preview |
 | `/hype:clubs-and-tournaments` | Set up clubs and tournaments, invite Admins and answer invitations | Preview |
 | `/hype:my-feed` | Read your Feed and comments, write comments and give Hypes, send announcements with a 10-second Undo, and delete eligible announcements or comments; one review and yes cover the complete requested list | Preview |
-| `/hype:messaging` | Find your chats, read recent messages and current chat role labels, member names and decorative supporter rings, send exact approved text, send one photo with words to a Team or Staff chat as team staff, edit or delete your own messages, mark chats read or unread, start a custom group, check its add-people availability or leave one yourself; additions remain switched off | Preview |
+| `/hype:messaging` | Find your chats, read recent messages, current chat role labels and member names, send exact approved text, send one photo with words to a Team or Staff chat as team staff, edit or delete your own messages, mark chats read or unread, start a custom group, check its add-people availability or leave one yourself; additions remain switched off | Preview |
 | `/hype:catch-up` | Catch up on notifications, with separate group-chat and direct-message unread snapshots | Preview |
 | `/hype:notification-settings` | Change which notifications you get and when | Preview |
 | `/hype:my-account` | Look after your own account details and settings | Preview |

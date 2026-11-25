@@ -4,6 +4,7 @@ All notable changes to this plugin are documented here, following [Keep a Change
 
 ## 0.1.115 - 2026-11-25
 
+- Remove the retired supporter skill, status/ring reads, ring settings and payment-management offers from current workflows, routing and examples. The supporter program and its rings are no longer offered; shared live-video and page sign-up tools are unchanged.
 - Messaging: send one local JPEG or PNG with exact approved words to a current Team or Staff chat where you are team staff. One review and yes cover the chat, season, words and photo; direct and custom-group photos stay in the app.
 - Add a private-input uploader with 5 MiB and 2048 px checks, one exact-byte no-overwrite PUT and no redirects or retries. Keep signed addresses out of command arguments, conversation history and logs; send only after confirmed staging and within the five-minute receipt. Unknown uploads or sends stop without resending. Offline stub checks do not prove a live photo send.
 

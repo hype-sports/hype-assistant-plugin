@@ -17,7 +17,7 @@ For a request to do work beyond navigation, use the matching skill rather than d
 
 - `my-account` for account details, time zone, passwords, devices or deletion; `notification-settings` for notification choices and quiet hours.
 - `catch-up` for notification summaries and read-status changes; `my-feed` for Feed posts, comments, Hypes and announcements; [messaging](../messaging/SKILL.md) for reading conversations and sending approved text. For navigation only, direct the person to Messages in the app; this navigation skill does not read or send chats.
-- `my-support` for supporter status/ring; `terms-and-privacy` for legal information.
+- `terms-and-privacy` for legal information.
 - `manage-my-team` for team management; `league-setup` for leagues and divisions; `league-staff` for a league's staff; `players-families` for players and parent/guardian workflows; `invite-families` for supplied enrollment sheets and reviewed invitation jobs.
 - `clubs-and-tournaments` for club/tournament management; `season-schedule` for season scheduling; `run-a-draft` for drafts; `review-evaluations` for reading evaluation results and `run-evaluations` for scoring or changes.
 

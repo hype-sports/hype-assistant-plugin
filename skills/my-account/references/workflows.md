@@ -32,7 +32,7 @@ Through the assistant, a profile photo can only be one of Hype's approved drawn 
 ## 3. “Change my time zone”
 
 1. Read `my-preferences-read`. Resolve the requested zone explicitly, using an IANA name such as `America/Chicago`; do not guess from “Central” or a device location. Use null only when the person wants to follow their device's zone. This is the single Hype time zone used for event times too; for a change involving Quiet Hours or notification switches, use `notification-settings` instead, not both workflows.
-2. Show current and proposed time-zone behavior, then wait for an explicit yes. Leave theme, supporter-ring visibility and messaging consent untouched.
+2. Show current and proposed time-zone behavior, then wait for an explicit yes. Leave theme and messaging consent untouched.
 3. Call `my-preferences-update` once with only `body.timezone`. Report the returned zone. Respect time-zone or Quiet Hours refusals; never disable Quiet Hours or change other settings to get around them.
 4. After an unclear result, say it may have happened, stop writes and read only the affected preferences once with `my-preferences-read`, then report current state, not proof of this save. Any requested further save needs a fresh complete review and next-message yes; do not automatically resend even though repeating a setting is normally safe.
 
