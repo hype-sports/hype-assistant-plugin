@@ -2,6 +2,12 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.116 - 2026-11-25
+
+- Season scheduling: read, report, confirm, dispute or set a requested final score, separately from live scoring, and read one requested page of counted division results. Review exact home/away totals before changes, keep score revisions and original request keys, and stop on uncertain answers without automatic retries or override fallbacks.
+- Clubs and Tournaments: read the games visible in the app's Tournament Schedule tab, including confirmed final scores. Read another page only when requested, using the returned offset.
+- Team events and season scheduling: ask whether to notify families before supported event creation, edits, cancellation or restore, include that choice in the shared review and keep exact notice words. Report publication and notification only with returned evidence; repeating creation accepts the choice but series announcements cannot be verified through the assistant.
+
 ## 0.1.115 - 2026-11-25
 
 - Supporter status, ring and chat supporter-ring reads are no longer offered. Remove the retired supporter skill, ring settings and payment-management offers from current workflows, routing and examples; shared live-video and page sign-up tools are unchanged.

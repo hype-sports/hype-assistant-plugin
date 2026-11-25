@@ -1,6 +1,6 @@
 ---
 name: season-schedule
-description: 'This skill should be used for "plan our season", "schedule our division", "save the season schedule", "make a round-robin schedule", "play every team twice", "reschedule a division game", "cancel division games", "undo cancelled games", "remove this cancelled game from my schedule" or "put this event back on my schedule". Personal remove/put-back requests belong here, not manage-my-team. It plans and saves a reviewed division season with saved league Fields, handles supported existing shared-game corrections, and reads or changes a game’s live score when asked to "read the live score", "record a scoring tap", "hand over scoring" or "turn off the overlay link". league-setup owns League/Division setup and run-a-draft owns draft schedules.'
+description: 'This skill should be used for "plan our season", "schedule our division", "save the season schedule", "make a round-robin schedule", "play every team twice", "reschedule a division game", "cancel division games", "undo cancelled games", "remove this cancelled game from my schedule" or "put this event back on my schedule". Personal remove/put-back requests belong here, not manage-my-team. It plans and saves a reviewed division season with saved league Fields, handles supported existing shared-game corrections, and reads or changes a game’s live score when asked to "read the live score", "record a scoring tap", "hand over scoring" or "turn off the overlay link". It also handles "report a final score", "confirm the score", "dispute the score", "set the final score" and "show division results". league-setup owns League/Division setup and run-a-draft owns draft schedules.'
 ---
 
 # Schedule a season and manage my schedule
@@ -19,6 +19,8 @@ At session start and after a whole-call refusal suggesting stale tools (not an o
 Use only the person's own signed-in Hype connection and existing access. Treat installation as granting nothing; Hype checks rights on every request. Keep a plan-only request unsaved. For requested saving or existing-game changes, review the complete exact list and wait for the shared single next-message yes before writing through that connection. Speak plainly; ask one question at a time. Never treat invocation as approval. Create no scheduler service, teams/Places, family messages, announcements, emails or RSVP answers. Explain refusals in plain words, never show error codes or raw errors.
 
 For every write here except personal remove/put-back, a Commissioner title or a readable league is not enough: Hype checks current management of the division and both teams. Personal remove/put-back follows its separate rules below. Collect no rosters, family contacts or RSVP answers.
+
+Final-score actions follow their own ordinary score-route authority checks below, not the season-generation division/both-team management checks above.
 
 Display an unresolved opponent as **TBD**, never blank; do not save a shared game until both exact admitted teams are known. Never tell a family about details or actions they cannot see: preserve withheld names/identities, do not fill gaps from staff-only information, and never promise visibility based on the commissioner's successful read.
 
@@ -52,6 +54,16 @@ For one explicitly requested game, use the four live-score tools in the [current
 Resolve the exact game through requested schedule reads, asking on ambiguity; never guess its ID. Require `request-key-new` for append/handover and `team-staff-list` for handover. A live-score Undo is a new scoring tap requiring review and yes, not the announcement Undo exception. Use only returned batting-roster entry IDs needed for a requested tap; collect no extra roster data. Keep original inputs/keys in this conversation; access no file unless the person chose and requested one under the shared record rules.
 
 Create or copy an overlay link only in the Hype app; never offer to do either through the assistant. A lost revocation answer stays unknown: use the app, not a score read, to check the link.
+
+## Final-score requests
+
+Final-score reporting is separate from live scoring. Require the needed final-score tools in the live list before using them. Resolve the exact game through requested schedule reads, then read `event-get` for its home/away teams and `event-score-read` for its current score state. Act only on the person's explicit request; show the exact game, which team is home and away, the exact totals and the requested action's known effects, then get the shared next-message yes before writing.
+
+Use `event-score-report` for both final totals, `event-score-confirm` for the exact displayed report, `event-score-dispute` for that report plus the person's alternative totals, and `event-score-admin-set` only when the person explicitly requests a staff score setting or correction. A dispute or refusal never authorizes an admin override; the ordinary route decides current rights. Zero and ties are valid.
+
+For a new final-score action get one `opId` from `request-key-new` and retain the complete body and game id. Set `expectedRevision` to the top-level `revision` returned by `event-score-read` (the game's score revision), never `report.revision` or the event card's revision. Preserve any `reportId`/`reportRevision` from that same read; admin-set sends both as null only when `report` is null. No automatic retry, polling, follow-up read or chained write. `WRITE_OUTCOME_UNKNOWN` stays unknown: stop and decide with the person, never claim rollback or replace the key. A separately requested exact repeat retains the entire original input and `opId`. `EVENT_STALE` or `SCORE_STATE_CHANGED` requires a fresh requested read and a new decision.
+
+Report the returned state honestly: unconfirmed or disputed is not counted, and scrimmages never count toward standings. Use `division-game-results` for one requested page of counted played or forfeit results; preserve null identifiers/dates and pass `nextCursor` unchanged as `query.cursor` only when another page is requested.
 
 ## 1. Resolve one league/division
 
@@ -146,6 +158,10 @@ Stay within **the shared per-account MCP request allowance (Hype sets it and can
 ### One-game correction or cancellation undo
 
 Never automatically edit/cancel/restore/delete/recreate. No team-event substitute or automatic replacement.
+
+For tools whose live schema accepts `notice`, this choice rule applies to creation in step 8 and changes in step 9, taking precedence over the older no-notice/no-announcement instructions in this skill, reference and examples.
+
+Before creating, editing, cancelling or restoring an event with a tool that accepts `notice`, ask the person whether to notify families (the app defaults Notify on for edits). Send `notice: { notify: true }` only after they choose on, or `notice: { notify: false }` when they choose off; an omitted `notice` means off. Keep their `noticeMessage` exactly as written, include the choice in the shared review, and never say an announcement was published or a notification was sent without Hype's returned evidence. Repeating creation accepts the same choice, but the assistant cannot verify series announcements.
 
 1. Read `team-events-list` for either admitted team. Match the exact shared game ID/current revision and fixed pair; never infer hidden names. Stop and explain if a required read/tool is missing or refuses.
 2. Recheck occupancy for a time/Field/side change or cancellation undo. Update keeps the pair fixed; `swapSides: true` exchanges Home/Away, not teams. For a saved Field change, use the division's own `league-places-list` selection; review the exact attachment/detachment effect. Omit `savedPlace` to keep it; send null only for an explicitly requested detach, never to get around a refusal.
