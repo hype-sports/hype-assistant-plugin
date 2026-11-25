@@ -8,7 +8,6 @@ This validates type/size/header dimensions, not full decoding or EXIF orientatio
 save the photo upright first. Hype revalidates it before publishing.
 """
 import datetime
-import http.client
 import json
 import os
 import re
@@ -52,6 +51,7 @@ def check_address(url):
         valid = False
     if not valid:
         raise Refused('not a Hype chat upload address')
+    return UPLOAD_PATH.fullmatch(parts.path)[1]
 
 
 def read_address(source):
@@ -130,29 +130,35 @@ def read_photo(path):
 
 
 def upload(path, url, opener=None):
-    check_address(url)
+    extension = check_address(url)
     data, content_type = read_photo(path)
+    if extension != ('jpg' if content_type == 'image/jpeg' else 'png'):
+        raise Refused('photo type does not match the reservation')
     request = urllib.request.Request(url, data=data, method='PUT', headers={
         'Content-Type': content_type, 'x-upsert': 'false', 'Cache-Control': 'no-store'})
     opener = opener or urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect)
     try:
-        with opener.open(request, timeout=TIMEOUT_SECONDS) as answer:
-            status = answer.status
-    except urllib.error.HTTPError as error:
-        # Never read or print response bodies, reasons or exceptions: they can echo the signed address.
-        status = error.code
-        error.close()
-    except (urllib.error.URLError, OSError, http.client.HTTPException):
+        try:
+            with opener.open(request, timeout=TIMEOUT_SECONDS) as answer:
+                status = answer.status
+        except urllib.error.HTTPError as error:
+            # Never read or print bodies, reasons or exceptions: they can echo the signed address.
+            status = error.code
+            error.close()
+        if 200 <= status < 300:
+            return
+        if 300 <= status < 400:
+            raise Refused('storage redirect blocked')
+        if status == 409:
+            raise Refused('upload address already used')
+        if status in (400, 401, 403, 404, 405, 410, 413, 415, 422):
+            raise Refused('storage rejected upload')
+        raise Unknown()
+    except (Refused, Unknown):
+        raise
+    except Exception:
+        # Once open starts, an unexpected failure cannot prove that no bytes were sent.
         raise Unknown() from None
-    if 200 <= status < 300:
-        return
-    if 300 <= status < 400:
-        raise Refused('storage redirect blocked')
-    if status == 409:
-        raise Refused('upload address already used')
-    if status in (400, 401, 403, 404, 405, 410, 413, 415, 422):
-        raise Refused('storage rejected upload')
-    raise Unknown()
 
 
 def main(argv):

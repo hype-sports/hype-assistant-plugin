@@ -70,8 +70,15 @@ def cli(args, code, line, opener=None, response=None):
     output, errors = io.StringIO(), io.StringIO()
     if response is None:
         response = json.dumps(RESPONSE)
+
+    def build(*handlers):
+        assert len(handlers) == 2, 'default opener must keep both safety handlers'
+        assert isinstance(handlers[0], urllib.request.ProxyHandler) and handlers[0].proxies == {}
+        assert handlers[1] is uploader['NoRedirect']
+        return opener or FakeOpener()
+
     with (patch.object(sys, 'stdin', io.StringIO(response)),
-          patch('urllib.request.build_opener', return_value=opener or FakeOpener()),
+          patch('urllib.request.build_opener', side_effect=build),
           contextlib.redirect_stdout(output), contextlib.redirect_stderr(errors)):
         assert uploader['main'](args) == code
     assert output.getvalue() == line + '\n', 'unexpected or unsafe output'
@@ -117,13 +124,22 @@ with patch('socket.create_connection', side_effect=AssertionError('network forbi
                            (png() + b'0' * (uploader['MAX_BYTES'] - len(png())), 'image/png')):
             photo.write_bytes(data)
             opener = FakeOpener(status=201)
-            assert uploader['upload'](str(photo), GOOD, opener) is None
+            address = GOOD.replace('.png?', '.jpg?') if kind == 'image/jpeg' else GOOD
+            assert uploader['upload'](str(photo), address, opener) is None
             (request, timeout), = opener.requests
-            assert request.full_url == GOOD and request.get_method() == 'PUT'
+            assert request.full_url == address and request.get_method() == 'PUT'
             assert request.data == data and timeout == 60
             assert request.get_header('Content-type') == kind
             assert request.get_header('X-upsert') == 'false'
         print('PASS: JPEG/PNG, progressive JPEG, exact 5 MiB/2048 px limits; one byte-identical no-overwrite PUT')
+
+        for data, address in ((jpeg(), GOOD), (png(), GOOD.replace('.png?', '.jpg?'))):
+            photo.write_bytes(data)
+            opener = FakeOpener()
+            fails(lambda: uploader['upload'](str(photo), address, opener), Refused,
+                  'photo type does not match the reservation')
+            assert not opener.requests
+        print('PASS: JPEG/PNG reservation mismatches refused before PUT')
 
         photo.write_bytes(png())
         for code in (301, 302, 303, 307, 308, 400, 403, 409, 415, 500, 503, 408, 429):
@@ -174,7 +190,21 @@ with patch('socket.create_connection', side_effect=AssertionError('network forbi
         cli([str(photo)], 2, 'unknown', opener=FakeOpener(error=urllib.error.URLError(GOOD)))
         cli([str(photo)], 2, 'unknown', opener=FakeOpener(status=500))
         cli([str(photo)], 2, 'unknown', opener=FakeOpener(error=KeyboardInterrupt()))
+        for error in (ValueError(GOOD), RuntimeError(GOOD)):
+            opener = FakeOpener(error=error)
+            cli([str(photo)], 2, 'unknown', opener=opener)
+            assert len(opener.requests) == 1
+        for method in ('__enter__', '__exit__'):
+            opener = FakeOpener()
+            with patch.object(Answer, method, side_effect=ValueError(GOOD)):
+                cli([str(photo)], 2, 'unknown', opener=opener)
+            assert len(opener.requests) == 1
+        cli([str(photo)], 2, 'unknown', opener=FakeOpener(status=None))
+        error = urllib.error.HTTPError(GOOD, 400, GOOD, email.message.Message(), io.BytesIO())
+        with patch.object(error, 'close', side_effect=ValueError(GOOD)):
+            cli([str(photo)], 2, 'unknown', opener=FakeOpener(error=error))
         cli([str(photo)], 1, 'refused: invalid upload-start response', response='[' * 2000 + ']' * 2000)
+        print('PASS: default opener pins empty proxies and NoRedirect; post-open exceptions stay unknown')
         print('PASS: stdin/file response fields and expiry; closed stdout, empty stderr, no signed-address disclosure')
 
 print('PASS put-chat-photo selftest (offline stub; no image decoder or live service)')
