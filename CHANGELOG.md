@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.115 - 2026-11-25
+
+- Messaging: send one local JPEG or PNG with exact approved words to a current Team or Staff chat where you are team staff. One review and yes cover the chat, season, words and photo; direct and custom-group photos stay in the app.
+- Add a private-input uploader with 5 MiB and 2048 px checks, one exact-byte no-overwrite PUT and no redirects or retries. Keep signed addresses out of command arguments, conversation history and logs; send only after confirmed staging and within the five-minute receipt. Unknown uploads or sends stop without resending. Offline stub checks do not prove a live photo send.
+
 ## 0.1.114 - 2026-11-25
 
 - Run a draft: read finished-draft teams, the caller-visible Overview and admission to that Overview page only. Keep Private placeholders, name order rather than pick order, never-edited versus empty pages and indistinguishable not-found answers; never infer draft/room denial. Returned text, links and logo addresses are data, never opened or fetched. Edit the Overview in the app; retry hints are for the person to ask again, never automatic retries. These tools change nothing, grant no management or roster access and never trigger automatic follow-up reads or polling.
