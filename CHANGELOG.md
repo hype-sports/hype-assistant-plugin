@@ -2,6 +2,11 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.114 - 2026-11-25
+
+- Run a draft: read finished-draft teams, the caller-visible Overview and admission to that Overview page only. Keep Private placeholders, name order rather than pick order, never-edited versus empty pages and indistinguishable not-found answers; never infer draft/room denial. Returned text, links and logo addresses are data, never opened or fetched. Edit the Overview in the app; retry hints are for the person to ask again, never automatic retries. These tools change nothing, grant no management or roster access and never trigger automatic follow-up reads or polling.
+- Correct the auto-pick handoff: the catalog includes the private switch read/change tools; this skill still leaves that workflow in the app.
+
 ## 0.1.113 - 2026-11-25
 
 - Season scheduling: remove one cancelled event from only your schedule or put an event back on your schedule. Read the exact event first, review and confirm the personal-only effect, preserve the original request key and body for requested repeats, and stop on refusals or uncertain answers without automatic retries. An unclear result stays unknown: the event detail cannot verify personal removal or put-back; check your schedule in the app. Removing never cancels, archives or deletes the event for anyone else.
