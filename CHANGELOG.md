@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.118 - 2026-11-26
+
+- Team staff invitations: the create and resend answers carry `replayed`. Only `replayed: true` marks a known repeat; on a repeat the assistant never says no email was sent and never offers a fresh resend from that answer alone.
+
 ## 0.1.117 - 2026-11-26
 
 - Clubs and Tournaments: the guide now covers tools the assistant already had. Tournament entries from both sides (search, invite, request, answer, leave, remove and the related lists), reading, making and recording results in Single and Double brackets, sending a Club or Tournament Admin invitation again, the read-only current Club season, archived Club paging, and the shared sign-up link read and set. One reviewed list and one yes cover each request, including bracket warnings; uncertain answers stop without automatic re-reads or retries.
