@@ -2,6 +2,10 @@
 
 All notable changes to this plugin are documented here, following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 0.1.119 - 2026-11-27
+
+- Team staff can review and accept or decline a whole group of Tournament game requests. The guide explains when the Team's audience is notified, asks for fresh approval if the games change, and stops without automatic checks or retries when an answer is uncertain.
+
 ## 0.1.118 - 2026-11-26
 
 - Team staff invitations: the create and resend answers carry `replayed`. Only `replayed: true` marks a known repeat; on a repeat the assistant never says no email was sent and never offers a fresh resend from that answer alone.
