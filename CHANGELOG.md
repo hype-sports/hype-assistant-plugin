@@ -5,7 +5,9 @@ All notable changes to this plugin are documented here, following [Keep a Change
 ## 0.1.117 - 2026-11-26
 
 - Clubs and Tournaments: the guide now covers tools the assistant already had. Tournament entries from both sides (search, invite, request, answer, leave, remove and the related lists), reading, making and recording results in Single and Double brackets, sending a Club or Tournament Admin invitation again, the read-only current Club season, archived Club paging, and the shared sign-up link read and set. One reviewed list and one yes cover each request, including bracket warnings; uncertain answers stop without automatic re-reads or retries.
-- Club link editing reads the complete current link list first and keeps links the person did not ask to change.
+- Clubs and Tournaments: request a missing sport for an existing Club or Tournament with the shared sport request tools. Club Overview FAQ saves replace the whole section content, so every question to keep is sent again. A lost answer is reported as unknown with no automatic read-back.
+- Once the release exposes the Club link list, link editing reads the complete current list first and keeps links the person did not ask to change.
+- Brackets: a Double bracket shows only on the computer version for now; phones show no bracket and cannot remake it as Single.
 
 ## 0.1.116 - 2026-11-25
 
