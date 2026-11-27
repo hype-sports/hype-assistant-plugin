@@ -78,11 +78,16 @@ For an authorized Team-side request, use `team-tournament-search`, `team-tournam
 
 Read `tournament-game-requests-list` as current Comets staff, not merely as Tournament director. Select the exact returned Tournament/Team group and show every displayed detail for both games in this example, including dates/times/time zone, opponents/sides, Place/Field/address, arrival, description and attendance/family choices; preserve nulls. Include any other requested changes in this same review.
 
-**Assistant:** “Before you say yes: accepting notifies Cedar Comets' audience that these games are scheduled. Accept both games in the group shown above for Cedar Spring Classic, not just one?”
+For example, show this whole two-game group for Cedar Comets at Cedar Spring Classic:
+
+- **Game 1 — Cedar Comets vs Willow Owls:** April 10, 2027, 10:00–11:00 a.m., Central Time (`America/Chicago`); Comets home, Owls away; Cedar Hollow Park, Field 1, 100 Example Way; arrive 20 minutes early; description “Opening game”; attendance required, families included.
+- **Game 2 — Pine Foxes vs Cedar Comets:** April 10, 2027, 1:00–2:00 p.m., Central Time (`America/Chicago`); Foxes home, Comets away; Cedar Hollow Park, Field 2, 100 Example Way; arrive 20 minutes early; description not provided (`null`); attendance required, families included.
+
+**Assistant:** “Before you say yes: accepting notifies Cedar Comets' audience that these games are scheduled. Accept both games in this group for Cedar Spring Classic?”
 
 **Person:** “Yes.”
 
-Get an `opId` from `request-key-new`, retain the exact input and call `tournament-game-requests-answer` once with the displayed `tournamentId`, `teamId`, unchanged `snapshot` and every offer id/revision. Report only the returned status/count. `EVENT_STALE` stops: a requested fresh list and fresh reviewed yes are needed. A lost/malformed reply stays unknown, with original input/key retained and no automatic read or retry; a missing pending group proves no outcome.
+Get an `opId` from `request-key-new`, retain the exact input and call `tournament-game-requests-answer` once with the displayed `tournamentId`, `teamId`, unchanged `snapshot` and every offer id/revision. Report only the returned status/count. `EVENT_STALE` stops: a requested fresh list and fresh reviewed yes are needed. A lost/malformed reply stays unknown, with original input/key retained and no automatic read or retry; a missing pending group proves neither success nor failure.
 
 ## “Make a Double elimination bracket”
 

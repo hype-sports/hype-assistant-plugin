@@ -71,7 +71,7 @@ For a newer server catalog OR higher minimum, also say: “This plugin is also o
 - `/hype:notification-settings`: delivery/quiet hours.
 - `/hype:players-families`: child profiles/guardians, own-player uniform answers, family/friend invitations and follows, and profile Followers. “Add my kids/children” or “add these players to my family”, including sheets/contacts, means Hype profiles, not sheet edits or team additions.
 - `/hype:manage-my-team`: single team event creation with the person's choice whether to notify families, Roster/Staff/seasons/contacts/memberships, team and league uniform requests, missing teams, league export, defaults and personal Skip, bulk jersey numbers, coach invitations and parent/guardian requests.
-- `/hype:clubs-and-tournaments`: Club/Tournament administration; "show the Tournament schedule", "Tournament scores" and "when do we play in the tournament" read the viewer-visible Schedule tab.
+- `/hype:clubs-and-tournaments`: Club/Tournament administration and "accept or decline my Team's Tournament game requests"; "show the Tournament schedule", "Tournament scores" and "when do we play in the tournament" read the viewer-visible Schedule tab.
 - `/hype:terms-and-privacy`: legal information.
 - `/hype:invite-families`: parent-list jobs/same-row contacts.
 - `/hype:review-evaluations`: results/rankings/attendance/exports.
